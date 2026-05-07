@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vision Genesis — Human-First AI</title>
+<meta name="description" content="You bought the AI tools. Your business is still running manually. Vision Genesis installs AI operating systems that grow your business — without replacing your team.">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F4EFE6;
+  --paper-warm: #FAF6ED;
+  --bone: #E7E0D0;
+  --burgundy: #6B1E1E;
+  --burgundy-dark: #561515;
+  --ochre: #C8892E;
+  --ochre-dim: #B07A28;
+  --ink: #171717;
+  --ink-2: #2A2A2A;
+  --rule: #6F6A60;
+  --graphite: #4A4A48;
+  --muted: #6F6A60;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; }
+html { font-size: 17px; scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.1;
+  color: var(--ink);
+}
+h1 { font-size: clamp(2.4rem, 4.6vw, 3.8rem); font-weight: 600; letter-spacing: -0.024em; line-height: 1.08; }
+h2 { font-size: clamp(1.8rem, 3.2vw, 2.4rem); margin-bottom: 1.4rem; }
+h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.008em; }
+p { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.0625rem; line-height: 1.65; max-width: 64ch; font-weight: 400; }
+a { color: inherit; text-decoration: none; transition: color 0.18s; }
+.mono {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.78125rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.fade-in { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 24px;
+  max-width: 1340px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+hr.rule { border: 0; border-top: 1px solid var(--ink); margin: 0; }
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  border: 1px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 14px 26px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+.btn:hover { background: var(--burgundy); border-color: var(--burgundy); }
+.btn-ochre { background: var(--ochre); border-color: var(--ochre); color: var(--ink); font-weight: 600; }
+.btn-ochre:hover { background: var(--ochre-dim); border-color: var(--ochre-dim); color: var(--paper); }
+.btn-ghost { background: transparent; color: var(--ink); }
+.btn-ghost:hover { background: var(--ink); color: var(--paper); }
+.btn-on-burgundy { background: var(--paper); border-color: var(--paper); color: var(--burgundy); }
+.btn-on-burgundy:hover { background: var(--ochre); border-color: var(--ochre); color: var(--ink); }
+.text-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink);
+  border-bottom: 1px solid var(--ink);
+  padding-bottom: 1px;
+  transition: color 0.18s, border-color 0.18s;
+}
+.text-link:hover { color: var(--burgundy); border-bottom-color: var(--burgundy); }
+.text-link.ochre { color: var(--ochre); border-bottom-color: var(--ochre); }
+.text-link.ochre:hover { color: var(--burgundy); border-bottom-color: var(--burgundy); }
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+  z-index: 100;
+}
+header .grid { align-items: center; padding-top: 18px; padding-bottom: 18px; }
+.brand { grid-column: 1 / 4; display: flex; align-items: center; gap: 0; }
+.brand img { height: 56px; width: auto; display: block; }
+nav.primary {
+  grid-column: 4 / 10;
+  display: flex;
+  justify-content: flex-end;
+  gap: 28px;
+  align-items: center;
+}
+nav.primary a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink-2);
+  position: relative;
+  padding-bottom: 3px;
+}
+nav.primary a.primary-link { color: var(--ink); font-weight: 600; }
+nav.primary a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 100%;
+  bottom: 0;
+  height: 1.5px;
+  background: var(--ochre);
+  transition: right 0.25s ease;
+}
+nav.primary a:hover { color: var(--burgundy); }
+nav.primary a:hover::after { right: 0; }
+.header-cta {
+  grid-column: 10 / 13;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  align-items: center;
+}
+.header-cta .lang {
+  display: flex; gap: 4px;
+}
+.header-cta .lang button {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.1em;
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--muted);
+  padding: 6px 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.18s;
+}
+.header-cta .lang button.active {
+  border-color: var(--ochre);
+  color: var(--ochre);
+}
+.header-cta .lang button:not(.active):hover { border-color: var(--ink); color: var(--ink); }
+.header-cta .btn { padding: 10px 18px; font-size: 0.875rem; }
+
+/* Hero — pain-point opener, asymmetric */
+.hero { padding: 88px 0 56px; }
+.hero .meta {
+  grid-column: 1 / 13;
+  display: flex;
+  gap: 56px;
+  padding-bottom: 48px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  align-items: center;
+}
+.hero .meta .eyebrow { color: var(--ochre); font-weight: 500; }
+.hero .text-col { grid-column: 1 / 8; }
+.hero .video-col { grid-column: 8 / 13; }
+.hero h1 { margin-bottom: 24px; max-width: 18ch; color: var(--ink); }
+.hero h1 .em {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 500;
+  color: var(--burgundy);
+  letter-spacing: -0.01em;
+}
+.hero .smb-subhead {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+  margin-bottom: 32px;
+  font-weight: 500;
+  max-width: 38ch;
+}
+.hero .smb-subhead em { color: var(--burgundy); font-style: italic; font-weight: 500; }
+.hero .actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.hero .audit-form {
+  margin-top: 28px;
+  display: flex;
+  gap: 8px;
+  max-width: 460px;
+  flex-wrap: wrap;
+}
+.hero .audit-form input[type="email"] {
+  flex: 1;
+  min-width: 200px;
+  border: 1px solid var(--rule);
+  background: var(--paper-warm);
+  padding: 12px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  font-weight: 400;
+}
+.hero .audit-form input[type="email"]:focus {
+  outline: none;
+  border-color: var(--ochre);
+}
+.hero .audit-form button { white-space: nowrap; }
+.hero .audit-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+/* Avatar frame */
+.avatar-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  background: linear-gradient(135deg, #2a1010, var(--burgundy-dark));
+  border: 1px solid var(--burgundy-dark);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.avatar-frame::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 50% 40%, rgba(244,239,230,0.05), transparent 65%);
+}
+.avatar-frame .play-circle {
+  width: 76px;
+  height: 76px;
+  border: 1.5px solid var(--paper);
+  border-radius: 50% !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.avatar-frame .play-circle:hover { transform: scale(1.08); border-color: var(--ochre); }
+.avatar-frame .play-circle::after {
+  content: '';
+  border-style: solid;
+  border-width: 12px 0 12px 18px;
+  border-color: transparent transparent transparent var(--paper);
+  margin-left: 4px;
+}
+.avatar-frame .frame-meta {
+  position: absolute;
+  bottom: 14px;
+  left: 18px;
+  right: 18px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--paper);
+  opacity: 0.85;
+}
+.avatar-frame .frame-meta .right { color: var(--ochre); opacity: 1; }
+.avatar-frame .frame-corner {
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--paper);
+  opacity: 0.7;
+}
+.avatar-frame .label-pill {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: rgba(244,239,230,0.18);
+  padding: 4px 8px;
+  border: 1px solid rgba(244,239,230,0.3);
+}
+
+/* Quantified proof strip */
+.proof-strip {
+  background: var(--ink);
+  color: var(--paper);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  overflow: hidden;
+}
+.proof-strip-inner {
+  max-width: 1340px;
+  margin: 0 auto;
+  padding: 22px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.proof-strip-inner::-webkit-scrollbar { display: none; }
+.proof-strip .item { display: flex; flex-direction: column; gap: 4px; }
+.proof-strip .num { color: var(--ochre); font-weight: 600; font-size: 0.875rem; letter-spacing: 0.08em; }
+.proof-strip .key { color: var(--paper); opacity: 0.85; font-weight: 400; font-size: 0.6875rem; letter-spacing: 0.12em; }
+.proof-strip .sep { color: var(--rule); font-size: 1.25rem; font-weight: 300; opacity: 0.6; }
+
+/* Sections */
+section.s { padding: 96px 0; }
+section.s.alt { background: var(--paper-warm); border-top: 1px solid var(--bone); border-bottom: 1px solid var(--bone); }
+section.s.dark { background: var(--burgundy); color: var(--paper); border-top: 1px solid var(--burgundy-dark); border-bottom: 1px solid var(--burgundy-dark); }
+section.s .index {
+  grid-column: 1 / 3;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding-top: 12px;
+}
+section.s.dark .index { color: var(--paper); opacity: 0.6; }
+section.s h2 { grid-column: 3 / 11; margin-bottom: 28px; max-width: 22ch; }
+section.s.dark h2 { color: var(--paper); }
+section.s .body { grid-column: 3 / 10; }
+section.s .body p + p { margin-top: 1.05rem; }
+section.s .body p { color: var(--ink-2); }
+section.s.dark .body p { color: var(--paper); opacity: 0.95; }
+.opener {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 24px;
+  max-width: 50ch;
+}
+section.s.dark .opener { color: var(--paper); }
+
+/* Founder section */
+.founder {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 24px;
+  margin-top: 32px;
+}
+.founder .quote-block {
+  grid-column: 1 / 9;
+  border-left: 4px solid var(--ochre);
+  padding: 12px 0 12px 32px;
+}
+.founder .quote-block .lead {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+  line-height: 1.4;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 22px;
+}
+.founder .quote-block p { color: var(--ink-2); margin-bottom: 14px; }
+.founder .credit-block {
+  grid-column: 9 / 13;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.founder .credit-block .name {
+  color: var(--ink);
+  font-size: 0.875rem;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+.founder .credit-block ul { list-style: none; }
+.founder .credit-block li {
+  padding: 8px 0;
+  border-top: 1px dashed var(--rule);
+}
+.founder .credit-block li:first-child { border-top: none; padding-top: 0; }
+
+/* Model role grid */
+.model-grid {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 36px;
+  border-top: 1px solid var(--ink);
+}
+.model-cell {
+  border-right: 1px solid var(--rule);
+  padding: 28px 24px 26px;
+  background: var(--paper);
+}
+.model-cell:last-child { border-right: 0; }
+.model-cell .role-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ochre);
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.model-cell h3 { margin-bottom: 10px; font-size: 1.35rem; line-height: 1.2; letter-spacing: -0.012em; }
+.model-cell p { font-size: 0.9375rem; line-height: 1.55; color: var(--ink-2); margin-bottom: 0; }
+
+/* Brand panel */
+.brand-panel {
+  background: var(--burgundy);
+  border-top: 1px solid var(--burgundy-dark);
+  border-bottom: 1px solid var(--burgundy-dark);
+  padding: 96px 0;
+  text-align: center;
+}
+.brand-panel .primary-tagline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.75rem, 3.2vw, 2.4rem);
+  line-height: 1.2;
+  color: var(--paper);
+  font-weight: 500;
+  max-width: 24ch;
+  margin: 0 auto;
+  letter-spacing: 0.002em;
+}
+.brand-panel .ethics-tagline {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--paper);
+  opacity: 0.75;
+  margin: 32px auto 0;
+  font-weight: 500;
+  max-width: none;
+}
+.brand-panel .ethics-tagline .dot { color: var(--ochre); margin: 0 6px; }
+
+/* Products section */
+.products-section { padding: 96px 0; background: var(--paper); }
+.products-grid {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 32px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.product-card {
+  border-right: 1px solid var(--rule);
+  padding: 32px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 320px;
+  background: var(--paper);
+  transition: background 0.2s;
+}
+.product-card:last-child { border-right: 0; }
+.product-card:hover { background: var(--paper-warm); }
+.product-card .product-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ochre);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.product-card h3 { margin-bottom: 12px; font-size: 1.45rem; line-height: 1.2; letter-spacing: -0.014em; }
+.product-card p {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+  margin-bottom: 22px;
+  flex-grow: 1;
+}
+.product-card .price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.product-card .price {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--burgundy);
+}
+.product-card .price-key {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+}
+.product-card .btn { width: 100%; text-align: center; }
+.product-card .btn-disabled {
+  background: transparent;
+  color: var(--muted);
+  border-color: var(--rule);
+  cursor: not-allowed;
+}
+
+/* Principles */
+.principles {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  margin-top: 28px;
+  border-top: 1px solid var(--ink);
+}
+.principle {
+  padding: 30px 30px 30px 0;
+  border-right: 1px dashed var(--rule);
+  border-bottom: 1px dashed var(--rule);
+  position: relative;
+  background: var(--paper-warm);
+}
+.principle:nth-child(2n) { border-right: 0; padding-left: 30px; padding-right: 0; }
+.principle:nth-last-child(-n+2) { border-bottom: 0; }
+.principle .num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ochre);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.principle h3 {
+  font-size: 1.25rem;
+  line-height: 1.22;
+  letter-spacing: -0.012em;
+  margin-bottom: 10px;
+  color: var(--ink);
+}
+.principle p { font-size: 0.9375rem; line-height: 1.55; color: var(--ink-2); }
+
+/* Hard rule */
+.hardrule-block {
+  grid-column: 3 / 11;
+  border-left: 4px solid var(--ochre);
+  padding: 14px 0 14px 32px;
+  margin-top: 20px;
+}
+.hardrule-block .label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ochre);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.hardrule-block p {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.4rem;
+  line-height: 1.45;
+  color: var(--paper);
+  font-weight: 500;
+  max-width: 52ch;
+}
+
+/* FAQ */
+.faq-list {
+  grid-column: 3 / 11;
+  margin-top: 28px;
+  border-top: 1px solid var(--ink);
+}
+.faq-item {
+  border-bottom: 1px solid var(--rule);
+}
+.faq-item summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 22px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  color: var(--ink);
+  transition: color 0.18s;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary::after {
+  content: '+';
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--ochre);
+  transition: transform 0.2s;
+  flex-shrink: 0;
+}
+.faq-item[open] summary::after { transform: rotate(45deg); }
+.faq-item summary:hover { color: var(--burgundy); }
+.faq-item[open] summary { color: var(--burgundy); }
+.faq-item .answer { padding: 0 0 28px; }
+.faq-item .answer p { color: var(--ink-2); max-width: 60ch; }
+
+/* Lead magnet section */
+.magnet-section {
+  background: var(--paper-warm);
+  border-top: 1px solid var(--bone);
+  border-bottom: 1px solid var(--bone);
+  padding: 96px 0;
+}
+.magnet-content {
+  grid-column: 3 / 11;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.magnet-content .left h2 { margin-bottom: 18px; }
+.magnet-content .left .description {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin-bottom: 22px;
+}
+.magnet-content .questions {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78125rem;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  list-style: none;
+}
+.magnet-content .questions li {
+  padding: 8px 0;
+  border-top: 1px dashed var(--rule);
+}
+.magnet-content .questions li:first-child { border-top: none; padding-top: 0; }
+.magnet-content .questions li::before {
+  content: '→ ';
+  color: var(--ochre);
+  margin-right: 8px;
+}
+.magnet-form {
+  background: var(--paper);
+  padding: 36px 32px;
+  border: 1px solid var(--ink);
+}
+.magnet-form .form-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ochre);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.magnet-form h3 { font-size: 1.4rem; line-height: 1.25; margin-bottom: 14px; }
+.magnet-form p {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.9375rem;
+  color: var(--ink-2);
+  margin-bottom: 22px;
+  line-height: 1.55;
+}
+.magnet-form input {
+  width: 100%;
+  border: 1px solid var(--rule);
+  background: var(--paper-warm);
+  padding: 12px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+.magnet-form input:focus { outline: none; border-color: var(--ochre); }
+.magnet-form button { width: 100%; }
+.magnet-form .privacy {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 12px;
+}
+
+/* Lineage */
+.precedents {
+  grid-column: 1 / 13;
+  margin-top: 28px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.precedent-row {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  border-bottom: 1px dashed var(--rule);
+  padding: 18px 0;
+  align-items: baseline;
+  transition: background 0.18s;
+}
+.precedent-row:last-child { border-bottom: 0; }
+.precedent-row:hover { background: var(--paper-warm); }
+.precedent-row .firm {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.78125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--ochre);
+}
+.precedent-row .citation {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+
+/* Engage */
+.engage-actions {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 50ch;
+}
+.engage-actions .row {
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.engage-actions .label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  min-width: 100px;
+}
+
+/* CTA strip — repeated mid-page */
+.cta-strip {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 48px 0;
+}
+.cta-strip-inner {
+  max-width: 1340px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+.cta-strip h3 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: clamp(1.4rem, 2.4vw, 1.875rem);
+  font-weight: 500;
+  color: var(--paper);
+  letter-spacing: 0.002em;
+  max-width: 36ch;
+  line-height: 1.3;
+}
+.cta-strip .actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--ink);
+  padding: 80px 0 36px;
+  background: var(--paper);
+}
+footer .grid { align-items: start; }
+footer .col1 { grid-column: 1 / 5; }
+footer .col1 img { height: 40px; width: auto; margin-bottom: 22px; }
+footer .col2 { grid-column: 5 / 9; }
+footer .col3 { grid-column: 9 / 13; }
+footer h4 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  margin-bottom: 18px;
+  font-weight: 500;
+}
+footer ul { list-style: none; }
+footer li { padding: 7px 0; }
+footer a { font-family: 'Inter', sans-serif; font-size: 0.9375rem; color: var(--ink); }
+footer a:hover { color: var(--burgundy); }
+footer p { font-size: 0.9375rem; line-height: 1.6; color: var(--ink-2); max-width: 38ch; }
+footer .col1 p { font-family: 'Source Serif 4', Georgia, serif; }
+footer .social-link { display: inline-flex; align-items: center; gap: 8px; }
+footer .social-link svg { flex-shrink: 0; opacity: 0.85; }
+footer .social-link:hover svg { opacity: 1; }
+footer .meta {
+  grid-column: 1 / 13;
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .grid { padding: 0 22px; column-gap: 16px; }
+  .hero { padding: 56px 0 40px; }
+  .hero .meta { flex-wrap: wrap; gap: 16px; padding-bottom: 28px; }
+  .hero .text-col { grid-column: 1 / 13; margin-bottom: 32px; }
+  .hero .video-col { grid-column: 1 / 13; }
+  section.s, .products-section, .magnet-section { padding: 64px 0; }
+  section.s .index { grid-column: 1 / 13; margin-bottom: 14px; }
+  section.s h2, section.s .body, .hardrule-block, .faq-list { grid-column: 1 / 13; }
+  .founder { grid-template-columns: 1fr; }
+  .founder .quote-block, .founder .credit-block { grid-column: 1 / 13; }
+  .founder .credit-block { margin-top: 28px; }
+  .model-grid { grid-template-columns: 1fr; }
+  .model-cell { border-right: 0; border-bottom: 1px dashed var(--rule); }
+  .model-cell:last-child { border-bottom: 0; }
+  .products-grid { grid-template-columns: 1fr; }
+  .product-card { border-right: 0; border-bottom: 1px solid var(--rule); }
+  .product-card:last-child { border-bottom: 0; }
+  .principles { grid-template-columns: 1fr; }
+  .principle, .principle:nth-child(2n) { border-right: 0; padding-left: 0; padding-right: 0; padding: 24px 0; }
+  .precedent-row { grid-template-columns: 1fr; gap: 6px; }
+  .magnet-content { grid-column: 1 / 13; grid-template-columns: 1fr; gap: 32px; }
+  footer .col1, footer .col2, footer .col3 { grid-column: 1 / 13; margin-bottom: 36px; }
+  nav.primary { display: none; }
+  .header-cta { grid-column: 4 / 13; }
+  .brand { grid-column: 1 / 4; }
+  .brand img { height: 48px; }
+  .header-cta .lang { display: none; }
+  .proof-strip-inner { padding: 16px 22px; gap: 20px; }
+  .cta-strip-inner { padding: 0 22px; }
+  footer .meta { flex-direction: column; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="grid">
+    <a class="brand" href="#"><img src="../assets/logo-oxblood.svg" alt="Vision Genesis · Human-First AI"></a>
+    <nav class="primary">
+      <a href="#partnership" class="primary-link">Partnership</a>
+      <a href="#products" class="primary-link">Products</a>
+      <a href="#architects">Architects</a>
+      <a href="#founder">About Ryan</a>
+    </nav>
+    <div class="header-cta">
+      <div class="lang">
+        <button class="active" type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="es" title="Spanish coming as Christian renders translations">ES</button>
+      </div>
+      <a href="#engage" class="btn">Begin intake</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="grid">
+    <div class="meta">
+      <span class="eyebrow">Human-First AI</span>
+      <span>Index / Home</span>
+      <span>v0.5 · 2026-05-07</span>
+    </div>
+    <div class="text-col fade-in">
+      <h1>You bought the AI tools. Your business is still running manually.<br>Vision Genesis installs <span class="em">artificial intelligence</span> into the work — without replacing your team.</h1>
+      <p class="smb-subhead">Built by owners, for owners. Twenty years of industrial-scale operating experience — turned into operating systems your business can run on tomorrow.</p>
+      <div class="actions">
+        <a href="#partnership" class="btn">Watch the explainer →</a>
+        <a href="#audit" class="text-link ochre">Get the free Operating Audit →</a>
+      </div>
+    </div>
+    <div class="video-col fade-in">
+      <div class="avatar-frame" role="button" tabindex="0" aria-label="Ryan Dix avatar walkthrough">
+        <div class="frame-corner">Ryan Dix · 60-sec walkthrough</div>
+        <div class="label-pill">Public avatar · Twin in production</div>
+        <div class="play-circle" aria-hidden="true"></div>
+        <div class="frame-meta">
+          <span>Captioned · EN</span>
+          <span class="right">Coming this week</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="proof-strip" aria-label="Operating proof">
+  <div class="proof-strip-inner">
+    <span class="item"><span class="num">20 yrs</span><span class="key">ExxonMobil + Iron Mountain</span></span>
+    <span class="sep">·</span>
+    <span class="item"><span class="num">9</span><span class="key">named agents 24/7</span></span>
+    <span class="sep">·</span>
+    <span class="item"><span class="num">170+</span><span class="key">specs in pipeline</span></span>
+    <span class="sep">·</span>
+    <span class="item"><span class="num">3</span><span class="key">products live</span></span>
+    <span class="sep">·</span>
+    <span class="item"><span class="num">Founding</span><span class="key">partner #2 in place</span></span>
+  </div>
+</div>
+
+<section class="s alt" id="founder">
+  <div class="grid">
+    <div class="index">01 / About Ryan</div>
+    <h2>Ryan held the truth at Iron Mountain when the business asked him not to.</h2>
+    <div class="body fade-in">
+      <p class="opener">That moment is the standard the firm runs on. Every operator who joins as a partner has to be willing to do the same — even when it costs us the engagement.</p>
+    </div>
+    <div class="founder fade-in">
+      <div class="quote-block">
+        <p class="lead">A finance reporting question. The cleaner story would have been more comfortable for leadership. The truer story was inconvenient. Ryan told the truer story.</p>
+        <p>Twenty years of operating experience. ExxonMobil — FP&amp;A, treasury, investor relations, including the Asia Pacific CFO role. Iron Mountain — VP FP&amp;A, leading a 400-person reduction in force and the finance transformation that followed. Real industrial-scale operations, real consequences when the truth and the easy answer pulled in different directions.</p>
+        <p>The firm Ryan is building today imports that standard into AI implementation. We tell our clients the truth — even when "you don't need this" or "this strategy is failing" costs us the work. That's not a marketing line. It's the only way the firm makes sense.</p>
+      </div>
+      <div class="credit-block">
+        <div class="name">Ryan Dix</div>
+        <ul>
+          <li>20 yrs operations + finance</li>
+          <li>ExxonMobil · Asia Pacific CFO</li>
+          <li>Iron Mountain · VP FP&amp;A</li>
+          <li>Led 400-person RIF + transformation</li>
+          <li>Founder, Vision Genesis</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="partnership">
+  <div class="grid">
+    <div class="index">02 / Partnership</div>
+    <h2>How we install AI into your operations.</h2>
+    <div class="body fade-in">
+      <p class="opener">Not a consulting pyramid. One operator, one architect, one agent team — installing operating systems that scale.</p>
+      <p>Each engagement is staffed by a partner who has run real operations and an AI-native architect who builds and ships. An internal agent team handles research, drafting, scheduling, and monitoring so a two-person practice delivers what a traditional consulting team would. Architects who deliver hold equity in the firm — ownership is the structural fact, not a recruiting perk.</p>
+      <p>First artifact ships in two weeks. The playbooks belong to you when we're done. No billable-hour padding. No retainer locks.</p>
+    </div>
+    <div class="model-grid fade-in">
+      <div class="model-cell">
+        <div class="role-label">Operator</div>
+        <h3>Holds the truth.</h3>
+        <p>Multi-decade veterans who have run real businesses. They name what is broken before AI is applied to it. They mentor the architect who builds.</p>
+      </div>
+      <div class="model-cell">
+        <div class="role-label">Architect</div>
+        <h3>Builds and owns.</h3>
+        <p>AI-native technologists who ship working systems for paying clients from week one. They hold equity in the firm. Equity follows delivery, not tenure.</p>
+      </div>
+      <div class="model-cell">
+        <div class="role-label">Agents</div>
+        <h3>Multiply judgment.</h3>
+        <p>An internal agent team runs research, drafting, scheduling, and monitoring. Coordination layer, not decision layer. People still make the calls.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-strip fade-in">
+  <div class="cta-strip-inner">
+    <h3>Ready to see what we'd install in your business?</h3>
+    <div class="actions">
+      <a href="#engage" class="btn btn-on-burgundy" style="background:var(--ochre);border-color:var(--ochre);color:var(--ink);">Begin intake →</a>
+      <a href="#audit" class="text-link" style="color:var(--paper);border-bottom-color:var(--paper);">Get the free Audit →</a>
+    </div>
+  </div>
+</div>
+
+<div class="brand-panel fade-in">
+  <p class="primary-tagline">We've built the system that allows us to build yours.</p>
+  <p class="ethics-tagline">Human-authored<span class="dot">·</span>AI-delivered</p>
+</div>
+
+<section class="products-section" id="products">
+  <div class="grid">
+    <div class="index" style="grid-column: 1 / 3; padding-top: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);">03 / Products</div>
+    <h2 style="grid-column: 3 / 11; margin-bottom: 20px;">Start smaller, before the partnership.</h2>
+    <div style="grid-column: 3 / 11;" class="fade-in">
+      <p class="opener">Three products. All the partnership-level rigor, packaged for self-serve. Buy one and start running an experiment in your business this week.</p>
+    </div>
+    <div class="products-grid fade-in">
+      <div class="product-card">
+        <div>
+          <div class="product-meta">Product 01 · Live · Stripe</div>
+          <h3>The Weekly Intelligence Brief</h3>
+          <p>Every week, an operator-curated read on what AI is actually doing in mid-market businesses — and what to install next. Cancel any time.</p>
+        </div>
+        <div>
+          <div class="price-row">
+            <span class="price">$47<span class="price-key" style="margin-left:6px;">/ month</span></span>
+            <span class="price-key">Subscription</span>
+          </div>
+          <a href="https://buy.stripe.com/28E9AU1mjciQbSMbvQ5c400" target="_blank" rel="noopener" class="btn">Subscribe →</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div>
+          <div class="product-meta">Product 02 · Live · Stripe</div>
+          <h3>The 5-Agent Business Blueprint</h3>
+          <p>The exact five-agent layout we install at the start of every partnership. Diagrams, prompts, deployment notes. Use it yourself or hand it to your team.</p>
+        </div>
+        <div>
+          <div class="price-row">
+            <span class="price">$47</span>
+            <span class="price-key">One-time</span>
+          </div>
+          <a href="mailto:vision@visiongenesisai.com?subject=5-Agent%20Blueprint%20-%20I'd%20like%20to%20buy" class="btn">Buy →</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div>
+          <div class="product-meta">Product 03 · MVP · Pilot</div>
+          <h3>Voice-to-Quote</h3>
+          <p>Field-services system: an owner records a job description on their phone, our system returns a quote ready to send. Currently piloting with a landscaping operator. Pilot list opening soon.</p>
+        </div>
+        <div>
+          <div class="price-row">
+            <span class="price">Pilot</span>
+            <span class="price-key">Wait list</span>
+          </div>
+          <a href="mailto:vision@visiongenesisai.com?subject=Voice-to-Quote%20-%20add%20me%20to%20the%20wait%20list" class="btn btn-ghost">Join the pilot list →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s alt" id="principles">
+  <div class="grid">
+    <div class="index">04 / Principles</div>
+    <h2>The six the firm runs on.</h2>
+    <div class="body fade-in">
+      <p class="opener">Operating reality, not aspirations. The credo of every Vision Genesis practice.</p>
+    </div>
+    <div class="principles fade-in">
+      <div class="principle">
+        <div class="num">Principle 01</div>
+        <h3>Restructure the work; never replace the people.</h3>
+        <p>AI multiplies team capacity. It does not reduce headcount.</p>
+      </div>
+      <div class="principle">
+        <div class="num">Principle 02</div>
+        <h3>We tell you the truth, even when it costs us the engagement.</h3>
+        <p>Twenty years of running real businesses means we know when an org chart is lying about what's actually happening.</p>
+      </div>
+      <div class="principle">
+        <div class="num">Principle 03</div>
+        <h3>Playbooks, not dependencies.</h3>
+        <p>The systems we install belong to you. The playbook is yours when we're done — even if we never work together again.</p>
+      </div>
+      <div class="principle">
+        <div class="num">Principle 04</div>
+        <h3>Agents multiply judgment; they do not lead it.</h3>
+        <p>Every recommendation that reaches you traces back to a named operator and a named architect. People still make the calls.</p>
+      </div>
+      <div class="principle">
+        <div class="num">Principle 05</div>
+        <h3>Every engagement is R&amp;D for the next product.</h3>
+        <p>What we solve for one company becomes a packaged system for the next hundred. The blueprint we'll productize.</p>
+      </div>
+      <div class="principle">
+        <div class="num">Principle 06</div>
+        <h3>Builders are owners. Equity follows delivery, not tenure.</h3>
+        <p>Architects who deliver client systems hold equity in the firm. Ownership is the structural fact of the partnership.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s dark" id="hardrule">
+  <div class="grid">
+    <div class="index">05 / The hard rule</div>
+    <h2>Who we won't serve.</h2>
+    <div class="hardrule-block fade-in">
+      <div class="label">Excluded</div>
+      <p>We do not serve companies whose explicit goal is to reduce headcount. AI multiplies team capacity. It does not replace people. If your operating thesis is "smaller team," we are the wrong firm.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="faq">
+  <div class="grid">
+    <div class="index">06 / Questions you actually have</div>
+    <h2>What owners want to know before they engage.</h2>
+    <div class="faq-list fade-in">
+      <details class="faq-item">
+        <summary>Will Vision Genesis replace my staff?</summary>
+        <div class="answer">
+          <p>No. We do not serve companies whose explicit goal is headcount reduction. AI multiplies your team's capacity. If your operating thesis is "smaller team," we are the wrong firm — and we'll tell you that in writing within 48 hours of intake.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Do I need to understand AI to work with you?</summary>
+        <div class="answer">
+          <p>No. The operator on your engagement translates AI capability into operating decisions. Your job is to know your business; ours is to install the system that makes AI actually work inside it.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>What do you actually install?</summary>
+        <div class="answer">
+          <p>AI operating systems specific to how your business runs — research, drafting, scheduling, monitoring, reporting, follow-through, decision-support. The first artifact ships in two weeks. The full system is typically deployed in 60-90 days.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>What if it doesn't work?</summary>
+        <div class="answer">
+          <p>If we're the wrong firm, we'll tell you in writing within 48 hours of intake. If we engage and a particular system isn't delivering, we say so directly and refund the unused scope. Truth before sales pressure — that's Principle 02 of how the firm runs.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Who owns the playbook when you're done?</summary>
+        <div class="answer">
+          <p>You do. The systems we install belong to you. The playbook is yours when we're done — even if we never work together again. We optionally retain you on a software subscription for ongoing operation, but that's your choice, not a lock-in.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>What does an engagement actually cost?</summary>
+        <div class="answer">
+          <p>It depends on the scope of system you need. After intake, we either tell you we're the wrong firm (free) or send you fixed-scope proposal options (also free). No billable-hour padding. No retainer locks. If you want to start smaller, the $47 Weekly Brief and $47 Blueprint are both available without an intake.</p>
+        </div>
+      </details>
+      <details class="faq-item">
+        <summary>Is this for my business?</summary>
+        <div class="answer">
+          <p>If you run an owner-operated business and you've bought multiple AI tools that aren't earning their keep, yes. The free AI Operating Audit will tell you in 10 minutes whether we're a fit.</p>
+        </div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<section class="magnet-section" id="audit">
+  <div class="grid">
+    <div class="index" style="grid-column: 1 / 3; padding-top: 12px; font-family: 'IBM Plex Mono', monospace; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted);">07 / Free Operating Audit</div>
+    <div class="magnet-content fade-in">
+      <div class="left">
+        <h2>The 10-question AI Operating Audit.</h2>
+        <p class="description">Ten questions an owner answers about their operations. We grade where AI is actually missing — and where you're paying for tools you don't use. PDF in your inbox in five minutes. No call required.</p>
+        <ul class="questions">
+          <li>How many AI subscriptions does your team currently pay for?</li>
+          <li>Of those, how many are actually used weekly?</li>
+          <li>What's the most repetitive manual task your team did this week?</li>
+          <li>Which department generates the most manual reporting?</li>
+          <li>How many hours per week does your team spend on data entry or re-keying?</li>
+          <li>What's the bottleneck between client request and client delivery?</li>
+          <li>Where does work go to die in your operations?</li>
+          <li>What "we should automate this" conversations have you had this year?</li>
+          <li>How would you spend an extra 10 hours per week if your team had them?</li>
+          <li>What would have to be true for AI to actually help your business?</li>
+        </ul>
+      </div>
+      <form class="magnet-form" id="audit-form" onsubmit="return false;">
+        <div class="form-eyebrow">Free · No call required</div>
+        <h3>Send me the Audit.</h3>
+        <p>Email it to me — I'll answer the ten questions on my own time. If it surfaces something worth talking about, we'll talk. If not, you keep the worksheet.</p>
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="email" name="email" placeholder="you@yourbusiness.com" required>
+        <input type="text" name="business" placeholder="What kind of business do you run?">
+        <button type="submit" class="btn btn-ochre">Send me the Audit →</button>
+        <div class="privacy">No funnel · No spam · Unsubscribe one click</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="s alt" id="lineage">
+  <div class="grid">
+    <div class="index">08 / Lineage</div>
+    <h2>Firms we are built like.</h2>
+    <div class="body fade-in">
+      <p class="opener">Our model is novel, but the structural choices have precedent.</p>
+    </div>
+    <div class="precedents fade-in">
+      <div class="precedent-row">
+        <div class="firm">Edward Jones</div>
+        <div class="citation">Broad equity is a structural operating choice, not an employee benefit.</div>
+      </div>
+      <div class="precedent-row">
+        <div class="firm">KKR Capstone</div>
+        <div class="citation">Operating judgment paired with implementation, embedded inside the client's actual business.</div>
+      </div>
+      <div class="precedent-row">
+        <div class="firm">Apollo APPS</div>
+        <div class="citation">Embedded operating capability that changes how a company runs.</div>
+      </div>
+      <div class="precedent-row">
+        <div class="firm">Atomic Object</div>
+        <div class="citation">Senior craft paired with apprenticeship; shipping for real clients from week one.</div>
+      </div>
+      <div class="precedent-row">
+        <div class="firm">8th Light</div>
+        <div class="citation">Apprenticeship belongs inside the work, not beside it.</div>
+      </div>
+      <div class="precedent-row">
+        <div class="firm">Berkshire Hathaway</div>
+        <div class="citation">The firm holds the standard; the practitioners hold the autonomy.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="architects">
+  <div class="grid">
+    <div class="index">09 / Architects</div>
+    <h2>Become a partner.</h2>
+    <div class="body fade-in">
+      <p class="opener">For AI-native architects who want to ship real systems for real businesses — and own the firm those systems create.</p>
+      <p>Vision Genesis is built for AI-native architects who want to ship real systems for paying business owners before the career window closes. The work here is not demo-building, ticket-clearing, or maintaining a system someone else designed. It is live operating work inside real businesses that need capacity now, mentored by operators who have actually run businesses at scale.</p>
+      <p>Ownership here is a structural fact, not a recruiting perk. Architects who deliver work hold equity in the firm. The principle is plain: the people who build the systems should share in the firm those systems create. There are no four-year cliffs, no startup-style lottery tickets, and no "we're a family" theater in lieu of equity. There is delivery, and delivery earns ownership.</p>
+      <p style="margin-top: 28px;"><a href="mailto:vision@visiongenesisai.com?subject=Architect%20application" class="btn">Apply →</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="s alt" id="engage">
+  <div class="grid">
+    <div class="index">10 / Begin intake</div>
+    <h2>How you start with us.</h2>
+    <div class="body fade-in">
+      <p class="opener">No sales pitches dressed up as free strategy calls. No discovery decks. Three operating questions. Twenty minutes of your time.</p>
+      <p>If we're the wrong firm, we'll tell you in writing within forty-eight hours. If we're the right firm, you receive an assessment of your business and fixed-scope proposal options. No billable-hour padding. No retainer locks. The playbook is yours when we're done.</p>
+      <div class="engage-actions">
+        <div class="row">
+          <span class="label">Begin intake</span>
+          <a href="mailto:vision@visiongenesisai.com?subject=VG%20Intake" class="text-link">vision@visiongenesisai.com</a>
+        </div>
+        <div class="row">
+          <span class="label">Try a product</span>
+          <a href="#products" class="text-link">Three live now — start at $47</a>
+        </div>
+        <div class="row">
+          <span class="label">Start free</span>
+          <a href="#audit" class="text-link ochre">10-question Operating Audit →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="grid">
+    <div class="col1">
+      <img src="../assets/logo-black.svg" alt="Vision Genesis">
+      <p>An owner-operated partnership of experienced business operators and AI-native architects. We install human-first AI operating systems through practices that multiply capacity at scale.</p>
+    </div>
+    <div class="col2">
+      <h4>Pages</h4>
+      <ul>
+        <li><a href="#partnership">Partnership</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#founder">About Ryan</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#audit">Free Audit</a></li>
+        <li><a href="#architects">Architects</a></li>
+      </ul>
+    </div>
+    <div class="col3">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:vision@visiongenesisai.com">vision@visiongenesisai.com</a></li>
+        <li><a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="social-link" aria-label="Vision Genesis on X"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>@VisionGenesisAI</a></li>
+      </ul>
+    </div>
+    <div class="meta">
+      <span>© 2026 Vision Genesis. Human-First AI.</span>
+      <span>v0.5 · 2026-05-07</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Fade-in on scroll
+(function() {
+  const els = document.querySelectorAll('.fade-in');
+  if (!('IntersectionObserver' in window)) {
+    els.forEach(el => el.classList.add('visible'));
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+// Audit form — mailto fallback until ConvertKit/Buttondown wired
+(function() {
+  const form = document.getElementById('audit-form');
+  if (!form) return;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const name = (fd.get('name') || '').toString().trim();
+    const email = (fd.get('email') || '').toString().trim();
+    const business = (fd.get('business') || '').toString().trim();
+    if (!email) return;
+    const subject = encodeURIComponent('Send me the AI Operating Audit');
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nBusiness: ${business}\n\nPlease send me the 10-question AI Operating Audit.`
+    );
+    window.location.href = `mailto:vision@visiongenesisai.com?subject=${subject}&body=${body}`;
+    setTimeout(() => {
+      const tip = document.createElement('div');
+      tip.textContent = 'Email opened. Send it and we\'ll reply with the Audit within 24 hrs.';
+      tip.style.cssText = 'position:fixed;bottom:24px;right:24px;background:var(--ink);color:var(--paper);padding:14px 20px;font-family:Inter,sans-serif;font-size:0.875rem;z-index:200;border-left:3px solid var(--ochre);max-width:340px;box-shadow:0 6px 24px rgba(0,0,0,0.18);';
+      document.body.appendChild(tip);
+      setTimeout(() => tip.remove(), 6000);
+    }, 400);
+  });
+})();
+
+// Language toggle
+(function() {
+  document.querySelectorAll('.header-cta .lang button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      if (btn.classList.contains('active')) return;
+      const lang = btn.dataset.lang;
+      if (lang === 'es') {
+        const tip = document.createElement('div');
+        tip.textContent = 'Spanish coming as Christian renders translations.';
+        tip.style.cssText = 'position:fixed;bottom:24px;right:24px;background:var(--ink);color:var(--paper);padding:12px 18px;font-family:Inter,sans-serif;font-size:0.875rem;z-index:200;border-left:3px solid var(--ochre);max-width:300px;box-shadow:0 6px 24px rgba(0,0,0,0.18);';
+        document.body.appendChild(tip);
+        setTimeout(() => tip.remove(), 3500);
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
