@@ -583,6 +583,34 @@
     h2 { font-size: 24px; }
     .stat-grid { grid-template-columns: 1fr; }
   }
+
+  /* Print Ledger */
+  #print-ledger { display: none; }
+  .btn-print { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; padding: 7px 14px; border: 1px solid var(--border-strong); background: var(--paper); color: var(--text-soft); border-radius: var(--r-sm); cursor: pointer; transition: border-color 0.15s, color 0.15s; letter-spacing: 0.02em; }
+  .btn-print:hover { border-color: var(--primary); color: var(--primary); }
+  .btn-print svg { width: 14px; height: 14px; }
+  .page-head-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .page-head-row > .page-head { flex: 1; min-width: 0; }
+  .page-head-row > .btn-print { flex-shrink: 0; margin-top: 28px; }
+
+  @media print {
+    body { padding: 0 !important; background: white !important; }
+    header, nav.tabs, main, .toast, .modal-bg { display: none !important; }
+    #print-ledger { display: block !important; padding: 24px; font-family: 'Inter', -apple-system, sans-serif; font-size: 11px; color: #1a2233; }
+    #print-ledger .pl-header { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 2px solid #142b46; padding-bottom: 12px; margin-bottom: 16px; }
+    #print-ledger .pl-title { font-size: 16px; font-weight: 700; color: #142b46; }
+    #print-ledger .pl-subtitle { font-size: 11px; color: #45526b; margin-top: 2px; }
+    #print-ledger .pl-date { font-size: 11px; color: #45526b; text-align: right; }
+    #print-ledger table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    #print-ledger th { background: #f6f7f9; padding: 6px 8px; text-align: left; font-weight: 600; border-bottom: 1px solid #d2d8e0; font-size: 9.5px; text-transform: uppercase; letter-spacing: 0.06em; color: #45526b; }
+    #print-ledger td { padding: 5px 8px; border-bottom: 1px solid #e6e9ee; font-size: 10.5px; }
+    #print-ledger .pl-total-row td { font-weight: 700; border-top: 2px solid #142b46; border-bottom: none; }
+    #print-ledger .pl-section { font-size: 12px; font-weight: 700; color: #142b46; margin: 20px 0 8px; text-transform: uppercase; letter-spacing: 0.06em; }
+    #print-ledger .pl-sig { margin-top: 40px; display: flex; gap: 60px; }
+    #print-ledger .pl-sig-block { flex: 1; }
+    #print-ledger .pl-sig-line { border-top: 1px solid #1a2233; margin-top: 32px; padding-top: 4px; font-size: 10px; color: #45526b; }
+    #print-ledger .pl-footer { margin-top: 24px; font-size: 9px; color: #7a8499; text-align: center; }
+  }
 </style>
 </head>
 <body>
@@ -717,10 +745,16 @@
 
   <!-- Redemption view -->
   <section class="view" id="view-redeem">
-    <div class="page-head">
-      <div class="eyebrow">Manual redemption</div>
-      <h2 class="page-title">Redeem</h2>
-      <p class="page-meta">Search a customer to record a treatment against an outstanding package. In Tier 2 production, this happens automatically via your EMR's daily export — this view is for one-off corrections and à la carte additions.</p>
+    <div class="page-head-row">
+      <div class="page-head">
+        <div class="eyebrow">Manual redemption</div>
+        <h2 class="page-title">Redeem</h2>
+        <p class="page-meta">Search a customer to record a treatment against an outstanding package. In Tier 2 production, this happens automatically via your EMR's daily export — this view is for one-off corrections and à la carte additions.</p>
+      </div>
+      <button class="btn-print" onclick="printLedger()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6V2h8v4"/><rect x="2" y="6" width="12" height="6" rx="1"/><path d="M4 12v2h8v-2"/><circle cx="11" cy="9" r="0.5" fill="currentColor"/></svg>
+        Print Ledger
+      </button>
     </div>
     <input type="search" class="search" id="redeem-search" placeholder="Customer name or phone…">
     <div id="redeem-results"></div>
@@ -735,10 +769,16 @@
         <div class="text">These bonus numbers are computed from seeded demo redemptions. The live system runs on your real EMR exports — numbers below illustrate the format and rules engine, nothing else.</div>
       </div>
     </div>
-    <div class="page-head">
-      <div class="eyebrow">Provider compensation · draft</div>
-      <h2 class="page-title">Bonus <em>Accruals</em></h2>
-      <p class="page-meta">Provider bonuses computed from delivered redemptions per the configured rules. Replaces manual quarterly reconciliation. Always reviewable before payroll commit.</p>
+    <div class="page-head-row">
+      <div class="page-head">
+        <div class="eyebrow">Provider compensation · draft</div>
+        <h2 class="page-title">Bonus <em>Accruals</em></h2>
+        <p class="page-meta">Provider bonuses computed from delivered redemptions per the configured rules. Replaces manual quarterly reconciliation. Always reviewable before payroll commit.</p>
+      </div>
+      <button class="btn-print" onclick="printLedger()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6V2h8v4"/><rect x="2" y="6" width="12" height="6" rx="1"/><path d="M4 12v2h8v-2"/><circle cx="11" cy="9" r="0.5" fill="currentColor"/></svg>
+        Print Ledger
+      </button>
     </div>
     <div id="bonus-content">Loading…</div>
   </section>
@@ -836,6 +876,7 @@
   </button>
 </nav>
 
+<div id="print-ledger"></div>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -1937,6 +1978,107 @@ function bindAllUI() {
   updateOrderEventLabel();
   setupCsvImport();
 }
+// ---------- Print Ledger ----------
+function printLedger() {
+  renderPrintLedger();
+  setTimeout(() => window.print(), 100);
+}
+
+function renderPrintLedger() {
+  const el = document.getElementById('print-ledger');
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const timeStr = now.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  const redemptions = Object.values(state.redemptions || {}).sort((a, b) => (a.date || '').localeCompare(b.date || ''));
+  const orders = state.orders || {};
+  const customers = state.customers || {};
+
+  let totalValue = 0;
+  const rows = redemptions.map(r => {
+    const order = orders[r.orderId];
+    if (!order) return null;
+    const line = order.lines.find(l => l.sku === r.lineSku);
+    if (!line) return null;
+    const cust = customers[order.customerId];
+    const unitValue = line.lineTotal / line.redemptionUnitsTotal;
+    const value = unitValue * r.unitsRedeemed;
+    totalValue += value;
+    const provName = CONFIG.providers.find(p => p.id === r.providerId)?.name || r.providerId || '—';
+    return {
+      date: fmtDate(r.date),
+      customer: cust?.name || order.customerId,
+      treatment: line.name,
+      provider: provName,
+      units: r.unitsRedeemed,
+      unitLabel: line.redemptionUnitLabel || 'unit',
+      value
+    };
+  }).filter(Boolean);
+
+  const rules = CONFIG.bonus_rules || [];
+  let bonusRows = [];
+  const perProvider = {};
+  for (const r of redemptions) {
+    const order = orders[r.orderId]; if (!order) continue;
+    const line = order.lines.find(l => l.sku === r.lineSku); if (!line) continue;
+    const val = (line.lineTotal / line.redemptionUnitsTotal) * r.unitsRedeemed;
+    const applicable = rules.filter(rl => rl.provider_id === r.providerId && rl.applies_to_categories.includes(line.category));
+    for (const rule of applicable) {
+      const bonus = val * (rule.bonus_pct / 100);
+      if (!perProvider[r.providerId]) perProvider[r.providerId] = { name: CONFIG.providers.find(p => p.id === r.providerId)?.name || r.providerId, bonus: 0, redemptionValue: 0, count: 0 };
+      perProvider[r.providerId].bonus += bonus;
+      perProvider[r.providerId].redemptionValue += val;
+      perProvider[r.providerId].count++;
+    }
+  }
+  bonusRows = Object.values(perProvider).sort((a, b) => b.bonus - a.bonus);
+  const totalBonus = bonusRows.reduce((s, r) => s + r.bonus, 0);
+
+  let html = `
+    <div class="pl-header">
+      <div>
+        <div class="pl-title">${CONFIG.practice.name}</div>
+        <div class="pl-subtitle">Daily Redemption Ledger · Event Package Ledger</div>
+      </div>
+      <div class="pl-date">Printed ${dateStr}<br>${timeStr}</div>
+    </div>
+    <div class="pl-section">Redemptions (${rows.length} total)</div>
+    <table>
+      <thead><tr><th>Date</th><th>Customer</th><th>Treatment</th><th>Provider</th><th style="text-align:center">Units</th><th style="text-align:right">Value</th></tr></thead>
+      <tbody>`;
+  if (rows.length === 0) {
+    html += '<tr><td colspan="6" style="text-align:center;color:#7a8499;padding:16px">No redemptions logged</td></tr>';
+  } else {
+    rows.forEach(r => {
+      html += `<tr><td>${r.date}</td><td>${r.customer}</td><td>${r.treatment}</td><td>${r.provider}</td><td style="text-align:center">${r.units} ${r.unitLabel}${r.units !== 1 ? 's' : ''}</td><td style="text-align:right">${fmt(r.value)}</td></tr>`;
+    });
+    html += `<tr class="pl-total-row"><td colspan="5" style="text-align:right">Total redeemed value</td><td style="text-align:right">${fmt(totalValue)}</td></tr>`;
+  }
+  html += '</tbody></table>';
+
+  if (bonusRows.length > 0) {
+    html += `<div class="pl-section">Provider Bonus Summary</div>
+      <table><thead><tr><th>Provider</th><th style="text-align:center">Redemptions</th><th style="text-align:right">Delivered Value</th><th style="text-align:right">Bonus Accrued</th><th style="text-align:right">Rate</th></tr></thead><tbody>`;
+    bonusRows.forEach(b => {
+      const rate = b.redemptionValue > 0 ? (b.bonus / b.redemptionValue * 100).toFixed(1) : '0';
+      html += `<tr><td>${b.name}</td><td style="text-align:center">${b.count}</td><td style="text-align:right">${fmt(b.redemptionValue)}</td><td style="text-align:right">${fmt(b.bonus)}</td><td style="text-align:right">${rate}%</td></tr>`;
+    });
+    html += `<tr class="pl-total-row"><td colspan="3" style="text-align:right">Total bonus</td><td style="text-align:right">${fmt(totalBonus)}</td><td></td></tr>`;
+    html += '</tbody></table>';
+  }
+
+  html += `
+    <div class="pl-sig">
+      <div class="pl-sig-block"><div class="pl-sig-line">Prepared by</div></div>
+      <div class="pl-sig-block"><div class="pl-sig-line">Reviewed by</div></div>
+      <div class="pl-sig-block"><div class="pl-sig-line">Date</div></div>
+    </div>
+    <div class="pl-footer">Generated by Event Package Ledger · Vision Genesis · ${dateStr}</div>`;
+
+  el.innerHTML = html;
+}
+
+window.printLedger = printLedger;
 window.closeModal = closeModal;
 window.sendReminder = sendReminder;
 window.redeemUnit = redeemUnit;
