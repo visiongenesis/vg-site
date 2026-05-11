@@ -143,7 +143,7 @@ section.s.dark a:hover { color: var(--paper); opacity: 0.75; }
 
 .principle {
   padding: 36px 36px 36px 0;
-  border-bottom: 1px dashed var(--rule);
+  border-bottom: 1px solid var(--bone);
 }
 .principle:last-child { border-bottom: 0; }
 .principle .num {
@@ -207,11 +207,11 @@ footer .meta-row {
 .intro .lede {
   grid-column: 1 / 10;
   font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 1.4rem;
-  line-height: 1.55;
+  font-size: 1.3rem;
+  line-height: 1.5;
   font-weight: 400;
   color: var(--ink-2);
-  max-width: 62ch;
+  max-width: 50ch;
 }
 .intro .actions {
   grid-column: 1 / 13;
@@ -254,7 +254,7 @@ footer .meta-row {
   grid-column: 1 / 10;
   font-family: 'Cormorant Garamond', 'Source Serif 4', Georgia, serif;
   font-weight: 500;
-  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-size: clamp(1.4rem, 2.8vw, 1.9rem);
   line-height: 1.25;
   letter-spacing: -0.005em;
   margin-bottom: 48px;
@@ -264,20 +264,21 @@ footer .meta-row {
   list-style: none;
 }
 .quiz-option {
-  padding: 20px 0;
-  border-bottom: 1px dashed var(--rule);
+  padding: 18px 16px;
+  margin: 0 -16px;
+  border-bottom: 1px solid var(--bone);
   font-family: 'Source Serif 4', Georgia, serif;
   font-size: 1.0625rem;
   line-height: 1.55;
   color: var(--ink-2);
   cursor: pointer;
-  transition: color 0.15s, border-color 0.15s;
+  transition: color 0.15s, background 0.15s;
   display: flex;
   gap: 16px;
   align-items: baseline;
 }
-.quiz-option:first-child { border-top: 1px dashed var(--rule); }
-.quiz-option:hover { color: var(--burgundy); }
+.quiz-option:first-child { border-top: 1px solid var(--bone); }
+.quiz-option:hover { color: var(--burgundy); background: var(--paper-2); }
 .quiz-option .option-letter {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 0.75rem;
@@ -290,7 +291,7 @@ footer .meta-row {
 }
 .quiz-option.selected {
   color: var(--burgundy);
-  border-bottom-color: var(--burgundy);
+  background: var(--bone);
 }
 
 /* State C — Results */
@@ -381,7 +382,10 @@ footer .meta-row {
   letter-spacing: 0.16em;
   color: var(--burgundy);
   font-weight: 500;
-  margin-bottom: 28px;
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--bone);
+  display: inline-block;
 }
 .results-interpretation {
   font-family: 'Source Serif 4', Georgia, serif;
@@ -440,7 +444,7 @@ footer .meta-row {
   font-weight: 500;
 }
 .breakdown-bar {
-  height: 8px;
+  height: 4px;
   background: var(--bone);
   position: relative;
 }
@@ -468,7 +472,7 @@ footer .meta-row {
   text-transform: uppercase;
   letter-spacing: 0.12em;
   color: var(--paper);
-  opacity: 0.7;
+  opacity: 0.85;
   margin-bottom: 24px;
   font-weight: 500;
 }
@@ -633,168 +637,168 @@ footer .meta-row {
  * results display regardless. To swap in Formspree (Option C), replace the
  * fetch URL below with https://formspree.io/f/{your-form-id}.
  */
-var BEEHIIV_PUB_ID = 'pub_3274cb44-0b95-447e-b5fa-843b19ef3de5';
+var BEEHIIV_PUB_ID = "pub_3274cb44-0b95-447e-b5fa-843b19ef3de5";
 
 var questions = [
   {
-    id: 1, dim: 'Data Foundations', dimNum: '01', dimIdx: 0,
-    text: 'Where does most of your business’s operational data live today?',
+    id: 1, dim: "Data Foundations", dimNum: "01", dimIdx: 0,
+    text: "Where does most of your business's operational data live today?",
     opts: [
-      { letter: 'A', text: 'In one main system (e.g., QuickBooks, a CRM, ERP) that everyone uses', score: 3 },
-      { letter: 'B', text: 'Across 2–3 systems that mostly talk to each other', score: 2 },
-      { letter: 'C', text: 'Spread across many tools, spreadsheets, paper, email', score: 1 },
-      { letter: 'D', text: 'Honestly not sure — different departments do different things', score: 0 }
+      { letter: "A", text: "In one main system (e.g., QuickBooks, a CRM, ERP) that everyone uses", score: 3 },
+      { letter: "B", text: "Across 2–3 systems that mostly talk to each other", score: 2 },
+      { letter: "C", text: "Spread across many tools, spreadsheets, paper, email", score: 1 },
+      { letter: "D", text: "Honestly not sure — different departments do different things", score: 0 }
     ]
   },
   {
-    id: 2, dim: 'Data Foundations', dimNum: '01', dimIdx: 0,
-    text: 'If I asked you “how many active customers do you have right now?”, how fast could you answer accurately?',
+    id: 2, dim: "Data Foundations", dimNum: "01", dimIdx: 0,
+    text: "If I asked you \"how many active customers do you have right now?\", how fast could you answer accurately?",
     opts: [
-      { letter: 'A', text: 'Under a minute, off the top of my head or from a live dashboard', score: 3 },
-      { letter: 'B', text: 'Under an hour, pulling from one main system', score: 2 },
-      { letter: 'C', text: 'A few hours of digging across tools', score: 1 },
-      { letter: 'D', text: 'I’d have to ask someone else and wait a day', score: 0 }
+      { letter: "A", text: "Under a minute, off the top of my head or from a live dashboard", score: 3 },
+      { letter: "B", text: "Under an hour, pulling from one main system", score: 2 },
+      { letter: "C", text: "A few hours of digging across tools", score: 1 },
+      { letter: "D", text: "I'd have to ask someone else and wait a day", score: 0 }
     ]
   },
   {
-    id: 3, dim: 'Process & AI Maturity', dimNum: '02', dimIdx: 1,
-    text: 'Which best describes your business’s current use of AI tools (ChatGPT, Claude, Copilot, etc.)?',
+    id: 3, dim: "Process & AI Maturity", dimNum: "02", dimIdx: 1,
+    text: "Which best describes your business's current use of AI tools (ChatGPT, Claude, Copilot, etc.)?",
     opts: [
-      { letter: 'A', text: 'Multiple team members use AI daily for real work, integrated into workflows', score: 3 },
-      { letter: 'B', text: 'A few people use it ad-hoc; no formal workflows yet', score: 2 },
-      { letter: 'C', text: 'I personally use it; nobody else really does', score: 1 },
-      { letter: 'D', text: 'Nobody on the team uses it meaningfully', score: 0 }
+      { letter: "A", text: "Multiple team members use AI daily for real work, integrated into workflows", score: 3 },
+      { letter: "B", text: "A few people use it ad-hoc; no formal workflows yet", score: 2 },
+      { letter: "C", text: "I personally use it; nobody else really does", score: 1 },
+      { letter: "D", text: "Nobody on the team uses it meaningfully", score: 0 }
     ]
   },
   {
-    id: 4, dim: ‘Process & AI Maturity’, dimNum: ‘02’, dimIdx: 1,
-    text: ‘How documented are your core operational workflows — quoting, onboarding, fulfillment, service delivery?’,
+    id: 4, dim: "Process & AI Maturity", dimNum: "02", dimIdx: 1,
+    text: "How documented are your core operational workflows — quoting, onboarding, fulfillment, service delivery?",
     opts: [
-      { letter: ‘A’, text: ‘Key workflows are documented, owned by someone, and updated regularly’, score: 3 },
-      { letter: ‘B’, text: ‘Most are consistent but only partly written down’, score: 2 },
-      { letter: ‘C’, text: ‘They vary by person — tribal knowledge, mostly’, score: 1 },
-      { letter: ‘D’, text: ‘We don’t have documented workflows’, score: 0 }
+      { letter: "A", text: "Key workflows are documented, owned by someone, and updated regularly", score: 3 },
+      { letter: "B", text: "Most are consistent but only partly written down", score: 2 },
+      { letter: "C", text: "They vary by person — tribal knowledge, mostly", score: 1 },
+      { letter: "D", text: "We don't have documented workflows", score: 0 }
     ]
   },
   {
-    id: 5, dim: ‘Team Readiness’, dimNum: ‘03’, dimIdx: 2,
-    text: ‘What happened the last time your business rolled out a new tool or system?’,
+    id: 5, dim: "Team Readiness", dimNum: "03", dimIdx: 2,
+    text: "What happened the last time your business rolled out a new tool or system?",
     opts: [
-      { letter: ‘A’, text: ‘Adopted by most of the team with clear ownership and training’, score: 3 },
-      { letter: ‘B’, text: ‘Adopted after friction, follow-up, and some grumbling’, score: 2 },
-      { letter: ‘C’, text: ‘Spotty adoption — some people still work around it’, score: 1 },
-      { letter: ‘D’, text: ‘It stalled, got abandoned, or never fully launched’, score: 0 }
+      { letter: "A", text: "Adopted by most of the team with clear ownership and training", score: 3 },
+      { letter: "B", text: "Adopted after friction, follow-up, and some grumbling", score: 2 },
+      { letter: "C", text: "Spotty adoption — some people still work around it", score: 1 },
+      { letter: "D", text: "It stalled, got abandoned, or never fully launched", score: 0 }
     ]
   },
   {
-    id: 6, dim: 'Team Readiness', dimNum: '03', dimIdx: 2,
-    text: 'Is there at least one person on your team who is energized by trying new tools and tends to figure things out without much hand-holding?',
+    id: 6, dim: "Team Readiness", dimNum: "03", dimIdx: 2,
+    text: "Is there at least one person on your team who is energized by trying new tools and tends to figure things out without much hand-holding?",
     opts: [
-      { letter: 'A', text: 'Yes — and they have time/permission to drive adoption', score: 3 },
-      { letter: 'B', text: 'Yes, but they’re already overloaded', score: 2 },
-      { letter: 'C', text: 'Sort of — I’m that person, but I’m running the business', score: 1 },
-      { letter: 'D', text: 'Not really — everyone is heads-down on their existing work', score: 0 }
+      { letter: "A", text: "Yes — and they have time/permission to drive adoption", score: 3 },
+      { letter: "B", text: "Yes, but they're already overloaded", score: 2 },
+      { letter: "C", text: "Sort of — I'm that person, but I'm running the business", score: 1 },
+      { letter: "D", text: "Not really — everyone is heads-down on their existing work", score: 0 }
     ]
   },
   {
-    id: 7, dim: 'Workflow Automation', dimNum: '04', dimIdx: 3,
-    text: 'How much of your team’s time is spent on repetitive work that follows a predictable pattern (data entry, scheduling, follow-ups, quoting, intake)?',
+    id: 7, dim: "Workflow Automation", dimNum: "04", dimIdx: 3,
+    text: "How much of your team's time is spent on repetitive work that follows a predictable pattern (data entry, scheduling, follow-ups, quoting, intake)?",
     opts: [
-      { letter: 'A', text: 'A lot — easily 30%+ of multiple people’s days', score: 3 },
-      { letter: 'B', text: 'A meaningful amount — 15–30%', score: 2 },
-      { letter: 'C', text: 'Some, but most work is judgment-heavy', score: 2 },
-      { letter: 'D', text: 'Very little — most of what we do is bespoke', score: 1 }
+      { letter: "A", text: "A lot — easily 30%+ of multiple people's days", score: 3 },
+      { letter: "B", text: "A meaningful amount — 15–30%", score: 2 },
+      { letter: "C", text: "Some, but most work is judgment-heavy", score: 2 },
+      { letter: "D", text: "Very little — most of what we do is bespoke", score: 1 }
     ]
   },
   {
-    id: 8, dim: 'Workflow Automation', dimNum: '04', dimIdx: 3,
-    text: 'When a customer asks a routine question (pricing, scheduling, status update), how is it usually answered?',
+    id: 8, dim: "Workflow Automation", dimNum: "04", dimIdx: 3,
+    text: "When a customer asks a routine question (pricing, scheduling, status update), how is it usually answered?",
     opts: [
-      { letter: 'A', text: 'Self-serve in our system', score: 3 },
-      { letter: 'B', text: 'Standard email/text reply from a team member', score: 2 },
-      { letter: 'C', text: 'A phone call with whoever is available', score: 1 },
-      { letter: 'D', text: 'Depends — sometimes it falls through cracks', score: 0 }
+      { letter: "A", text: "Self-serve in our system", score: 3 },
+      { letter: "B", text: "Standard email/text reply from a team member", score: 2 },
+      { letter: "C", text: "A phone call with whoever is available", score: 1 },
+      { letter: "D", text: "Depends — sometimes it falls through cracks", score: 0 }
     ]
   },
   {
-    id: 9, dim: 'Workflow Automation', dimNum: '04', dimIdx: 3,
-    text: 'Where in your business does work most often get stuck waiting on a person to manually do something (approvals, transcription, drafting, reconciling)?',
+    id: 9, dim: "Workflow Automation", dimNum: "04", dimIdx: 3,
+    text: "Where in your business does work most often get stuck waiting on a person to manually do something (approvals, transcription, drafting, reconciling)?",
     opts: [
-      { letter: 'A', text: 'Few places — we’ve engineered most bottlenecks out', score: 3 },
-      { letter: 'B', text: 'Predictable bottlenecks I could name in 30 seconds', score: 2 },
-      { letter: 'C', text: 'Many places; we’re constantly chasing', score: 1 },
-      { letter: 'D', text: 'Honestly the whole business feels like that', score: 0 }
+      { letter: "A", text: "Few places — we've engineered most bottlenecks out", score: 3 },
+      { letter: "B", text: "Predictable bottlenecks I could name in 30 seconds", score: 2 },
+      { letter: "C", text: "Many places; we're constantly chasing", score: 1 },
+      { letter: "D", text: "Honestly the whole business feels like that", score: 0 }
     ]
   },
   {
-    id: 10, dim: 'Customer-Facing AI', dimNum: '05', dimIdx: 4,
-    text: 'Does your business currently use AI in any customer-facing surface (chatbot, AI-generated emails, AI-assisted quotes, AI in your sales process)?',
+    id: 10, dim: "Customer-Facing AI", dimNum: "05", dimIdx: 4,
+    text: "Does your business currently use AI in any customer-facing surface (chatbot, AI-generated emails, AI-assisted quotes, AI in your sales process)?",
     opts: [
-      { letter: 'A', text: 'Yes, in multiple places, with measurable results', score: 3 },
-      { letter: 'B', text: 'Yes, in one or two places, still tuning', score: 2 },
-      { letter: 'C', text: 'Not yet but actively planning', score: 1 },
-      { letter: 'D', text: 'No, and haven’t thought about it', score: 0 }
+      { letter: "A", text: "Yes, in multiple places, with measurable results", score: 3 },
+      { letter: "B", text: "Yes, in one or two places, still tuning", score: 2 },
+      { letter: "C", text: "Not yet but actively planning", score: 1 },
+      { letter: "D", text: "No, and haven't thought about it", score: 0 }
     ]
   },
   {
-    id: 11, dim: 'Customer-Facing AI', dimNum: '05', dimIdx: 4,
-    text: 'If a competitor in your space was using AI to respond to customer inquiries 10× faster than you, would you know?',
+    id: 11, dim: "Customer-Facing AI", dimNum: "05", dimIdx: 4,
+    text: "If a competitor in your space was using AI to respond to customer inquiries 10× faster than you, would you know?",
     opts: [
-      { letter: 'A', text: 'Yes — I monitor competitor practices regularly', score: 3 },
-      { letter: 'B', text: 'Probably — I’d hear from customers or team', score: 2 },
-      { letter: 'C', text: 'Eventually, after losing some deals', score: 1 },
-      { letter: 'D', text: 'Honestly, no', score: 0 }
+      { letter: "A", text: "Yes — I monitor competitor practices regularly", score: 3 },
+      { letter: "B", text: "Probably — I'd hear from customers or team", score: 2 },
+      { letter: "C", text: "Eventually, after losing some deals", score: 1 },
+      { letter: "D", text: "Honestly, no", score: 0 }
     ]
   },
   {
-    id: 12, dim: ‘Customer-Facing AI’, dimNum: ‘05’, dimIdx: 4,
-    text: ‘How quickly does a new lead typically get a substantive first response from your business?’,
+    id: 12, dim: "Customer-Facing AI", dimNum: "05", dimIdx: 4,
+    text: "How quickly does a new lead typically get a substantive first response from your business?",
     opts: [
-      { letter: ‘A’, text: ‘Under an hour — automated or templated’, score: 3 },
-      { letter: ‘B’, text: ‘Same business day, from a team member’, score: 2 },
-      { letter: ‘C’, text: ‘Within 24–48 hours, depending on who’s available’, score: 1 },
-      { letter: ‘D’, text: ‘It varies — sometimes days, sometimes falls through cracks’, score: 0 }
+      { letter: "A", text: "Under an hour — automated or templated", score: 3 },
+      { letter: "B", text: "Same business day, from a team member", score: 2 },
+      { letter: "C", text: "Within 24–48 hours, depending on who's available", score: 1 },
+      { letter: "D", text: "It varies — sometimes days, sometimes falls through cracks", score: 0 }
     ]
   }
 ];
 
 var dimensions = [
-  { name: 'Data Foundations', max: 6 },
-  { name: 'Process & AI Maturity', max: 6 },
-  { name: 'Team Readiness', max: 6 },
-  { name: 'Workflow Automation', max: 9 },
-  { name: 'Customer-Facing AI', max: 9 }
+  { name: "Data Foundations", max: 6 },
+  { name: "Process & AI Maturity", max: 6 },
+  { name: "Team Readiness", max: 6 },
+  { name: "Workflow Automation", max: 9 },
+  { name: "Customer-Facing AI", max: 9 }
 ];
 
 var currentQ = 0;
 var answers = new Array(12);
 
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
-  document.getElementById(id).classList.add('active');
+  document.querySelectorAll(".screen").forEach(function(s) { s.classList.remove("active"); });
+  document.getElementById(id).classList.add("active");
   window.scrollTo(0, 0);
 }
 
 function startQuiz() {
   currentQ = 0;
   answers = new Array(12);
-  showScreen('screen-quiz');
+  showScreen("screen-quiz");
   renderQuestion();
 }
 
 function renderQuestion() {
   var q = questions[currentQ];
-  document.getElementById('quiz-progress').textContent = 'Question ' + (currentQ + 1) + ' of 12';
-  document.getElementById('quiz-progress-fill').style.width = ((currentQ + 1) / 12 * 100) + '%';
-  document.getElementById('quiz-dimension').textContent = 'Dimension ' + q.dimNum + ' / ' + q.dim;
-  document.getElementById('quiz-question').textContent = q.text;
+  document.getElementById("quiz-progress").textContent = "Question ' + (currentQ + 1) + ' of 12";
+  document.getElementById("quiz-progress-fill").style.width = ((currentQ + 1) / 12 * 100) + "%";
+  document.getElementById("quiz-dimension").textContent = 'Dimension ' + q.dimNum + ' / ' + q.dim;
+  document.getElementById("quiz-question").textContent = q.text;
 
-  var ul = document.getElementById('quiz-options');
-  ul.innerHTML = '';
+  var ul = document.getElementById("quiz-options");
+  ul.innerHTML = "";
   q.opts.forEach(function(opt, i) {
-    var li = document.createElement('li');
-    li.className = 'quiz-option';
-    li.innerHTML = '<span class="option-letter">' + opt.letter + '</span><span>' + opt.text + '</span>';
+    var li = document.createElement("li");
+    li.className = "quiz-option";
+    li.innerHTML = "<span class=\"option-letter\">' + opt.letter + '</span><span>' + opt.text + '</span>";
     li.onclick = function() { selectAnswer(i, opt.score); };
     ul.appendChild(li);
   });
@@ -803,51 +807,51 @@ function renderQuestion() {
 function selectAnswer(optIdx, score) {
   answers[currentQ] = { optIdx: optIdx, score: score };
 
-  var opts = document.querySelectorAll('.quiz-option');
-  opts.forEach(function(o) { o.classList.remove('selected'); });
-  opts[optIdx].classList.add('selected');
+  var opts = document.querySelectorAll(".quiz-option");
+  opts.forEach(function(o) { o.classList.remove("selected"); });
+  opts[optIdx].classList.add("selected");
 
   setTimeout(function() {
     currentQ++;
     if (currentQ < 12) {
       renderQuestion();
     } else {
-      showScreen('screen-gate');
-      document.getElementById('email-input').focus();
+      showScreen("screen-gate");
+      document.getElementById("email-input").focus();
     }
   }, 280);
 }
 
 function submitEmail() {
-  var input = document.getElementById('email-input');
+  var input = document.getElementById("email-input");
   var email = input.value.trim();
-  var errorEl = document.getElementById('email-error');
+  var errorEl = document.getElementById("email-error");
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    errorEl.style.display = 'block';
+    errorEl.style.display = "block";
     input.focus();
     return;
   }
-  errorEl.style.display = 'none';
+  errorEl.style.display = "none";
 
-  var btn = document.getElementById('email-submit');
-  btn.textContent = 'Loading…';
+  var btn = document.getElementById("email-submit");
+  btn.textContent = "Loading…";
   btn.disabled = true;
 
   var result = computeScores();
   var tier = getTier(result.total);
 
-  localStorage.setItem('vg_quiz_email', email);
+  localStorage.setItem("vg_quiz_email", email);
 
   try {
-    fetch('https://voice-to-quote.fly.dev/api/lead-capture', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+    fetch("https://voice-to-quote.fly.dev/api/lead-capture", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         email: email,
         score: Math.round(result.total * 10) / 10,
         tier: tier.label,
-        source: 'readiness_quiz'
+        source: "readiness_quiz"
       })
     }).catch(function() {});
   } catch (e) {}
@@ -867,10 +871,10 @@ function computeScores() {
 }
 
 function getTier(score) {
-  if (score >= 8.0) return { label: ‘Compounding’, text: ‘AI is already producing returns in your business. The question now is whether those returns are compounding or plateauing. Most companies at this stage have pockets of automation that don\’t talk to each other. The next move is integration — connecting those pockets into a system that compounds.’, ctaHeadline: ‘Turn isolated automation into a compounding system.’, ctaBody: ‘You have working AI in pockets. The assessment maps the integration points — where those pockets connect, where returns compound, and where you\’re leaving margin on the table.’ };
-  if (score >= 5.0) return { label: ‘Piloting’, text: ‘You have working pilots and a team that\’s willing. What you don\’t have yet is a system. Ad-hoc AI usage delivers linear returns; systematic deployment compounds them. The gap between where you are and where you could be is not technology — it\’s architecture.’, ctaHeadline: ‘Turn your pilots into an operating system.’, ctaBody: ‘Ad-hoc AI usage doesn\’t compound. The assessment identifies which pilots to productionize, which to kill, and what architecture turns scattered experiments into systematic returns.’ };
-  if (score >= 2.5) return { label: ‘Foundation Set’, text: ‘Your data and team basics are in place. You haven\’t deployed AI yet, or it hasn\’t stuck. That\’s normal — most first attempts fail because they start with the tool instead of the workflow. The right first move is one high-leverage automation that pays for itself in 90 days.’, ctaHeadline: ‘Identify the one automation that pays for itself in 90 days.’, ctaBody: ‘The assessment maps your workflows, names the highest-leverage bottleneck, and delivers an implementation path for your first AI deployment — scoped to pay back within a quarter.’ };
-  return { label: ‘Pre-Foundation’, text: ‘Your operations run on manual work and fragmented systems. This isn\’t a weakness — it\’s a starting point. Before any AI deployment, you need one consolidated data source and one documented workflow. That foundation makes everything else possible.’, ctaHeadline: ‘Build the foundation before you spend on AI.’, ctaBody: ‘The assessment identifies which data to consolidate, which workflow to document first, and what infrastructure makes AI deployments possible — so your first dollar on AI actually works.’ };
+  if (score >= 8.0) return { label: "Compounding", text: "AI is already producing returns in your business. The question now is whether those returns are compounding or plateauing. Most companies at this stage have pockets of automation that don't talk to each other. The next move is integration — connecting those pockets into a system that compounds.", ctaHeadline: "Turn isolated automation into a compounding system.", ctaBody: "You have working AI in pockets. The assessment maps the integration points — where those pockets connect, where returns compound, and where you're leaving margin on the table." };
+  if (score >= 5.0) return { label: "Piloting", text: "You have working pilots and a team that's willing. What you don't have yet is a system. Ad-hoc AI usage delivers linear returns; systematic deployment compounds them. The gap between where you are and where you could be is not technology — it's architecture.", ctaHeadline: "Turn your pilots into an operating system.", ctaBody: "Ad-hoc AI usage doesn't compound. The assessment identifies which pilots to productionize, which to kill, and what architecture turns scattered experiments into systematic returns." };
+  if (score >= 2.5) return { label: "Foundation Set", text: "Your data and team basics are in place. You haven't deployed AI yet, or it hasn't stuck. That's normal — most first attempts fail because they start with the tool instead of the workflow. The right first move is one high-leverage automation that pays for itself in 90 days.", ctaHeadline: "Identify the one automation that pays for itself in 90 days.", ctaBody: "The assessment maps your workflows, names the highest-leverage bottleneck, and delivers an implementation path for your first AI deployment — scoped to pay back within a quarter." };
+  return { label: "Pre-Foundation", text: "Your operations run on manual work and fragmented systems. This isn't a weakness — it's a starting point. Before any AI deployment, you need one consolidated data source and one documented workflow. That foundation makes everything else possible.", ctaHeadline: "Build the foundation before you spend on AI.", ctaBody: "The assessment identifies which data to consolidate, which workflow to document first, and what infrastructure makes AI deployments possible — so your first dollar on AI actually works." };
 }
 
 function getOpportunities() {
@@ -878,34 +882,34 @@ function getOpportunities() {
 
   var q4 = answers[3] ? answers[3].optIdx : -1;
   if (q4 === 2 || q4 === 3) {
-    opps.push({ priority: 10 - (answers[3] ? answers[3].score : 0), title: ‘Document the workflows before you automate them.’, text: ‘AI can’t automate what isn’t defined. When core workflows live in people’s heads, every automation attempt starts with a discovery phase that doubles the cost. Document first — the automation practically designs itself.’ });
+    opps.push({ priority: 10 - (answers[3] ? answers[3].score : 0), title: "Document the workflows before you automate them.", text: "AI can't automate what isn't defined. When core workflows live in people's heads, every automation attempt starts with a discovery phase that doubles the cost. Document first — the automation practically designs itself." });
   }
 
   var q7 = answers[6] ? answers[6].optIdx : -1;
   if (q7 === 0 || q7 === 1) {
-    opps.push({ priority: 9, title: ‘Your team is spending days on work a system should handle.’, text: ‘With 15–30%+ of capacity spent on patterned tasks, even partial automation gives each person 1–2 days back per week. That’s margin, capacity, and morale — returned simultaneously.’ });
+    opps.push({ priority: 9, title: "Your team is spending days on work a system should handle.", text: "With 15–30%+ of capacity spent on patterned tasks, even partial automation gives each person 1–2 days back per week. That's margin, capacity, and morale — returned simultaneously." });
   }
 
   var q9 = answers[8] ? answers[8].optIdx : -1;
   if (q9 === 1 || q9 === 2 || q9 === 3) {
-    opps.push({ priority: 10 - (answers[8] ? answers[8].score : 0), title: ‘You already know where the bottleneck is.’, text: ‘The highest-ROI AI deployment in most businesses attacks the bottleneck everyone can name in 30 seconds. Scope it. Build for it. The fix is almost always simpler than the workaround your team has been living with.’ });
+    opps.push({ priority: 10 - (answers[8] ? answers[8].score : 0), title: "You already know where the bottleneck is.", text: "The highest-ROI AI deployment in most businesses attacks the bottleneck everyone can name in 30 seconds. Scope it. Build for it. The fix is almost always simpler than the workaround your team has been living with." });
   }
 
   var q10 = answers[9] ? answers[9].optIdx : -1;
   var q12 = answers[11] ? answers[11].optIdx : -1;
   if ((q10 === 2 || q10 === 3) && (q12 === 2 || q12 === 3)) {
-    opps.push({ priority: 8, title: 'Your response time is a liability.', text: 'Leads that wait more than an hour for a first response are already shopping elsewhere. AI in the response surface — quoting, intake, follow-up — is where most businesses see measurable revenue impact first.' });
+    opps.push({ priority: 8, title: "Your response time is a liability.", text: "Leads that wait more than an hour for a first response are already shopping elsewhere. AI in the response surface — quoting, intake, follow-up — is where most businesses see measurable revenue impact first." });
   }
 
   var q1 = answers[0] ? answers[0].optIdx : -1;
   if (q1 === 2 || q1 === 3) {
-    opps.push({ priority: 10 - (answers[0] ? answers[0].score : 0), title: 'Fix the data before you touch AI.', text: 'AI multiplies what you can already see. If your data is fragmented across tools, spreadsheets, and people's heads, consolidation has higher ROI than any AI deployment right now. This is the prerequisite most vendors skip.' });
+    opps.push({ priority: 10 - (answers[0] ? answers[0].score : 0), title: "Fix the data before you touch AI.", text: "AI multiplies what you can already see. If your data is fragmented across tools, spreadsheets, and people's heads, consolidation has higher ROI than any AI deployment right now. This is the prerequisite most vendors skip." });
   }
 
   var q5score = answers[4] ? answers[4].score : 3;
   var q6score = answers[5] ? answers[5].score : 3;
   if (q5score <= 1 || q6score <= 1) {
-    opps.push({ priority: 7, title: ‘Your team needs to be ready before the tools arrive.’, text: ‘Technology is never the bottleneck — the team’s willingness to use it is. A focused readiness sprint before any deployment de-risks the rollout and typically doubles adoption speed. Skip this and even good tools get shelved.’ });
+    opps.push({ priority: 7, title: "Your team needs to be ready before the tools arrive.", text: "Technology is never the bottleneck — the team's willingness to use it is. A focused readiness sprint before any deployment de-risks the rollout and typically doubles adoption speed. Skip this and even good tools get shelved." });
   }
 
   opps.sort(function(a, b) { return b.priority - a.priority; });
@@ -917,51 +921,51 @@ function showResults() {
   var tier = getTier(result.total);
   var opps = getOpportunities();
 
-  document.getElementById('results-score').textContent = result.total.toFixed(1) + ' / 10';
-  document.getElementById('results-tier').textContent = tier.label;
-  document.getElementById('results-interpretation').textContent = tier.text;
+  document.getElementById("results-score").textContent = result.total.toFixed(1) + " / 10";
+  document.getElementById("results-tier").textContent = tier.label;
+  document.getElementById("results-interpretation").textContent = tier.text;
 
-  document.getElementById('cta-headline').textContent = tier.ctaHeadline;
-  document.getElementById('cta-body').textContent = tier.ctaBody;
+  document.getElementById("cta-headline").textContent = tier.ctaHeadline;
+  document.getElementById("cta-body").textContent = tier.ctaBody;
 
-  var oppList = document.getElementById('opportunities-list');
-  oppList.innerHTML = '';
+  var oppList = document.getElementById("opportunities-list");
+  oppList.innerHTML = "";
   opps.forEach(function(opp, i) {
-    var div = document.createElement('div');
-    div.className = 'principle';
+    var div = document.createElement("div");
+    div.className = "principle";
     div.innerHTML = '<div class="num">Opportunity ' + String(i + 1).padStart(2, '0') + '</div>' +
       '<h3>' + opp.title + '</h3>' +
       '<p>' + opp.text + '</p>';
     oppList.appendChild(div);
   });
 
-  var breakdownGrid = document.getElementById('breakdown-grid');
-  breakdownGrid.innerHTML = '';
+  var breakdownGrid = document.getElementById("breakdown-grid");
+  breakdownGrid.innerHTML = "";
   dimensions.forEach(function(dim, i) {
     var pct = (result.dimScores[i] / dim.max) * 100;
-    var row = document.createElement('div');
-    row.className = 'breakdown-row';
+    var row = document.createElement("div");
+    row.className = "breakdown-row";
     row.innerHTML = '<div class="breakdown-dim">' + dim.name + '</div>' +
       '<div class="breakdown-bar"><div class="breakdown-bar-fill" style="width:0%"></div></div>' +
       '<div class="breakdown-score">' + result.dimScores[i] + ' / ' + dim.max + '</div>';
     breakdownGrid.appendChild(row);
 
     setTimeout(function() {
-      row.querySelector('.breakdown-bar-fill').style.width = pct + '%';
+      row.querySelector(".breakdown-bar-fill").style.width = pct + "%";
     }, 100 + i * 120);
   });
 
-  showScreen('screen-results');
+  showScreen("screen-results");
 }
 
 function restartQuiz() {
   currentQ = 0;
   answers = new Array(12);
-  showScreen('screen-intro');
+  showScreen("screen-intro");
 }
 
-document.getElementById('email-input').addEventListener('keydown', function(e) {
-  if (e.key === 'Enter') submitEmail();
+document.getElementById("email-input").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") submitEmail();
 });
 </script>
 
