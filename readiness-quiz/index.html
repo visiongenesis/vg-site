@@ -839,21 +839,24 @@ function submitEmail() {
   btn.textContent = 'Loading…';
   btn.disabled = true;
 
+  var result = computeScores();
+  var tier = getTier(result.total);
+
+  localStorage.setItem('vg_quiz_email', email);
+
   try {
-    fetch('https://www.beehiiv.com/api/v1/free_subscriptions', {
+    fetch('https://voice-to-quote.fly.dev/api/lead-capture', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        publication_id: BEEHIIV_PUB_ID,
         email: email,
-        reactivate_existing: true,
-        utm_source: 'readiness_quiz',
-        utm_medium: 'quiz'
+        score: Math.round(result.total * 10) / 10,
+        tier: tier.label,
+        source: 'readiness_quiz'
       })
     }).catch(function() {});
   } catch (e) {}
 
-  localStorage.setItem('vg_quiz_email', email);
   showResults();
 }
 
