@@ -662,7 +662,7 @@ var questions = [
     ]
   },
   {
-    id: 3, dim: 'Current AI Tools', dimNum: '02', dimIdx: 1,
+    id: 3, dim: 'Process & AI Maturity', dimNum: '02', dimIdx: 1,
     text: 'Which best describes your business’s current use of AI tools (ChatGPT, Claude, Copilot, etc.)?',
     opts: [
       { letter: 'A', text: 'Multiple team members use AI daily for real work, integrated into workflows', score: 3 },
@@ -672,23 +672,23 @@ var questions = [
     ]
   },
   {
-    id: 4, dim: 'Current AI Tools', dimNum: '02', dimIdx: 1,
-    text: 'Have you tried any AI tool specific to your industry (e.g., AI scheduling for HVAC, AI intake for law firms, AI quoting for trades)?',
+    id: 4, dim: ‘Process & AI Maturity’, dimNum: ‘02’, dimIdx: 1,
+    text: ‘How documented are your core operational workflows — quoting, onboarding, fulfillment, service delivery?’,
     opts: [
-      { letter: 'A', text: 'Yes, and we’ve adopted one or more into production', score: 3 },
-      { letter: 'B', text: 'Yes, we’ve trialed a few but nothing has stuck', score: 2 },
-      { letter: 'C', text: 'I’ve heard of some but haven’t tried them', score: 1 },
-      { letter: 'D', text: 'Didn’t know vertical AI tools existed for my industry', score: 0 }
+      { letter: ‘A’, text: ‘Key workflows are documented, owned by someone, and updated regularly’, score: 3 },
+      { letter: ‘B’, text: ‘Most are consistent but only partly written down’, score: 2 },
+      { letter: ‘C’, text: ‘They vary by person — tribal knowledge, mostly’, score: 1 },
+      { letter: ‘D’, text: ‘We don’t have documented workflows’, score: 0 }
     ]
   },
   {
-    id: 5, dim: 'Team Readiness', dimNum: '03', dimIdx: 2,
-    text: 'How would your most-skeptical employee react if you announced “we’re rolling out an AI tool to help with X” tomorrow?',
+    id: 5, dim: ‘Team Readiness’, dimNum: ‘03’, dimIdx: 2,
+    text: ‘What happened the last time your business rolled out a new tool or system?’,
     opts: [
-      { letter: 'A', text: 'Curious; they’d want to try it', score: 3 },
-      { letter: 'B', text: 'Cautious but willing if it actually saves them time', score: 2 },
-      { letter: 'C', text: 'Resistant; would need a lot of convincing', score: 1 },
-      { letter: 'D', text: 'Hostile; they think AI is coming for their job', score: 0 }
+      { letter: ‘A’, text: ‘Adopted by most of the team with clear ownership and training’, score: 3 },
+      { letter: ‘B’, text: ‘Adopted after friction, follow-up, and some grumbling’, score: 2 },
+      { letter: ‘C’, text: ‘Spotty adoption — some people still work around it’, score: 1 },
+      { letter: ‘D’, text: ‘It stalled, got abandoned, or never fully launched’, score: 0 }
     ]
   },
   {
@@ -706,7 +706,7 @@ var questions = [
     text: 'How much of your team’s time is spent on repetitive work that follows a predictable pattern (data entry, scheduling, follow-ups, quoting, intake)?',
     opts: [
       { letter: 'A', text: 'A lot — easily 30%+ of multiple people’s days', score: 3 },
-      { letter: 'B', text: 'A meaningful amount — 15–30%', score: 3 },
+      { letter: 'B', text: 'A meaningful amount — 15–30%', score: 2 },
       { letter: 'C', text: 'Some, but most work is judgment-heavy', score: 2 },
       { letter: 'D', text: 'Very little — most of what we do is bespoke', score: 1 }
     ]
@@ -752,20 +752,20 @@ var questions = [
     ]
   },
   {
-    id: 12, dim: 'Customer-Facing AI', dimNum: '05', dimIdx: 4,
-    text: 'What’s the #1 reason a great prospect chooses a competitor over your business today?',
+    id: 12, dim: ‘Customer-Facing AI’, dimNum: ‘05’, dimIdx: 4,
+    text: ‘How quickly does a new lead typically get a substantive first response from your business?’,
     opts: [
-      { letter: 'A', text: 'Price', score: 2 },
-      { letter: 'B', text: 'Speed of response or quoting', score: 3 },
-      { letter: 'C', text: 'Reputation / referral network', score: 1 },
-      { letter: 'D', text: 'Other / not sure', score: 0 }
+      { letter: ‘A’, text: ‘Under an hour — automated or templated’, score: 3 },
+      { letter: ‘B’, text: ‘Same business day, from a team member’, score: 2 },
+      { letter: ‘C’, text: ‘Within 24–48 hours, depending on who’s available’, score: 1 },
+      { letter: ‘D’, text: ‘It varies — sometimes days, sometimes falls through cracks’, score: 0 }
     ]
   }
 ];
 
 var dimensions = [
   { name: 'Data Foundations', max: 6 },
-  { name: 'Current AI Tools', max: 6 },
+  { name: 'Process & AI Maturity', max: 6 },
   { name: 'Team Readiness', max: 6 },
   { name: 'Workflow Automation', max: 9 },
   { name: 'Customer-Facing AI', max: 9 }
@@ -883,7 +883,7 @@ function getOpportunities() {
 
   var q4 = answers[3] ? answers[3].optIdx : -1;
   if (q4 === 2 || q4 === 3) {
-    opps.push({ priority: 10 - (answers[3] ? answers[3].score : 0), title: ‘Your industry already has purpose-built AI.’, text: ‘The highest-ROI deployments are rarely ChatGPT prompts — they are vertical tools trained on your domain’s patterns that plug into systems you already own. Most operators don’t know these exist yet. That’s the gap.’ });
+    opps.push({ priority: 10 - (answers[3] ? answers[3].score : 0), title: ‘Document the workflows before you automate them.’, text: ‘AI can’t automate what isn’t defined. When core workflows live in people’s heads, every automation attempt starts with a discovery phase that doubles the cost. Document first — the automation practically designs itself.’ });
   }
 
   var q7 = answers[6] ? answers[6].optIdx : -1;
@@ -898,8 +898,8 @@ function getOpportunities() {
 
   var q10 = answers[9] ? answers[9].optIdx : -1;
   var q12 = answers[11] ? answers[11].optIdx : -1;
-  if ((q10 === 2 || q10 === 3) && q12 === 1) {
-    opps.push({ priority: 8, title: 'You are losing deals on response time.', text: 'When prospects choose competitors on speed, the response surface — quoting, intake, follow-up — is where AI pays for itself fastest. This is usually the first deployment that shows measurable revenue impact.' });
+  if ((q10 === 2 || q10 === 3) && (q12 === 2 || q12 === 3)) {
+    opps.push({ priority: 8, title: 'Your response time is a liability.', text: 'Leads that wait more than an hour for a first response are already shopping elsewhere. AI in the response surface — quoting, intake, follow-up — is where most businesses see measurable revenue impact first.' });
   }
 
   var q1 = answers[0] ? answers[0].optIdx : -1;
