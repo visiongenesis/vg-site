@@ -605,19 +605,14 @@ footer .meta-row {
   <section class="s dark cta-panel">
     <div class="grid">
       <div class="cta-inner">
-        <div class="eyebrow">Go deeper</div>
-        <h2>Commission a full operational AI audit.</h2>
-        <p>One-hour discovery call. A 10-page report built on your specific operations — bottlenecks named, implementation paths scoped, ROI modeled. Delivered in days, not weeks. $2,500.</p>
-        <a href="https://calendly.com/vision-visiongenesisai/30min" class="btn invert" target="_blank" rel="noopener">Book the discovery call &rarr;</a>
+        <div class="eyebrow" id="cta-eyebrow">Your next move</div>
+        <h2 id="cta-headline">Commission a full operational AI audit.</h2>
+        <p id="cta-body">30-minute scoping call. A 10-page report built on your specific operations — bottlenecks named, implementation paths scoped, ROI modeled. Delivered in days, not weeks.</p>
+        <p style="font-family:'IBM Plex Mono',monospace;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--paper);opacity:0.7;margin:0 auto 32px;text-align:center;">$2,500 flat — fee credited toward implementation if we proceed</p>
+        <a href="https://calendly.com/vision-visiongenesisai/30min" class="btn invert" target="_blank" rel="noopener">Book the scoping call &rarr;</a>
       </div>
     </div>
   </section>
-
-  <div class="grid">
-    <div class="restart-row">
-      <a href="javascript:void(0)" onclick="restartQuiz()" style="font-family:'Inter',sans-serif;font-size:0.875rem;font-weight:500;">Take the quiz again &rarr;</a>
-    </div>
-  </div>
 </div>
 
 <footer>
@@ -872,10 +867,10 @@ function computeScores() {
 }
 
 function getTier(score) {
-  if (score >= 8.0) return { label: ‘Compounding’, text: ‘AI is already producing returns in your business. The question now is whether those returns are compounding or plateauing. Most companies at this stage have pockets of automation that don’t talk to each other. The next move is integration — connecting those pockets into a system that compounds.’ };
-  if (score >= 5.0) return { label: ‘Piloting’, text: ‘You have working pilots and a team that’s willing. What you don’t have yet is a system. Ad-hoc AI usage delivers linear returns; systematic deployment compounds them. The gap between where you are and where you could be is not technology — it’s architecture.’ };
-  if (score >= 2.5) return { label: ‘Foundation Set’, text: ‘Your data and team basics are in place. You haven’t deployed AI yet, or it hasn’t stuck. That’s normal — most first attempts fail because they start with the tool instead of the workflow. The right first move is one high-leverage automation that pays for itself in 90 days.’ };
-  return { label: ‘Pre-Foundation’, text: ‘Your operations run on manual work and fragmented systems. This isn’t a weakness — it’s a starting point. Before any AI deployment, you need one consolidated data source and one documented workflow. That foundation makes everything else possible.’ };
+  if (score >= 8.0) return { label: ‘Compounding’, text: ‘AI is already producing returns in your business. The question now is whether those returns are compounding or plateauing. Most companies at this stage have pockets of automation that don\’t talk to each other. The next move is integration — connecting those pockets into a system that compounds.’, ctaHeadline: ‘Turn isolated automation into a compounding system.’, ctaBody: ‘You have working AI in pockets. The assessment maps the integration points — where those pockets connect, where returns compound, and where you\’re leaving margin on the table.’ };
+  if (score >= 5.0) return { label: ‘Piloting’, text: ‘You have working pilots and a team that\’s willing. What you don\’t have yet is a system. Ad-hoc AI usage delivers linear returns; systematic deployment compounds them. The gap between where you are and where you could be is not technology — it\’s architecture.’, ctaHeadline: ‘Turn your pilots into an operating system.’, ctaBody: ‘Ad-hoc AI usage doesn\’t compound. The assessment identifies which pilots to productionize, which to kill, and what architecture turns scattered experiments into systematic returns.’ };
+  if (score >= 2.5) return { label: ‘Foundation Set’, text: ‘Your data and team basics are in place. You haven\’t deployed AI yet, or it hasn\’t stuck. That\’s normal — most first attempts fail because they start with the tool instead of the workflow. The right first move is one high-leverage automation that pays for itself in 90 days.’, ctaHeadline: ‘Identify the one automation that pays for itself in 90 days.’, ctaBody: ‘The assessment maps your workflows, names the highest-leverage bottleneck, and delivers an implementation path for your first AI deployment — scoped to pay back within a quarter.’ };
+  return { label: ‘Pre-Foundation’, text: ‘Your operations run on manual work and fragmented systems. This isn\’t a weakness — it\’s a starting point. Before any AI deployment, you need one consolidated data source and one documented workflow. That foundation makes everything else possible.’, ctaHeadline: ‘Build the foundation before you spend on AI.’, ctaBody: ‘The assessment identifies which data to consolidate, which workflow to document first, and what infrastructure makes AI deployments possible — so your first dollar on AI actually works.’ };
 }
 
 function getOpportunities() {
@@ -925,6 +920,9 @@ function showResults() {
   document.getElementById('results-score').textContent = result.total.toFixed(1) + ' / 10';
   document.getElementById('results-tier').textContent = tier.label;
   document.getElementById('results-interpretation').textContent = tier.text;
+
+  document.getElementById('cta-headline').textContent = tier.ctaHeadline;
+  document.getElementById('cta-body').textContent = tier.ctaBody;
 
   var oppList = document.getElementById('opportunities-list');
   oppList.innerHTML = '';
