@@ -31,6 +31,7 @@
     "clearinghouse": "TriZetto",
     "currency": "USD",
     "timezone": "America/New_York",
+    "brand_display": "wordmarks",
     "branding": {
       "primary_color": "#2c7873",
       "accent_color": "#c9a96e",
