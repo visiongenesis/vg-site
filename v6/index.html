@@ -557,6 +557,121 @@ section.s.dark .principles { border-top-color: var(--paper); border-bottom-color
   margin: 0 auto;
 }
 
+/* Partners section — two trunks, one firm */
+.partner-grid {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin-top: 36px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+.partner-col {
+  padding: 40px 36px;
+  border-right: 1px solid var(--rule);
+  background: var(--paper);
+  position: relative;
+}
+.partner-col:last-child { border-right: 0; }
+.partner-col .partner-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+  font-weight: 600;
+}
+.partner-col.operator .partner-label { color: var(--burgundy); }
+.partner-col.builder .partner-label { color: var(--forest); }
+.partner-col h3 {
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 16px;
+  line-height: 1.18;
+}
+.partner-col p {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin-bottom: 22px;
+  max-width: 44ch;
+}
+.partner-col ul {
+  list-style: none;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.partner-col ul li {
+  padding: 9px 0;
+  border-top: 1px dashed var(--rule);
+}
+.partner-col ul li:first-child { border-top: none; padding-top: 0; }
+.partner-col.operator ul li::before { content: '⟶ '; color: var(--burgundy); margin-right: 4px; }
+.partner-col.builder ul li::before { content: '⟶ '; color: var(--forest); margin-right: 4px; }
+
+/* From the channel — YouTube preview tiles */
+.channel-preview-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+.channel-preview-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.channel-preview-card .thumb {
+  aspect-ratio: 16 / 9;
+  background: var(--burgundy);
+  border: 1px solid var(--burgundy-deep);
+  position: relative;
+  overflow: hidden;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.channel-preview-card .thumb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 80% 70%, rgba(212,154,58,0.18), transparent 60%);
+  pointer-events: none;
+}
+.channel-preview-card .thumb-claim {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  line-height: 1.1;
+  color: var(--paper);
+  letter-spacing: -0.018em;
+  position: relative;
+  z-index: 1;
+}
+.channel-preview-card .thumb-byline {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ochre);
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+.channel-preview-card .thumb-meta {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 500;
+}
+
 /* Engage / final CTA */
 .engage-block { grid-column: 3 / 11; }
 .engage-block .opener {
@@ -727,6 +842,10 @@ footer .meta {
   .principle { border-right: 0; border-bottom: 1px solid var(--burgundy-deep); }
   .principle:last-child { border-bottom: 0; }
   .engage-cards { grid-template-columns: 1fr; }
+  .partner-grid { grid-template-columns: 1fr; }
+  .partner-col { border-right: 0; border-bottom: 1px solid var(--rule); padding: 28px 0; }
+  .partner-col:last-child { border-bottom: 0; }
+  .channel-preview-row { grid-template-columns: 1fr; }
   .audit-inline { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
   footer .col1, footer .col2, footer .col3 { grid-column: 1 / 13; margin-bottom: 36px; }
   nav.primary { display: none; }
@@ -928,7 +1047,7 @@ footer .meta {
       </div>
       <div class="principle">
         <div class="num">06</div>
-        <h3>Builders are owners. Equity follows delivery, not tenure.</h3>
+        <h3>Builders and operators are owners. Equity follows delivery, not tenure.</h3>
       </div>
     </div>
     <div class="hardrule-banner fade-in">
@@ -938,12 +1057,81 @@ footer .meta {
   </div>
 </section>
 
+<section class="s alt" id="partners">
+  <div class="grid">
+    <div class="index">04 / What partners bring</div>
+    <h2>Two trunks. One firm.</h2>
+    <div class="body fade-in">
+      <p class="opener">A Vision Genesis practice runs on two distinct crafts grown into one trunk. Each partner brings what only their decade or their generation can.</p>
+    </div>
+    <div class="partner-grid fade-in">
+      <div class="partner-col operator">
+        <div class="partner-label">The operator's craft</div>
+        <h3>Industry, network, scars.</h3>
+        <p>What we build is faster because of what you've already broken and rebuilt. The Rolodex that opens the door. The pattern recognition that prevents the expensive mistake. The 25 years of standing inside the room when the easy story and the true story pulled in opposite directions.</p>
+        <ul>
+          <li>Domain &amp; industry depth</li>
+          <li>Buyer trust &amp; network density</li>
+          <li>Operating scar tissue</li>
+          <li>Mentorship of the next builder</li>
+        </ul>
+      </div>
+      <div class="partner-col builder">
+        <div class="partner-label">The builder's craft</div>
+        <h3>Velocity, fluency, ship.</h3>
+        <p>What we build is real because of how fast you can make it. Cursor-native code that ships systems your operator can hand to a client this Tuesday. The thousand small AI judgments per day that turn a thesis into an operating asset. The native fluency that no operator can fake.</p>
+        <ul>
+          <li>AI-native technical depth</li>
+          <li>Ship-velocity from week one</li>
+          <li>Productization &amp; reusable systems</li>
+          <li>Equity in what you build</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="channel">
+  <div class="grid">
+    <div class="index">05 / From the channel</div>
+    <h2>The Operator's Log.</h2>
+    <div class="body fade-in">
+      <p class="opener">Christian Manzano (Founding Partner #1, Content Lead) is rendering the first videos. Operator-perspective business teardowns. AI implementation walkthroughs from the actual practice. English first; multilingual via HeyGen translation pipeline shortly after.</p>
+      <div class="channel-preview-row">
+        <div class="channel-preview-card placeholder">
+          <div class="thumb">
+            <div class="thumb-claim">The system that<br>builds yours.</div>
+            <div class="thumb-byline">Ryan Dix · Episode 01</div>
+          </div>
+          <div class="thumb-meta">Coming shortly · Christian rendering</div>
+        </div>
+        <div class="channel-preview-card placeholder">
+          <div class="thumb">
+            <div class="thumb-claim">Restructure the work.<br>Don't replace the team.</div>
+            <div class="thumb-byline">The Hard Rule · Episode 02</div>
+          </div>
+          <div class="thumb-meta">In script · Christian rendering</div>
+        </div>
+        <div class="channel-preview-card placeholder">
+          <div class="thumb">
+            <div class="thumb-claim">Every engagement<br>becomes a product.</div>
+            <div class="thumb-byline">The Flywheel · Episode 03</div>
+          </div>
+          <div class="thumb-meta">In script · Christian rendering</div>
+        </div>
+      </div>
+      <p style="margin-top: 28px; max-width: 50ch;">Subscribe to the Weekly Brief now and you'll get the first video the day it ships.</p>
+      <p style="margin-top: 8px;"><a href="https://buy.stripe.com/28E9AU1mjciQbSMbvQ5c400" target="_blank" rel="noopener" class="text-link ochre">Subscribe to the Weekly Brief →</a></p>
+    </div>
+  </div>
+</section>
+
 <section class="s" id="engage">
   <div class="grid">
-    <div class="index">04 / Three doors</div>
+    <div class="index">06 / Three doors</div>
     <h2>Find your door.</h2>
     <div class="engage-block fade-in">
-      <p class="opener">Three ways into Vision Genesis. Pick the one that matches your standing.</p>
+      <p class="opener">Three doors into Vision Genesis. Build a practice that outlasts you.</p>
       <div class="engage-cards">
         <div class="engage-card client">
           <div>
@@ -955,11 +1143,11 @@ footer .meta {
         </div>
         <div class="engage-card builder">
           <div>
-            <div class="role-label">For builders</div>
-            <h3>Become a partner.</h3>
-            <p>You're an AI-native builder who wants real problems and real mentorship — with equity in the firm you're building.</p>
+            <div class="role-label">For operators &amp; builders</div>
+            <h3>Plant a practice.</h3>
+            <p>Veterans bring the network, the scars, and the playbooks. AI-native builders bring the code, the velocity, and the cursor. Together, paired with Ryan and future operator-partners, you own what you ship.</p>
           </div>
-          <a href="mailto:vision@visiongenesisai.com?subject=Builder%20application" class="btn btn-forest">Apply →</a>
+          <a href="mailto:vision@visiongenesisai.com?subject=Partner%20application" class="btn btn-forest">Apply →</a>
         </div>
         <div class="engage-card curious">
           <div>
@@ -1002,6 +1190,8 @@ footer .meta {
         <li><a href="#tree">The Living Tree</a></li>
         <li><a href="#products">Products</a></li>
         <li><a href="#principles">Principles</a></li>
+        <li><a href="#partners">What partners bring</a></li>
+        <li><a href="#channel">The Operator's Log</a></li>
         <li><a href="#engage">Three Doors</a></li>
       </ul>
     </div>
