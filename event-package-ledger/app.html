@@ -903,6 +903,7 @@ const PRACTICE_CONFIGS = ['doppelt-southeastern-dermatology', 'austin-glow-medsp
 // ---------- Boot ----------
 const params = new URLSearchParams(location.search);
 const requestedPractice = params.get('practice') || localStorage.getItem('lastPracticeId') || null;
+const SCOPED_PROVIDER = params.get('provider') || null;
 let CONFIG = null;
 let state = null;
 let STATE_KEY = null;
@@ -996,10 +997,18 @@ function switchPractice() {
 
 function setupHeader() {
   document.getElementById('header-title').textContent = CONFIG.practice.name;
-  document.getElementById('header-subtitle').textContent =
-    `${CONFIG.practice.vertical} · ${Object.values(CONFIG.providers).length} providers · ${countSkus()} SKUs · ${CONFIG.events.length} event types`;
-  document.getElementById('practice-pill').textContent = CONFIG.practice.short_name || CONFIG.practice.id;
-  // Apply branding
+  const provCount = (CONFIG.providers || []).length;
+  let subtitleText = `${CONFIG.practice.vertical} · ${provCount} providers · ${countSkus()} SKUs · ${CONFIG.events.length} event types`;
+  if (SCOPED_PROVIDER) {
+    const prov = (CONFIG.providers || []).find(p => p.id === SCOPED_PROVIDER);
+    const provName = prov?.name || SCOPED_PROVIDER;
+    subtitleText = `Provider view · ${provName}`;
+    const pill = document.getElementById('practice-pill');
+    pill.textContent = provName;
+    pill.style.borderColor = 'var(--primary)';
+  }
+  document.getElementById('header-subtitle').textContent = subtitleText;
+  if (!SCOPED_PROVIDER) document.getElementById('practice-pill').textContent = CONFIG.practice.short_name || CONFIG.practice.id;
   if (CONFIG.practice.branding) {
     document.documentElement.style.setProperty('--primary', CONFIG.practice.branding.primary_color);
     document.documentElement.style.setProperty('--accent', CONFIG.practice.branding.accent_color);
@@ -1624,7 +1633,8 @@ function renderRedeem(filter = '') {
     if (outstandingPkgs.length === 0) {
       html += '<div class="empty">No outstanding packages.</div>';
     } else {
-      const provOpts = CONFIG.providers.map(p => `<option value="${p.id}">${p.name}</option>`).join('');
+      const provList = SCOPED_PROVIDER ? CONFIG.providers.filter(p => p.id === SCOPED_PROVIDER) : CONFIG.providers;
+      const provOpts = provList.map(p => `<option value="${p.id}"${SCOPED_PROVIDER ? ' selected' : ''}>${p.name}</option>`).join('');
       html += `<div class="redeem-pkg-list">`;
       outstandingPkgs.forEach(({ order, line, red, remaining }) => {
         const ev = (state.events && state.events[order.eventId]) || { name: order.eventId };
@@ -1673,7 +1683,8 @@ function renderBonus() {
   const orders = state.orders || {};
   const perProvider = {};
   let totalBonus = 0, totalRedemptionValue = 0;
-  for (const red of redemptions) {
+  const scopedRedemptions = SCOPED_PROVIDER ? redemptions.filter(r => r.providerId === SCOPED_PROVIDER) : redemptions;
+  for (const red of scopedRedemptions) {
     const order = orders[red.orderId]; if (!order) continue;
     const line = order.lines.find(l => l.sku === red.lineSku); if (!line) continue;
     const valueOfRedemption = (line.lineTotal / line.redemptionUnitsTotal) * red.unitsRedeemed;
@@ -1696,7 +1707,7 @@ function renderBonus() {
       <div class="bonus-summary-cell primary">
         <div class="bs-eyebrow">Total payable bonus</div>
         <div class="bs-v">${fmt(totalBonus)}</div>
-        <div class="bs-sub">${redemptions.length} redemption${redemptions.length===1?'':'s'} logged this period</div>
+        <div class="bs-sub">${scopedRedemptions.length} redemption${scopedRedemptions.length===1?'':'s'} logged this period${SCOPED_PROVIDER ? ' (filtered)' : ''}</div>
       </div>
       <div class="bonus-summary-cell">
         <div class="bs-eyebrow">Effective bonus rate</div>
