@@ -773,6 +773,10 @@
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6V2h8v4"/><rect x="2" y="6" width="12" height="6" rx="1"/><path d="M4 12v2h8v-2"/><circle cx="11" cy="9" r="0.5" fill="currentColor"/></svg>
         Print Ledger
       </button>
+      <button class="btn-print" onclick="exportRedemptionsCsv()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M5 7l3 3 3-3"/><path d="M3 13h10"/></svg>
+        Export CSV
+      </button>
     </div>
     <input type="search" class="search" id="redeem-search" placeholder="Customer name or phone…">
     <div id="redeem-results"></div>
@@ -796,6 +800,10 @@
       <button class="btn-print" onclick="printLedger()">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6V2h8v4"/><rect x="2" y="6" width="12" height="6" rx="1"/><path d="M4 12v2h8v-2"/><circle cx="11" cy="9" r="0.5" fill="currentColor"/></svg>
         Print Ledger
+      </button>
+      <button class="btn-print" onclick="exportBonusCsv()">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M5 7l3 3 3-3"/><path d="M3 13h10"/></svg>
+        Export CSV
       </button>
     </div>
     <div id="bonus-content">Loading…</div>
@@ -2124,6 +2132,72 @@ function renderPrintLedger() {
   el.innerHTML = html;
 }
 
+function downloadCsv(filename, csvContent) {
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = filename; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function csvEscape(val) {
+  const s = String(val ?? '');
+  return s.includes(',') || s.includes('"') || s.includes('\n') ? `"${s.replace(/"/g, '""')}"` : s;
+}
+
+function exportRedemptionsCsv() {
+  const redemptions = Object.values(state.redemptions || {});
+  if (redemptions.length === 0) { toast('No redemptions to export'); return; }
+  const orders = state.orders || {};
+  const customers = state.customers || {};
+  const rows = [['Date', 'Customer', 'Treatment', 'SKU', 'Provider', 'Units', 'Unit Label', 'Value', 'Event', 'Order ID'].join(',')];
+  redemptions.sort((a, b) => (a.date || '').localeCompare(b.date || '')).forEach(r => {
+    const order = orders[r.orderId]; if (!order) return;
+    const line = order.lines.find(l => l.sku === r.lineSku); if (!line) return;
+    const cust = customers[order.customerId];
+    const unitValue = line.lineTotal / line.redemptionUnitsTotal;
+    const value = (unitValue * r.unitsRedeemed).toFixed(2);
+    const provName = CONFIG.providers.find(p => p.id === r.providerId)?.name || r.providerId;
+    const evName = (CONFIG.events.find(e => e.id === order.eventId) || {}).name || order.eventId;
+    rows.push([r.date, csvEscape(cust?.name || ''), csvEscape(line.name), line.sku, csvEscape(provName), r.unitsRedeemed, line.redemptionUnitLabel || 'unit', value, csvEscape(evName), order.id].join(','));
+  });
+  const slug = CONFIG.practice.id || 'practice';
+  downloadCsv(`${slug}-redemptions-${new Date().toISOString().slice(0,10)}.csv`, rows.join('\n'));
+  toast(`Exported ${redemptions.length} redemptions`);
+}
+
+function exportBonusCsv() {
+  const rules = CONFIG.bonus_rules || [];
+  const redemptions = Object.values(state.redemptions || {});
+  const orders = state.orders || {};
+  if (redemptions.length === 0) { toast('No redemptions to export'); return; }
+  const rows = [['Provider', 'Category', 'Redemption Count', 'Delivered Value', 'Bonus Rate %', 'Bonus Accrued'].join(',')];
+  const perProvCat = {};
+  for (const r of redemptions) {
+    const order = orders[r.orderId]; if (!order) continue;
+    const line = order.lines.find(l => l.sku === r.lineSku); if (!line) continue;
+    const val = (line.lineTotal / line.redemptionUnitsTotal) * r.unitsRedeemed;
+    const applicable = rules.filter(rl => rl.provider_id === r.providerId && rl.applies_to_categories.includes(line.category));
+    for (const rule of applicable) {
+      const key = `${r.providerId}|${line.category}`;
+      if (!perProvCat[key]) perProvCat[key] = { providerId: r.providerId, category: line.category, count: 0, value: 0, pct: rule.bonus_pct, bonus: 0 };
+      perProvCat[key].count++;
+      perProvCat[key].value += val;
+      perProvCat[key].bonus += val * (rule.bonus_pct / 100);
+    }
+  }
+  Object.values(perProvCat).sort((a, b) => b.bonus - a.bonus).forEach(p => {
+    const provName = CONFIG.providers.find(pr => pr.id === p.providerId)?.name || p.providerId;
+    const catLabel = CONFIG.catalog.categories.find(c => c.id === p.category)?.label || p.category;
+    rows.push([csvEscape(provName), csvEscape(catLabel), p.count, p.value.toFixed(2), p.pct, p.bonus.toFixed(2)].join(','));
+  });
+  const slug = CONFIG.practice.id || 'practice';
+  downloadCsv(`${slug}-bonus-report-${new Date().toISOString().slice(0,10)}.csv`, rows.join('\n'));
+  toast(`Exported bonus report`);
+}
+
+window.exportRedemptionsCsv = exportRedemptionsCsv;
+window.exportBonusCsv = exportBonusCsv;
 window.printLedger = printLedger;
 window.closeModal = closeModal;
 window.sendReminder = sendReminder;
