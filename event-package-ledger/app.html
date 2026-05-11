@@ -559,6 +559,12 @@
   table.tight td { padding: 9px 10px; border-bottom: 1px solid var(--hairline); vertical-align: top; }
   table.tight tr:last-child td { border-bottom: none; }
 
+  /* Filter chips */
+  .filter-chips { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+  .filter-chip { font: inherit; font-family: var(--sans); font-size: 12px; font-weight: 500; padding: 6px 14px; border: 1px solid var(--border); border-radius: 999px; background: var(--paper); color: var(--text-muted); cursor: pointer; transition: all 0.15s; }
+  .filter-chip:hover { border-color: var(--primary); color: var(--primary); }
+  .filter-chip.active { background: var(--navy); color: white; border-color: var(--navy); font-weight: 600; }
+
   /* Fine details */
   code { font-family: var(--mono); font-size: 0.88em; background: var(--bg-soft); padding: 2px 6px; border-radius: 3px; color: var(--text-soft); }
   a { color: var(--primary); text-decoration: none; border-bottom: 1px solid transparent; transition: border-color 0.15s; }
@@ -736,6 +742,12 @@
       <p class="page-meta">Customers with prepaid balances ranked by what's still owed in services. Tap a row for the package breakdown and an email-reminder draft.</p>
     </div>
     <input type="search" class="search" id="cust-search" placeholder="Search by name or phone…">
+    <div class="filter-chips" id="cust-filters">
+      <button class="filter-chip active" data-filter="all">All</button>
+      <button class="filter-chip" data-filter="overdue">Overdue</button>
+      <button class="filter-chip" data-filter="has-credits">Has credits</button>
+      <button class="filter-chip" data-filter="complete">Complete</button>
+    </div>
     <div id="customer-list-container"></div>
   </section>
 
@@ -1321,19 +1333,29 @@ function customerOutstanding(custId) {
   }
   return { outstanding, totalUnits, redeemedUnits, nearestDeadline };
 }
+let _custFilterMode = 'all';
 function renderCustomers(filter = '') {
   const wrap = document.getElementById('customer-list-container');
   const all = Object.values(state.customers || {});
   if (all.length === 0) { wrap.innerHTML = '<div class="empty">No customers yet.</div>'; return; }
   const f = filter.toLowerCase();
-  const filtered = filter ? all.filter(c => c.name.toLowerCase().includes(f) || (c.phone||'').includes(filter)) : all;
-  if (filtered.length === 0) { wrap.innerHTML = '<div class="empty">No matches.</div>'; return; }
+  let filtered = filter ? all.filter(c => c.name.toLowerCase().includes(f) || (c.phone||'').includes(filter)) : all;
   const enriched = filtered.map(c => ({ ...c, _stats: customerOutstanding(c.id) }));
-  enriched.sort((a, b) => b._stats.outstanding - a._stats.outstanding);
   const today = new Date();
+  if (_custFilterMode === 'overdue') {
+    filtered = enriched.filter(c => c._stats.nearestDeadline && c._stats.nearestDeadline < today && c._stats.outstanding > 0);
+  } else if (_custFilterMode === 'has-credits') {
+    filtered = enriched.filter(c => c._stats.outstanding > 0);
+  } else if (_custFilterMode === 'complete') {
+    filtered = enriched.filter(c => c._stats.outstanding <= 0 && c._stats.totalUnits > 0);
+  } else {
+    filtered = enriched;
+  }
+  if (filtered.length === 0) { wrap.innerHTML = '<div class="empty">No matches.</div>'; return; }
+  filtered.sort((a, b) => b._stats.outstanding - a._stats.outstanding);
   const list = document.createElement('div');
   list.className = 'customer-list';
-  enriched.forEach(c => {
+  filtered.forEach(c => {
     const row = document.createElement('div');
     row.className = 'customer-row';
     const initials = (c.name || '').split(/\s+/).filter(Boolean).slice(0, 2).map(n => n[0].toUpperCase()).join('') || '·';
@@ -1988,6 +2010,12 @@ function bindAllUI() {
   document.getElementById('practice-pill').style.display = '';
   document.querySelectorAll('nav.tabs button').forEach(b => b.addEventListener('click', () => selectView(b.dataset.view)));
   document.getElementById('cust-search').addEventListener('input', e => renderCustomers(e.target.value));
+  document.getElementById('cust-filters').addEventListener('click', e => {
+    const chip = e.target.closest('.filter-chip'); if (!chip) return;
+    _custFilterMode = chip.dataset.filter;
+    document.querySelectorAll('#cust-filters .filter-chip').forEach(c => c.classList.toggle('active', c === chip));
+    renderCustomers(document.getElementById('cust-search').value);
+  });
   document.getElementById('redeem-search').addEventListener('input', e => renderRedeem(e.target.value));
   document.getElementById('save-order').addEventListener('click', saveOrder);
   renderCategoryTabs();
