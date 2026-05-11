@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Readiness Self-Check — Vision Genesis</title>
+<meta name="description" content="Twelve questions across five dimensions. Personalized score. Three opportunities specific to your business. Built by the operators at Vision Genesis.">
+<link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #F4EFE6;
+  --paper-2: #ECE5D7;
+  --bone: #E7E0D0;
+  --burgundy: #6B1E1E;
+  --burgundy-dark: #561515;
+  --burgundy-soft: #8D5250;
+  --ink: #171717;
+  --ink-2: #2A2A2A;
+  --rule: #6F6A60;
+  --graphite: #4A4A48;
+  --muted: #6F6A60;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; }
+html { font-size: 18px; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 400;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3 {
+  font-family: 'Cormorant Garamond', 'Source Serif 4', Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1.06;
+}
+h1 { font-size: clamp(2.8rem, 6vw, 4.8rem); font-weight: 500; }
+h2 { font-size: clamp(1.9rem, 3.4vw, 2.8rem); margin-bottom: 1.5rem; font-weight: 500; }
+h3 { font-size: 1.25rem; font-weight: 600; font-family: 'Inter', sans-serif; letter-spacing: -0.005em; line-height: 1.2; }
+p { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.0625rem; line-height: 1.65; max-width: 64ch; font-weight: 400; }
+a { color: inherit; text-decoration: none; border-bottom: 1px solid var(--ink); padding-bottom: 1px; transition: color 0.15s, border-color 0.15s; }
+a:hover { color: var(--burgundy); border-bottom-color: var(--burgundy); }
+.mono { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 0.8125rem; letter-spacing: 0.01em; }
+.uppercase { text-transform: uppercase; letter-spacing: 0.08em; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 24px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+.rule { border: 0; border-top: 1px solid var(--ink); }
+
+header {
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  border-bottom: 1px solid var(--ink);
+  z-index: 100;
+}
+header .grid {
+  align-items: center;
+  padding-top: 22px;
+  padding-bottom: 22px;
+}
+.brand {
+  grid-column: 1 / 6;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-bottom: none;
+}
+.brand img { height: 64px; width: auto; display: block; }
+.brand .tagline {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--burgundy);
+  border-left: 1px solid var(--rule);
+  padding-left: 16px;
+  white-space: nowrap;
+}
+nav.primary {
+  grid-column: 6 / 13;
+  display: flex;
+  justify-content: flex-end;
+  gap: 28px;
+}
+nav.primary a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-bottom: none;
+  color: var(--ink-2);
+}
+nav.primary a:hover { color: var(--burgundy); }
+
+.btn {
+  border: 1px solid var(--ink);
+  padding: 14px 28px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.005em;
+  background: transparent;
+  border-bottom: 1px solid var(--ink);
+  display: inline-block;
+  cursor: pointer;
+  color: var(--ink);
+}
+.btn:hover { background: var(--burgundy); color: var(--paper); border-color: var(--burgundy); }
+.btn.invert { background: var(--paper); color: var(--burgundy); border-color: var(--paper); }
+.btn.invert:hover { background: transparent; color: var(--paper); border-color: var(--paper); }
+
+section.s { padding: 112px 0; }
+section.s .index {
+  grid-column: 1 / 3;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding-top: 14px;
+}
+section.s h2 { grid-column: 3 / 11; margin-bottom: 36px; max-width: 18ch; }
+section.s .body { grid-column: 3 / 11; }
+section.s .body p + p { margin-top: 1.2rem; }
+section.s.dark { background: var(--burgundy); color: var(--paper); border-top: 1px solid var(--burgundy-dark); border-bottom: 1px solid var(--burgundy-dark); }
+section.s.dark h2, section.s.dark p { color: var(--paper); }
+section.s.dark .index { color: var(--paper); opacity: 0.7; }
+section.s.dark a { color: var(--paper); border-bottom-color: var(--paper); }
+section.s.dark a:hover { color: var(--paper); opacity: 0.75; }
+
+.principle {
+  padding: 36px 36px 36px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.principle:last-child { border-bottom: 0; }
+.principle .num {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--burgundy);
+  margin-bottom: 14px;
+  font-weight: 500;
+}
+.principle h3 {
+  font-family: 'Cormorant Garamond', 'Source Serif 4', Georgia, serif;
+  font-weight: 500;
+  font-size: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.principle p { font-family: 'Source Serif 4', serif; font-size: 0.9375rem; line-height: 1.55; color: var(--ink-2); }
+
+footer {
+  border-top: 1px solid var(--ink);
+  padding: 48px 0 36px;
+}
+footer .grid { align-items: start; }
+footer .meta-row {
+  grid-column: 1 / 13;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+/* ---- Quiz-specific styles ---- */
+
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* State A — Intro */
+.intro { padding: 132px 0 116px; }
+.intro .eyebrow-text {
+  grid-column: 1 / 13;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--burgundy);
+  font-weight: 500;
+  padding-bottom: 40px;
+}
+.intro h1 {
+  grid-column: 1 / 13;
+  margin-bottom: 48px;
+  max-width: 20ch;
+}
+.intro .lede {
+  grid-column: 1 / 10;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.4rem;
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--ink-2);
+  max-width: 62ch;
+}
+.intro .actions {
+  grid-column: 1 / 13;
+  margin-top: 56px;
+}
+
+/* State B — Quiz */
+.quiz-container { padding: 80px 0 112px; }
+.quiz-progress {
+  grid-column: 1 / 13;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  padding-bottom: 12px;
+}
+.quiz-progress-bar {
+  grid-column: 1 / 13;
+  height: 2px;
+  background: var(--bone);
+  margin-bottom: 56px;
+}
+.quiz-progress-fill {
+  height: 100%;
+  background: var(--burgundy);
+  transition: width 0.3s ease;
+}
+.quiz-dimension {
+  grid-column: 1 / 13;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--burgundy);
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.quiz-question {
+  grid-column: 1 / 10;
+  font-family: 'Cormorant Garamond', 'Source Serif 4', Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  line-height: 1.25;
+  letter-spacing: -0.005em;
+  margin-bottom: 48px;
+}
+.quiz-options {
+  grid-column: 1 / 10;
+  list-style: none;
+}
+.quiz-option {
+  padding: 20px 0;
+  border-bottom: 1px dashed var(--rule);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+  cursor: pointer;
+  transition: color 0.15s, border-color 0.15s;
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+}
+.quiz-option:first-child { border-top: 1px dashed var(--rule); }
+.quiz-option:hover { color: var(--burgundy); }
+.quiz-option .option-letter {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--burgundy);
+  font-weight: 500;
+  flex-shrink: 0;
+  width: 20px;
+}
+.quiz-option.selected {
+  color: var(--burgundy);
+  border-bottom-color: var(--burgundy);
+}
+
+/* State C — Results */
+.gate-container { padding: 112px 0; }
+.gate-inner {
+  grid-column: 3 / 11;
+  text-align: center;
+}
+.gate-inner h2 {
+  max-width: none;
+  margin-bottom: 24px;
+}
+.gate-inner p {
+  margin: 0 auto 40px;
+  text-align: center;
+}
+.email-form {
+  display: flex;
+  gap: 0;
+  max-width: 520px;
+  margin: 0 auto 24px;
+}
+.email-input {
+  flex: 1;
+  border: 1px solid var(--ink);
+  border-right: 0;
+  padding: 14px 20px;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1rem;
+  background: transparent;
+  color: var(--ink);
+  outline: none;
+}
+.email-input::placeholder { color: var(--muted); }
+.email-input:focus { border-color: var(--burgundy); }
+.email-submit {
+  border: 1px solid var(--ink);
+  padding: 14px 28px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  background: var(--ink);
+  color: var(--paper);
+  cursor: pointer;
+  white-space: nowrap;
+}
+.email-submit:hover { background: var(--burgundy); border-color: var(--burgundy); }
+.email-disclaimer {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0 auto;
+  text-align: center;
+  line-height: 1.6;
+}
+.email-error {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  color: var(--burgundy);
+  margin-bottom: 16px;
+  display: none;
+}
+
+/* Results unlocked */
+.results-container { padding: 80px 0 0; }
+.results-header {
+  grid-column: 1 / 13;
+  text-align: center;
+  padding-bottom: 72px;
+  border-bottom: 1px solid var(--ink);
+}
+.results-score {
+  font-family: 'Cormorant Garamond', 'Source Serif 4', Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(4rem, 10vw, 7rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+.results-tier {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--burgundy);
+  font-weight: 500;
+  margin-bottom: 28px;
+}
+.results-interpretation {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.15rem;
+  line-height: 1.65;
+  color: var(--ink-2);
+  max-width: 56ch;
+  margin: 0 auto;
+}
+
+/* Opportunities */
+.opportunities { padding: 72px 0; }
+.opportunities-label {
+  grid-column: 1 / 13;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 36px;
+}
+.opportunities-list {
+  grid-column: 1 / 13;
+  border-top: 1px solid var(--ink);
+}
+
+/* Dimension breakdown */
+.breakdown { padding: 0 0 72px; }
+.breakdown-label {
+  grid-column: 1 / 13;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 36px;
+}
+.breakdown-grid {
+  grid-column: 1 / 13;
+  border-top: 1px solid var(--ink);
+}
+.breakdown-row {
+  display: grid;
+  grid-template-columns: 200px 1fr 60px;
+  gap: 24px;
+  align-items: center;
+  padding: 18px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.breakdown-dim {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--burgundy);
+  font-weight: 500;
+}
+.breakdown-bar {
+  height: 8px;
+  background: var(--bone);
+  position: relative;
+}
+.breakdown-bar-fill {
+  height: 100%;
+  background: var(--burgundy);
+  transition: width 0.6s ease;
+}
+.breakdown-score {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+  text-align: right;
+}
+
+/* CTA panel */
+.cta-panel { padding: 112px 0; }
+.cta-panel .grid { text-align: center; }
+.cta-inner {
+  grid-column: 3 / 11;
+}
+.cta-inner .eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--paper);
+  opacity: 0.7;
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+.cta-inner h2 {
+  color: var(--paper);
+  max-width: none;
+  margin-bottom: 24px;
+}
+.cta-inner p {
+  color: var(--paper);
+  margin: 0 auto 40px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+/* Restart link */
+.restart-row {
+  grid-column: 1 / 13;
+  text-align: center;
+  padding: 48px 0 80px;
+}
+
+@media (max-width: 900px) {
+  .grid { padding: 0 22px; column-gap: 16px; }
+  .brand { grid-column: 1 / 13; gap: 12px; }
+  .brand img { height: 32px; }
+  .brand .tagline { font-size: 0.625rem; padding-left: 12px; }
+  nav.primary { display: none; }
+  .intro { padding: 76px 0 92px; }
+  .intro .lede { grid-column: 1 / 13; }
+  .intro .actions { grid-column: 1 / 13; }
+  .quiz-question { grid-column: 1 / 13; }
+  .quiz-options { grid-column: 1 / 13; }
+  .gate-inner { grid-column: 1 / 13; }
+  .email-form { flex-direction: column; }
+  .email-input { border-right: 1px solid var(--ink); border-bottom: 0; }
+  section.s .index { grid-column: 1 / 13; margin-bottom: 14px; }
+  section.s h2, section.s .body { grid-column: 1 / 13; }
+  .cta-inner { grid-column: 1 / 13; }
+  .breakdown-row { grid-template-columns: 1fr; gap: 8px; }
+  .breakdown-score { text-align: left; }
+  .results-score { font-size: clamp(3.5rem, 8vw, 5rem); }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="grid">
+    <a class="brand" href="/"><img src="../assets/logo-oxblood.svg" alt="Vision Genesis"></a>
+    <nav class="primary">
+      <a href="/">Home</a>
+      <a href="/#model">The Model</a>
+      <a href="/#engage">Engage</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ STATE A — INTRO ============ -->
+<div id="screen-intro" class="screen active">
+  <section class="intro">
+    <div class="grid">
+      <div class="eyebrow-text">Interactive Tool &middot; 5 Min</div>
+      <h1>How AI-ready is your business?</h1>
+      <p class="lede">
+        Twelve questions across five dimensions. Personalized score. Three opportunities specific to your business. Built by the operators at Vision Genesis.
+      </p>
+      <div class="actions">
+        <button class="btn" onclick="startQuiz()">Begin &rarr;</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ STATE B — QUIZ ============ -->
+<div id="screen-quiz" class="screen">
+  <section class="quiz-container">
+    <div class="grid">
+      <div class="quiz-progress" id="quiz-progress">Question 1 of 12</div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill" style="width: 8.33%"></div></div>
+      <div class="quiz-dimension" id="quiz-dimension"></div>
+      <div class="quiz-question" id="quiz-question"></div>
+      <ul class="quiz-options" id="quiz-options"></ul>
+    </div>
+  </section>
+</div>
+
+<!-- ============ STATE C1 — EMAIL GATE ============ -->
+<div id="screen-gate" class="screen">
+  <section class="gate-container">
+    <div class="grid">
+      <div class="gate-inner">
+        <h2>Your score is calculated.</h2>
+        <p>Enter your email to see your personalized report with your score, tier, and top three opportunities.</p>
+        <div class="email-error" id="email-error">Please enter a valid email address.</div>
+        <div class="email-form">
+          <input type="email" class="email-input" id="email-input" placeholder="you@company.com" autocomplete="email">
+          <button class="email-submit" id="email-submit" onclick="submitEmail()">See my results &rarr;</button>
+        </div>
+        <div class="email-disclaimer">
+          We send one email per week. The AI Intelligence Brief. Unsubscribe anytime. No noise.
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ STATE C2 — RESULTS ============ -->
+<div id="screen-results" class="screen">
+  <section class="results-container">
+    <div class="grid">
+      <div class="results-header">
+        <div class="results-score" id="results-score"></div>
+        <div class="results-tier" id="results-tier"></div>
+        <p class="results-interpretation" id="results-interpretation"></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="opportunities">
+    <div class="grid">
+      <div class="opportunities-label">Your Top Opportunities</div>
+      <div class="opportunities-list" id="opportunities-list"></div>
+    </div>
+  </section>
+
+  <section class="breakdown">
+    <div class="grid">
+      <div class="breakdown-label">Score by Dimension</div>
+      <div class="breakdown-grid" id="breakdown-grid"></div>
+    </div>
+  </section>
+
+  <section class="s dark cta-panel">
+    <div class="grid">
+      <div class="cta-inner">
+        <div class="eyebrow">Ready for the full assessment?</div>
+        <h2>Get the deep AI Readiness &amp; Opportunities Assessment.</h2>
+        <p>1-hour discovery call. 1-2 day swarm-produced analysis. 10-page customized report with implementation paths. 30-min readout. $2,500.</p>
+        <a href="https://calendly.com/visiongenesisai/discovery-call" class="btn invert" target="_blank" rel="noopener">Book your discovery call &rarr;</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="grid">
+    <div class="restart-row">
+      <a href="javascript:void(0)" onclick="restartQuiz()" style="font-family:'Inter',sans-serif;font-size:0.875rem;font-weight:500;">Take the quiz again &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="grid">
+    <div class="meta-row">
+      <span>&copy; 2026 Vision Genesis. Human-First AI.</span>
+      <span><a href="/" style="border-bottom:none;">visiongenesisai.com</a></span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/*
+ * Email capture: Option A attempt — Beehiiv public subscribe endpoint.
+ * POST to https://www.beehiiv.com/api/v1/free_subscriptions with publication_id.
+ * This is the same endpoint Beehiiv embed forms use; no API key needed.
+ * If blocked by CORS or Cloudflare, the email is still captured locally and
+ * results display regardless. To swap in Formspree (Option C), replace the
+ * fetch URL below with https://formspree.io/f/{your-form-id}.
+ */
+var BEEHIIV_PUB_ID = 'pub_3274cb44-0b95-447e-b5fa-843b19ef3de5';
+
+var questions = [
+  {
+    id: 1, dim: 'Data Foundations', dimNum: '01', dimIdx: 0,
+    text: 'Where does most of your business’s operational data live today?',
+    opts: [
+      { letter: 'A', text: 'In one main system (e.g., QuickBooks, a CRM, ERP) that everyone uses', score: 3 },
+      { letter: 'B', text: 'Across 2–3 systems that mostly talk to each other', score: 2 },
+      { letter: 'C', text: 'Spread across many tools, spreadsheets, paper, email', score: 1 },
+      { letter: 'D', text: 'Honestly not sure — different departments do different things', score: 0 }
+    ]
+  },
+  {
+    id: 2, dim: 'Data Foundations', dimNum: '01', dimIdx: 0,
+    text: 'If I asked you “how many active customers do you have right now?”, how fast could you answer accurately?',
+    opts: [
+      { letter: 'A', text: 'Under a minute, off the top of my head or from a live dashboard', score: 3 },
+      { letter: 'B', text: 'Under an hour, pulling from one main system', score: 2 },
+      { letter: 'C', text: 'A few hours of digging across tools', score: 1 },
+      { letter: 'D', text: 'I’d have to ask someone else and wait a day', score: 0 }
+    ]
+  },
+  {
+    id: 3, dim: 'Current AI Tools', dimNum: '02', dimIdx: 1,
+    text: 'Which best describes your business’s current use of AI tools (ChatGPT, Claude, Copilot, etc.)?',
+    opts: [
+      { letter: 'A', text: 'Multiple team members use AI daily for real work, integrated into workflows', score: 3 },
+      { letter: 'B', text: 'A few people use it ad-hoc; no formal workflows yet', score: 2 },
+      { letter: 'C', text: 'I personally use it; nobody else really does', score: 1 },
+      { letter: 'D', text: 'Nobody on the team uses it meaningfully', score: 0 }
+    ]
+  },
+  {
+    id: 4, dim: 'Current AI Tools', dimNum: '02', dimIdx: 1,
+    text: 'Have you tried any AI tool specific to your industry (e.g., AI scheduling for HVAC, AI intake for law firms, AI quoting for trades)?',
+    opts: [
+      { letter: 'A', text: 'Yes, and we’ve adopted one or more into production', score: 3 },
+      { letter: 'B', text: 'Yes, we’ve trialed a few but nothing has stuck', score: 2 },
+      { letter: 'C', text: 'I’ve heard of some but haven’t tried them', score: 1 },
+      { letter: 'D', text: 'Didn’t know vertical AI tools existed for my industry', score: 0 }
+    ]
+  },
+  {
+    id: 5, dim: 'Team Readiness', dimNum: '03', dimIdx: 2,
+    text: 'How would your most-skeptical employee react if you announced “we’re rolling out an AI tool to help with X” tomorrow?',
+    opts: [
+      { letter: 'A', text: 'Curious; they’d want to try it', score: 3 },
+      { letter: 'B', text: 'Cautious but willing if it actually saves them time', score: 2 },
+      { letter: 'C', text: 'Resistant; would need a lot of convincing', score: 1 },
+      { letter: 'D', text: 'Hostile; they think AI is coming for their job', score: 0 }
+    ]
+  },
+  {
+    id: 6, dim: 'Team Readiness', dimNum: '03', dimIdx: 2,
+    text: 'Is there at least one person on your team who is energized by trying new tools and tends to figure things out without much hand-holding?',
+    opts: [
+      { letter: 'A', text: 'Yes — and they have time/permission to drive adoption', score: 3 },
+      { letter: 'B', text: 'Yes, but they’re already overloaded', score: 2 },
+      { letter: 'C', text: 'Sort of — I’m that person, but I’m running the business', score: 1 },
+      { letter: 'D', text: 'Not really — everyone is heads-down on their existing work', score: 0 }
+    ]
+  },
+  {
+    id: 7, dim: 'Workflow Automation', dimNum: '04', dimIdx: 3,
+    text: 'How much of your team’s time is spent on repetitive work that follows a predictable pattern (data entry, scheduling, follow-ups, quoting, intake)?',
+    opts: [
+      { letter: 'A', text: 'A lot — easily 30%+ of multiple people’s days', score: 3 },
+      { letter: 'B', text: 'A meaningful amount — 15–30%', score: 3 },
+      { letter: 'C', text: 'Some, but most work is judgment-heavy', score: 2 },
+      { letter: 'D', text: 'Very little — most of what we do is bespoke', score: 1 }
+    ]
+  },
+  {
+    id: 8, dim: 'Workflow Automation', dimNum: '04', dimIdx: 3,
+    text: 'When a customer asks a routine question (pricing, scheduling, status update), how is it usually answered?',
+    opts: [
+      { letter: 'A', text: 'Self-serve in our system', score: 3 },
+      { letter: 'B', text: 'Standard email/text reply from a team member', score: 2 },
+      { letter: 'C', text: 'A phone call with whoever is available', score: 1 },
+      { letter: 'D', text: 'Depends — sometimes it falls through cracks', score: 0 }
+    ]
+  },
+  {
+    id: 9, dim: 'Workflow Automation', dimNum: '04', dimIdx: 3,
+    text: 'Where in your business does work most often get stuck waiting on a person to manually do something (approvals, transcription, drafting, reconciling)?',
+    opts: [
+      { letter: 'A', text: 'Few places — we’ve engineered most bottlenecks out', score: 3 },
+      { letter: 'B', text: 'Predictable bottlenecks I could name in 30 seconds', score: 2 },
+      { letter: 'C', text: 'Many places; we’re constantly chasing', score: 1 },
+      { letter: 'D', text: 'Honestly the whole business feels like that', score: 0 }
+    ]
+  },
+  {
+    id: 10, dim: 'Customer-Facing AI', dimNum: '05', dimIdx: 4,
+    text: 'Does your business currently use AI in any customer-facing surface (chatbot, AI-generated emails, AI-assisted quotes, AI in your sales process)?',
+    opts: [
+      { letter: 'A', text: 'Yes, in multiple places, with measurable results', score: 3 },
+      { letter: 'B', text: 'Yes, in one or two places, still tuning', score: 2 },
+      { letter: 'C', text: 'Not yet but actively planning', score: 1 },
+      { letter: 'D', text: 'No, and haven’t thought about it', score: 0 }
+    ]
+  },
+  {
+    id: 11, dim: 'Customer-Facing AI', dimNum: '05', dimIdx: 4,
+    text: 'If a competitor in your space was using AI to respond to customer inquiries 10× faster than you, would you know?',
+    opts: [
+      { letter: 'A', text: 'Yes — I monitor competitor practices regularly', score: 3 },
+      { letter: 'B', text: 'Probably — I’d hear from customers or team', score: 2 },
+      { letter: 'C', text: 'Eventually, after losing some deals', score: 1 },
+      { letter: 'D', text: 'Honestly, no', score: 0 }
+    ]
+  },
+  {
+    id: 12, dim: 'Customer-Facing AI', dimNum: '05', dimIdx: 4,
+    text: 'What’s the #1 reason a great prospect chooses a competitor over your business today?',
+    opts: [
+      { letter: 'A', text: 'Price', score: 2 },
+      { letter: 'B', text: 'Speed of response or quoting', score: 3 },
+      { letter: 'C', text: 'Reputation / referral network', score: 1 },
+      { letter: 'D', text: 'Other / not sure', score: 0 }
+    ]
+  }
+];
+
+var dimensions = [
+  { name: 'Data Foundations', max: 6 },
+  { name: 'Current AI Tools', max: 6 },
+  { name: 'Team Readiness', max: 6 },
+  { name: 'Workflow Automation', max: 9 },
+  { name: 'Customer-Facing AI', max: 9 }
+];
+
+var currentQ = 0;
+var answers = new Array(12);
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function startQuiz() {
+  currentQ = 0;
+  answers = new Array(12);
+  showScreen('screen-quiz');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  var q = questions[currentQ];
+  document.getElementById('quiz-progress').textContent = 'Question ' + (currentQ + 1) + ' of 12';
+  document.getElementById('quiz-progress-fill').style.width = ((currentQ + 1) / 12 * 100) + '%';
+  document.getElementById('quiz-dimension').textContent = 'Dimension ' + q.dimNum + ' / ' + q.dim;
+  document.getElementById('quiz-question').textContent = q.text;
+
+  var ul = document.getElementById('quiz-options');
+  ul.innerHTML = '';
+  q.opts.forEach(function(opt, i) {
+    var li = document.createElement('li');
+    li.className = 'quiz-option';
+    li.innerHTML = '<span class="option-letter">' + opt.letter + '</span><span>' + opt.text + '</span>';
+    li.onclick = function() { selectAnswer(i, opt.score); };
+    ul.appendChild(li);
+  });
+}
+
+function selectAnswer(optIdx, score) {
+  answers[currentQ] = { optIdx: optIdx, score: score };
+
+  var opts = document.querySelectorAll('.quiz-option');
+  opts.forEach(function(o) { o.classList.remove('selected'); });
+  opts[optIdx].classList.add('selected');
+
+  setTimeout(function() {
+    currentQ++;
+    if (currentQ < 12) {
+      renderQuestion();
+    } else {
+      showScreen('screen-gate');
+      document.getElementById('email-input').focus();
+    }
+  }, 280);
+}
+
+function submitEmail() {
+  var input = document.getElementById('email-input');
+  var email = input.value.trim();
+  var errorEl = document.getElementById('email-error');
+
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    errorEl.style.display = 'block';
+    input.focus();
+    return;
+  }
+  errorEl.style.display = 'none';
+
+  var btn = document.getElementById('email-submit');
+  btn.textContent = 'Loading…';
+  btn.disabled = true;
+
+  try {
+    fetch('https://www.beehiiv.com/api/v1/free_subscriptions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        publication_id: BEEHIIV_PUB_ID,
+        email: email,
+        reactivate_existing: true,
+        utm_source: 'readiness_quiz',
+        utm_medium: 'quiz'
+      })
+    }).catch(function() {});
+  } catch (e) {}
+
+  localStorage.setItem('vg_quiz_email', email);
+  showResults();
+}
+
+function computeScores() {
+  var dimScores = [0, 0, 0, 0, 0];
+  for (var i = 0; i < 12; i++) {
+    var q = questions[i];
+    dimScores[q.dimIdx] += (answers[i] ? answers[i].score : 0);
+  }
+  var totalRaw = dimScores.reduce(function(a, b) { return a + b; }, 0);
+  var normalized = (totalRaw / 36) * 10;
+  return { dimScores: dimScores, total: normalized };
+}
+
+function getTier(score) {
+  if (score >= 8.0) return { label: 'AI-Forward', text: 'You’re already deploying AI across your business. The opportunity now is deepening integration, compounding automation, and building competitive moats before your industry catches up.' };
+  if (score >= 5.0) return { label: 'Mid-Readiness', text: 'You have a strong foundation and early AI adoption. The opportunity is productionizing your pilots — moving from ad-hoc usage to systematic, measured AI workflows that deliver compounding returns.' };
+  if (score >= 2.5) return { label: 'Early-Stage', text: 'The fundamentals are in place. The opportunity is targeted first deployments in your highest-leverage workflows — the ones where even partial automation gives you measurable time and margin back.' };
+  return { label: 'Greenfield', text: 'You’re starting from a clean slate — which is not a disadvantage. The opportunity is foundational quick wins in 90 days: data consolidation, one AI tool adoption, and one automated workflow that proves the model to your team.' };
+}
+
+function getOpportunities() {
+  var opps = [];
+
+  var q4 = answers[3] ? answers[3].optIdx : -1;
+  if (q4 === 2 || q4 === 3) {
+    opps.push({ priority: 10 - (answers[3] ? answers[3].score : 0), title: 'Vertical AI tools for your industry.', text: 'Most small businesses miss this — the highest-ROI AI deployments are often industry-specific, not generic ChatGPT. Vertical tools are pre-trained on your domain’s patterns and integrate with your existing systems.' });
+  }
+
+  var q7 = answers[6] ? answers[6].optIdx : -1;
+  if (q7 === 0 || q7 === 1) {
+    opps.push({ priority: 9, title: 'Automate the predictable repetitive work.', text: 'With 15–30%+ of team time on patterned work, even 50% automation gives you 1–2 days per week back per person. That’s margin, capacity, and morale — simultaneously.' });
+  }
+
+  var q9 = answers[8] ? answers[8].optIdx : -1;
+  if (q9 === 1 || q9 === 2 || q9 === 3) {
+    opps.push({ priority: 10 - (answers[8] ? answers[8].score : 0), title: 'Bottleneck-targeted AI.', text: 'AI’s biggest single-business ROI is usually attacking the bottleneck everyone already knows about. Name it, scope it, build for it. The fix is often simpler than you expect.' });
+  }
+
+  var q10 = answers[9] ? answers[9].optIdx : -1;
+  var q12 = answers[11] ? answers[11].optIdx : -1;
+  if ((q10 === 2 || q10 === 3) && q12 === 1) {
+    opps.push({ priority: 8, title: 'Customer-facing speed AI.', text: 'When prospects choose competitors on speed, AI in the response surface — quoting, intake, follow-up — is often the lowest-friction, fastest-ROI deployment available.' });
+  }
+
+  var q1 = answers[0] ? answers[0].optIdx : -1;
+  if (q1 === 2 || q1 === 3) {
+    opps.push({ priority: 10 - (answers[0] ? answers[0].score : 0), title: 'Data consolidation first.', text: 'AI multiplies what you can already see. If data is fragmented across tools and spreadsheets, foundational consolidation has higher ROI than any AI pilot right now.' });
+  }
+
+  var q5score = answers[4] ? answers[4].score : 3;
+  var q6score = answers[5] ? answers[5].score : 3;
+  if (q5score <= 1 || q6score <= 1) {
+    opps.push({ priority: 7, title: 'Team-readiness sprint.', text: 'Before any AI deployment, a 2-week team-readiness program de-risks the rollout and unlocks 2× faster adoption. The technology is never the bottleneck — the team’s willingness to use it is.' });
+  }
+
+  opps.sort(function(a, b) { return b.priority - a.priority; });
+  return opps.slice(0, 3);
+}
+
+function showResults() {
+  var result = computeScores();
+  var tier = getTier(result.total);
+  var opps = getOpportunities();
+
+  document.getElementById('results-score').textContent = result.total.toFixed(1) + ' / 10';
+  document.getElementById('results-tier').textContent = tier.label;
+  document.getElementById('results-interpretation').textContent = tier.text;
+
+  var oppList = document.getElementById('opportunities-list');
+  oppList.innerHTML = '';
+  opps.forEach(function(opp, i) {
+    var div = document.createElement('div');
+    div.className = 'principle';
+    div.innerHTML = '<div class="num">Opportunity ' + String(i + 1).padStart(2, '0') + '</div>' +
+      '<h3>' + opp.title + '</h3>' +
+      '<p>' + opp.text + '</p>';
+    oppList.appendChild(div);
+  });
+
+  var breakdownGrid = document.getElementById('breakdown-grid');
+  breakdownGrid.innerHTML = '';
+  dimensions.forEach(function(dim, i) {
+    var pct = (result.dimScores[i] / dim.max) * 100;
+    var row = document.createElement('div');
+    row.className = 'breakdown-row';
+    row.innerHTML = '<div class="breakdown-dim">' + dim.name + '</div>' +
+      '<div class="breakdown-bar"><div class="breakdown-bar-fill" style="width:0%"></div></div>' +
+      '<div class="breakdown-score">' + result.dimScores[i] + ' / ' + dim.max + '</div>';
+    breakdownGrid.appendChild(row);
+
+    setTimeout(function() {
+      row.querySelector('.breakdown-bar-fill').style.width = pct + '%';
+    }, 100 + i * 120);
+  });
+
+  showScreen('screen-results');
+}
+
+function restartQuiz() {
+  currentQ = 0;
+  answers = new Array(12);
+  showScreen('screen-intro');
+}
+
+document.getElementById('email-input').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') submitEmail();
+});
+</script>
+
+</body>
+</html>
