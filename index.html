@@ -400,6 +400,46 @@ footer .meta {
   color: var(--muted);
 }
 
+/* Quiz banner */
+.quiz-banner {
+  background: var(--burgundy);
+  border-top: 1px solid var(--burgundy-dark);
+  border-bottom: 1px solid var(--burgundy-dark);
+}
+.quiz-banner-inner {
+  grid-column: 1 / 13;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 0;
+}
+.quiz-banner-eyebrow {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--paper);
+  opacity: 0.7;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.quiz-banner-message {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 0.9375rem;
+  color: var(--paper);
+  flex: 1;
+}
+.quiz-banner-cta {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--paper);
+  border-bottom: 1px solid var(--paper);
+  padding-bottom: 1px;
+  white-space: nowrap;
+}
+.quiz-banner-cta:hover { opacity: 0.8; }
+
 @media (max-width: 900px) {
   .grid { padding: 0 22px; column-gap: 16px; }
   .brand { grid-column: 1 / 13; gap: 12px; }
@@ -424,6 +464,8 @@ footer .meta {
   .brand-panel .credo { font-size: 1.15rem; }
   footer .col1, footer .col2, footer .col3 { grid-column: 1 / 13; margin-bottom: 36px; }
   nav.primary { display: none; }
+  .quiz-banner-inner { flex-wrap: wrap; gap: 6px 16px; padding: 10px 0; }
+  .quiz-banner-eyebrow { width: 100%; }
 }
 </style>
 </head>
@@ -440,6 +482,16 @@ footer .meta {
     </nav>
   </div>
 </header>
+
+<div class="quiz-banner">
+  <div class="grid">
+    <div class="quiz-banner-inner">
+      <span class="quiz-banner-eyebrow">New &middot; Interactive Tool</span>
+      <span class="quiz-banner-message">How AI-ready is your business? Take the 5-min self-check.</span>
+      <a href="/readiness-quiz/" class="quiz-banner-cta">Start the quiz &rarr;</a>
+    </div>
+  </div>
+</div>
 
 <section class="hero">
   <div class="grid">
