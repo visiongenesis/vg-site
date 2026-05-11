@@ -1718,7 +1718,7 @@ function renderBonus() {
   // For each redemption, find applicable bonus rule(s) and accumulate per provider
   const redemptions = Object.values(state.redemptions || {});
   const orders = state.orders || {};
-  const perProvider = {};
+  const perProvider = {}; window._bonusProviders = {};
   let totalBonus = 0, totalRedemptionValue = 0;
   const scopedRedemptions = SCOPED_PROVIDER ? redemptions.filter(r => r.providerId === SCOPED_PROVIDER) : redemptions;
   for (const red of scopedRedemptions) {
@@ -1730,14 +1730,17 @@ function renderBonus() {
     for (const rule of applicableRules) {
       const bonus = valueOfRedemption * (rule.bonus_pct / 100);
       const key = red.providerId;
-      if (!perProvider[key]) perProvider[key] = { providerId: key, providerName: CONFIG.providers.find(p=>p.id===key)?.name || key, bonus: 0, redemptionValue: 0, redemptionCount: 0, byCategory: {} };
+      if (!perProvider[key]) perProvider[key] = { providerId: key, providerName: CONFIG.providers.find(p=>p.id===key)?.name || key, bonus: 0, redemptionValue: 0, redemptionCount: 0, byCategory: {}, details: [] };
       perProvider[key].bonus += bonus;
       perProvider[key].redemptionValue += valueOfRedemption;
       perProvider[key].redemptionCount += 1;
       perProvider[key].byCategory[line.category] = (perProvider[key].byCategory[line.category] || 0) + bonus;
+      const custName = (state.customers || {})[order.customerId]?.name || 'Unknown';
+      perProvider[key].details.push({ customer: custName, sku: red.lineSku, skuName: line.name || red.lineSku, category: line.category, date: red.date, units: red.unitsRedeemed, value: valueOfRedemption, bonusPct: rule.bonus_pct, bonus: bonus });
       totalBonus += bonus;
     }
   }
+  window._bonusProviders = perProvider;
   const bonusPctOfValue = totalRedemptionValue > 0 ? (totalBonus/totalRedemptionValue*100) : 0;
   let html = `
     <div class="bonus-summary">
@@ -1762,13 +1765,13 @@ function renderBonus() {
       const initials = p.providerName.split(/\s+/).filter(Boolean).slice(0,2).map(n => n[0].toUpperCase()).join('') || '·';
       const pct = maxBonus > 0 ? (p.bonus / maxBonus * 100) : 0;
       const effRate = p.redemptionValue > 0 ? (p.bonus / p.redemptionValue * 100).toFixed(1) : '0';
-      html += `<div class="provider-bonus-card">
+      html += `<div class="provider-bonus-card" onclick="showBonusDetail('${p.providerId}')" style="cursor:pointer">
         <div class="pb-rank">${idx+1}</div>
         <div class="pb-avatar">${initials}</div>
         <div class="pb-body">
           <div class="pb-head">
             <div class="pb-name">${p.providerName}</div>
-            <div class="pb-amt num">${fmt(p.bonus)}</div>
+            <div class="pb-amt num">${fmt(p.bonus)} <span style="font-size:12px;color:var(--text-muted);font-weight:400">▸</span></div>
           </div>
           <div class="pb-meta">
             <span class="num">${p.redemptionCount}</span> redemption${p.redemptionCount===1?'':'s'} · <span class="num">${fmt(p.redemptionValue)}</span> delivered · <span class="num">${effRate}%</span> rate
@@ -1799,6 +1802,48 @@ function renderBonus() {
   });
   html += `</div></div>`;
   wrap.innerHTML = html;
+}
+
+function showBonusDetail(providerId) {
+  const p = window._bonusProviders[providerId]; if (!p) return;
+  const initials = p.providerName.split(/\s+/).filter(Boolean).slice(0,2).map(n => n[0].toUpperCase()).join('') || '·';
+  const effRate = p.redemptionValue > 0 ? (p.bonus / p.redemptionValue * 100).toFixed(1) : '0';
+  const sorted = [...p.details].sort((a,b) => (b.bonus - a.bonus));
+  let html = `<div class="modal-head">
+    <div class="modal-avatar">${initials}</div>
+    <div class="modal-head-body">
+      <span class="eyebrow">Bonus breakdown</span>
+      <div class="modal-name">${p.providerName}</div>
+      <div class="modal-contact">${p.redemptionCount} redemption${p.redemptionCount===1?'':'s'} · ${effRate}% effective rate</div>
+    </div>
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">×</button>
+  </div>
+  <div class="modal-stats">
+    <div class="ms-cell"><div class="ms-v num">${fmt(p.bonus)}</div><div class="ms-k">Total bonus</div></div>
+    <div class="ms-cell"><div class="ms-v num">${fmt(p.redemptionValue)}</div><div class="ms-k">Delivered value</div></div>
+    <div class="ms-cell"><div class="ms-v num">${effRate}%</div><div class="ms-k">Rate</div></div>
+  </div>
+  <table style="width:100%;border-collapse:collapse;font-size:13px;margin-top:12px">
+    <thead><tr style="text-align:left;border-bottom:2px solid var(--hairline)">
+      <th style="padding:8px 6px;font-weight:600;color:var(--text-muted);font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em">Customer</th>
+      <th style="padding:8px 6px;font-weight:600;color:var(--text-muted);font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em">Item</th>
+      <th style="padding:8px 6px;font-weight:600;color:var(--text-muted);font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;text-align:right">Value</th>
+      <th style="padding:8px 6px;font-weight:600;color:var(--text-muted);font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;text-align:right">Rate</th>
+      <th style="padding:8px 6px;font-weight:600;color:var(--text-muted);font-size:10.5px;text-transform:uppercase;letter-spacing:0.08em;text-align:right">Bonus</th>
+    </tr></thead><tbody>`;
+  sorted.forEach(d => {
+    const catLabel = CONFIG.catalog.categories.find(c=>c.id===d.category)?.label || d.category;
+    html += `<tr style="border-bottom:1px solid var(--hairline)">
+      <td style="padding:8px 6px">${d.customer}</td>
+      <td style="padding:8px 6px"><span style="color:var(--text-soft)">${catLabel}</span><br>${d.skuName}</td>
+      <td style="padding:8px 6px;text-align:right;font-feature-settings:'tnum'">${fmt(d.value)}</td>
+      <td style="padding:8px 6px;text-align:right;font-feature-settings:'tnum'">${d.bonusPct}%</td>
+      <td style="padding:8px 6px;text-align:right;font-weight:600;font-feature-settings:'tnum'">${fmt(d.bonus)}</td>
+    </tr>`;
+  });
+  html += `</tbody></table>
+  <button class="btn btn-ghost full" onclick="closeModal()" style="margin-top:16px">Close</button>`;
+  showModal(html);
 }
 
 // ---------- CSV Import view ----------
@@ -2200,6 +2245,7 @@ window.exportRedemptionsCsv = exportRedemptionsCsv;
 window.exportBonusCsv = exportBonusCsv;
 window.printLedger = printLedger;
 window.closeModal = closeModal;
+window.showBonusDetail = showBonusDetail;
 window.sendReminder = sendReminder;
 window.redeemUnit = redeemUnit;
 window.commitProposals = commitProposals;
