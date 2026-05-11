@@ -1745,5 +1745,21 @@
     "logo_url": null,
     "email_from": "office@drdoppelt.com (placeholder \u2014 confirm with practice)",
     "email_signature": "\u2014 Southeastern Dermatology"
+  },
+  "hipaa_scaffolding": {
+    "_note": "Tier 2 placeholder \u2014 audit log schema and compliance settings. Not active in Tier 1 demo.",
+    "audit_log_schema": {
+      "fields": ["event_id", "timestamp_utc", "actor_user_id", "actor_role", "practice_id", "event_type", "action", "resource_type", "resource_id", "patient_id_hash", "ip_address", "session_id", "success", "app_version"],
+      "event_types": ["user_login", "user_logout", "failed_login", "patient_view", "patient_create", "patient_edit", "order_create", "redemption_create", "redemption_void", "bonus_report_view", "bonus_report_export", "csv_import", "csv_export", "print_generate", "config_change", "role_change", "audit_log_access"],
+      "retention_years": 6,
+      "immutable": true
+    },
+    "encryption": {
+      "at_rest": "AES-256",
+      "in_transit": "TLS-1.3",
+      "backup": "AES-256"
+    },
+    "sra_cadence": "annual",
+    "baa_template_path": "legal/baa-template.md"
   }
 }
