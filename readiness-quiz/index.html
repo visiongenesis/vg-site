@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Readiness Self-Check — Vision Genesis</title>
-<meta name="description" content="Twelve questions across five dimensions. Personalized score. Three opportunities specific to your business. Built by the operators at Vision Genesis.">
+<meta name="description" content="Five dimensions. Twelve questions an operator would ask. Your score shows where the leverage is, where the gaps are, and what to do first. Built by Vision Genesis.">
 <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon-32.png">
 <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -531,10 +531,10 @@ footer .meta-row {
 <div id="screen-intro" class="screen active">
   <section class="intro">
     <div class="grid">
-      <div class="eyebrow-text">Interactive Tool &middot; 5 Min</div>
-      <h1>How AI-ready is your business?</h1>
+      <div class="eyebrow-text">Diagnostic &middot; 5 Min</div>
+      <h1>Where does your business actually stand with AI?</h1>
       <p class="lede">
-        Twelve questions across five dimensions. Personalized score. Three opportunities specific to your business. Built by the operators at Vision Genesis.
+        Five dimensions. Twelve questions an operator would ask before writing a proposal. Your score tells you where the leverage is and where the gaps are — so the first conversation is about implementation, not education.
       </p>
       <div class="actions">
         <button class="btn" onclick="startQuiz()">Begin &rarr;</button>
@@ -561,15 +561,15 @@ footer .meta-row {
   <section class="gate-container">
     <div class="grid">
       <div class="gate-inner">
-        <h2>Your score is calculated.</h2>
-        <p>Enter your email to see your personalized report with your score, tier, and top three opportunities.</p>
+        <h2>Your results are ready.</h2>
+        <p>Your score, dimension breakdown, and three specific opportunities — delivered to your inbox alongside our weekly AI Intelligence Brief.</p>
         <div class="email-error" id="email-error">Please enter a valid email address.</div>
         <div class="email-form">
           <input type="email" class="email-input" id="email-input" placeholder="you@company.com" autocomplete="email">
           <button class="email-submit" id="email-submit" onclick="submitEmail()">See my results &rarr;</button>
         </div>
         <div class="email-disclaimer">
-          We send one email per week. The AI Intelligence Brief. Unsubscribe anytime. No noise.
+          One weekly brief on AI that matters for operators. Unsubscribe anytime.
         </div>
       </div>
     </div>
@@ -605,10 +605,10 @@ footer .meta-row {
   <section class="s dark cta-panel">
     <div class="grid">
       <div class="cta-inner">
-        <div class="eyebrow">Ready for the full assessment?</div>
-        <h2>Get the deep AI Readiness &amp; Opportunities Assessment.</h2>
-        <p>1-hour discovery call. 1-2 day swarm-produced analysis. 10-page customized report with implementation paths. 30-min readout. $2,500.</p>
-        <a href="https://calendly.com/vision-visiongenesisai/30min" class="btn invert" target="_blank" rel="noopener">Book your discovery call &rarr;</a>
+        <div class="eyebrow">Go deeper</div>
+        <h2>Commission a full operational AI audit.</h2>
+        <p>One-hour discovery call. A 10-page report built on your specific operations — bottlenecks named, implementation paths scoped, ROI modeled. Delivered in days, not weeks. $2,500.</p>
+        <a href="https://calendly.com/vision-visiongenesisai/30min" class="btn invert" target="_blank" rel="noopener">Book the discovery call &rarr;</a>
       </div>
     </div>
   </section>
@@ -872,10 +872,10 @@ function computeScores() {
 }
 
 function getTier(score) {
-  if (score >= 8.0) return { label: 'AI-Forward', text: 'You’re already deploying AI across your business. The opportunity now is deepening integration, compounding automation, and building competitive moats before your industry catches up.' };
-  if (score >= 5.0) return { label: 'Mid-Readiness', text: 'You have a strong foundation and early AI adoption. The opportunity is productionizing your pilots — moving from ad-hoc usage to systematic, measured AI workflows that deliver compounding returns.' };
-  if (score >= 2.5) return { label: 'Early-Stage', text: 'The fundamentals are in place. The opportunity is targeted first deployments in your highest-leverage workflows — the ones where even partial automation gives you measurable time and margin back.' };
-  return { label: 'Greenfield', text: 'You’re starting from a clean slate — which is not a disadvantage. The opportunity is foundational quick wins in 90 days: data consolidation, one AI tool adoption, and one automated workflow that proves the model to your team.' };
+  if (score >= 8.0) return { label: ‘Compounding’, text: ‘AI is already producing returns in your business. The question now is whether those returns are compounding or plateauing. Most companies at this stage have pockets of automation that don’t talk to each other. The next move is integration — connecting those pockets into a system that compounds.’ };
+  if (score >= 5.0) return { label: ‘Piloting’, text: ‘You have working pilots and a team that’s willing. What you don’t have yet is a system. Ad-hoc AI usage delivers linear returns; systematic deployment compounds them. The gap between where you are and where you could be is not technology — it’s architecture.’ };
+  if (score >= 2.5) return { label: ‘Foundation Set’, text: ‘Your data and team basics are in place. You haven’t deployed AI yet, or it hasn’t stuck. That’s normal — most first attempts fail because they start with the tool instead of the workflow. The right first move is one high-leverage automation that pays for itself in 90 days.’ };
+  return { label: ‘Pre-Foundation’, text: ‘Your operations run on manual work and fragmented systems. This isn’t a weakness — it’s a starting point. Before any AI deployment, you need one consolidated data source and one documented workflow. That foundation makes everything else possible.’ };
 }
 
 function getOpportunities() {
@@ -883,34 +883,34 @@ function getOpportunities() {
 
   var q4 = answers[3] ? answers[3].optIdx : -1;
   if (q4 === 2 || q4 === 3) {
-    opps.push({ priority: 10 - (answers[3] ? answers[3].score : 0), title: 'Vertical AI tools for your industry.', text: 'Most small businesses miss this — the highest-ROI AI deployments are often industry-specific, not generic ChatGPT. Vertical tools are pre-trained on your domain’s patterns and integrate with your existing systems.' });
+    opps.push({ priority: 10 - (answers[3] ? answers[3].score : 0), title: ‘Your industry already has purpose-built AI.’, text: ‘The highest-ROI deployments are rarely ChatGPT prompts — they are vertical tools trained on your domain’s patterns that plug into systems you already own. Most operators don’t know these exist yet. That’s the gap.’ });
   }
 
   var q7 = answers[6] ? answers[6].optIdx : -1;
   if (q7 === 0 || q7 === 1) {
-    opps.push({ priority: 9, title: 'Automate the predictable repetitive work.', text: 'With 15–30%+ of team time on patterned work, even 50% automation gives you 1–2 days per week back per person. That’s margin, capacity, and morale — simultaneously.' });
+    opps.push({ priority: 9, title: ‘Your team is spending days on work a system should handle.’, text: ‘With 15–30%+ of capacity spent on patterned tasks, even partial automation gives each person 1–2 days back per week. That’s margin, capacity, and morale — returned simultaneously.’ });
   }
 
   var q9 = answers[8] ? answers[8].optIdx : -1;
   if (q9 === 1 || q9 === 2 || q9 === 3) {
-    opps.push({ priority: 10 - (answers[8] ? answers[8].score : 0), title: 'Bottleneck-targeted AI.', text: 'AI’s biggest single-business ROI is usually attacking the bottleneck everyone already knows about. Name it, scope it, build for it. The fix is often simpler than you expect.' });
+    opps.push({ priority: 10 - (answers[8] ? answers[8].score : 0), title: ‘You already know where the bottleneck is.’, text: ‘The highest-ROI AI deployment in most businesses attacks the bottleneck everyone can name in 30 seconds. Scope it. Build for it. The fix is almost always simpler than the workaround your team has been living with.’ });
   }
 
   var q10 = answers[9] ? answers[9].optIdx : -1;
   var q12 = answers[11] ? answers[11].optIdx : -1;
   if ((q10 === 2 || q10 === 3) && q12 === 1) {
-    opps.push({ priority: 8, title: 'Customer-facing speed AI.', text: 'When prospects choose competitors on speed, AI in the response surface — quoting, intake, follow-up — is often the lowest-friction, fastest-ROI deployment available.' });
+    opps.push({ priority: 8, title: 'You are losing deals on response time.', text: 'When prospects choose competitors on speed, the response surface — quoting, intake, follow-up — is where AI pays for itself fastest. This is usually the first deployment that shows measurable revenue impact.' });
   }
 
   var q1 = answers[0] ? answers[0].optIdx : -1;
   if (q1 === 2 || q1 === 3) {
-    opps.push({ priority: 10 - (answers[0] ? answers[0].score : 0), title: 'Data consolidation first.', text: 'AI multiplies what you can already see. If data is fragmented across tools and spreadsheets, foundational consolidation has higher ROI than any AI pilot right now.' });
+    opps.push({ priority: 10 - (answers[0] ? answers[0].score : 0), title: 'Fix the data before you touch AI.', text: 'AI multiplies what you can already see. If your data is fragmented across tools, spreadsheets, and people's heads, consolidation has higher ROI than any AI deployment right now. This is the prerequisite most vendors skip.' });
   }
 
   var q5score = answers[4] ? answers[4].score : 3;
   var q6score = answers[5] ? answers[5].score : 3;
   if (q5score <= 1 || q6score <= 1) {
-    opps.push({ priority: 7, title: 'Team-readiness sprint.', text: 'Before any AI deployment, a 2-week team-readiness program de-risks the rollout and unlocks 2× faster adoption. The technology is never the bottleneck — the team’s willingness to use it is.' });
+    opps.push({ priority: 7, title: ‘Your team needs to be ready before the tools arrive.’, text: ‘Technology is never the bottleneck — the team’s willingness to use it is. A focused readiness sprint before any deployment de-risks the rollout and typically doubles adoption speed. Skip this and even good tools get shelved.’ });
   }
 
   opps.sort(function(a, b) { return b.priority - a.priority; });
