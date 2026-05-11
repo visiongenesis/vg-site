@@ -1,0 +1,550 @@
+{
+  "_meta": {
+    "schema_version": "1.0",
+    "config_format": "event-package-ledger.v1",
+    "note": "Mock practice \u2014 used to demonstrate that the same app handles a totally different SKU mix, event cadence, and bonus structure. NOT a real customer."
+  },
+  "practice": {
+    "id": "austin-glow-medspa",
+    "name": "Austin Glow Medspa",
+    "short_name": "Austin Glow",
+    "vertical": "medspa",
+    "owner": "Dr. Ana Reyes",
+    "ops_manager": "Marcus Lee",
+    "biller": "(in-house)",
+    "reconciler": "(in-house)",
+    "emr": "AestheticRecord",
+    "clearinghouse": null,
+    "currency": "USD",
+    "timezone": "America/Chicago",
+    "branding": {
+      "primary_color": "#a8568b",
+      "accent_color": "#f6c177",
+      "event_brand": "Glow Quarterly"
+    }
+  },
+  "providers": [
+    {
+      "id": "ana",
+      "name": "Dr. Ana Reyes",
+      "specialty": "physician",
+      "earns_bonus_on": [
+        "injectables",
+        "membership"
+      ]
+    },
+    {
+      "id": "naomi",
+      "name": "Naomi",
+      "specialty": "RN-injector",
+      "earns_bonus_on": [
+        "injectables"
+      ]
+    },
+    {
+      "id": "raul",
+      "name": "Raul",
+      "specialty": "laser-tech",
+      "earns_bonus_on": [
+        "lasers"
+      ]
+    }
+  ],
+  "catalog": {
+    "categories": [
+      {
+        "id": "membership",
+        "label": "Glow Membership",
+        "groups": [
+          {
+            "id": "memberships",
+            "label": "Memberships",
+            "subtitle": "Annual / quarterly recurring credits",
+            "items": [
+              {
+                "sku": "GLOW_MEMBERSHIP_ANNUAL",
+                "name": "Glow Annual Membership ($1,800 in credits)",
+                "reg_price": 2400,
+                "glam_price": 1800,
+                "redemption_units": 4,
+                "redemption_unit_label": "quarterly visit"
+              },
+              {
+                "sku": "GLOW_MEMBERSHIP_QUARTERLY",
+                "name": "Glow Quarterly Membership ($450 in credits)",
+                "reg_price": 600,
+                "glam_price": 450,
+                "redemption_units": 1,
+                "redemption_unit_label": "quarterly visit"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "injectables",
+        "label": "Injectables",
+        "groups": [
+          {
+            "id": "neuromodulators",
+            "label": "Neuromodulators",
+            "items": [
+              {
+                "sku": "BOTOX_UNIT",
+                "name": "Botox",
+                "reg_price": 13,
+                "glam_price": 11,
+                "unit": "per unit"
+              },
+              {
+                "sku": "JEUVEAU_UNIT",
+                "name": "Jeuveau",
+                "reg_price": 12,
+                "glam_price": 10,
+                "unit": "per unit"
+              }
+            ]
+          },
+          {
+            "id": "fillers",
+            "label": "Dermal Fillers",
+            "items": [
+              {
+                "sku": "JUVE_VOLUMA",
+                "name": "Juvederm Voluma",
+                "reg_price": 850,
+                "glam_price": 700
+              },
+              {
+                "sku": "REST_LYFT",
+                "name": "Restylane Lyft",
+                "reg_price": 750,
+                "glam_price": 600
+              },
+              {
+                "sku": "RHA_3",
+                "name": "RHA 3",
+                "reg_price": 800,
+                "glam_price": 650
+              }
+            ]
+          },
+          {
+            "id": "filler_packages",
+            "label": "Filler Packages",
+            "subtitle": "Multi-syringe bundles",
+            "items": [
+              {
+                "sku": "FILLER_PKG_2",
+                "name": "2-Syringe Bundle",
+                "glam_price": 1300,
+                "redemption_units": 2,
+                "redemption_unit_label": "syringe"
+              },
+              {
+                "sku": "FILLER_PKG_3",
+                "name": "3-Syringe Bundle",
+                "glam_price": 1850,
+                "redemption_units": 3,
+                "redemption_unit_label": "syringe"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "lasers",
+        "label": "Laser & Light",
+        "groups": [
+          {
+            "id": "ipl",
+            "label": "BBL HeroIc",
+            "items": [
+              {
+                "sku": "BBL_FACE_1",
+                "name": "BBL Face (1 tx)",
+                "reg_price": 500,
+                "glam_price": 400
+              },
+              {
+                "sku": "BBL_FACE_3",
+                "name": "BBL Face (3 tx series)",
+                "reg_price": 1350,
+                "glam_price": 1080,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "BBL_FNC_3",
+                "name": "BBL Face + Neck + Chest (3 tx)",
+                "reg_price": 1900,
+                "glam_price": 1550,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              }
+            ]
+          },
+          {
+            "id": "moxi",
+            "label": "Moxi",
+            "items": [
+              {
+                "sku": "MOXI_FACE_4",
+                "name": "Moxi Face (4 tx)",
+                "reg_price": 1800,
+                "glam_price": 1500,
+                "redemption_units": 4,
+                "redemption_unit_label": "treatment"
+              }
+            ]
+          },
+          {
+            "id": "halo",
+            "label": "Halo",
+            "items": [
+              {
+                "sku": "HALO_FACE_1",
+                "name": "Halo Face (single)",
+                "reg_price": 1500,
+                "glam_price": 1200
+              },
+              {
+                "sku": "HALO_FACE_NECK_1",
+                "name": "Halo Face + Neck (single)",
+                "reg_price": 2200,
+                "glam_price": 1800
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "skincare",
+        "label": "Skincare & Facials",
+        "groups": [
+          {
+            "id": "facials",
+            "label": "Member Facials",
+            "items": [
+              {
+                "sku": "DERMAPLANE_HYDRA_1",
+                "name": "Dermaplane + HydraFacial (1)",
+                "reg_price": 220,
+                "glam_price": 180
+              },
+              {
+                "sku": "DERMAPLANE_HYDRA_4",
+                "name": "Dermaplane + HydraFacial (4 series)",
+                "reg_price": 800,
+                "glam_price": 640,
+                "redemption_units": 4,
+                "redemption_unit_label": "treatment"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "events": [
+    {
+      "id": "glow-q1",
+      "name": "Glow Quarterly \u2014 Spring",
+      "cadence": "quarterly",
+      "typical_month": 3,
+      "redemption_window_months": 4,
+      "rollover_policy": "no-rollover-strict-deadline"
+    },
+    {
+      "id": "glow-q2",
+      "name": "Glow Quarterly \u2014 Summer",
+      "cadence": "quarterly",
+      "typical_month": 6,
+      "redemption_window_months": 4,
+      "rollover_policy": "no-rollover-strict-deadline"
+    },
+    {
+      "id": "glow-q3",
+      "name": "Glow Quarterly \u2014 Fall",
+      "cadence": "quarterly",
+      "typical_month": 9,
+      "redemption_window_months": 4,
+      "rollover_policy": "no-rollover-strict-deadline"
+    },
+    {
+      "id": "glow-q4",
+      "name": "Glow Quarterly \u2014 Winter",
+      "cadence": "quarterly",
+      "typical_month": 12,
+      "redemption_window_months": 4,
+      "rollover_policy": "no-rollover-strict-deadline"
+    }
+  ],
+  "bonus_rules": [
+    {
+      "id": "naomi-injectables",
+      "provider_id": "naomi",
+      "applies_to_categories": [
+        "injectables"
+      ],
+      "bonus_pct": 12.0,
+      "trigger": "on-redemption"
+    },
+    {
+      "id": "raul-lasers",
+      "provider_id": "raul",
+      "applies_to_categories": [
+        "lasers"
+      ],
+      "bonus_pct": 12.0,
+      "trigger": "on-redemption"
+    },
+    {
+      "id": "ana-physician",
+      "provider_id": "ana",
+      "applies_to_categories": [
+        "injectables",
+        "membership"
+      ],
+      "bonus_pct": 8.0,
+      "trigger": "on-redemption"
+    }
+  ],
+  "alert_rules": [
+    {
+      "id": "deadline-30d",
+      "name": "Quarterly deadline approaching",
+      "condition": "outstanding_value > 0 AND days_to_deadline <= 30",
+      "channel": "email",
+      "template": "deadline-q-reminder"
+    },
+    {
+      "id": "missed-quarterly",
+      "name": "Member missed quarterly visit",
+      "condition": "membership_active AND days_since_last_redemption > 90",
+      "channel": "sms",
+      "template": "membership-recapture"
+    }
+  ],
+  "csv_import_mappings": {
+    "aestheticrecord_treatment_export": {
+      "description": "Aesthetic Record service log export",
+      "expected_columns": [
+        "client_id",
+        "client_name",
+        "visit_id",
+        "service_date",
+        "performed_by",
+        "service_code",
+        "service_name",
+        "quantity",
+        "amount_charged"
+      ],
+      "match_strategy": "client_id + service_date + service_name \u2192 match against outstanding package units"
+    },
+    "cpt_to_sku": {
+      "AR_BOTOX": "BOTOX_UNIT",
+      "AR_JEUVEAU": "JEUVEAU_UNIT",
+      "AR_RHA3": "RHA_3",
+      "AR_FILLER_PKG_3": "FILLER_PKG_3",
+      "AR_BBL_FACE": "BBL_FACE_1",
+      "AR_BBL_FACE_3": "BBL_FACE_3",
+      "AR_MOXI_FACE": "MOXI_FACE_4",
+      "AR_HALO_FACE": "HALO_FACE_1",
+      "AR_HYDRAFACIAL": "DERMAPLANE_HYDRA_1",
+      "AR_GLOW_MEMBER_VISIT": "GLOW_MEMBERSHIP_ANNUAL"
+    }
+  },
+  "sample_data": {
+    "version": "mock-2026-05-02",
+    "customers": {
+      "cust_jordan_p": {
+        "id": "cust_jordan_p",
+        "name": "Jordan Park",
+        "phone": "512-555-0100",
+        "email": "jordan@example.com",
+        "createdAt": "2026-03-15T18:00:00Z"
+      },
+      "cust_alex_m": {
+        "id": "cust_alex_m",
+        "name": "Alex Morales",
+        "phone": "512-555-0102",
+        "email": "alex@example.com",
+        "createdAt": "2026-03-15T18:30:00Z"
+      },
+      "cust_sam_chen": {
+        "id": "cust_sam_chen",
+        "name": "Sam Chen",
+        "phone": "512-555-0145",
+        "email": "sam.chen@example.com",
+        "createdAt": "2026-03-15T19:00:00Z"
+      }
+    },
+    "orders": {
+      "ord_jordan_q1": {
+        "id": "ord_jordan_q1",
+        "customerId": "cust_jordan_p",
+        "eventId": "glow-q1",
+        "createdAt": "2026-03-15T18:05:00Z",
+        "subtotal": 1800,
+        "paymentMethod": "cc",
+        "paymentRef": "5544",
+        "deadline": "2026-07-15",
+        "lines": [
+          {
+            "sku": "GLOW_MEMBERSHIP_ANNUAL",
+            "name": "Glow Annual Membership ($1,800 in credits)",
+            "qty": 1,
+            "unitPrice": 1800,
+            "lineTotal": 1800,
+            "category": "membership",
+            "redemptionUnitsTotal": 4,
+            "redemptionUnitLabel": "quarterly visit"
+          }
+        ]
+      },
+      "ord_alex_q1": {
+        "id": "ord_alex_q1",
+        "customerId": "cust_alex_m",
+        "eventId": "glow-q1",
+        "createdAt": "2026-03-15T18:35:00Z",
+        "subtotal": 2230,
+        "paymentMethod": "cc",
+        "paymentRef": "1101",
+        "deadline": "2026-07-15",
+        "lines": [
+          {
+            "sku": "FILLER_PKG_3",
+            "name": "3-Syringe Bundle",
+            "qty": 1,
+            "unitPrice": 1850,
+            "lineTotal": 1850,
+            "category": "injectables",
+            "redemptionUnitsTotal": 3,
+            "redemptionUnitLabel": "syringe"
+          },
+          {
+            "sku": "BOTOX_UNIT",
+            "name": "Botox",
+            "qty": 30,
+            "unitPrice": 11,
+            "lineTotal": 330,
+            "category": "injectables",
+            "redemptionUnitsTotal": 30,
+            "redemptionUnitLabel": "per unit"
+          },
+          {
+            "sku": "DERMAPLANE_HYDRA_1",
+            "name": "Dermaplane + HydraFacial (1)",
+            "qty": 1,
+            "unitPrice": 180,
+            "lineTotal": 180,
+            "category": "skincare",
+            "redemptionUnitsTotal": 1,
+            "redemptionUnitLabel": "unit"
+          },
+          {
+            "sku": "BBL_FACE_1",
+            "name": "BBL Face (1 tx)",
+            "qty": 1,
+            "unitPrice": 400,
+            "lineTotal": 400,
+            "category": "lasers",
+            "redemptionUnitsTotal": 1,
+            "redemptionUnitLabel": "unit"
+          }
+        ]
+      },
+      "ord_sam_q1": {
+        "id": "ord_sam_q1",
+        "customerId": "cust_sam_chen",
+        "eventId": "glow-q1",
+        "createdAt": "2026-03-15T19:05:00Z",
+        "subtotal": 2730,
+        "paymentMethod": "check",
+        "paymentRef": "4422",
+        "deadline": "2026-07-15",
+        "lines": [
+          {
+            "sku": "MOXI_FACE_4",
+            "name": "Moxi Face (4 tx)",
+            "qty": 1,
+            "unitPrice": 1500,
+            "lineTotal": 1500,
+            "category": "lasers",
+            "redemptionUnitsTotal": 4,
+            "redemptionUnitLabel": "treatment"
+          },
+          {
+            "sku": "BBL_FACE_3",
+            "name": "BBL Face (3 tx series)",
+            "qty": 1,
+            "unitPrice": 1080,
+            "lineTotal": 1080,
+            "category": "lasers",
+            "redemptionUnitsTotal": 3,
+            "redemptionUnitLabel": "treatment"
+          },
+          {
+            "sku": "BOTOX_UNIT",
+            "name": "Botox",
+            "qty": 14,
+            "unitPrice": 11,
+            "lineTotal": 154,
+            "category": "injectables",
+            "redemptionUnitsTotal": 14,
+            "redemptionUnitLabel": "per unit"
+          }
+        ]
+      }
+    },
+    "redemptions": {
+      "red_jordan_0": {
+        "id": "red_jordan_0",
+        "customerId": "cust_jordan_p",
+        "orderId": "ord_jordan_q1",
+        "lineSku": "GLOW_MEMBERSHIP_ANNUAL",
+        "providerId": "naomi",
+        "redeemedAt": "2026-04-01T15:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_sam_moxi_0": {
+        "id": "red_sam_moxi_0",
+        "customerId": "cust_sam_chen",
+        "orderId": "ord_sam_q1",
+        "lineSku": "MOXI_FACE_4",
+        "providerId": "raul",
+        "redeemedAt": "2026-04-10T16:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_sam_bbl_0": {
+        "id": "red_sam_bbl_0",
+        "customerId": "cust_sam_chen",
+        "orderId": "ord_sam_q1",
+        "lineSku": "BBL_FACE_3",
+        "providerId": "raul",
+        "redeemedAt": "2026-04-15T16:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_sam_botox_0": {
+        "id": "red_sam_botox_0",
+        "customerId": "cust_sam_chen",
+        "orderId": "ord_sam_q1",
+        "lineSku": "BOTOX_UNIT",
+        "providerId": "naomi",
+        "redeemedAt": "2026-04-20T17:00:00Z",
+        "unitsRedeemed": 14
+      }
+    },
+    "events": {
+      "glow-q1": {
+        "id": "glow-q1",
+        "name": "Glow Quarterly \u2014 Spring",
+        "date": "2026-03-15",
+        "deadline": "2026-07-15"
+      }
+    },
+    "currentEventId": "glow-q1",
+    "currentOrder": null
+  }
+}
