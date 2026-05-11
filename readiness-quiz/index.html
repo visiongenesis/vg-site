@@ -788,7 +788,7 @@ function startQuiz() {
 
 function renderQuestion() {
   var q = questions[currentQ];
-  document.getElementById("quiz-progress").textContent = "Question ' + (currentQ + 1) + ' of 12";
+  document.getElementById("quiz-progress").textContent = 'Question ' + (currentQ + 1) + ' of 12';
   document.getElementById("quiz-progress-fill").style.width = ((currentQ + 1) / 12 * 100) + "%";
   document.getElementById("quiz-dimension").textContent = 'Dimension ' + q.dimNum + ' / ' + q.dim;
   document.getElementById("quiz-question").textContent = q.text;
@@ -798,7 +798,7 @@ function renderQuestion() {
   q.opts.forEach(function(opt, i) {
     var li = document.createElement("li");
     li.className = "quiz-option";
-    li.innerHTML = "<span class=\"option-letter\">' + opt.letter + '</span><span>' + opt.text + '</span>";
+    li.innerHTML = '<span class="option-letter">' + opt.letter + '</span><span>' + opt.text + '</span>';
     li.onclick = function() { selectAnswer(i, opt.score); };
     ul.appendChild(li);
   });
