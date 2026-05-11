@@ -190,6 +190,12 @@
   .brand-chip[data-brand="hydrafacial"] { background: #1a8a96; color: #ffffff; border-color: #1a8a96; }
   .brand-chip[data-brand="diamondglow"] { background: #2a4a8a; color: #ffffff; border-color: #2a4a8a; }
   .brand-chip[data-brand="morpheus8"] { background: #1a1a2a; color: #ffffff; border-color: #1a1a2a; }
+  /* HYBRID wordmark mode — config-driven per practice. Renders brand chips as larger, bolder wordmark-style labels that mirror the actual brand identity from the Glamm paper sheet. */
+  body.brand-wordmarks .brand-chip { font-size: 11px; padding: 3px 9px; border-radius: 2px; letter-spacing: 0.12em; font-weight: 800; border-width: 1.5px; }
+  body.brand-wordmarks .brand-chip[data-brand="botox"] { font-style: italic; letter-spacing: 0.16em; }
+  body.brand-wordmarks .brand-chip[data-brand="juvederm"] { letter-spacing: 0.14em; font-weight: 700; }
+  body.brand-wordmarks .brand-chip[data-brand="restylane"] { letter-spacing: 0.10em; font-weight: 600; }
+  body.brand-wordmarks .brand-chip[data-brand="sculptra"] { letter-spacing: 0.14em; }
   .brand-chip[data-brand="ultherapy"] { background: #4a8a96; color: #ffffff; border-color: #4a8a96; }
   .brand-chip[data-brand="bodytite"], .brand-chip[data-brand="facetite"] { background: #5a4a8a; color: #ffffff; border-color: #5a4a8a; }
   .brand-chip[data-brand="evolvex"] { background: #2a8a8a; color: #ffffff; border-color: #2a8a8a; }
@@ -1013,6 +1019,7 @@ function setupHeader() {
     document.documentElement.style.setProperty('--primary', CONFIG.practice.branding.primary_color);
     document.documentElement.style.setProperty('--accent', CONFIG.practice.branding.accent_color);
   }
+  if (CONFIG.practice.brand_display === 'wordmarks') document.body.classList.add('brand-wordmarks');
 }
 
 function loadOrSeedState() {
