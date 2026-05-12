@@ -51,7 +51,7 @@
   * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
   *:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 3px; }
   html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: var(--sans); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-feature-settings: "ss01", "cv11"; }
-  body { min-height: 100vh; padding-bottom: 80px; line-height: 1.5; }
+  body { min-height: 100vh; padding-bottom: 80px; line-height: 1.5; overflow-x: hidden; }
   ::selection { background: var(--accent-soft); color: var(--navy); }
   ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-track { background: transparent; }
@@ -71,6 +71,15 @@
   header .brand .vg-mark { font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: 0.18em; line-height: 1; padding: 5px 8px; border: 1px solid rgba(255,255,255,0.25); border-radius: 2px; color: rgba(255,255,255,0.95); display: none; }
   header .title { font-family: var(--condensed); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.85); }
   header .subtitle { font-size: 10.5px; opacity: 0.55; margin-top: 3px; letter-spacing: 0.08em; font-weight: 500; text-transform: uppercase; }
+  @media (max-width: 599px) {
+    header { padding: 10px 14px; }
+    header .brand .sed-logo { height: 24px; }
+    header .brand .header-divider { height: 22px; }
+    header .brand { gap: 10px; }
+    header .title { font-size: 11px; }
+    header .subtitle { display: none; }
+    header .practice-pill { font-size: 9px; padding: 4px 8px; }
+  }
   header .practice-pill { font-size: 10.5px; background: transparent; border: 1px solid rgba(255,255,255,0.25); padding: 5px 11px; border-radius: 2px; cursor: pointer; transition: background 0.15s, border-color 0.15s; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: white; }
   header .practice-pill:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.45); }
 
@@ -652,9 +661,13 @@
   .btn-print { display: inline-flex; align-items: center; gap: 6px; font-size: 12.5px; font-weight: 600; padding: 7px 14px; border: 1px solid var(--border-strong); background: var(--paper); color: var(--text-soft); border-radius: var(--r-sm); cursor: pointer; transition: border-color 0.15s, color 0.15s; letter-spacing: 0.02em; }
   .btn-print:hover { border-color: var(--primary); color: var(--primary); }
   .btn-print svg { width: 14px; height: 14px; }
-  .page-head-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-  .page-head-row > .page-head { flex: 1; min-width: 0; }
-  .page-head-row > .btn-print { flex-shrink: 0; margin-top: 28px; }
+  .page-head-row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 8px 12px; }
+  .page-head-row > .page-head { flex: 1 1 100%; min-width: 0; }
+  .page-head-row > .btn-print { flex-shrink: 0; }
+  @media (min-width: 768px) {
+    .page-head-row > .page-head { flex: 1 1 0%; }
+    .page-head-row > .btn-print { margin-top: 28px; }
+  }
 
   @media print {
     body { padding: 0 !important; background: white !important; }
@@ -1017,7 +1030,7 @@ async function loadConfig(practiceId) {
   // Try fetching the JSON config. If we're on file:// protocol, this often fails with CORS,
   // so fall back to a hardcoded config registry baked into the app for offline demos.
   try {
-    const res = await fetch(`configs/${practiceId}.json?v=20260512h`);
+    const res = await fetch(`configs/${practiceId}.json?v=20260512j`);
     if (res.ok) return await res.json();
   } catch {}
   // Fallback: inlined mini-configs (only enough for offline demo continuity)
