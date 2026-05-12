@@ -975,7 +975,7 @@ async function loadConfig(practiceId) {
   // Try fetching the JSON config. If we're on file:// protocol, this often fails with CORS,
   // so fall back to a hardcoded config registry baked into the app for offline demos.
   try {
-    const res = await fetch(`configs/${practiceId}.json`);
+    const res = await fetch(`configs/${practiceId}.json?v=20260512`);
     if (res.ok) return await res.json();
   } catch {}
   // Fallback: inlined mini-configs (only enough for offline demo continuity)
