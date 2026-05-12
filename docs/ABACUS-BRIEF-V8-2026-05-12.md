@@ -128,18 +128,27 @@ Until R provides a real photo, we use:
 - Top-right: small JetBrains Mono "VG · v0.8" timestamp
 **Used as:** og:image and twitter:image for every page
 
-### Priority 4 — YouTube thumbnail template (1280×720)
+### Priority 4 — YouTube thumbnail template (1280×720) — LOCKED RECIPE per R11 board
+
 **Format:** PSD or Figma source + PNG export, 1280×720
-**Composition:**
-- Left 45%: Ryan portrait (Apple Deep Blue crewneck), full-bleed
-- Right 55%: paper background with the episode claim in Inter 800 black (3 lines max, 6 words/line max)
-- Bottom strip: Pantone 151 #FF8200 horizontal bar (8% of height) with JetBrains Mono "OPERATOR'S LOG · Ep. NN" in white
-- Top-right corner: small VG intertwined-trunks icon in App Store blue
-**Constraint:** claim text must be readable at 320px wide (mobile YouTube preview)
-**Variants needed:** 3 mock claims — render with each:
+**Composition (this is THE recipe — do not improvise):**
+- **Left 45% panel:** Ryan portrait, **solid #0051D5 background** (NOT #007AFF — sensor clipping; #0051D5 is the camera-flattery shade locked by R11 board), Ryan in matching #0051D5 crewneck, chest-up, direct gaze, no grin
+- **Right 55% panel:** Paper #F2EBDD background with the episode claim in **Inter 800 black** (3 lines max, 6 words/line max). Apply **+10% contrast bump on the text** to survive YouTube dark-mode dimming
+- **Signal accent:** **Pantone 151 #FF8200** as the ONLY accent — used for one of: underline beneath the punchline word · arrow pointing at a claim · stroke around a number · button-style frame around a CTA word. Never as a background. Never more than ~5% of total thumbnail surface.
+- **Bottom strip:** thin Pantone 151 #FF8200 horizontal bar (4-6% of height) with JetBrains Mono "OPERATOR'S LOG · Ep. NN" in white
+- **Top-right corner:** small VG intertwined-trunks icon, mono-color, #007AFF on Paper or Paper on #0051D5
+- **Optional:** small Burgundy #5A1414 truth-stamp in corner ONLY for "Operator's Log" branded episodes — 1 cm² max
+- **Banned in thumbnails:** alternate blues, blazers, patterned shirts, gradients, glow effects, second accents beyond P151, decorative botanical motifs, drop shadows, glassmorphism
+
+**Constraint:** claim text must be readable at 320×180 (mobile YouTube preview). Test by exporting to 320×180 — if the punchline word doesn't read in 0.3 seconds, the layout is wrong.
+
+**Variants needed:** 4 mock claims — render with each:
 1. *"This is what's actually costing you money."*
 2. *"We don't sell tools. We solve the work."*
 3. *"The system that builds yours."*
+4. *"9 agents. One operator. Your business."*
+
+**Differentiation reference:** Mark Rober + Linus Tech Tips also use blue/orange complementary pairs — VG differentiates via the **Paper #F2EBDD warm anchor** (they use pure black/white). Paper MUST appear in every thumbnail. Without it, VG = generic tech-review channel.
 
 ### Priority 5 — Hexagonal divider variants (3 alternatives)
 **Format:** SVG, infinite repeat, 100px-tall horizontal strip
@@ -181,6 +190,52 @@ Until R provides a real photo, we use:
 - Motion concepts (subtle, no parallax, no flash transitions)
 - OG image composition variants
 - HeyGen avatar pose alternatives within the locked outfit/framing rules
+
+## 8.5. R11 board addendum — YouTube thumbnail recipe + memorability discipline (2026-05-12 18:51 ET)
+
+The board ran an 8-model audit specifically on YouTube viability + memorable brand identity (Round 11, avg conf 76%, Qwen 92%, Mistral 90%, GPT-5.5 88%). **7 of 8 explicit votes confirmed App Store Blue + Pantone 151 + Paper is the engineered-correct palette for YouTube/memorability.** Reversed R10's navy push.
+
+### The locked discipline rule (Qwen 92% pick)
+
+> **"Primary on every surface, accent only on claims."**
+>
+> - **#007AFF App Store Blue** appears in 100% of thumbnails (background OR Ryan's panel)
+> - **#FF8200 Pantone 151** exclusively frames text and signals action — never as a primary surface
+> - **Paper #F2EBDD** fills negative space only — never as a primary color block
+> - **Burgundy #5A1414** quarantined to truth panels only
+> - All tertiary colors or patterns are **permanently banned**
+
+### The locked YouTube thumbnail recipe (1280×720)
+
+Board converged on this composition:
+
+- **Left 45% panel:** Ryan in solid **#0051D5 crewneck** (one shade deeper than primary #007AFF for camera flattery on 50-something white male skin — pure #007AFF would clip the sensor)
+- **Right 55% panel:** Paper #F2EBDD card with claim text in black Inter 800, **#FF8200 stroke / underline / arrow / button border** as the only signal accent
+- **Optional accent:** small Burgundy #5A1414 truth-stamp in corner for "Operator's Log Ep. NN" episodes
+- **No competing colors. No patterns. No blazers. No alternate blues. No drift.**
+
+### Engineering rationale (why this palette wins YouTube)
+
+1. **#007AFF + #FF8200 are near-complementary at max saturation** — survives YouTube's H.264 chroma subsampling and dim-mode rendering. Deep navy crushes to black at 320px and disappears.
+2. **Paper #F2EBDD is the actual moat** — every dominant creator uses pure white (Mark Rober) or pure black (Hormozi, MrBeast, Vercel). Warm cream + saturated complement is **a slot no AI-implementation creator owns.**
+3. **Apple uses #007AFF for UI, not thumbnail brand identity** — the YouTube slot for "Apple blue as creator brand color" is genuinely unowned.
+4. **Pattern 1 (saturated primary + complement) wins for VG specifically** because Paper is non-negotiable. Pattern 2 (black + one signal) would kill the warm anchor.
+
+### Risks flagged + mitigations Abacus must test against
+
+| Risk | Mitigation in renders |
+|---|---|
+| Mark Rober blue/orange similarity (he uses pure black ground) | Paper #F2EBDD MUST appear in every thumbnail — that's our differentiator |
+| Apple UI association — could read "tech UI" not "operator" | Ryan's physical presence in crewneck + burgundy truth panels carry operator-credibility |
+| Pantone 151 overpowering if used as background | Accent only, never primary surface — bound P151 ratio to ≤5% per thumbnail |
+| YouTube dark mode absorbs Paper luminance | Apply 10% contrast bump on claim overlay text in all renders |
+| Wardrobe drift kills recognition | Ryan in #0051D5 crewneck ONLY — render him this way in every output, no navy, no blazer, no patterns, no alternate blues |
+
+### How to read this addendum
+
+If a render concept tempts you to add another color, soften the saturation, swap the crewneck shade, or substitute a different blue/orange — **stop, re-read this section, and don't.** The board's unanimity is the engineering. The discipline IS the brand.
+
+---
 
 ## 9. What to avoid (R-flagged anti-patterns)
 
