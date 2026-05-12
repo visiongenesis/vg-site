@@ -1287,15 +1287,10 @@
     {
       "id": "matt-physician-supervision",
       "provider_id": "matt",
-      "applies_to_categories": [
-        "injectables",
-        "treatments",
-        "lasers",
-        "contouring"
-      ],
-      "bonus_pct": 5.0,
-      "trigger": "on-redemption",
-      "note": "Physician supervision split \u2014 placeholder rate; client to confirm"
+      "applies_to_categories": [],
+      "bonus_pct": 0,
+      "trigger": "none",
+      "note": "Dr. Doppelt does not receive event bonuses \u2014 owner/physician, not a commissioned provider"
     }
   ],
   "alert_rules": [
