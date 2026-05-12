@@ -1,0 +1,1393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vision Genesis — The system that builds yours.</title>
+<meta name="description" content="We don't sell tools. We solve what's costing you money. An owner-operated partnership of veteran operators and AI-native builders.">
+<meta property="og:title" content="The system that builds yours.">
+<meta property="og:description" content="We don't sell tools. We solve what's costing you money. Vision Genesis pairs veteran operators with AI-native builders to solve the work that's eating your margin — without replacing your team.">
+<meta property="og:image" content="https://visiongenesisai.com/v8/assets/og-social.png">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://visiongenesisai.com/v8/assets/og-social.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@1,500;1,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=IBM+Plex+Mono:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* PALETTE — engineered v8 */
+  --paper: #F2EBDD;         /* 45% — warm trust anchor */
+  --paper-warm: #EFE6D2;
+  --bone: #E6DCC4;
+  --white: #FAFAFA;         /* 12% — engineered grid surface */
+  --appstore-blue: #007AFF; /* 30% — brand primary, headers, CTAs, Ryan */
+  --appstore-deep: #0051D5; /* deeper variant for Ryan crewneck + pressed states */
+  --appstore-tint: #E6F2FF; /* light wash for hover surfaces */
+  --p151: #FF8200;          /* 5% — Pantone 151 C, tech accent: code, pulse, hover, interactive */
+  --p151-deep: #D96D00;     /* deeper p151 for pressed states + hover */
+  --burgundy: #5A1414;      /* 2% — truth-panel only (Principles band + "yours" italic) */
+  --burgundy-deep: #3F0E0E;
+  --ink: #0A0A0A;           /* 6% — body text + terminal text */
+  --ink-2: #1F1F1F;
+  --mono-bg: #0A0E1A;       /* terminal artifact background */
+  --rule: #6F6A60;
+  --graphite: #4A4A48;
+  --muted: #6F6A60;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; }
+html { font-size: 17px; scroll-behavior: smooth; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 {
+  font-family: 'Inter', system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.98;
+  color: var(--ink);
+}
+h1 { font-size: clamp(3.5rem, 9vw, 8rem); font-weight: 800; letter-spacing: -0.045em; line-height: 0.92; }
+h2 { font-size: clamp(2.2rem, 5vw, 4rem); margin-bottom: 1.2rem; letter-spacing: -0.038em; font-weight: 800; }
+h3 { font-size: 1.3rem; font-weight: 700; letter-spacing: -0.018em; }
+p { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.0625rem; line-height: 1.6; max-width: 64ch; font-weight: 400; }
+a { color: inherit; text-decoration: none; transition: color 0.18s; }
+.mono {
+  font-family: 'IBM Plex Mono', ui-monospace, monospace;
+  font-size: 0.78125rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.code-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+.fade-in { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 24px;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* Hexagonal SVG divider — geometric, tech-forward, replaces botanical fragments */
+.hex-divider {
+  height: 56px;
+  width: 100%;
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg width='28' height='49' viewBox='0 0 28 49' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23007AFF' stroke-opacity='0.18' stroke-width='1'%3E%3Cpolygon points='14,0 28,8 28,24 14,32 0,24 0,8'/%3E%3Cpolygon points='14,17 28,25 28,41 14,49 0,41 0,25'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 28px 49px;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  border: 2px solid var(--appstore-blue);
+  background: var(--appstore-blue);
+  color: var(--white);
+  padding: 18px 32px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.18s;
+}
+.btn:hover { background: var(--appstore-deep); border-color: var(--appstore-deep); transform: translateY(-2px); }
+.btn-p151 { background: var(--p151); border-color: var(--p151); color: var(--ink); }
+.btn-p151:hover { background: var(--p151-deep); border-color: var(--p151-deep); color: var(--white); }
+.btn-dark { background: var(--ink); border-color: var(--ink); color: var(--white); }
+.btn-dark:hover { background: var(--appstore-blue); border-color: var(--appstore-blue); color: var(--white); }
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn-ghost:hover { background: var(--appstore-blue); border-color: var(--appstore-blue); color: var(--white); }
+.btn-on-burgundy { background: var(--paper); border-color: var(--paper); color: var(--burgundy); }
+.btn-on-burgundy:hover { background: var(--p151); border-color: var(--p151); color: var(--ink); }
+.text-link {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--ink);
+  border-bottom: 2px solid var(--appstore-blue);
+  padding-bottom: 2px;
+  letter-spacing: 0.01em;
+  transition: color 0.18s, border-color 0.18s;
+}
+.text-link:hover { color: var(--appstore-blue); border-bottom-color: var(--appstore-deep); }
+.text-link.p151 { color: var(--p151-deep); border-bottom-color: var(--p151-deep); }
+.text-link.p151:hover { color: var(--appstore-blue); border-bottom-color: var(--appstore-blue); }
+
+/* Header */
+header {
+  position: sticky;
+  top: 0;
+  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
+  z-index: 100;
+}
+header .grid { align-items: center; padding-top: 18px; padding-bottom: 18px; }
+.brand { grid-column: 1 / 4; display: flex; align-items: center; gap: 0; }
+.brand img { height: 52px; width: auto; display: block; }
+nav.primary {
+  grid-column: 4 / 10;
+  display: flex;
+  justify-content: flex-end;
+  gap: 28px;
+  align-items: center;
+}
+nav.primary a {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  padding-bottom: 4px;
+}
+nav.primary a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 100%;
+  bottom: 0;
+  height: 2px;
+  background: var(--p151);
+  transition: right 0.25s ease;
+}
+nav.primary a:hover { color: var(--appstore-blue); }
+nav.primary a:hover::after { right: 0; }
+.header-cta { grid-column: 10 / 13; display: flex; justify-content: flex-end; gap: 10px; align-items: center; }
+.header-cta .btn { padding: 12px 22px; font-size: 0.8125rem; }
+
+/* Animated agent-status pulse pill — fixed top-right of hero */
+.agent-status {
+  position: absolute;
+  top: 24px;
+  right: 48px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ink);
+  color: var(--white);
+  padding: 10px 16px;
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  z-index: 5;
+  border: 1px solid var(--ink);
+}
+.agent-status .pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--p151);
+  position: relative;
+  animation: pulse-grow 1.6s ease-in-out infinite;
+}
+.agent-status .pulse::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  background: var(--p151);
+  opacity: 0.4;
+  animation: pulse-ring 1.6s ease-in-out infinite;
+}
+@keyframes pulse-grow {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(0.9); }
+}
+@keyframes pulse-ring {
+  0% { opacity: 0.4; transform: scale(1); }
+  100% { opacity: 0; transform: scale(2.4); }
+}
+
+/* HERO — Apple-blue grid, tech-forward */
+.hero {
+  background: var(--paper);
+  border-bottom: 2px solid var(--ink);
+  padding: 96px 0 80px;
+  position: relative;
+}
+.hero .meta {
+  grid-column: 1 / 13;
+  display: flex;
+  gap: 32px;
+  padding-bottom: 56px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  align-items: center;
+  font-weight: 600;
+}
+.hero .meta .eyebrow { color: var(--appstore-blue); font-weight: 700; }
+.hero .meta .dot { color: var(--p151); opacity: 0.85; }
+
+.hero .text-col {
+  grid-column: 1 / 8;
+  position: relative;
+  z-index: 2;
+}
+.hero .visual-col {
+  grid-column: 8 / 13;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: stretch;
+  justify-content: flex-end;
+}
+.hero h1 {
+  margin-bottom: 28px;
+  max-width: 14ch;
+}
+.hero h1 .em {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--burgundy);
+  letter-spacing: -0.025em;
+}
+.hero .signature-refrain {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.25rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  letter-spacing: -0.018em;
+  line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: 40px;
+  max-width: 26ch;
+}
+.hero .signature-refrain .em-blue { color: var(--appstore-blue); }
+.hero .signature-refrain .em-p151 { color: var(--p151-deep); }
+.hero .actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+
+/* Terminal artifact — the 2-second tech signal in hero */
+.terminal {
+  background: var(--mono-bg);
+  border: 2px solid var(--ink);
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: #B8C2D4;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  align-self: stretch;
+}
+.terminal .term-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #050810;
+  padding: 9px 14px;
+  border-bottom: 1px solid #1A1F2E;
+}
+.terminal .term-head .dots {
+  display: flex;
+  gap: 6px;
+}
+.terminal .term-head .dots span {
+  width: 9px;
+  height: 9px;
+  background: #2A3142;
+  display: inline-block;
+}
+.terminal .term-head .dots span:first-child { background: var(--p151); }
+.terminal .term-head .label {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #6A7385;
+  font-weight: 600;
+}
+.terminal .term-body {
+  padding: 18px 16px 22px;
+  min-height: 240px;
+  position: relative;
+}
+.terminal .line { margin-bottom: 8px; }
+.terminal .prompt { color: var(--p151); font-weight: 600; margin-right: 4px; }
+.terminal .user { color: var(--white); }
+.terminal .arrow { color: var(--appstore-blue); font-weight: 700; margin-right: 4px; }
+.terminal .agent { color: #B8C2D4; }
+.terminal .agent .hi { color: var(--p151); font-weight: 600; }
+.terminal .agent .ok { color: #62D996; font-weight: 600; }
+.terminal .cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--p151);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: blink 1s steps(2, start) infinite;
+}
+@keyframes blink { to { visibility: hidden; } }
+.terminal .term-foot {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: #6A7385;
+  padding: 10px 14px;
+  border-top: 1px solid #1A1F2E;
+  display: flex;
+  justify-content: space-between;
+  font-weight: 600;
+}
+.terminal .term-foot .right { color: var(--p151); }
+
+/* Ryan portrait frame — App Store blue */
+.portrait-frame {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(180deg, var(--appstore-blue) 0%, var(--appstore-deep) 100%);
+  border: 2px solid var(--ink);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.portrait-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.portrait-frame .silhouette {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.portrait-frame .silhouette svg {
+  width: 110px;
+  height: auto;
+  margin-bottom: 24px;
+  opacity: 0.78;
+}
+.portrait-frame .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--white);
+  font-weight: 600;
+}
+.portrait-frame .meta {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--white);
+  opacity: 0.85;
+  font-weight: 600;
+}
+.portrait-frame .meta .right { color: var(--p151); opacity: 1; }
+.portrait-frame .corner {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--white);
+  opacity: 0.85;
+  font-weight: 600;
+}
+
+/* Proof strip — hardened */
+.proof-strip {
+  background: var(--ink);
+  color: var(--white);
+  border-bottom: 2px solid var(--ink);
+}
+.proof-strip-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 24px 48px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  gap: 32px;
+}
+.proof-strip .item { display: flex; flex-direction: column; gap: 6px; }
+.proof-strip .num { color: var(--p151); font-family: 'Inter', sans-serif; font-weight: 800; font-size: 1.5rem; letter-spacing: -0.018em; line-height: 1; }
+.proof-strip .key { color: var(--white); opacity: 0.78; font-family: 'JetBrains Mono', monospace; font-weight: 500; font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; }
+
+/* The VG Stack — 01-05 */
+.stack-section { padding: 96px 0; background: var(--paper); border-bottom: 2px solid var(--ink); }
+.stack-section .stack-header {
+  grid-column: 1 / 13;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 48px;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 32px;
+}
+.stack-section .stack-header h2 { margin: 0; max-width: 18ch; }
+.stack-section .stack-header .right {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--appstore-blue);
+  font-weight: 700;
+  max-width: 32ch;
+  text-align: right;
+}
+.stack-list { grid-column: 1 / 13; }
+.stack-item {
+  display: grid;
+  grid-template-columns: 100px 1fr 1fr;
+  gap: 32px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--rule);
+  align-items: baseline;
+  transition: background 0.2s;
+}
+.stack-item:hover { background: var(--appstore-tint); }
+.stack-item:last-child { border-bottom: 0; }
+.stack-item .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--appstore-blue);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.stack-item .role {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
+  font-weight: 800;
+  letter-spacing: -0.024em;
+  color: var(--ink);
+  line-height: 1.05;
+}
+.stack-item .role .claim { color: var(--appstore-blue); font-style: normal; font-weight: 800; }
+.stack-item .desc {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 44ch;
+}
+.stack-item .desc .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--p151-deep);
+  margin-bottom: 8px;
+  font-weight: 600;
+  display: block;
+}
+
+/* Refrain band — App Store blue full-bleed */
+.refrain-band {
+  background: var(--appstore-blue);
+  color: var(--white);
+  padding: 56px 0;
+  border-top: 2px solid var(--appstore-deep);
+  border-bottom: 2px solid var(--appstore-deep);
+  text-align: center;
+}
+.refrain-band-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+.refrain-band p {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  font-weight: 700;
+  letter-spacing: -0.024em;
+  line-height: 1.2;
+  color: var(--white);
+  margin: 0 auto;
+  max-width: 28ch;
+}
+.refrain-band p .em { color: var(--p151); }
+.refrain-band .signoff {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--white);
+  opacity: 0.78;
+  margin-top: 28px;
+  font-weight: 500;
+}
+.refrain-band .signoff .dot { color: var(--p151); margin: 0 6px; opacity: 1; }
+
+/* The Living Tree — relocated section */
+.tree-section {
+  padding: 112px 0;
+  background: var(--paper-warm);
+  border-bottom: 2px solid var(--ink);
+}
+.tree-section .index {
+  grid-column: 1 / 3;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--appstore-blue);
+  padding-top: 12px;
+  font-weight: 700;
+}
+.tree-section h2 { grid-column: 3 / 9; margin-bottom: 20px; max-width: 18ch; }
+.tree-section .body { grid-column: 3 / 9; }
+.tree-section .body p {
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin-bottom: 14px;
+  max-width: 44ch;
+}
+.tree-section .tree-display {
+  grid-column: 1 / 13;
+  margin-top: 56px;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 0;
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.tree-section .tree-display img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.tree-section .tree-display .tree-fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 32px;
+  text-align: center;
+}
+.tree-section .tree-display .glyph {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(3rem, 6vw, 5rem);
+  color: var(--burgundy);
+  margin-bottom: 16px;
+  font-weight: 700;
+  line-height: 1;
+}
+.tree-section .tree-display .quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  color: var(--ink-2);
+  max-width: 38ch;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+.tree-section .tree-display .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  font-weight: 600;
+}
+.tree-section .tree-display img:not([src=""]) + .tree-fallback { display: none; }
+
+/* Section base for principles + others */
+section.s { padding: 96px 0; background: var(--paper); border-bottom: 2px solid var(--ink); }
+section.s.alt { background: var(--paper-warm); }
+section.s.dark { background: var(--burgundy); color: var(--paper); border-bottom: 2px solid var(--burgundy-deep); }
+section.s .index {
+  grid-column: 1 / 3;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--appstore-blue);
+  padding-top: 12px;
+  font-weight: 700;
+}
+section.s.dark .index { color: var(--p151); opacity: 1; }
+section.s h2 { grid-column: 3 / 11; margin-bottom: 28px; max-width: 22ch; }
+section.s.dark h2 { color: var(--paper); }
+section.s .body { grid-column: 3 / 10; }
+section.s .body p { color: var(--ink-2); margin-bottom: 1rem; }
+section.s.dark .body p { color: var(--paper); opacity: 0.95; }
+.opener {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.3rem;
+  line-height: 1.35;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 20px;
+  max-width: 50ch;
+  letter-spacing: -0.014em;
+}
+section.s.dark .opener { color: var(--paper); }
+
+/* Principles grid — burgundy survives here, this is the truth panel */
+.principles {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 36px;
+  border-top: 2px solid var(--paper);
+  border-bottom: 2px solid var(--paper);
+}
+.principle {
+  padding: 32px 32px;
+  border-right: 1px solid rgba(244,239,230,0.18);
+  border-bottom: 1px solid rgba(244,239,230,0.18);
+}
+.principle:nth-child(3n) { border-right: 0; }
+.principle:nth-last-child(-n+3) { border-bottom: 0; }
+.principle .num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--p151);
+  margin-bottom: 12px;
+  font-weight: 700;
+}
+.principle h3 {
+  font-size: 1.125rem;
+  line-height: 1.22;
+  letter-spacing: -0.018em;
+  color: var(--paper);
+  font-weight: 700;
+}
+
+/* Hard rule banner */
+.hardrule-banner {
+  grid-column: 1 / 13;
+  margin-top: 56px;
+  padding: 32px 0;
+  border-top: 3px solid var(--p151);
+  border-bottom: 3px solid var(--p151);
+  text-align: center;
+}
+.hardrule-banner .label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--p151);
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+.hardrule-banner p {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  line-height: 1.2;
+  color: var(--paper);
+  max-width: 50ch;
+  margin: 0 auto;
+  letter-spacing: -0.022em;
+}
+
+/* Products section */
+.products-section { padding: 96px 0; background: var(--paper); border-bottom: 2px solid var(--ink); }
+.products-section .header-row {
+  grid-column: 1 / 13;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 36px;
+  flex-wrap: wrap;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 28px;
+}
+.products-section .header-row .index {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--appstore-blue);
+  font-weight: 700;
+}
+.products-section .header-row h2 { margin: 0; max-width: none; flex-grow: 1; padding: 0 28px; }
+.products-grid {
+  grid-column: 1 / 13;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 8px;
+  border-top: 2px solid var(--ink);
+  border-bottom: 2px solid var(--ink);
+}
+.product-card {
+  border-right: 1px solid var(--rule);
+  padding: 36px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 360px;
+  background: var(--paper);
+  transition: background 0.2s;
+}
+.product-card:last-child { border-right: 0; }
+.product-card:hover { background: var(--appstore-tint); }
+.product-card .product-meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--p151-deep);
+  margin-bottom: 14px;
+  font-weight: 700;
+}
+.product-card h3 { margin-bottom: 14px; font-size: 1.5rem; line-height: 1.1; letter-spacing: -0.022em; font-weight: 800; }
+.product-card p { font-size: 0.9375rem; line-height: 1.55; color: var(--ink-2); margin-bottom: 22px; flex-grow: 1; }
+.product-card .price-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.product-card .price {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-style: italic;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--appstore-blue);
+}
+.product-card .price .price-suffix {
+  font-family: 'JetBrains Mono', monospace;
+  font-style: normal;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-left: 4px;
+}
+.product-card .price-key {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  font-weight: 600;
+}
+.product-card .btn { width: 100%; text-align: center; }
+
+/* Engage / Three Doors */
+.engage-block { grid-column: 3 / 11; }
+.engage-block .opener { margin-bottom: 32px; }
+.engage-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
+  margin-top: 36px;
+}
+.engage-card {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 240px;
+  transition: background 0.2s, transform 0.2s;
+}
+.engage-card:hover { background: var(--appstore-tint); transform: translateY(-2px); }
+.engage-card .role-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.engage-card.client .role-label { color: var(--appstore-blue); }
+.engage-card.builder .role-label { color: var(--ink); }
+.engage-card.curious .role-label { color: var(--p151-deep); }
+.engage-card h3 { font-size: 1.5rem; line-height: 1.1; letter-spacing: -0.022em; margin-bottom: 12px; font-weight: 800; }
+.engage-card p { font-size: 0.9375rem; line-height: 1.5; color: var(--ink-2); margin-bottom: 18px; flex-grow: 1; }
+.engage-card .btn { align-self: flex-start; padding: 12px 22px; font-size: 0.8125rem; }
+
+/* Audit inline form */
+.audit-inline {
+  grid-column: 3 / 11;
+  margin-top: 56px;
+  background: var(--white);
+  border: 2px solid var(--ink);
+  padding: 36px 32px;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 32px;
+  align-items: center;
+}
+.audit-inline .pitch h3 { font-size: 1.5rem; margin-bottom: 12px; letter-spacing: -0.022em; font-weight: 800; }
+.audit-inline .pitch .description { font-family: 'Source Serif 4', Georgia, serif; font-size: 0.9375rem; color: var(--ink-2); margin-bottom: 0; line-height: 1.55; }
+.audit-inline .pitch .meta {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--appstore-blue);
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+.audit-inline form { display: flex; flex-direction: column; gap: 8px; }
+.audit-inline form .row { display: flex; gap: 8px; }
+.audit-inline form input {
+  flex: 1;
+  border: 2px solid var(--rule);
+  background: var(--paper-warm);
+  padding: 12px 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: var(--ink);
+  font-weight: 500;
+}
+.audit-inline form input:focus { outline: none; border-color: var(--appstore-blue); }
+.audit-inline form button { width: 100%; }
+.audit-inline form .privacy {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 8px;
+  font-weight: 500;
+}
+
+/* Footer */
+footer {
+  border-top: 2px solid var(--ink);
+  padding: 96px 0 36px;
+  background: var(--paper);
+}
+footer .grid { align-items: start; }
+footer .col1 { grid-column: 1 / 5; }
+footer .col1 img { height: 40px; width: auto; margin-bottom: 24px; }
+footer .col1 .footer-refrain {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.018em;
+  line-height: 1.3;
+  color: var(--ink);
+  margin-bottom: 16px;
+  max-width: 32ch;
+}
+footer .col1 .footer-refrain .em-blue { color: var(--appstore-blue); }
+footer .col1 .footer-refrain .em-p151 { color: var(--p151-deep); }
+footer .col2 { grid-column: 5 / 9; }
+footer .col3 { grid-column: 9 / 13; }
+footer h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--muted);
+  margin-bottom: 18px;
+  font-weight: 700;
+}
+footer ul { list-style: none; }
+footer li { padding: 8px 0; }
+footer a { font-family: 'Inter', sans-serif; font-size: 0.9375rem; color: var(--ink); font-weight: 500; }
+footer a:hover { color: var(--appstore-blue); }
+footer p { font-size: 0.9375rem; line-height: 1.6; color: var(--ink-2); max-width: 38ch; }
+footer .col1 p.tagline { font-family: 'Source Serif 4', Georgia, serif; font-style: italic; font-weight: 500; }
+footer .social-link { display: inline-flex; align-items: center; gap: 8px; }
+footer .social-link svg { flex-shrink: 0; opacity: 0.85; }
+footer .social-link:hover svg { opacity: 1; }
+footer .inner-pages {
+  grid-column: 1 / 13;
+  margin-top: 56px;
+  padding-top: 28px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  gap: 28px;
+  flex-wrap: wrap;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+footer .inner-pages a { color: var(--muted); border-bottom: 1px dashed var(--muted); padding-bottom: 2px; font-weight: 600; }
+footer .inner-pages a:hover { color: var(--appstore-blue); border-bottom-color: var(--appstore-blue); }
+footer .meta {
+  grid-column: 1 / 13;
+  margin-top: 36px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.6875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .grid { padding: 0 22px; column-gap: 16px; }
+  .hero { padding: 56px 0 56px; }
+  .agent-status { top: 14px; right: 22px; font-size: 0.625rem; padding: 7px 11px; }
+  .hero .meta { flex-wrap: wrap; gap: 14px; padding-bottom: 28px; }
+  .hero .text-col { grid-column: 1 / 13; margin-bottom: 36px; }
+  .hero .visual-col { grid-column: 1 / 13; }
+  .portrait-frame { max-width: none; }
+  .terminal { max-width: none; }
+  .proof-strip-inner { padding: 18px 22px; gap: 18px; grid-template-columns: repeat(2, 1fr); }
+  .stack-section, .tree-section, .products-section, section.s { padding: 64px 0; }
+  .stack-section .stack-header { flex-direction: column; align-items: flex-start; }
+  .stack-section .stack-header .right { text-align: left; }
+  .stack-item { grid-template-columns: 1fr; gap: 12px; padding: 28px 0; }
+  .stack-item .num { font-size: 1.5rem; }
+  .tree-section .index { grid-column: 1 / 13; margin-bottom: 14px; }
+  .tree-section h2, .tree-section .body, section.s h2, section.s .body, .hardrule-banner, .engage-block, .audit-inline { grid-column: 1 / 13; }
+  section.s .index { grid-column: 1 / 13; margin-bottom: 14px; }
+  .products-section .header-row { flex-direction: column; align-items: flex-start; }
+  .products-section .header-row h2 { padding: 0; }
+  .products-grid { grid-template-columns: 1fr; }
+  .product-card { border-right: 0; border-bottom: 1px solid var(--rule); }
+  .product-card:last-child { border-bottom: 0; }
+  .principles { grid-template-columns: 1fr; }
+  .principle { border-right: 0; border-bottom: 1px solid rgba(244,239,230,0.18); }
+  .principle:last-child { border-bottom: 0; }
+  .engage-cards { grid-template-columns: 1fr; }
+  .audit-inline { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
+  footer .col1, footer .col2, footer .col3 { grid-column: 1 / 13; margin-bottom: 36px; }
+  nav.primary { display: none; }
+  .brand { grid-column: 1 / 7; }
+  .brand img { height: 44px; }
+  .header-cta { grid-column: 7 / 13; }
+  footer .meta { flex-direction: column; gap: 8px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="grid">
+    <a class="brand" href="#"><img src="/assets/logo-oxblood.svg" alt="Vision Genesis · Human-First AI"></a>
+    <nav class="primary">
+      <a href="#stack">The Stack</a>
+      <a href="#tree">The Tree</a>
+      <a href="#products">Products</a>
+      <a href="#principles">Principles</a>
+      <a href="#engage">Engage</a>
+    </nav>
+    <div class="header-cta">
+      <a href="#engage" class="btn">Begin intake</a>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="agent-status" aria-label="9 agents running 24/7">
+    <span class="pulse"></span>
+    <span>9 Agents · Active</span>
+  </div>
+  <div class="grid">
+    <div class="meta">
+      <span class="eyebrow">Vision Genesis · Human-First AI</span>
+      <span class="dot">●</span>
+      <span>v0.8 · 2026-05-12</span>
+      <span class="dot">●</span>
+      <span>Owner-operated partnership</span>
+    </div>
+    <div class="text-col fade-in">
+      <h1>The system that builds <span class="em">yours</span>.</h1>
+      <p class="signature-refrain">We don't sell <span class="em-blue">tools</span>. We solve <span class="em-p151">what's costing you money</span>.</p>
+      <div class="actions">
+        <a href="#engage" class="btn">Begin intake</a>
+        <a href="#audit" class="text-link p151">Get the free Operating Audit →</a>
+      </div>
+    </div>
+    <div class="visual-col fade-in">
+      <div class="terminal" role="img" aria-label="Live agent output sample">
+        <div class="term-head">
+          <div class="dots"><span></span><span></span><span></span></div>
+          <div class="label">vg-agent · session 24-09-12</div>
+        </div>
+        <div class="term-body">
+          <div class="line"><span class="prompt">owner&nbsp;&gt;</span> <span class="user">"Why is my COGS 23% higher this quarter?"</span></div>
+          <div class="line"><span class="arrow">→</span> <span class="agent"><span class="hi">[agent.cogs-trace]</span> scanning ledger…</span></div>
+          <div class="line"><span class="arrow">→</span> <span class="agent">3 suppliers · 47 invoices · 92 days</span></div>
+          <div class="line"><span class="arrow">→</span> <span class="agent"><span class="ok">found</span> Supplier X overcharging by</span></div>
+          <div class="line"><span class="agent">&nbsp;&nbsp;&nbsp;&nbsp;$12,400 / quarter (4.2% of COGS)</span></div>
+          <div class="line"><span class="arrow">→</span> <span class="agent">draft message to owner: ready<span class="cursor"></span></span></div>
+        </div>
+        <div class="term-foot">
+          <span>9 agents · 170+ specs · live</span>
+          <span class="right">vision genesis</span>
+        </div>
+      </div>
+      <div class="portrait-frame" role="img" aria-label="Ryan Dix · operator portrait">
+        <img src="/assets/ryan-portrait.jpg" alt="Ryan Dix · Founder, Vision Genesis" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div class="silhouette" style="display:none;">
+          <svg viewBox="0 0 100 130" fill="none" stroke="currentColor" stroke-width="1.5" style="color: var(--white);">
+            <circle cx="50" cy="30" r="18"/>
+            <path d="M20 130 Q20 75 50 75 Q80 75 80 130"/>
+            <path d="M30 90 Q40 100 50 100 Q60 100 70 90" stroke-width="1"/>
+          </svg>
+          <div class="label">Ryan Dix · Operator portrait</div>
+        </div>
+        <div class="corner">RYAN DIX · FOUNDER</div>
+        <div class="meta">
+          <span>Operator #1</span>
+          <span class="right">App Store Blue / Locked</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="proof-strip" aria-label="Operating proof">
+  <div class="proof-strip-inner">
+    <div class="item"><span class="num">20 yrs</span><span class="key">ExxonMobil · Iron Mountain</span></div>
+    <div class="item"><span class="num">9</span><span class="key">Named agents 24/7</span></div>
+    <div class="item"><span class="num">170+</span><span class="key">Specs in pipeline</span></div>
+    <div class="item"><span class="num">3</span><span class="key">Products live</span></div>
+    <div class="item"><span class="num">2</span><span class="key">Founding partners</span></div>
+  </div>
+</div>
+
+<div class="hex-divider" aria-hidden="true"></div>
+
+<section class="stack-section" id="stack">
+  <div class="grid">
+    <div class="stack-header fade-in">
+      <h2>The Vision Genesis Stack.</h2>
+      <div class="right">Five layers. One firm.<br>Operators hold. Builders build. Agents multiply. Practices install. Products compound.</div>
+    </div>
+    <div class="stack-list fade-in">
+      <div class="stack-item">
+        <div class="num">01</div>
+        <div class="role">Operators —<br><span class="claim">they hold the truth.</span></div>
+        <div class="desc">
+          <span class="label">The veteran</span>
+          Multi-decade veterans of running real operations at industrial scale. They know when the org chart is lying about what's actually happening. They mentor the builders who ship.
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="num">02</div>
+        <div class="role">Builders —<br><span class="claim">they build and own.</span></div>
+        <div class="desc">
+          <span class="label">The AI-native</span>
+          AI-native technologists who ship working systems for paying clients from week one. They hold equity in the firm. They progress under operator mentorship.
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="num">03</div>
+        <div class="role">Agents —<br><span class="claim">they multiply judgment.</span></div>
+        <div class="desc">
+          <span class="label">The leverage</span>
+          An internal agent team handles research, drafting, scheduling, and monitoring so a two-person practice delivers like ten. Coordination layer, not decision layer. People still make the calls.
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="num">04</div>
+        <div class="role">Practices —<br><span class="claim">targeted workflows installed.</span></div>
+        <div class="desc">
+          <span class="label">The work</span>
+          Each engagement is a practice. One operator. One builder. One agent team. Installed inside a real business in operations the owner can hand to their team on day one.
+        </div>
+      </div>
+      <div class="stack-item">
+        <div class="num">05</div>
+        <div class="role">Products —<br><span class="claim">solve one pain, productize the fix.</span></div>
+        <div class="desc">
+          <span class="label">The flywheel</span>
+          Every engagement is R&amp;D for the next product. What we solve for one owner becomes a packaged system the next owner can buy. The firm scales by standing up more practices and productizing what proves useful — not by hiring armies of analysts.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="refrain-band">
+  <div class="refrain-band-inner">
+    <p>We don't sell <span class="em">tools</span>. We solve <span class="em">what's costing you money</span>.</p>
+    <div class="signoff">Human-authored<span class="dot">●</span>AI-delivered</div>
+  </div>
+</div>
+
+<section class="tree-section" id="tree">
+  <div class="grid">
+    <div class="index">06 / The Living Tree</div>
+    <h2>One firm, drawn as a tree.</h2>
+    <div class="body fade-in">
+      <p>Roots: Truth, Service, Ownership. The non-negotiables we plant before any other work.</p>
+      <p>Two intertwined trunks: Operators and Builders, grown into one firm. Sap: the agent team, invisible but everywhere — moving research, drafts, decisions, monitoring through every branch.</p>
+      <p>Branches: Practices. Finance ops. Field services. Supply chain. Restaurant systems. Each one a real business we're installing inside.</p>
+      <p>Fruit: Productized solutions. Every engagement seeds the next ten. Solve one pain. Productize what proves useful.</p>
+    </div>
+    <div class="tree-display fade-in">
+      <img src="/assets/living-tree.png" alt="Vision Genesis Living Tree — Operators and Builders intertwined, agents as cambium, productized fruit seeding new growth" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+      <div class="tree-fallback" style="display:none;">
+        <div class="glyph">⚭</div>
+        <div class="quote">Two intertwined trunks. Operators and builders grown into one. Agents as sap. Engagements as fruit that seeds the next forest.</div>
+        <div class="label">Living Tree · Diagram in production</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="products-section" id="products">
+  <div class="grid">
+    <div class="header-row">
+      <div class="index">07 / Start smaller</div>
+      <h2>Three products. Same rigor as the partnership.</h2>
+    </div>
+    <div class="products-grid fade-in">
+      <div class="product-card">
+        <div>
+          <div class="product-meta">Product 01 · Live · Stripe</div>
+          <h3>The Weekly Intelligence Brief</h3>
+          <p>An operator-curated read on what AI is actually doing in real businesses — and what to install next. Every week. Cancel anytime.</p>
+        </div>
+        <div>
+          <div class="price-row">
+            <span class="price">$47<span class="price-suffix">/ month</span></span>
+            <span class="price-key">Subscription</span>
+          </div>
+          <a href="https://buy.stripe.com/28E9AU1mjciQbSMbvQ5c400" target="_blank" rel="noopener" class="btn btn-p151">Subscribe →</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div>
+          <div class="product-meta">Product 02 · Live · Stripe</div>
+          <h3>The 5-Agent Business Blueprint</h3>
+          <p>The exact five-agent layout we install at the start of every partnership. Diagrams, prompts, deployment notes. Use it yourself or hand it to your team.</p>
+        </div>
+        <div>
+          <div class="price-row">
+            <span class="price">$47</span>
+            <span class="price-key">One-time</span>
+          </div>
+          <a href="mailto:vision@visiongenesisai.com?subject=5-Agent%20Blueprint%20-%20I'd%20like%20to%20buy" class="btn">Buy →</a>
+        </div>
+      </div>
+      <div class="product-card">
+        <div>
+          <div class="product-meta">Product 03 · Pilot · Wait list</div>
+          <h3>Voice-to-Quote</h3>
+          <p>Field-services system. Owner records a job on their phone; the system returns a quote ready to send. Currently piloting with a landscaping operator.</p>
+        </div>
+        <div>
+          <div class="price-row">
+            <span class="price">Pilot</span>
+            <span class="price-key">Wait list open</span>
+          </div>
+          <a href="mailto:vision@visiongenesisai.com?subject=Voice-to-Quote%20-%20add%20me%20to%20the%20wait%20list" class="btn btn-dark">Join the pilot list →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="s dark" id="principles">
+  <div class="grid">
+    <div class="index">08 / Principles</div>
+    <h2>The six we run on.</h2>
+    <div class="body fade-in">
+      <p class="opener">Operating reality, not aspirations. The credo of every Vision Genesis practice.</p>
+    </div>
+    <div class="principles fade-in">
+      <div class="principle">
+        <div class="num">Principle 01</div>
+        <h3>Restructure the work; never replace the people.</h3>
+      </div>
+      <div class="principle">
+        <div class="num">Principle 02</div>
+        <h3>Truth before sales pressure. Even when it costs us the engagement.</h3>
+      </div>
+      <div class="principle">
+        <div class="num">Principle 03</div>
+        <h3>Playbooks, not dependencies. The system you keep is yours.</h3>
+      </div>
+      <div class="principle">
+        <div class="num">Principle 04</div>
+        <h3>Agents multiply judgment. They do not lead it.</h3>
+      </div>
+      <div class="principle">
+        <div class="num">Principle 05</div>
+        <h3>Every engagement is R&amp;D for the next product.</h3>
+      </div>
+      <div class="principle">
+        <div class="num">Principle 06</div>
+        <h3>Builders and operators are owners. Equity follows delivery, not tenure.</h3>
+      </div>
+    </div>
+    <div class="hardrule-banner fade-in">
+      <div class="label">The Hard Rule</div>
+      <p>We do not serve companies whose explicit goal is to reduce headcount. AI multiplies team capacity. It does not replace people.</p>
+    </div>
+  </div>
+</section>
+
+<section class="s" id="engage">
+  <div class="grid">
+    <div class="index">09 / Three doors</div>
+    <h2>Find your door.</h2>
+    <div class="engage-block fade-in">
+      <p class="opener">Three doors into Vision Genesis. Build a practice that outlasts you.</p>
+      <div class="engage-cards">
+        <div class="engage-card client">
+          <div>
+            <div class="role-label">For owners</div>
+            <h3>Engage as a client.</h3>
+            <p>You run a business, you've bought tools that don't earn their keep, and you want a partnership that solves the work that's actually costing you money.</p>
+          </div>
+          <a href="mailto:vision@visiongenesisai.com?subject=VG%20Intake" class="btn">Begin intake →</a>
+        </div>
+        <div class="engage-card builder">
+          <div>
+            <div class="role-label">For operators &amp; builders</div>
+            <h3>Plant a practice.</h3>
+            <p>Veterans bring the network, the scars, and the playbooks. AI-native builders bring the code, the velocity, and the cursor. Together, paired with Ryan and future operator-partners, you own what you ship.</p>
+          </div>
+          <a href="mailto:vision@visiongenesisai.com?subject=Partner%20application" class="btn btn-dark">Apply →</a>
+        </div>
+        <div class="engage-card curious">
+          <div>
+            <div class="role-label">For the curious</div>
+            <h3>Start with $47.</h3>
+            <p>Subscribe to the Weekly Brief or buy the Blueprint. Take the system home and try it before you sit at the table.</p>
+          </div>
+          <a href="#products" class="btn btn-p151">See the products →</a>
+        </div>
+      </div>
+    </div>
+    <div class="audit-inline fade-in" id="audit">
+      <div class="pitch">
+        <div class="meta">Free · 10-question audit</div>
+        <h3>The AI Operating Audit.</h3>
+        <p class="description">Ten questions about how your business actually runs. We send back a graded assessment and where AI fits — without a sales call.</p>
+      </div>
+      <form id="audit-form" onsubmit="return false;">
+        <div class="row">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="email" name="email" placeholder="you@yourbusiness.com" required>
+        </div>
+        <input type="text" name="business" placeholder="What kind of business do you run?">
+        <button type="submit" class="btn">Send me the Audit →</button>
+        <div class="privacy">No funnel · No spam · Unsubscribe one click</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="grid">
+    <div class="col1">
+      <img src="/assets/logo-black.svg" alt="Vision Genesis">
+      <p class="footer-refrain">We don't sell <span class="em-blue">tools</span>. We solve <span class="em-p151">what's costing you money</span>.</p>
+      <p class="tagline">An owner-operated partnership of veteran operators and AI-native builders.</p>
+    </div>
+    <div class="col2">
+      <h4>Read deeper</h4>
+      <ul>
+        <li><a href="#stack">The Stack</a></li>
+        <li><a href="#tree">The Living Tree</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#principles">Principles</a></li>
+        <li><a href="#engage">Three Doors</a></li>
+      </ul>
+    </div>
+    <div class="col3">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:vision@visiongenesisai.com">vision@visiongenesisai.com</a></li>
+        <li><a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="social-link" aria-label="Vision Genesis on X"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>@VisionGenesisAI</a></li>
+      </ul>
+    </div>
+    <div class="inner-pages">
+      <a href="/ryan">About Ryan</a>
+      <a href="/builders">Builders / Recruiting</a>
+      <a href="/lineage">Lineage</a>
+      <a href="/faq">FAQ</a>
+      <a href="/manifesto">Manifesto</a>
+    </div>
+    <div class="meta">
+      <span>© 2026 Vision Genesis. Human-First AI.</span>
+      <span>v0.8 · 2026-05-12 · App Store Blue + Pantone 151 C</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Fade-in on scroll
+(function() {
+  const els = document.querySelectorAll('.fade-in');
+  if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('visible')); return; }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) { entry.target.classList.add('visible'); io.unobserve(entry.target); }
+    });
+  }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+  els.forEach(el => io.observe(el));
+})();
+
+// Audit form
+(function() {
+  const form = document.getElementById('audit-form');
+  if (!form) return;
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const name = (fd.get('name') || '').toString().trim();
+    const email = (fd.get('email') || '').toString().trim();
+    const business = (fd.get('business') || '').toString().trim();
+    if (!email) return;
+    const subject = encodeURIComponent('Send me the AI Operating Audit');
+    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nBusiness: ${business}\n\nPlease send me the 10-question AI Operating Audit.`);
+    window.location.href = `mailto:vision@visiongenesisai.com?subject=${subject}&body=${body}`;
+    setTimeout(() => {
+      const tip = document.createElement('div');
+      tip.textContent = "Email opened. Send it and we'll reply with the Audit within 24 hrs.";
+      tip.style.cssText = 'position:fixed;bottom:24px;right:24px;background:var(--ink);color:var(--white);padding:14px 20px;font-family:Inter,sans-serif;font-size:0.875rem;z-index:200;border-left:3px solid var(--p151);max-width:340px;box-shadow:0 6px 24px rgba(0,0,0,0.18);';
+      document.body.appendChild(tip);
+      setTimeout(() => tip.remove(), 6000);
+    }, 400);
+  });
+})();
+</script>
+
+</body>
+</html>
