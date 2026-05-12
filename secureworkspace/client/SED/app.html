@@ -246,15 +246,23 @@
   .cat-tabs button:hover { color: var(--navy); }
   .cat-tabs button.active { color: var(--navy); font-weight: 600; border-bottom-color: var(--accent); }
 
-  /* Sticky order summary */
-  .order-summary { position: sticky; bottom: 60px; background: var(--paper, #ffffff); border-top: 1px solid var(--border); padding: 18px 18px 18px; margin: 18px -16px -18px; box-shadow: 0 -10px 30px rgba(12,30,54,0.12), 0 -2px 6px rgba(12,30,54,0.06); z-index: 5; }
-  .order-summary::after { content: ''; display: block; position: absolute; left: 0; right: 0; top: 100%; height: 120px; background: var(--paper, #ffffff); }
-  @media (min-width: 768px) { .order-summary { bottom: 0; } }
-  .order-summary .total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 14px; }
-  .order-summary .action-row { display: flex; align-items: flex-end; gap: 14px; }
-  .order-summary .action-row .row { flex: 1; margin: 0; }
-  .order-summary .action-row .btn { flex-shrink: 0; white-space: nowrap; min-width: 140px; }
+  /* Order two-column layout */
+  .order-layout { display: flex; flex-direction: column; gap: 18px; }
+  @media (min-width: 768px) {
+    .order-layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
+  }
+  .order-main { min-width: 0; }
+
+  /* Order summary — sidebar card on desktop, stacked on mobile */
+  .order-summary { background: var(--paper, #ffffff); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px; box-shadow: var(--shadow-2); }
+  @media (min-width: 768px) {
+    .order-summary { position: sticky; top: 120px; }
+  }
+  .order-summary .total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 14px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
   .order-summary .total-amt { font-family: var(--sans); font-size: 28px; font-weight: 600; color: var(--navy); letter-spacing: -0.025em; font-feature-settings: "tnum", "lnum"; line-height: 1; font-variant-numeric: tabular-nums; }
+  .order-summary .field { margin-bottom: 12px; }
+  .order-summary .field:last-of-type { margin-bottom: 16px; }
+  .order-summary .btn { width: 100%; }
   .order-savings { background: #f0f9f4; color: #16a34a; border-left: 3px solid #16a34a; padding: 10px 14px; border-radius: var(--r-sm); font-size: 12.5px; font-weight: 600; margin-bottom: 14px; font-feature-settings: "tnum", "lnum"; }
 
   /* Customer list */
@@ -721,48 +729,48 @@
       <div class="eyebrow" id="order-event-label">Event order</div>
       <h2 class="page-title">New Order</h2>
     </div>
-    <div class="card customer-card">
-      <div class="card-eyebrow">Customer</div>
-      <div class="field">
-        <label>Name</label>
-        <input id="cust-name" placeholder="First Last" autocomplete="off">
-      </div>
-      <div class="row">
-        <div class="field">
-          <label>Phone</label>
-          <input id="cust-phone" placeholder="" inputmode="tel" autocomplete="off">
-        </div>
-        <div class="field">
-          <label>Email</label>
-          <input id="cust-email" placeholder="optional" inputmode="email" autocomplete="off">
-        </div>
-      </div>
-    </div>
-    <div class="cat-tabs" id="cat-tabs"></div>
-    <div id="sku-groups"></div>
-    <div class="order-summary">
-      <div class="total-row">
-        <div>
-          <div class="eyebrow" style="margin-bottom:4px">Order total</div>
-          <div class="total-amt" id="order-total">$0</div>
-        </div>
-        <div class="line-count-pill" id="line-count">0 line items</div>
-      </div>
-      <div class="action-row">
-        <div class="row">
-          <div class="field" style="flex:2">
-            <label>Payment</label>
-            <select id="pay-method">
-              <option value="">—</option>
-              <option value="cash">Cash</option>
-              <option value="check">Check #</option>
-              <option value="cc">CC last 4</option>
-            </select>
+    <div class="order-layout">
+      <div class="order-main">
+        <div class="card customer-card">
+          <div class="card-eyebrow">Customer</div>
+          <div class="field">
+            <label>Name</label>
+            <input id="cust-name" placeholder="First Last" autocomplete="off">
           </div>
-          <div class="field" style="flex:2">
-            <label>Reference</label>
-            <input id="pay-ref" placeholder="optional" autocomplete="off">
+          <div class="row">
+            <div class="field">
+              <label>Phone</label>
+              <input id="cust-phone" placeholder="" inputmode="tel" autocomplete="off">
+            </div>
+            <div class="field">
+              <label>Email</label>
+              <input id="cust-email" placeholder="optional" inputmode="email" autocomplete="off">
+            </div>
           </div>
+        </div>
+        <div class="cat-tabs" id="cat-tabs"></div>
+        <div id="sku-groups"></div>
+      </div>
+      <div class="order-summary">
+        <div class="total-row">
+          <div>
+            <div class="eyebrow" style="margin-bottom:4px">Order total</div>
+            <div class="total-amt" id="order-total">$0</div>
+          </div>
+          <div class="line-count-pill" id="line-count">0 line items</div>
+        </div>
+        <div class="field">
+          <label>Payment</label>
+          <select id="pay-method">
+            <option value="">—</option>
+            <option value="cash">Cash</option>
+            <option value="check">Check #</option>
+            <option value="cc">CC last 4</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Reference</label>
+          <input id="pay-ref" placeholder="optional" autocomplete="off">
         </div>
         <button class="btn btn-primary" id="save-order">Save order</button>
       </div>
@@ -996,7 +1004,7 @@ async function loadConfig(practiceId) {
   // Try fetching the JSON config. If we're on file:// protocol, this often fails with CORS,
   // so fall back to a hardcoded config registry baked into the app for offline demos.
   try {
-    const res = await fetch(`configs/${practiceId}.json?v=20260512d`);
+    const res = await fetch(`configs/${practiceId}.json?v=20260512e`);
     if (res.ok) return await res.json();
   } catch {}
   // Fallback: inlined mini-configs (only enough for offline demo continuity)
