@@ -251,7 +251,8 @@
   @media (min-width: 768px) {
     .order-layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
   }
-  .order-main { min-width: 0; }
+  .order-main { min-width: 0; padding-bottom: 140px; }
+  @media (min-width: 768px) { .order-main { padding-bottom: 0; } }
 
   /* Order summary — fixed footer on mobile, sticky sidebar card on desktop */
   .order-summary { position: fixed; bottom: 60px; left: 0; right: 0; background: var(--paper, #ffffff); border-top: 1px solid var(--border); padding: 14px 16px; box-shadow: 0 -10px 30px rgba(12,30,54,0.12), 0 -2px 6px rgba(12,30,54,0.06); z-index: 5; border-radius: 0; }
@@ -1016,7 +1017,7 @@ async function loadConfig(practiceId) {
   // Try fetching the JSON config. If we're on file:// protocol, this often fails with CORS,
   // so fall back to a hardcoded config registry baked into the app for offline demos.
   try {
-    const res = await fetch(`configs/${practiceId}.json?v=20260512g`);
+    const res = await fetch(`configs/${practiceId}.json?v=20260512h`);
     if (res.ok) return await res.json();
   } catch {}
   // Fallback: inlined mini-configs (only enough for offline demo continuity)
