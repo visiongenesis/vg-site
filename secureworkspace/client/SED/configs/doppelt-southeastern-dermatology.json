@@ -1283,14 +1283,6 @@
       ],
       "bonus_pct": 10.0,
       "trigger": "on-redemption"
-    },
-    {
-      "id": "matt-physician-supervision",
-      "provider_id": "matt",
-      "applies_to_categories": [],
-      "bonus_pct": 0,
-      "trigger": "none",
-      "note": "Dr. Doppelt does not receive event bonuses \u2014 owner/physician, not a commissioned provider"
     }
   ],
   "alert_rules": [
