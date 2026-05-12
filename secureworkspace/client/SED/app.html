@@ -88,13 +88,15 @@
   @media (min-width: 768px) {
     /* Promote nav into a top sub-bar under the navy header */
     body { padding-bottom: 0; padding-top: 0; }
-    nav.tabs { position: sticky; top: 0; bottom: auto; max-width: 1080px; margin: 0 auto; padding: 0 24px; background: var(--navy); border-top: none; border-bottom: none; display: flex; gap: 4px; box-shadow: 0 2px 8px rgba(8,14,36,0.3); }
+    nav.tabs { position: fixed; top: 0; bottom: auto; left: 0; right: 0; max-width: none; margin: 0; padding: 0 calc((100% - 1080px) / 2 + 24px); background: var(--navy); border-top: none; border-bottom: 1px solid rgba(123,159,171,0.15); display: flex; gap: 4px; box-shadow: 0 2px 8px rgba(8,14,36,0.3); z-index: 9; }
+    header ~ nav.tabs { top: 61px; }
     nav.tabs button { flex: 0 0 auto; padding: 14px 18px 12px; min-height: auto; flex-direction: row; align-items: center; gap: 9px; font-size: 11px; letter-spacing: 0.6px; }
     nav.tabs button .icon { width: 17px; height: 17px; }
     nav.tabs button::before { top: auto; bottom: 0; height: 2px; }
     nav.tabs button.active::before { width: 100%; }
     nav.tabs button:hover { color: rgba(255,255,255,0.85); }
     nav.tabs button:hover .icon { stroke: rgba(255,255,255,0.85); }
+    main { padding-top: 60px; }
   }
 
   main { padding: 18px 16px; max-width: 880px; margin: 0 auto; }
