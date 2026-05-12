@@ -251,6 +251,9 @@
   .order-summary::after { content: ''; display: block; position: absolute; left: 0; right: 0; top: 100%; height: 120px; background: var(--paper, #ffffff); }
   @media (min-width: 768px) { .order-summary { bottom: 0; } }
   .order-summary .total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 14px; }
+  .order-summary .action-row { display: flex; align-items: flex-end; gap: 14px; }
+  .order-summary .action-row .row { flex: 1; margin: 0; }
+  .order-summary .action-row .btn { flex-shrink: 0; white-space: nowrap; min-width: 140px; }
   .order-summary .total-amt { font-family: var(--sans); font-size: 28px; font-weight: 600; color: var(--navy); letter-spacing: -0.025em; font-feature-settings: "tnum", "lnum"; line-height: 1; font-variant-numeric: tabular-nums; }
   .order-savings { background: #f0f9f4; color: #16a34a; border-left: 3px solid #16a34a; padding: 10px 14px; border-radius: var(--r-sm); font-size: 12.5px; font-weight: 600; margin-bottom: 14px; font-feature-settings: "tnum", "lnum"; }
 
@@ -745,22 +748,24 @@
         </div>
         <div class="line-count-pill" id="line-count">0 line items</div>
       </div>
-      <div class="row">
-        <div class="field" style="flex:2">
-          <label>Payment</label>
-          <select id="pay-method">
-            <option value="">—</option>
-            <option value="cash">Cash</option>
-            <option value="check">Check #</option>
-            <option value="cc">CC last 4</option>
-          </select>
+      <div class="action-row">
+        <div class="row">
+          <div class="field" style="flex:2">
+            <label>Payment</label>
+            <select id="pay-method">
+              <option value="">—</option>
+              <option value="cash">Cash</option>
+              <option value="check">Check #</option>
+              <option value="cc">CC last 4</option>
+            </select>
+          </div>
+          <div class="field" style="flex:2">
+            <label>Reference</label>
+            <input id="pay-ref" placeholder="optional" autocomplete="off">
+          </div>
         </div>
-        <div class="field" style="flex:2">
-          <label>Reference</label>
-          <input id="pay-ref" placeholder="optional" autocomplete="off">
-        </div>
+        <button class="btn btn-primary" id="save-order">Save order</button>
       </div>
-      <button class="btn btn-primary full" id="save-order">Save order</button>
     </div>
   </section>
 
@@ -991,7 +996,7 @@ async function loadConfig(practiceId) {
   // Try fetching the JSON config. If we're on file:// protocol, this often fails with CORS,
   // so fall back to a hardcoded config registry baked into the app for offline demos.
   try {
-    const res = await fetch(`configs/${practiceId}.json?v=20260512c`);
+    const res = await fetch(`configs/${practiceId}.json?v=20260512d`);
     if (res.ok) return await res.json();
   } catch {}
   // Fallback: inlined mini-configs (only enough for offline demo continuity)
