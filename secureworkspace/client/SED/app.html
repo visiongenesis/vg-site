@@ -246,23 +246,33 @@
   .cat-tabs button:hover { color: var(--navy); }
   .cat-tabs button.active { color: var(--navy); font-weight: 600; border-bottom-color: var(--accent); }
 
-  /* Order two-column layout */
-  .order-layout { display: flex; flex-direction: column; gap: 18px; }
+  /* Order two-column layout — sidebar on desktop, stacked on mobile */
+  .order-layout { display: block; }
   @media (min-width: 768px) {
     .order-layout { display: grid; grid-template-columns: 1fr 300px; gap: 24px; align-items: start; }
   }
   .order-main { min-width: 0; }
 
-  /* Order summary — sidebar card on desktop, stacked on mobile */
-  .order-summary { background: var(--paper, #ffffff); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px; box-shadow: var(--shadow-2); }
+  /* Order summary — fixed footer on mobile, sticky sidebar card on desktop */
+  .order-summary { position: fixed; bottom: 60px; left: 0; right: 0; background: var(--paper, #ffffff); border-top: 1px solid var(--border); padding: 14px 16px; box-shadow: 0 -10px 30px rgba(12,30,54,0.12), 0 -2px 6px rgba(12,30,54,0.06); z-index: 5; border-radius: 0; }
+  .order-summary::after { content: ''; display: block; position: absolute; left: 0; right: 0; top: 100%; height: 80px; background: var(--paper, #ffffff); }
+  .order-summary .total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 10px; }
+  .order-summary .total-amt { font-family: var(--sans); font-size: 24px; font-weight: 600; color: var(--navy); letter-spacing: -0.025em; font-feature-settings: "tnum", "lnum"; line-height: 1; font-variant-numeric: tabular-nums; }
+  .order-summary .mobile-action-row { display: flex; align-items: flex-end; gap: 10px; }
+  .order-summary .mobile-action-row .field { flex: 1; margin: 0; }
+  .order-summary .mobile-action-row .btn { flex-shrink: 0; white-space: nowrap; }
+  .order-summary .btn { width: auto; }
+
   @media (min-width: 768px) {
-    .order-summary { position: sticky; top: 120px; }
+    .order-summary { position: sticky; top: 120px; bottom: auto; left: auto; right: auto; border: 1px solid var(--border); border-radius: var(--r-lg); padding: 20px; box-shadow: var(--shadow-2); border-top: 1px solid var(--border); z-index: auto; }
+    .order-summary::after { display: none; }
+    .order-summary .total-row { margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+    .order-summary .total-amt { font-size: 28px; }
+    .order-summary .mobile-action-row { display: block; }
+    .order-summary .mobile-action-row .field { margin-bottom: 12px; }
+    .order-summary .mobile-action-row .field:last-of-type { margin-bottom: 16px; }
+    .order-summary .btn { width: 100%; }
   }
-  .order-summary .total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; gap: 14px; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
-  .order-summary .total-amt { font-family: var(--sans); font-size: 28px; font-weight: 600; color: var(--navy); letter-spacing: -0.025em; font-feature-settings: "tnum", "lnum"; line-height: 1; font-variant-numeric: tabular-nums; }
-  .order-summary .field { margin-bottom: 12px; }
-  .order-summary .field:last-of-type { margin-bottom: 16px; }
-  .order-summary .btn { width: 100%; }
   .order-savings { background: #f0f9f4; color: #16a34a; border-left: 3px solid #16a34a; padding: 10px 14px; border-radius: var(--r-sm); font-size: 12.5px; font-weight: 600; margin-bottom: 14px; font-feature-settings: "tnum", "lnum"; }
 
   /* Customer list */
@@ -759,20 +769,22 @@
           </div>
           <div class="line-count-pill" id="line-count">0 line items</div>
         </div>
-        <div class="field">
-          <label>Payment</label>
-          <select id="pay-method">
-            <option value="">—</option>
-            <option value="cash">Cash</option>
-            <option value="check">Check #</option>
-            <option value="cc">CC last 4</option>
-          </select>
+        <div class="mobile-action-row">
+          <div class="field">
+            <label>Payment</label>
+            <select id="pay-method">
+              <option value="">—</option>
+              <option value="cash">Cash</option>
+              <option value="check">Check #</option>
+              <option value="cc">CC last 4</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Reference</label>
+            <input id="pay-ref" placeholder="optional" autocomplete="off">
+          </div>
+          <button class="btn btn-primary" id="save-order">Save order</button>
         </div>
-        <div class="field">
-          <label>Reference</label>
-          <input id="pay-ref" placeholder="optional" autocomplete="off">
-        </div>
-        <button class="btn btn-primary" id="save-order">Save order</button>
       </div>
     </div>
   </section>
@@ -1004,7 +1016,7 @@ async function loadConfig(practiceId) {
   // Try fetching the JSON config. If we're on file:// protocol, this often fails with CORS,
   // so fall back to a hardcoded config registry baked into the app for offline demos.
   try {
-    const res = await fetch(`configs/${practiceId}.json?v=20260512e`);
+    const res = await fetch(`configs/${practiceId}.json?v=20260512g`);
     if (res.ok) return await res.json();
   } catch {}
   // Fallback: inlined mini-configs (only enough for offline demo continuity)
