@@ -1,1258 +1,867 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vision Genesis — The system that builds yours.</title>
-<meta name="description" content="AI that restructures work — without replacing your team. An owner-operated partnership of experienced operators and AI-native builders.">
-<meta property="og:title" content="The system that builds yours.">
-<meta property="og:description" content="AI that restructures work — without replacing your team. Vision Genesis is an owner-operated partnership of experienced operators and AI-native builders.">
-<meta property="og:image" content="https://visiongenesisai.com/assets/living-tree-social.png">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://visiongenesisai.com/assets/living-tree-social.png">
-<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
-<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@1,500;1,600;1,700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
-<style>
-:root {
-  --paper: #F2EBDD;
-  --paper-warm: #EFE6D2;
-  --bone: #E6DCC4;
-  --burgundy: #5A1414;
-  --burgundy-deep: #3F0E0E;
-  --burgundy-soft: #8A3434;
-  --ochre: #D49A3A;
-  --ochre-deep: #B57F2A;
-  --forest: #2E5A3C;
-  --forest-deep: #1E3D29;
-  --ink: #0F0F0F;
-  --ink-2: #2A2A2A;
-  --rule: #6F6A60;
-  --graphite: #4A4A48;
-  --muted: #6F6A60;
-}
-* { box-sizing: border-box; margin: 0; padding: 0; border-radius: 0 !important; }
-html { font-size: 17px; scroll-behavior: smooth; }
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
-  font-weight: 400;
-  line-height: 1.55;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-h1, h2, h3, h4 {
-  font-family: 'Inter', system-ui, sans-serif;
-  font-weight: 600;
-  letter-spacing: -0.022em;
-  line-height: 1.05;
-  color: var(--ink);
-}
-h1 { font-size: clamp(3.2rem, 7vw, 6.4rem); font-weight: 700; letter-spacing: -0.034em; line-height: 0.98; }
-h2 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.4rem; letter-spacing: -0.024em; }
-h3 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.008em; }
-p { font-family: 'Source Serif 4', Georgia, serif; font-size: 1.0625rem; line-height: 1.65; max-width: 64ch; font-weight: 400; }
-a { color: inherit; text-decoration: none; transition: color 0.18s; }
-.mono {
-  font-family: 'IBM Plex Mono', ui-monospace, monospace;
-  font-size: 0.78125rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-.fade-in { opacity: 0; transform: translateY(14px); transition: opacity 0.7s ease, transform 0.7s ease; }
-.fade-in.visible { opacity: 1; transform: translateY(0); }
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  column-gap: 24px;
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 0 40px;
-}
-hr.rule { border: 0; border-top: 1px solid var(--ink); margin: 0; }
-
-/* Buttons */
-.btn {
-  display: inline-block;
-  border: 1.5px solid var(--ink);
-  background: var(--ink);
-  color: var(--paper);
-  padding: 16px 30px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9375rem;
-  font-weight: 600;
-  letter-spacing: 0.005em;
-  cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.18s;
-}
-.btn:hover { background: var(--burgundy); border-color: var(--burgundy); transform: translateY(-1px); }
-.btn-ochre { background: var(--ochre); border-color: var(--ochre); color: var(--ink); }
-.btn-ochre:hover { background: var(--ochre-deep); border-color: var(--ochre-deep); color: var(--paper); }
-.btn-forest { background: var(--forest); border-color: var(--forest); color: var(--paper); }
-.btn-forest:hover { background: var(--forest-deep); border-color: var(--forest-deep); }
-.btn-ghost { background: transparent; color: var(--ink); }
-.btn-ghost:hover { background: var(--ink); color: var(--paper); }
-.text-link {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--ink);
-  border-bottom: 1.5px solid var(--ink);
-  padding-bottom: 1px;
-  transition: color 0.18s, border-color 0.18s;
-}
-.text-link:hover { color: var(--burgundy); border-bottom-color: var(--burgundy); }
-.text-link.ochre { color: var(--ochre-deep); border-bottom-color: var(--ochre-deep); }
-.text-link.ochre:hover { color: var(--burgundy); border-bottom-color: var(--burgundy); }
-.text-link.forest { color: var(--forest); border-bottom-color: var(--forest); }
-.text-link.forest:hover { color: var(--forest-deep); border-bottom-color: var(--forest-deep); }
-
-/* Header */
-header {
-  position: sticky;
-  top: 0;
-  background: var(--paper);
-  border-bottom: 1px solid var(--ink);
-  z-index: 100;
-}
-header .grid { align-items: center; padding-top: 16px; padding-bottom: 16px; }
-.brand { grid-column: 1 / 5; display: flex; align-items: center; gap: 0; }
-.brand img { height: 56px; width: auto; display: block; }
-nav.primary {
-  grid-column: 5 / 10;
-  display: flex;
-  justify-content: flex-end;
-  gap: 30px;
-  align-items: center;
-}
-nav.primary a {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--ink-2);
-  position: relative;
-  padding-bottom: 3px;
-}
-nav.primary a::after {
-  content: '';
-  position: absolute;
-  left: 0; right: 100%;
-  bottom: 0;
-  height: 1.5px;
-  background: var(--ochre);
-  transition: right 0.25s ease;
-}
-nav.primary a:hover { color: var(--burgundy); }
-nav.primary a:hover::after { right: 0; }
-.header-cta {
-  grid-column: 10 / 13;
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  align-items: center;
-}
-.header-cta .btn { padding: 11px 20px; font-size: 0.875rem; }
-
-/* HERO — Living Tree poster */
-.hero-poster {
-  position: relative;
-  background: var(--paper);
-  border-bottom: 1px solid var(--ink);
-  overflow: hidden;
-  padding: 64px 0 24px;
-  min-height: 88vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.hero-poster .grid { position: relative; z-index: 2; }
-.hero-poster .meta {
-  grid-column: 1 / 13;
-  display: flex;
-  gap: 36px;
-  padding-bottom: 24px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  align-items: center;
-}
-.hero-poster .meta .eyebrow { color: var(--ochre-deep); font-weight: 600; }
-.hero-poster .meta .dot { color: var(--forest); }
-
-.hero-tree-frame {
-  grid-column: 1 / 13;
-  margin: 12px 0 24px;
-  position: relative;
-  min-height: 460px;
-  background: var(--paper);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-top: 1px solid var(--rule);
-  border-bottom: 1px solid var(--rule);
-}
-.hero-tree-frame img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: 0 auto;
-}
-/* Placeholder when image is missing — uses unicode tree as fallback */
-.hero-tree-frame .tree-fallback {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 56px 36px;
-  width: 100%;
-}
-.hero-tree-frame .tree-fallback .tree-glyph {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(4rem, 9vw, 8rem);
-  line-height: 1;
-  color: var(--burgundy);
-  margin-bottom: 28px;
-  font-weight: 500;
-}
-.hero-tree-frame .tree-fallback .tree-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.78125rem;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--muted);
-  margin-bottom: 12px;
-}
-.hero-tree-frame .tree-fallback .tree-quote {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: clamp(1.2rem, 2vw, 1.6rem);
-  color: var(--ink-2);
-  max-width: 38ch;
-  font-weight: 500;
-}
-.hero-tree-frame img:not([src=""])  + .tree-fallback { display: none; }
-
-.hero-headline-row {
-  grid-column: 1 / 13;
-  margin-top: 8px;
-}
-.hero-headline-row h1 {
-  margin-bottom: 14px;
-  max-width: 18ch;
-  color: var(--ink);
-}
-.hero-headline-row h1 .em {
-  color: var(--burgundy);
-  font-style: normal;
-  font-weight: 700;
-}
-.hero-headline-row .subhead {
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: clamp(1.2rem, 2vw, 1.5rem);
-  line-height: 1.4;
-  color: var(--ink-2);
-  margin-bottom: 28px;
-  font-weight: 500;
-  max-width: 38ch;
-}
-.hero-headline-row .subhead em {
-  color: var(--burgundy);
-  font-style: italic;
-  font-weight: 500;
-}
-.hero-headline-row .actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
-
-/* Proof strip */
-.proof-strip {
-  background: var(--ink);
-  color: var(--paper);
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
-  overflow: hidden;
-}
-.proof-strip-inner {
-  max-width: 1440px;
-  margin: 0 auto;
-  padding: 24px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 28px;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.8125rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  white-space: nowrap;
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-.proof-strip-inner::-webkit-scrollbar { display: none; }
-.proof-strip .item { display: flex; flex-direction: column; gap: 4px; }
-.proof-strip .num { color: var(--ochre); font-weight: 700; font-size: 0.9375rem; letter-spacing: 0.06em; }
-.proof-strip .key { color: var(--paper); opacity: 0.8; font-weight: 400; font-size: 0.6875rem; letter-spacing: 0.12em; }
-.proof-strip .sep { color: var(--forest); font-size: 1.25rem; font-weight: 300; opacity: 0.8; }
-
-/* Section base */
-section.s { padding: 96px 0; }
-section.s.alt { background: var(--paper-warm); border-top: 1px solid var(--bone); border-bottom: 1px solid var(--bone); }
-section.s.dark { background: var(--burgundy); color: var(--paper); border-top: 1px solid var(--burgundy-deep); border-bottom: 1px solid var(--burgundy-deep); }
-section.s.forest { background: var(--forest); color: var(--paper); border-top: 1px solid var(--forest-deep); border-bottom: 1px solid var(--forest-deep); }
-section.s .index {
-  grid-column: 1 / 3;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  padding-top: 12px;
-}
-section.s.dark .index, section.s.forest .index { color: var(--paper); opacity: 0.7; }
-section.s h2 { grid-column: 3 / 11; margin-bottom: 24px; max-width: 22ch; }
-section.s.dark h2, section.s.forest h2 { color: var(--paper); }
-section.s .body { grid-column: 3 / 11; }
-section.s .body p { color: var(--ink-2); }
-section.s.dark .body p, section.s.forest .body p { color: var(--paper); opacity: 0.95; }
-section.s .opener {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.375rem;
-  line-height: 1.4;
-  font-weight: 500;
-  color: var(--ink);
-  margin-bottom: 24px;
-  max-width: 50ch;
-  letter-spacing: -0.012em;
-}
-section.s.dark .opener, section.s.forest .opener { color: var(--paper); }
-
-/* The Living Tree explainer section */
-.tree-explainer {
-  grid-column: 1 / 13;
-  margin-top: 36px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-}
-.tree-explainer .pillar {
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  padding: 32px 28px;
-  display: flex;
-  flex-direction: column;
-}
-.tree-explainer .pillar .pillar-glyph {
-  font-family: 'Cormorant Garamond', serif;
-  font-style: italic;
-  font-size: 2.5rem;
-  font-weight: 500;
-  color: var(--burgundy);
-  margin-bottom: 12px;
-  line-height: 1;
-}
-.tree-explainer .pillar .pillar-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 14px;
-  font-weight: 600;
-}
-.tree-explainer .pillar.roots .pillar-label { color: var(--forest); }
-.tree-explainer .pillar.trunk .pillar-label { color: var(--burgundy); }
-.tree-explainer .pillar.fruit .pillar-label { color: var(--ochre-deep); }
-.tree-explainer .pillar h3 {
-  font-size: 1.4rem;
-  letter-spacing: -0.018em;
-  margin-bottom: 12px;
-  line-height: 1.18;
-}
-.tree-explainer .pillar p {
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  color: var(--ink-2);
-  flex-grow: 1;
-  margin-bottom: 18px;
-}
-.tree-explainer .pillar ul {
-  list-style: none;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-}
-.tree-explainer .pillar ul li {
-  padding: 8px 0;
-  border-top: 1px dashed var(--rule);
-}
-.tree-explainer .pillar ul li:first-child { border-top: none; padding-top: 0; }
-
-/* Products section */
-.products-section { padding: 96px 0; background: var(--paper); border-top: 1px solid var(--ink); }
-.products-section .header-row {
-  grid-column: 1 / 13;
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 24px;
-  margin-bottom: 28px;
-  flex-wrap: wrap;
-}
-.products-section .header-row .index {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-}
-.products-section .header-row h2 { margin: 0; max-width: none; flex-grow: 1; padding: 0 28px; }
-.products-section .header-row .ctaline {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9375rem;
-  color: var(--forest);
-  font-weight: 600;
-}
-.products-grid {
-  grid-column: 1 / 13;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  margin-top: 12px;
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
-}
-.product-card {
-  border-right: 1px solid var(--rule);
-  padding: 36px 28px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 340px;
-  background: var(--paper);
-  transition: background 0.2s;
-  position: relative;
-}
-.product-card:last-child { border-right: 0; }
-.product-card:hover { background: var(--paper-warm); }
-.product-card .product-meta {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ochre-deep);
-  margin-bottom: 14px;
-  font-weight: 600;
-}
-.product-card h3 { margin-bottom: 12px; font-size: 1.5rem; line-height: 1.15; letter-spacing: -0.018em; }
-.product-card p {
-  font-size: 0.9375rem;
-  line-height: 1.55;
-  color: var(--ink-2);
-  margin-bottom: 22px;
-  flex-grow: 1;
-}
-.product-card .price-row {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-.product-card .price {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-style: italic;
-  font-size: 1.75rem;
-  font-weight: 500;
-  color: var(--burgundy);
-}
-.product-card .price .price-suffix {
-  font-family: 'IBM Plex Mono', monospace;
-  font-style: normal;
-  font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  margin-left: 4px;
-}
-.product-card .price-key {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-}
-.product-card .btn { width: 100%; text-align: center; }
-
-/* Principles compressed */
-.principles {
-  grid-column: 1 / 13;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0;
-  margin-top: 32px;
-  border-top: 1px solid var(--paper);
-  border-bottom: 1px solid var(--paper);
-}
-section.s.dark .principles { border-top-color: var(--paper); border-bottom-color: var(--paper); }
-.principle {
-  padding: 28px 28px;
-  border-right: 1px solid var(--burgundy-deep);
-  border-bottom: 1px solid var(--burgundy-deep);
-  position: relative;
-}
-.principle:nth-child(3n) { border-right: 0; }
-.principle:nth-last-child(-n+3) { border-bottom: 0; }
-.principle .num {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ochre);
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-.principle h3 {
-  font-size: 1.125rem;
-  line-height: 1.25;
-  letter-spacing: -0.012em;
-  margin-bottom: 0;
-  color: var(--paper);
-  font-weight: 600;
-}
-
-/* Hard rule banner */
-.hardrule-banner {
-  grid-column: 1 / 13;
-  margin-top: 48px;
-  padding: 28px 0;
-  border-top: 2px solid var(--ochre);
-  border-bottom: 2px solid var(--ochre);
-  text-align: center;
-}
-.hardrule-banner .label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  color: var(--ochre);
-  margin-bottom: 12px;
-  font-weight: 600;
-}
-.hardrule-banner p {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-style: italic;
-  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
-  line-height: 1.4;
-  color: var(--paper);
-  font-weight: 500;
-  max-width: 60ch;
-  margin: 0 auto;
-}
-
-/* Partners section — two trunks, one firm */
-.partner-grid {
-  grid-column: 1 / 13;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0;
-  margin-top: 36px;
-  border-top: 1px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
-}
-.partner-col {
-  padding: 40px 36px;
-  border-right: 1px solid var(--rule);
-  background: var(--paper);
-  position: relative;
-}
-.partner-col:last-child { border-right: 0; }
-.partner-col .partner-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 14px;
-  font-weight: 600;
-}
-.partner-col.operator .partner-label { color: var(--burgundy); }
-.partner-col.builder .partner-label { color: var(--forest); }
-.partner-col h3 {
-  font-size: 1.6rem;
-  letter-spacing: -0.02em;
-  margin-bottom: 16px;
-  line-height: 1.18;
-}
-.partner-col p {
-  font-size: 0.9375rem;
-  line-height: 1.6;
-  color: var(--ink-2);
-  margin-bottom: 22px;
-  max-width: 44ch;
-}
-.partner-col ul {
-  list-style: none;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-}
-.partner-col ul li {
-  padding: 9px 0;
-  border-top: 1px dashed var(--rule);
-}
-.partner-col ul li:first-child { border-top: none; padding-top: 0; }
-.partner-col.operator ul li::before { content: '⟶ '; color: var(--burgundy); margin-right: 4px; }
-.partner-col.builder ul li::before { content: '⟶ '; color: var(--forest); margin-right: 4px; }
-
-/* From the channel — YouTube preview tiles */
-.channel-preview-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 28px;
-}
-.channel-preview-card {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-.channel-preview-card .thumb {
-  aspect-ratio: 16 / 9;
-  background: var(--burgundy);
-  border: 1px solid var(--burgundy-deep);
-  position: relative;
-  overflow: hidden;
-  padding: 18px 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-.channel-preview-card .thumb::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle at 80% 70%, rgba(212,154,58,0.18), transparent 60%);
-  pointer-events: none;
-}
-.channel-preview-card .thumb-claim {
-  font-family: 'Inter', sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
-  line-height: 1.1;
-  color: var(--paper);
-  letter-spacing: -0.018em;
-  position: relative;
-  z-index: 1;
-}
-.channel-preview-card .thumb-byline {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--ochre);
-  font-weight: 600;
-  position: relative;
-  z-index: 1;
-}
-.channel-preview-card .thumb-meta {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.625rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--muted);
-  font-weight: 500;
-}
-
-/* Engage / final CTA */
-.engage-block { grid-column: 3 / 11; }
-.engage-block .opener {
-  margin-bottom: 32px;
-}
-.engage-cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 18px;
-  margin-top: 36px;
-}
-.engage-card {
-  background: var(--paper);
-  border: 1px solid var(--ink);
-  padding: 28px 24px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 220px;
-  transition: background 0.2s, transform 0.2s;
-}
-.engage-card:hover { background: var(--paper-warm); transform: translateY(-2px); }
-.engage-card .role-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  font-weight: 600;
-  margin-bottom: 12px;
-}
-.engage-card.client .role-label { color: var(--burgundy); }
-.engage-card.builder .role-label { color: var(--forest); }
-.engage-card.curious .role-label { color: var(--ochre-deep); }
-.engage-card h3 { font-size: 1.4rem; line-height: 1.15; letter-spacing: -0.018em; margin-bottom: 12px; }
-.engage-card p {
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: var(--ink-2);
-  margin-bottom: 18px;
-  flex-grow: 1;
-}
-.engage-card .btn { align-self: flex-start; padding: 10px 18px; font-size: 0.875rem; }
-
-/* Inline audit form */
-.audit-inline {
-  grid-column: 3 / 11;
-  margin-top: 56px;
-  background: var(--paper);
-  border: 1px solid var(--ink);
-  padding: 36px 32px;
-  display: grid;
-  grid-template-columns: 2fr 3fr;
-  gap: 32px;
-  align-items: center;
-}
-.audit-inline .pitch h3 { font-size: 1.4rem; margin-bottom: 10px; letter-spacing: -0.018em; }
-.audit-inline .pitch .description {
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 0.9375rem;
-  color: var(--ink-2);
-  margin-bottom: 0;
-  line-height: 1.55;
-}
-.audit-inline .pitch .meta {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.625rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--forest);
-  margin-bottom: 10px;
-  font-weight: 600;
-}
-.audit-inline form { display: flex; flex-direction: column; gap: 8px; }
-.audit-inline form .row { display: flex; gap: 8px; }
-.audit-inline form input {
-  flex: 1;
-  border: 1px solid var(--rule);
-  background: var(--paper-warm);
-  padding: 12px 14px;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.9375rem;
-  color: var(--ink);
-}
-.audit-inline form input:focus { outline: none; border-color: var(--ochre); }
-.audit-inline form button { width: 100%; }
-.audit-inline form .privacy {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.625rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-top: 8px;
-}
-
-/* Footer */
-footer {
-  border-top: 1px solid var(--ink);
-  padding: 80px 0 36px;
-  background: var(--paper);
-}
-footer .grid { align-items: start; }
-footer .col1 { grid-column: 1 / 5; }
-footer .col1 img { height: 40px; width: auto; margin-bottom: 22px; }
-footer .col2 { grid-column: 5 / 9; }
-footer .col3 { grid-column: 9 / 13; }
-footer h4 {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--muted);
-  margin-bottom: 18px;
-  font-weight: 600;
-}
-footer ul { list-style: none; }
-footer li { padding: 7px 0; }
-footer a { font-family: 'Inter', sans-serif; font-size: 0.9375rem; color: var(--ink); }
-footer a:hover { color: var(--burgundy); }
-footer p { font-size: 0.9375rem; line-height: 1.6; color: var(--ink-2); max-width: 38ch; }
-footer .col1 p { font-family: 'Source Serif 4', Georgia, serif; }
-footer .social-link { display: inline-flex; align-items: center; gap: 8px; }
-footer .social-link svg { flex-shrink: 0; opacity: 0.85; }
-footer .social-link:hover svg { opacity: 1; }
-footer .inner-pages {
-  grid-column: 1 / 13;
-  margin-top: 36px;
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-}
-footer .inner-pages a { color: var(--muted); border-bottom: 1px dashed var(--muted); padding-bottom: 1px; font-family: 'IBM Plex Mono', monospace; font-size: 0.6875rem; letter-spacing: 0.1em; }
-footer .inner-pages a:hover { color: var(--burgundy); border-bottom-color: var(--burgundy); }
-footer .meta {
-  grid-column: 1 / 13;
-  margin-top: 60px;
-  padding-top: 24px;
-  border-top: 1px solid var(--rule);
-  display: flex;
-  justify-content: space-between;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 0.6875rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-}
-
-/* Responsive */
-@media (max-width: 980px) {
-  .grid { padding: 0 22px; column-gap: 16px; }
-  .hero-poster { min-height: auto; padding: 36px 0 24px; }
-  .hero-poster .meta { flex-wrap: wrap; gap: 14px; padding-bottom: 18px; }
-  .hero-tree-frame { min-height: 280px; }
-  .hero-headline-row h1 { font-size: clamp(2.4rem, 9vw, 3.4rem); }
-  section.s, .products-section { padding: 64px 0; }
-  section.s .index { grid-column: 1 / 13; margin-bottom: 14px; }
-  section.s h2, section.s .body, .engage-block { grid-column: 1 / 13; }
-  .tree-explainer { grid-template-columns: 1fr; }
-  .products-section .header-row { flex-direction: column; align-items: flex-start; }
-  .products-section .header-row h2 { padding: 0; }
-  .products-grid { grid-template-columns: 1fr; }
-  .product-card { border-right: 0; border-bottom: 1px solid var(--rule); }
-  .product-card:last-child { border-bottom: 0; }
-  .principles { grid-template-columns: 1fr; }
-  .principle { border-right: 0; border-bottom: 1px solid var(--burgundy-deep); }
-  .principle:last-child { border-bottom: 0; }
-  .engage-cards { grid-template-columns: 1fr; }
-  .partner-grid { grid-template-columns: 1fr; }
-  .partner-col { border-right: 0; border-bottom: 1px solid var(--rule); padding: 28px 0; }
-  .partner-col:last-child { border-bottom: 0; }
-  .channel-preview-row { grid-template-columns: 1fr; }
-  .audit-inline { grid-template-columns: 1fr; gap: 24px; padding: 24px; }
-  footer .col1, footer .col2, footer .col3 { grid-column: 1 / 13; margin-bottom: 36px; }
-  nav.primary { display: none; }
-  .brand { grid-column: 1 / 8; }
-  .brand img { height: 48px; }
-  .header-cta { grid-column: 8 / 13; }
-  .proof-strip-inner { padding: 16px 22px; gap: 18px; }
-  footer .meta { flex-direction: column; gap: 8px; }
-}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vision Genesis — Human-First AI</title>
+  <meta name="description" content="We don't sell tools. We solve what's costing you money. An owner-operated AI-implementation firm pairing veteran operators with AI-native builders.">
+  <meta property="og:title" content="Vision Genesis — Human-First AI">
+  <meta property="og:description" content="We don't sell tools. We solve what's costing you money.">
+  <meta property="og:image" content="https://visiongenesisai.com/assets/vg-logo.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://visiongenesisai.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://visiongenesisai.com/assets/vg-logo.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-tree.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+    .font-mono, .font-mono * { font-family: 'JetBrains Mono', 'Fira Code', monospace !important; }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,130,0,0.45); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 7px rgba(255,130,0,0); }
+    }
+    @keyframes pulse-green {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.45); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+    }
+    @keyframes counter-breathe {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.75; }
+    }
+    .pulse-dot { animation: pulse-dot 2.2s ease-in-out infinite; }
+    .pulse-green { animation: pulse-green 2.5s ease-in-out infinite; }
+    .counter-live { animation: counter-breathe 3.5s ease-in-out infinite; }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    @media (min-width: 1024px) {
+      .grid-bg { background-size: 72px 72px; }
+    }
+    .hero-display {
+      font-size: 40px;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      font-weight: 800;
+    }
+    @media (min-width: 768px) {
+      .hero-display { font-size: 56px; }
+    }
+    @media (min-width: 1024px) {
+      .hero-display { font-size: 86px; letter-spacing: -0.03em; }
+    }
+    .stack-watermark {
+      display: none;
+    }
+    @media (min-width: 1024px) {
+      .stack-watermark {
+        display: block;
+        font-size: 160px;
+        line-height: 1;
+        font-weight: 900;
+        color: rgba(255,255,255,0.04);
+        font-family: 'JetBrains Mono', monospace;
+        pointer-events: none;
+        user-select: none;
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    .section-h1 {
+      font-size: 34px;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      font-weight: 800;
+    }
+    @media (min-width: 768px) { .section-h1 { font-size: 44px; } }
+    @media (min-width: 1024px) { .section-h1 { font-size: 56px; } }
+    .section-h2 {
+      font-size: 30px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    @media (min-width: 1024px) { .section-h2 { font-size: 48px; line-height: 1.0; letter-spacing: -0.025em; } }
+    .tree-h2 {
+      font-size: 26px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    @media (min-width: 1024px) { .tree-h2 { font-size: 40px; } }
+    .card-title-lg { font-size: 22px; line-height: 1.1; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .card-title-lg { font-size: 30px; letter-spacing: -0.015em; } }
+    .card-title-md { font-size: 20px; line-height: 1.1; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .card-title-md { font-size: 26px; } }
+    .card-title-sm { font-size: 20px; line-height: 1.1; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .card-title-sm { font-size: 22px; } }
+    .recruit-title { font-size: 20px; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .recruit-title { font-size: 24px; } }
+    .stat-num {
+      font-size: 32px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    @media (min-width: 1024px) { .stat-num { font-size: 40px; } }
+    .counter-num {
+      font-size: 36px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+    @media (min-width: 1024px) { .counter-num { font-size: 44px; } }
+    /* Hamburger menu */
+    .menu-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .menu-panel.open { max-height: 400px; }
+  </style>
 </head>
-<body>
+<body class="bg-[#0A1628]">
 
-<header>
-  <div class="grid">
-    <a class="brand" href="#"><img src="assets/logo-oxblood.svg" alt="Vision Genesis · Human-First AI"></a>
-    <nav class="primary">
-      <a href="#tree">The Model</a>
-      <a href="#products">Products</a>
-      <a href="#principles">Principles</a>
-      <a href="#engage">Engage</a>
-    </nav>
-    <div class="header-cta">
-      <a href="#engage" class="btn">Begin intake</a>
-    </div>
-  </div>
-</header>
-
-<section class="hero-poster">
-  <div class="grid">
-    <div class="meta">
-      <span class="eyebrow">Human-First AI</span>
-      <span class="dot">●</span>
-      <span>Index / Home</span>
-      <span class="dot">●</span>
-      <span>v0.6 · 2026-05-11</span>
-    </div>
-
-    <div class="hero-tree-frame fade-in">
-      <img src="assets/living-tree.png" alt="Vision Genesis Living Tree — Operators and Builders intertwined, agents as cambium, productized fruit seeding new growth" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-      <div class="tree-fallback" style="display:none;">
-        <div class="tree-label">The Living Tree</div>
-        <div class="tree-glyph">⚭</div>
-        <div class="tree-quote">Two intertwined trunks. Operators and builders grown into one. Agents as cambium. Engagements as fruit that seed the next forest.</div>
+  <!-- NAV -->
+  <nav class="bg-[#0A1628]/95 backdrop-blur-sm border-b border-[#1E3050] sticky top-0 z-50">
+    <div class="max-w-[1280px] mx-auto px-5 lg:px-8 h-[58px] lg:h-[66px] flex items-center justify-between">
+      <a href="#" class="flex-shrink-0">
+        <img src="assets/vg-logo-tree.png" alt="Vision Genesis" class="h-8 lg:h-10 w-auto">
+      </a>
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="#stack" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">The Stack</a>
+        <a href="#products" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">Products</a>
+        <a href="#builders" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">For Builders</a>
+        <a href="#ryan" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">Ryan Dix</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="#audit" class="bg-[#0051D5] hover:bg-[#003DA0] text-white text-xs lg:text-sm font-bold tracking-wider px-4 lg:px-5 py-2 lg:py-2.5 rounded-lg transition-colors uppercase">Free AI Audit &rarr;</a>
+        <button id="menu-btn" type="button" aria-label="Open menu" class="lg:hidden text-[#C8D0DC] p-1.5 -mr-1.5 hover:text-white transition-colors">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
       </div>
     </div>
-
-    <div class="hero-headline-row fade-in">
-      <h1>The system that <span class="em">builds yours</span>.</h1>
-      <p class="subhead">AI that <em>restructures</em> the work — without replacing your team. An owner-operated partnership of veteran operators and AI-native builders.</p>
-      <div class="actions">
-        <a href="#engage" class="btn btn-ochre">Begin intake</a>
-        <a href="#audit" class="text-link forest">Get the free Operating Audit →</a>
+    <div id="menu-panel" class="menu-panel lg:hidden bg-[#0A1628] border-t border-[#1E3050]">
+      <div class="px-5 py-4 space-y-3">
+        <a href="#stack" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">The Stack</a>
+        <a href="#products" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">Products</a>
+        <a href="#builders" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">For Builders</a>
+        <a href="#ryan" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">Ryan Dix</a>
       </div>
     </div>
-  </div>
-</section>
+  </nav>
 
-<div class="proof-strip" aria-label="Operating proof">
-  <div class="proof-strip-inner">
-    <span class="item"><span class="num">20 yrs</span><span class="key">ExxonMobil · Iron Mountain</span></span>
-    <span class="sep">●</span>
-    <span class="item"><span class="num">9</span><span class="key">named agents 24/7</span></span>
-    <span class="sep">●</span>
-    <span class="item"><span class="num">170+</span><span class="key">specs in pipeline</span></span>
-    <span class="sep">●</span>
-    <span class="item"><span class="num">3</span><span class="key">products live</span></span>
-    <span class="sep">●</span>
-    <span class="item"><span class="num">2</span><span class="key">founding partners</span></span>
-  </div>
-</div>
+  <main>
 
-<section class="s alt" id="tree">
-  <div class="grid">
-    <div class="index">01 / The Model</div>
-    <h2>One tree. One firm. Three forces.</h2>
-    <div class="body fade-in">
-      <p class="opener">A partnership built like a living tree. Operators and builders grown into one trunk. Agents as the sap that lets two-person teams ship like ten. Every engagement bears fruit — products that seed the next ten engagements.</p>
-    </div>
-    <div class="tree-explainer fade-in">
-      <div class="pillar roots">
-        <div class="pillar-glyph">⏚</div>
-        <div class="pillar-label">Roots · The Floor</div>
-        <h3>Truth, Service, Ownership.</h3>
-        <p>The non-negotiables. Restructure the work; never replace the people. We tell you the truth — even when it costs us the engagement. Builders are owners.</p>
-        <ul>
-          <li>Hard rule: no headcount-reduction work</li>
-          <li>Honesty before sales pressure</li>
-          <li>Equity follows delivery, not tenure</li>
-        </ul>
-      </div>
-      <div class="pillar trunk">
-        <div class="pillar-glyph">⫯</div>
-        <div class="pillar-label">Trunk · The Pairing</div>
-        <h3>Operators &amp; Builders.</h3>
-        <p>Two intertwined trunks. Veteran operators who know the rules are changing and refuse to sit still. AI-native builders who want their skills aimed at something that lasts. Neither is complete alone.</p>
-        <ul>
-          <li>Operators hold the truth</li>
-          <li>Builders ship the system</li>
-          <li>Agents multiply judgment</li>
-        </ul>
-      </div>
-      <div class="pillar fruit">
-        <div class="pillar-glyph">◉</div>
-        <div class="pillar-label">Fruit · The Engine</div>
-        <h3>Engagements become products.</h3>
-        <p>Every consulting engagement is R&amp;D for the next product. Solve once. Sell to the next thousand. The firm grows by standing up more practices and shipping more products — not by hiring armies of analysts.</p>
-        <ul>
-          <li>Bespoke → Productized</li>
-          <li>Playbooks belong to the client</li>
-          <li>Solve once · Sell next thousand</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
+    <!-- HERO -->
+    <section class="bg-[#0A1628] min-h-[640px] lg:min-h-[900px] relative overflow-hidden flex flex-col justify-center">
+      <div class="grid-bg absolute inset-0 pointer-events-none"></div>
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 900px 700px at 70% 50%, rgba(0,81,213,0.06) 0%, transparent 70%);"></div>
 
-<section class="products-section" id="products">
-  <div class="grid">
-    <div class="header-row">
-      <div class="index">02 / Start smaller</div>
-      <h2>Three products. Same rigor as the partnership.</h2>
-      <div class="ctaline">Try one this week.</div>
-    </div>
-    <div class="products-grid fade-in">
-      <div class="product-card">
-        <div>
-          <div class="product-meta">Product 01 · Live · Stripe</div>
-          <h3>The Weekly Intelligence Brief</h3>
-          <p>An operator-curated read on what AI is actually doing in real businesses — and what to install next. Every week. Cancel anytime.</p>
-        </div>
-        <div>
-          <div class="price-row">
-            <span class="price">$47<span class="price-suffix">/ month</span></span>
-            <span class="price-key">Subscription</span>
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8 pt-10 lg:pt-16 pb-12 lg:pb-16 relative z-10 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-start">
+
+          <div class="lg:col-span-7">
+
+            <!-- Live pills -->
+            <div class="flex items-center flex-wrap gap-2.5 mb-7 lg:mb-10">
+              <div class="inline-flex items-center gap-2.5 bg-[#FF8200]/10 border border-[#FF8200]/30 rounded-full px-3 lg:px-4 py-1.5 lg:py-2">
+                <span class="pulse-dot w-2 h-2 rounded-full bg-[#FF8200] block flex-shrink-0"></span>
+                <span class="text-[#FF8200] text-[10px] lg:text-xs font-semibold tracking-[0.08em] uppercase font-mono">9 Agents &middot; Active</span>
+              </div>
+              <div class="inline-flex items-center gap-2 bg-white/[0.04] border border-white/10 rounded-full px-3 lg:px-4 py-1.5 lg:py-2">
+                <span class="counter-live text-[#C8D0DC] text-[10px] lg:text-xs font-mono tracking-wide">PIPELINE: <span class="text-white font-semibold">47</span> TASKS</span>
+              </div>
+            </div>
+
+            <!-- Headline -->
+            <h1 class="hero-display text-white mb-0 max-w-[700px]">
+              Your best people<br>
+              are buried in work<br>
+              <span class="text-[#0051D5]">that shouldn&rsquo;t exist.</span>
+            </h1>
+
+            <!-- Pain points -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 lg:gap-3 mt-7 mb-7 lg:mt-8 lg:mb-8 max-w-[680px]">
+              <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
+                <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <p class="text-[#C8D0DC] text-sm leading-relaxed">Your estimator spends 3 hours quoting what should take 20 minutes</p>
+              </div>
+              <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
+                <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <p class="text-[#C8D0DC] text-sm leading-relaxed">You bought software your team works around instead of with</p>
+              </div>
+              <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
+                <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <p class="text-[#C8D0DC] text-sm leading-relaxed">The consultant took $40k and handed you a deck nobody reads</p>
+              </div>
+            </div>
+
+            <!-- Solution -->
+            <p class="text-[#C8D0DC] text-base lg:text-xl leading-relaxed mb-8 lg:mb-10 max-w-[580px]">
+              We find the three workflows bleeding your P&amp;L and fix them&nbsp;&mdash;&nbsp;<strong class="text-white">without replacing a single person.</strong>
+            </p>
+
+            <!-- CTAs -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+              <a href="#audit" class="inline-flex items-center justify-center gap-2 bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold text-sm lg:text-base tracking-wider px-6 lg:px-8 py-3.5 lg:py-4 rounded-lg transition-colors uppercase text-center">
+                Take the Free AI Audit &rarr;
+              </a>
+              <a href="#stack" class="border border-[#4D8FFF]/40 text-[#4D8FFF] hover:border-[#4D8FFF] hover:bg-[#4D8FFF]/10 font-semibold text-sm lg:text-base px-6 lg:px-8 py-3.5 lg:py-4 rounded-lg transition-all text-center">
+                See the System &darr;
+              </a>
+            </div>
+
           </div>
-          <a href="https://buy.stripe.com/28E9AU1mjciQbSMbvQ5c400" target="_blank" rel="noopener" class="btn btn-ochre">Subscribe →</a>
-        </div>
-      </div>
-      <div class="product-card">
-        <div>
-          <div class="product-meta">Product 02 · Live · Stripe</div>
-          <h3>The 5-Agent Business Blueprint</h3>
-          <p>The exact five-agent layout we install at the start of every partnership. Diagrams, prompts, deployment notes. Use it yourself or hand it to your team.</p>
-        </div>
-        <div>
-          <div class="price-row">
-            <span class="price">$47</span>
-            <span class="price-key">One-time</span>
-          </div>
-          <a href="mailto:vision@visiongenesisai.com?subject=5-Agent%20Blueprint%20-%20I'd%20like%20to%20buy" class="btn">Buy →</a>
-        </div>
-      </div>
-      <div class="product-card">
-        <div>
-          <div class="product-meta">Product 03 · Pilot · Wait list</div>
-          <h3>Voice-to-Quote</h3>
-          <p>Field-services system. Owner records a job on their phone; the system returns a quote ready to send. Currently piloting with a landscaping operator.</p>
-        </div>
-        <div>
-          <div class="price-row">
-            <span class="price">Pilot</span>
-            <span class="price-key">Wait list open</span>
-          </div>
-          <a href="mailto:vision@visiongenesisai.com?subject=Voice-to-Quote%20-%20add%20me%20to%20the%20wait%20list" class="btn btn-forest">Join the pilot list →</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="s dark" id="principles">
-  <div class="grid">
-    <div class="index">03 / Principles</div>
-    <h2>The six we run on.</h2>
-    <div class="body fade-in">
-      <p class="opener">Operating reality, not aspirations. The credo of every Vision Genesis practice.</p>
-    </div>
-    <div class="principles fade-in">
-      <div class="principle">
-        <div class="num">01</div>
-        <h3>Restructure the work; never replace the people.</h3>
-      </div>
-      <div class="principle">
-        <div class="num">02</div>
-        <h3>Truth before sales pressure. Even when it costs us the engagement.</h3>
-      </div>
-      <div class="principle">
-        <div class="num">03</div>
-        <h3>Playbooks, not dependencies. The system you keep is yours.</h3>
-      </div>
-      <div class="principle">
-        <div class="num">04</div>
-        <h3>Agents multiply judgment. They do not lead it.</h3>
-      </div>
-      <div class="principle">
-        <div class="num">05</div>
-        <h3>Every engagement is R&amp;D for the next product.</h3>
-      </div>
-      <div class="principle">
-        <div class="num">06</div>
-        <h3>Builders and operators are owners. Equity follows delivery, not tenure.</h3>
-      </div>
-    </div>
-    <div class="hardrule-banner fade-in">
-      <div class="label">The Hard Rule</div>
-      <p>We do not serve companies whose explicit goal is to reduce headcount. AI multiplies team capacity. It does not replace people.</p>
-    </div>
-  </div>
-</section>
+          <!-- Terminal -->
+          <div class="lg:col-span-5">
+            <div class="bg-[#060F1C] border border-[#1E3050] rounded-xl overflow-hidden" style="box-shadow: 0 0 60px rgba(0,81,213,0.08);">
+              <div class="flex items-center justify-between px-4 lg:px-5 py-2.5 lg:py-3 bg-[#0A1628] border-b border-[#1E3050]">
+                <div class="flex items-center gap-1.5 lg:gap-2">
+                  <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#EF4444]/60"></span>
+                  <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#FF8200]/60"></span>
+                  <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#22C55E]/60"></span>
+                </div>
+                <span class="font-mono text-[#8891A0] text-[10px] lg:text-xs tracking-[0.1em] uppercase truncate ml-2">VG Agent &mdash; Live</span>
+                <div class="flex items-center gap-1.5 lg:gap-2 flex-shrink-0">
+                  <span class="pulse-green w-2 h-2 rounded-full bg-[#22C55E] block"></span>
+                  <span class="font-mono text-[#22C55E] text-[10px] lg:text-xs font-semibold">ACTIVE</span>
+                </div>
+              </div>
+              <div class="p-4 lg:p-6 font-mono text-[11px] lg:text-sm leading-6 lg:leading-7 space-y-1 overflow-hidden">
+                <div>
+                  <span class="text-[#FF8200]">&rsaquo;</span>
+                  <span class="text-[#8891A0] ml-2">[08:41:03]</span>
+                  <span class="text-[#4D8FFF] ml-2">EstimateAgent</span>
+                  <span class="text-[#C8D0DC] ml-1">&rarr; Parsed voice note &rarr; structured quote</span>
+                  <span class="text-white font-semibold"> 18s</span>
+                </div>
+                <div>
+                  <span class="text-[#FF8200]">&rsaquo;</span>
+                  <span class="text-[#8891A0] ml-2">[08:41:19]</span>
+                  <span class="text-[#4D8FFF] ml-2">SchedulerAgent</span>
+                  <span class="text-[#C8D0DC] ml-1">&rarr; Resolved 3 crew conflicts</span>
+                </div>
+                <div>
+                  <span class="text-[#FF8200]">&rsaquo;</span>
+                  <span class="text-[#8891A0] ml-2">[08:41:47]</span>
+                  <span class="text-[#4D8FFF] ml-2">IntelAgent</span>
+                  <span class="text-[#C8D0DC] ml-1">&rarr; 14 sources &rarr; 3 actionable items</span>
+                </div>
+                <div>
+                  <span class="text-[#FF8200]">&rsaquo;</span>
+                  <span class="text-[#8891A0] ml-2">[08:42:01]</span>
+                  <span class="text-[#4D8FFF] ml-2">EstimateAgent</span>
+                  <span class="text-white font-semibold ml-1">Approved by operator.</span>
+                  <span class="text-[#22C55E] font-semibold"> 23 min total.</span>
+                </div>
+                <div class="opacity-50">
+                  <span class="text-[#FF8200]">&rsaquo;</span>
+                  <span class="text-[#8891A0] ml-2">[08:42:18]</span>
+                  <span class="text-[#4D8FFF] ml-2">OpsAgent</span>
+                  <span class="text-[#C8D0DC] ml-1">&rarr; Parsing supplier invoice</span>
+                  <span class="text-white animate-pulse">_</span>
+                </div>
+              </div>
+              <div class="px-4 lg:px-6 py-2.5 lg:py-3 bg-[#0A1628]/50 border-t border-[#1E3050] flex items-center gap-3 lg:gap-6 flex-wrap">
+                <div class="flex items-center gap-2">
+                  <span class="counter-live font-mono text-[10px] lg:text-xs text-[#8891A0]">TASKS:</span>
+                  <span class="font-mono text-[10px] lg:text-xs font-semibold text-[#FF8200] counter-live">47</span>
+                </div>
+                <span class="font-mono text-[10px] lg:text-xs text-[#8891A0]">AGENTS: <span class="text-white">9/9</span></span>
+                <span class="font-mono text-[10px] lg:text-xs text-[#8891A0]">UPTIME: <span class="text-[#22C55E]">100%</span></span>
+              </div>
+            </div>
+          </div>
 
-<section class="s alt" id="partners">
-  <div class="grid">
-    <div class="index">04 / What partners bring</div>
-    <h2>Two trunks. One firm.</h2>
-    <div class="body fade-in">
-      <p class="opener">A Vision Genesis practice runs on two distinct crafts grown into one trunk. Each partner brings what only their decade or their generation can.</p>
-    </div>
-    <div class="partner-grid fade-in">
-      <div class="partner-col operator">
-        <div class="partner-label">The operator's craft</div>
-        <h3>Industry, network, scars.</h3>
-        <p>What we build is faster because of what you've already broken and rebuilt. The Rolodex that opens the door. The pattern recognition that prevents the expensive mistake. The 25 years of standing inside the room when the easy story and the true story pulled in opposite directions.</p>
-        <ul>
-          <li>Domain &amp; industry depth</li>
-          <li>Buyer trust &amp; network density</li>
-          <li>Operating scar tissue</li>
-          <li>Mentorship of the next builder</li>
-        </ul>
-      </div>
-      <div class="partner-col builder">
-        <div class="partner-label">The builder's craft</div>
-        <h3>Velocity, fluency, ship.</h3>
-        <p>What we build is real because of how fast you can make it. Cursor-native code that ships systems your operator can hand to a client this Tuesday. The thousand small AI judgments per day that turn a thesis into an operating asset. The native fluency that no operator can fake.</p>
-        <ul>
-          <li>AI-native technical depth</li>
-          <li>Ship-velocity from week one</li>
-          <li>Productization &amp; reusable systems</li>
-          <li>Equity in what you build</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="s" id="channel">
-  <div class="grid">
-    <div class="index">05 / From the channel</div>
-    <h2>The Operator's Log.</h2>
-    <div class="body fade-in">
-      <p class="opener">Christian Manzano (Builder #1, Content Lead) is rendering the first videos. Operator-perspective business teardowns. AI implementation walkthroughs from the actual practice. English first; multilingual via HeyGen translation pipeline shortly after.</p>
-      <div class="channel-preview-row">
-        <div class="channel-preview-card placeholder">
-          <div class="thumb">
-            <div class="thumb-claim">The system that<br>builds yours.</div>
-            <div class="thumb-byline">Ryan Dix · Episode 01</div>
-          </div>
-          <div class="thumb-meta">Coming shortly · Christian rendering</div>
-        </div>
-        <div class="channel-preview-card placeholder">
-          <div class="thumb">
-            <div class="thumb-claim">Restructure the work.<br>Don't replace the team.</div>
-            <div class="thumb-byline">The Hard Rule · Episode 02</div>
-          </div>
-          <div class="thumb-meta">In script · Christian rendering</div>
-        </div>
-        <div class="channel-preview-card placeholder">
-          <div class="thumb">
-            <div class="thumb-claim">Every engagement<br>becomes a product.</div>
-            <div class="thumb-byline">The Flywheel · Episode 03</div>
-          </div>
-          <div class="thumb-meta">In script · Christian rendering</div>
         </div>
       </div>
-      <p style="margin-top: 28px; max-width: 50ch;">Subscribe to the Weekly Brief now and you'll get the first video the day it ships.</p>
-      <p style="margin-top: 8px;"><a href="https://buy.stripe.com/28E9AU1mjciQbSMbvQ5c400" target="_blank" rel="noopener" class="text-link ochre">Subscribe to the Weekly Brief →</a></p>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section class="s" id="engage">
-  <div class="grid">
-    <div class="index">06 / Three doors</div>
-    <h2>Find your door.</h2>
-    <div class="engage-block fade-in">
-      <p class="opener">Three doors into Vision Genesis. Build a practice that outlasts you.</p>
-      <div class="engage-cards">
-        <div class="engage-card client">
+    <!-- PROOF STRIP -->
+    <section class="bg-[#F2EBDD] py-10 lg:py-14">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <!-- Mobile: 2x3 grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:hidden gap-6 mb-6">
           <div>
-            <div class="role-label">For owners</div>
-            <h3>Engage as a client.</h3>
-            <p>You run a business, you've bought tools that don't earn their keep, and you want a partnership that installs an actual operating system.</p>
+            <p class="counter-live font-mono font-bold text-[#1A1A2E] counter-num">47</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Tasks today</p>
           </div>
-          <a href="mailto:vision@visiongenesisai.com?subject=VG%20Intake" class="btn">Begin intake →</a>
-        </div>
-        <div class="engage-card builder">
           <div>
-            <div class="role-label">For operators &amp; builders</div>
-            <h3>Plant a practice.</h3>
-            <p>Veterans bring the network, the scars, and the playbooks. AI-native builders bring the code, the velocity, and the cursor. Together, paired with Ryan and future operator-partners, you own what you ship.</p>
+            <p class="text-[#0051D5] stat-num">20</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Years operator</p>
           </div>
-          <a href="mailto:vision@visiongenesisai.com?subject=Partner%20application" class="btn btn-forest">Apply →</a>
-        </div>
-        <div class="engage-card curious">
           <div>
-            <div class="role-label">For the curious</div>
-            <h3>Start with $47.</h3>
-            <p>Subscribe to the Weekly Brief or buy the Blueprint. Take the system home and try it before you sit at the table.</p>
+            <p class="text-[#0051D5] stat-num">9</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Agents active</p>
           </div>
-          <a href="#products" class="btn btn-ochre">See the products →</a>
+          <div>
+            <p class="text-[#0051D5] stat-num">170<span class="text-[#FF8200]">+</span></p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Specs in pipeline</p>
+          </div>
+          <div>
+            <p class="text-[#0051D5] stat-num">3</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Products live</p>
+          </div>
+          <div>
+            <p class="text-[#0051D5] stat-num">2</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Founding partners</p>
+          </div>
+        </div>
+        <p class="text-[#5A6378] text-xs leading-relaxed lg:hidden border-t border-[#E8DFD0] pt-4">Honest scale. No inflated numbers. Here&rsquo;s exactly where we are.</p>
+
+        <!-- Desktop: single horizontal strip -->
+        <div class="hidden lg:flex items-center justify-between">
+          <div class="flex items-center gap-5">
+            <div>
+              <p class="text-[#5A6378] text-xs font-semibold tracking-[0.1em] uppercase mb-1">Tasks completed today</p>
+              <p class="counter-live font-mono font-bold text-[#1A1A2E] counter-num">47</p>
+            </div>
+            <div class="w-px h-12 bg-[#E8DFD0]"></div>
+          </div>
+          <div class="text-center">
+            <p class="text-[#0051D5] stat-num mb-1">20</p>
+            <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Years Operator<br>Experience</p>
+          </div>
+          <div class="w-px h-10 bg-[#E8DFD0]"></div>
+          <div class="text-center">
+            <p class="text-[#0051D5] stat-num mb-1">9</p>
+            <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">AI Agents<br>Active</p>
+          </div>
+          <div class="w-px h-10 bg-[#E8DFD0]"></div>
+          <div class="text-center">
+            <p class="text-[#0051D5] stat-num mb-1">170<span class="text-[#FF8200]">+</span></p>
+            <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Agent Specs<br>In Pipeline</p>
+          </div>
+          <div class="w-px h-10 bg-[#E8DFD0]"></div>
+          <div class="text-center">
+            <p class="text-[#0051D5] stat-num mb-1">3</p>
+            <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Products<br>Live on Stripe</p>
+          </div>
+          <div class="w-px h-10 bg-[#E8DFD0]"></div>
+          <div class="text-center">
+            <p class="text-[#0051D5] stat-num mb-1">2</p>
+            <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Founding<br>Partners</p>
+          </div>
+          <div class="w-px h-10 bg-[#E8DFD0]"></div>
+          <div class="max-w-[160px]">
+            <p class="text-[#5A6378] text-xs leading-relaxed">Honest scale. No inflated numbers. Here&rsquo;s exactly where we are.</p>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="audit-inline fade-in" id="audit">
-      <div class="pitch">
-        <div class="meta">Free · 10-question audit</div>
-        <h3>The AI Operating Audit.</h3>
-        <p class="description">Ten questions about how your business actually runs. We send back a graded assessment and where AI fits — without a sales call.</p>
-      </div>
-      <form id="audit-form" onsubmit="return false;">
-        <div class="row">
-          <input type="text" name="name" placeholder="Your name" required>
-          <input type="email" name="email" placeholder="you@yourbusiness.com" required>
+    </section>
+
+    <!-- VG STACK -->
+    <section id="stack" class="bg-[#0A1628] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+
+        <div class="mb-10 lg:mb-16 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
+          <div class="lg:col-span-8">
+            <p class="text-[#4D8FFF] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">The System</p>
+            <h2 class="text-white section-h1 mb-3 lg:mb-4">The VG Stack</h2>
+            <p class="text-[#8891A0] text-base lg:text-lg max-w-[520px] leading-relaxed">Five interdependent layers. Engineered to compound. Not a service menu&nbsp;&mdash; a system that runs inside a real business.</p>
+          </div>
+          <div class="hidden lg:flex lg:col-span-4 items-end justify-end">
+            <div class="border border-[#1E3050] rounded-lg px-4 py-2 font-mono text-xs text-[#8891A0] tracking-wider">
+              SPEC REV. 01 &mdash; 2026
+            </div>
+          </div>
         </div>
-        <input type="text" name="business" placeholder="What kind of business do you run?">
-        <button type="submit" class="btn btn-forest">Send me the Audit →</button>
-        <div class="privacy">No funnel · No spam · Unsubscribe one click</div>
-      </form>
-    </div>
-  </div>
-</section>
 
-<footer>
-  <div class="grid">
-    <div class="col1">
-      <img src="assets/logo-black.svg" alt="Vision Genesis">
-      <p>An owner-operated partnership of experienced operators and AI-native builders. We install human-first AI operating systems through practices that multiply capacity at scale.</p>
-    </div>
-    <div class="col2">
-      <h4>Read deeper</h4>
-      <ul>
-        <li><a href="#tree">The Living Tree</a></li>
-        <li><a href="#products">Products</a></li>
-        <li><a href="#principles">Principles</a></li>
-        <li><a href="#partners">What partners bring</a></li>
-        <li><a href="#channel">The Operator's Log</a></li>
-        <li><a href="#engage">Three Doors</a></li>
-      </ul>
-    </div>
-    <div class="col3">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="mailto:vision@visiongenesisai.com">vision@visiongenesisai.com</a></li>
-        <li><a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="social-link" aria-label="Vision Genesis on X"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>@VisionGenesisAI</a></li>
-      </ul>
-    </div>
-    <div class="inner-pages">
-      <a href="/ryan">About Ryan</a>
-      <a href="/builders">Builders / Recruiting</a>
-      <a href="/lineage">Lineage</a>
-      <a href="/faq">FAQ</a>
-      <a href="/manifesto">Manifesto</a>
-    </div>
-    <div class="meta">
-      <span>© 2026 Vision Genesis. Human-First AI.</span>
-      <span>v0.6 · 2026-05-11 · The Living Tree</span>
-    </div>
-  </div>
-</footer>
+        <div>
 
-<script>
-// Fade-in on scroll
-(function() {
-  const els = document.querySelectorAll('.fade-in');
-  if (!('IntersectionObserver' in window)) { els.forEach(el => el.classList.add('visible')); return; }
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) { entry.target.classList.add('visible'); io.unobserve(entry.target); }
+          <!-- STACK 01 -->
+          <article class="relative border-t border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+            <div class="stack-watermark">01</div>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 01</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">01</span>
+              <span class="lg:hidden border border-[#1E3050] text-[#8891A0] text-[10px] font-mono px-2 py-1 rounded tracking-wider">HUMAN LAYER</span>
+            </div>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Operators</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">Veteran operators who ran real operations for decades. They hold the truth about what&rsquo;s actually breaking inside a business &mdash; not what the dashboard says. They lead client relationships, qualify engagements, and mentor the builders.</p>
+            </div>
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
+              <span class="border border-[#1E3050] text-[#8891A0] text-xs font-mono px-3 py-1.5 rounded tracking-wider">HUMAN LAYER</span>
+            </div>
+          </article>
+
+          <!-- STACK 02 -->
+          <article class="relative border-t border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+            <div class="stack-watermark">02</div>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 02</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">02</span>
+              <span class="lg:hidden border border-[#1E3050] text-[#8891A0] text-[10px] font-mono px-2 py-1 rounded tracking-wider">HUMAN LAYER</span>
+            </div>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Builders</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">AI-native technologists who ship working systems for paying clients from week one. Not consultants. Not architects. Builders &mdash; people who hold equity and deliver. They progress under operator mentorship. The firm is only as good as what they ship.</p>
+            </div>
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
+              <span class="border border-[#1E3050] text-[#8891A0] text-xs font-mono px-3 py-1.5 rounded tracking-wider">HUMAN LAYER</span>
+            </div>
+          </article>
+
+          <!-- STACK 03 -->
+          <article class="relative border-t border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+            <div class="stack-watermark">03</div>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 03</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">03</span>
+              <div class="lg:hidden flex items-center gap-2">
+                <span class="border border-[#FF8200]/30 text-[#FF8200] text-[10px] font-mono px-2 py-1 rounded tracking-wider bg-[#FF8200]/[0.06]">AI LAYER</span>
+                <span class="pulse-dot w-1.5 h-1.5 rounded-full bg-[#FF8200] block"></span>
+                <span class="font-mono text-[#FF8200] text-[10px] font-semibold">9 ACTIVE</span>
+              </div>
+            </div>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Agents</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">An internal team of named AI agents &mdash; 9 today, 170+ in the specification pipeline &mdash; handling research, drafting, scheduling, and monitoring. Coordination layer, not decision layer. People still make the calls. Agents multiply judgment. They do not lead it.</p>
+            </div>
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
+              <div class="flex flex-col items-end gap-2">
+                <span class="border border-[#FF8200]/30 text-[#FF8200] text-xs font-mono px-3 py-1.5 rounded tracking-wider bg-[#FF8200]/[0.06]">AI LAYER</span>
+                <div class="flex items-center gap-2">
+                  <span class="pulse-dot w-1.5 h-1.5 rounded-full bg-[#FF8200] block"></span>
+                  <span class="font-mono text-[#FF8200] text-xs font-semibold">9 ACTIVE</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- STACK 04 -->
+          <article class="relative border-t border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+            <div class="stack-watermark">04</div>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 04</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">04</span>
+              <span class="lg:hidden border border-[#1E3050] text-[#8891A0] text-[10px] font-mono px-2 py-1 rounded tracking-wider">DELIVERY LAYER</span>
+            </div>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Practices</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">One operator + one builder + one agent team, installed inside a real business. Each practice is the unit the firm scales by. Not a project with a handoff date. A working relationship where VG has a P&amp;L stake in the outcome. The practice stays until the system runs without us.</p>
+            </div>
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
+              <span class="border border-[#1E3050] text-[#8891A0] text-xs font-mono px-3 py-1.5 rounded tracking-wider">DELIVERY LAYER</span>
+            </div>
+          </article>
+
+          <!-- STACK 05 -->
+          <article class="relative border-t border-b border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+            <div class="stack-watermark">05</div>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 05</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">05</span>
+              <span class="lg:hidden border border-[#0051D5]/40 text-[#4D8FFF] text-[10px] font-mono px-2 py-1 rounded tracking-wider bg-[#0051D5]/[0.08]">SCALE LAYER</span>
+            </div>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Products</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">Every engagement is R&amp;D for the next product. What we solve for one owner becomes a packaged system the next owner can buy. The firm scales by standing up more practices AND productizing what proves useful. Custom today. Packaged tomorrow. Knowledge that compounds.</p>
+            </div>
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
+              <span class="border border-[#0051D5]/40 text-[#4D8FFF] text-xs font-mono px-3 py-1.5 rounded tracking-wider bg-[#0051D5]/[0.08]">SCALE LAYER</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- REFRAIN BAND -->
+    <section class="bg-[#0051D5] py-14 lg:py-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8 text-center">
+        <p class="text-white/60 text-[10px] lg:text-sm font-semibold tracking-[0.12em] uppercase mb-4 lg:mb-5">Customer-facing refrain</p>
+        <h2 class="text-white section-h1 mb-1 lg:mb-2">We don&rsquo;t sell tools.</h2>
+        <h2 class="text-white section-h1 mb-6 lg:mb-8">We solve what&rsquo;s costing you money.</h2>
+        <p class="text-white/50 text-[10px] lg:text-xs font-semibold tracking-[0.14em] uppercase">Human-Authored &middot; AI-Delivered</p>
+      </div>
+    </section>
+
+    <!-- LIVING TREE -->
+    <section id="principles" class="bg-[#F2EBDD] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+          <div class="flex flex-col items-center order-1">
+            <div class="mb-5 lg:mb-6" style="filter: drop-shadow(0 24px 64px rgba(0,81,213,0.18)) drop-shadow(0 8px 24px rgba(255,130,0,0.12));">
+              <img src="assets/vg-logo.png" alt="Vision Genesis — The Living Tree" class="w-[220px] lg:w-[360px] h-auto mx-auto">
+            </div>
+            <p class="text-[#5A6378] text-[10px] lg:text-xs font-semibold tracking-[0.1em] uppercase text-center">The Living Tree &mdash; Firm Identity Mark</p>
+            <p class="text-[#5A6378] text-xs text-center mt-1 max-w-[280px] leading-relaxed">Operators and builders as intertwined trunks. Agents as sap. Practices as branches. Products as fruit.</p>
+          </div>
+
+          <div class="order-2">
+            <p class="text-[#0051D5] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">Built on Six Principles</p>
+            <h2 class="text-[#1A1A2E] tree-h2 mb-6 lg:mb-8">The architecture we hold ourselves to.</h2>
+
+            <div class="space-y-4 mb-7 lg:mb-8">
+              <div class="flex gap-3 lg:gap-4 items-start">
+                <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">01</span>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Restructure the work; never replace the people.</p>
+              </div>
+              <div class="flex gap-3 lg:gap-4 items-start">
+                <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">02</span>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Truth before sales pressure. Even when it costs us the engagement.</p>
+              </div>
+              <div class="flex gap-3 lg:gap-4 items-start">
+                <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">03</span>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Playbooks, not dependencies. The system you keep is yours.</p>
+              </div>
+              <div class="flex gap-3 lg:gap-4 items-start">
+                <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">04</span>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Agents multiply judgment. They do not lead it.</p>
+              </div>
+              <div class="flex gap-3 lg:gap-4 items-start">
+                <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">05</span>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Every engagement is R&amp;D for the next product.</p>
+              </div>
+              <div class="flex gap-3 lg:gap-4 items-start">
+                <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">06</span>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Builders and operators are owners. Equity follows delivery, not tenure.</p>
+              </div>
+            </div>
+
+            <div class="bg-[#1A1A2E] rounded-xl p-5 lg:p-6">
+              <p class="text-[#FF8200] text-[10px] lg:text-xs font-semibold tracking-[0.1em] uppercase mb-2 lg:mb-3">The Hard Rule &mdash; Non-Negotiable</p>
+              <p class="text-white text-sm lg:text-base leading-relaxed">&ldquo;We do not serve companies whose explicit goal is to reduce headcount. AI multiplies team capacity. It does not replace people.&rdquo;</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="products" class="bg-[#0A1628] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+
+        <div class="mb-8 lg:mb-12">
+          <p class="text-[#4D8FFF] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">What We Sell</p>
+          <h2 class="text-white section-h2">Three entry points.<br class="hidden sm:block"><span class="sm:hidden"> </span>One outcome: your problem solved.</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+          <!-- Pain-point Pilots -->
+          <article class="lg:col-span-7 bg-[#152238] border border-[#1E3050] rounded-2xl p-6 lg:p-8 hover:border-[#0051D5]/50 transition-all">
+            <div class="flex items-start justify-between mb-4 lg:mb-5 gap-3">
+              <div>
+                <span class="text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase mb-2 block">Custom Engagement</span>
+                <h3 class="text-white card-title-md">Pain-Point Pilots</h3>
+              </div>
+              <span class="text-[#8891A0] font-mono text-[10px] lg:text-xs border border-[#1E3050] px-2 lg:px-3 py-1 lg:py-1.5 rounded whitespace-nowrap flex-shrink-0">ENGAGEMENT-BASED</span>
+            </div>
+            <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed mb-5 lg:mb-6">One operator. One builder. One expensive workflow &mdash; diagnosed and fixed. We embed with your team, find the bleed, and ship a working AI system. You keep the playbook. The agents stay running.</p>
+            <div class="space-y-2.5 mb-6 lg:mb-7">
+              <div class="flex items-start gap-3 text-sm text-[#C8D0DC]">
+                <svg class="text-[#22C55E] flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Voice-to-Quote: 72-hour turnaround &rarr; 20 minutes for a landscaping operator
+              </div>
+              <div class="flex items-start gap-3 text-sm text-[#C8D0DC]">
+                <svg class="text-[#22C55E] flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Event Management Ledger in build with Southeastern Dermatology
+              </div>
+              <div class="flex items-start gap-3 text-sm text-[#C8D0DC]">
+                <svg class="text-[#22C55E] flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                You own the output. No recurring dependency on VG.
+              </div>
+            </div>
+            <a href="#audit" class="inline-flex items-center gap-2 bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold text-xs lg:text-sm tracking-wider px-5 lg:px-6 py-3 rounded-lg transition-colors uppercase">Start with the Free Audit &rarr;</a>
+          </article>
+
+          <div class="lg:col-span-5 flex flex-col gap-4">
+
+            <article class="flex-1 bg-[#152238] border border-[#1E3050] rounded-2xl p-6 lg:p-7 hover:border-[#0051D5]/50 transition-all">
+              <div class="flex items-start justify-between mb-4 gap-3">
+                <div>
+                  <span class="text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase mb-2 block">Subscription</span>
+                  <h3 class="text-white card-title-sm">Weekly Intelligence Brief</h3>
+                </div>
+                <div class="text-right flex-shrink-0">
+                  <span class="text-[#FF8200] font-extrabold text-2xl lg:text-[28px]" style="line-height:1;">$47</span>
+                  <span class="text-[#8891A0] text-xs block">/month</span>
+                </div>
+              </div>
+              <p class="text-[#C8D0DC] text-sm leading-relaxed mb-4 lg:mb-5">14 sources synthesized weekly into 3 things worth acting on. Operator-curated. For owners who don&rsquo;t have time to sort signal from hype.</p>
+              <a href="https://buy.stripe.com/28E9AU1mjciQbSMbvQ5c400" target="_blank" rel="noopener" class="block text-center w-full border border-[#4D8FFF]/40 text-[#4D8FFF] hover:border-[#4D8FFF] hover:bg-[#4D8FFF]/10 font-semibold text-sm py-2.5 rounded-lg transition-all">Subscribe &mdash; Live on Stripe</a>
+            </article>
+
+            <article class="flex-1 bg-[#152238] border border-[#1E3050] rounded-2xl p-6 lg:p-7 hover:border-[#0051D5]/50 transition-all">
+              <div class="flex items-start justify-between mb-4 gap-3">
+                <div>
+                  <span class="text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase mb-2 block">Strategic Deliverable</span>
+                  <h3 class="text-white card-title-sm">5-Agent Business Blueprint</h3>
+                </div>
+                <div class="text-right flex-shrink-0">
+                  <span class="text-[#FF8200] font-extrabold text-2xl lg:text-[28px]" style="line-height:1;">$47</span>
+                  <span class="text-[#8891A0] text-xs block">one-time</span>
+                </div>
+              </div>
+              <p class="text-[#C8D0DC] text-sm leading-relaxed mb-4 lg:mb-5">The five agents every owner-operated business should run today &mdash; with specs, priority, and ROI framing your team can act on immediately.</p>
+              <a href="mailto:vision@visiongenesisai.com?subject=5-Agent%20Blueprint%20-%20I%27d%20like%20to%20buy" class="block text-center w-full border border-[#4D8FFF]/40 text-[#4D8FFF] hover:border-[#4D8FFF] hover:bg-[#4D8FFF]/10 font-semibold text-sm py-2.5 rounded-lg transition-all">Get the Blueprint &rarr;</a>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDER -->
+    <section id="ryan" class="bg-[#F2EBDD] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+
+          <div class="lg:col-span-4 flex justify-center lg:justify-start">
+            <div class="rounded-xl border-2 border-[#0051D5] bg-[#0A1628] overflow-hidden w-full max-w-[220px] lg:max-w-[300px]" style="aspect-ratio: 3/4; display:flex; align-items:center; justify-content:center; box-shadow: 0 0 60px rgba(0,81,213,0.12);">
+              <div class="text-center p-6 lg:p-8">
+                <div class="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-[#0051D5] mx-auto mb-4 lg:mb-5 flex items-center justify-center">
+                  <span class="text-white font-bold text-xl lg:text-2xl">RD</span>
+                </div>
+                <p class="text-white font-bold text-base lg:text-lg mb-1">Ryan Dix</p>
+                <p class="text-[#8891A0] text-[10px] lg:text-xs tracking-wider uppercase">Portrait placeholder</p>
+                <p class="text-[#8891A0] text-[10px] lg:text-xs mt-1">Deep Blue crewneck #0051D5</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="lg:col-span-8">
+            <p class="text-[#0051D5] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">The Founder</p>
+            <h2 class="text-[#1A1A2E] section-h2 mb-1">Ryan Dix</h2>
+            <p class="text-[#5A6378] text-xs lg:text-sm font-semibold tracking-widest uppercase mb-5 lg:mb-7">Operator &middot; Founder &middot; Not a Consultant</p>
+
+            <p class="text-[#1A1A2E] text-base lg:text-lg leading-relaxed mb-4 lg:mb-5">20 years at ExxonMobil and Iron Mountain running industrial finance and operations. Not in a slide deck &mdash; in the field. When something broke, Ryan fixed it. When a process was costing money nobody could explain, Ryan found it.</p>
+
+            <p class="text-[#1A1A2E] text-base lg:text-lg leading-relaxed mb-6 lg:mb-8">Vision Genesis is what happens when that operator stops renting consultants and starts building AI systems with people who know how to ship. The firm exists because the market has too many strategy decks and not enough working systems.</p>
+
+            <div class="grid grid-cols-3 gap-3 lg:gap-0 lg:flex lg:items-center lg:gap-8">
+              <div>
+                <p class="text-[#0051D5] font-extrabold text-lg lg:text-2xl mb-0.5">20 yrs</p>
+                <p class="text-[#5A6378] text-[10px] lg:text-xs font-semibold tracking-wider uppercase">ExxonMobil + Iron Mountain</p>
+              </div>
+              <div class="hidden lg:block w-px h-10 bg-[#E8DFD0]"></div>
+              <div>
+                <p class="text-[#0051D5] font-extrabold text-lg lg:text-2xl mb-0.5">Operator</p>
+                <p class="text-[#5A6378] text-[10px] lg:text-xs font-semibold tracking-wider uppercase">Not a consultant</p>
+              </div>
+              <div class="hidden lg:block w-px h-10 bg-[#E8DFD0]"></div>
+              <div>
+                <p class="text-[#0051D5] font-extrabold text-lg lg:text-2xl mb-0.5">Ships first</p>
+                <p class="text-[#5A6378] text-[10px] lg:text-xs font-semibold tracking-wider uppercase">Strategy follows delivery</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- AUDIT -->
+    <section id="audit" class="bg-[#0A1628] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+
+          <div>
+            <p class="text-[#FF8200] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">Start Here. Free. No Pitch.</p>
+            <h2 class="text-white section-h2 mb-4 lg:mb-6">The Free AI<br>Operating Audit</h2>
+            <p class="text-[#C8D0DC] text-base lg:text-xl leading-relaxed mb-7 lg:mb-8">10 questions. Graded assessment. You&rsquo;ll know exactly where AI fits in your business and what&rsquo;s worth fixing first &mdash; before spending a dollar with us.</p>
+
+            <div class="space-y-4 lg:space-y-5">
+              <div class="flex items-start gap-3 lg:gap-4">
+                <div class="w-7 h-7 rounded-full bg-[#0051D5]/20 border border-[#0051D5]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-[#4D8FFF] text-xs font-bold">1</span>
+                </div>
+                <div>
+                  <p class="text-white font-semibold text-sm lg:text-base mb-1">Where are you losing time?</p>
+                  <p class="text-[#8891A0] text-xs lg:text-sm leading-relaxed">We map the workflows eating your best operators alive.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 lg:gap-4">
+                <div class="w-7 h-7 rounded-full bg-[#0051D5]/20 border border-[#0051D5]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-[#4D8FFF] text-xs font-bold">2</span>
+                </div>
+                <div>
+                  <p class="text-white font-semibold text-sm lg:text-base mb-1">What&rsquo;s actually automatable?</p>
+                  <p class="text-[#8891A0] text-xs lg:text-sm leading-relaxed">Not everything is. We&rsquo;ll tell you what&rsquo;s worth it and what isn&rsquo;t.</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 lg:gap-4">
+                <div class="w-7 h-7 rounded-full bg-[#0051D5]/20 border border-[#0051D5]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <span class="text-[#4D8FFF] text-xs font-bold">3</span>
+                </div>
+                <div>
+                  <p class="text-white font-semibold text-sm lg:text-base mb-1">What&rsquo;s the graded result?</p>
+                  <p class="text-[#8891A0] text-xs lg:text-sm leading-relaxed">A scored assessment of your AI readiness. Yours to keep forever.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[#152238] border border-[#1E3050] rounded-2xl p-6 lg:p-8">
+            <h3 class="text-white font-bold text-lg lg:text-xl mb-1">Take the Audit</h3>
+            <p class="text-[#8891A0] text-xs lg:text-sm mb-5 lg:mb-6">Takes 4 minutes. Human-reviewed. No pitch on the back end.</p>
+
+            <form id="audit-form" class="space-y-3 lg:space-y-4">
+              <div>
+                <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">Your name</label>
+                <input name="name" type="text" placeholder="First name" required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
+              </div>
+              <div>
+                <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">Business email</label>
+                <input name="email" type="email" placeholder="you@yourbusiness.com" required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
+              </div>
+              <div>
+                <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">What does your business do?</label>
+                <input name="business" type="text" placeholder="e.g. landscaping, HVAC, medical practice..." class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
+              </div>
+              <div>
+                <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">What&rsquo;s costing you the most right now?</label>
+                <textarea name="pain" placeholder="Briefly describe the workflow or problem bleeding the most time and money..." rows="3" class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-none"></textarea>
+              </div>
+              <button type="submit" class="w-full bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold tracking-wider py-3.5 lg:py-4 rounded-lg transition-colors uppercase text-xs lg:text-sm">
+                Send Me the Audit Assessment &rarr;
+              </button>
+              <p class="text-[#8891A0] text-[10px] lg:text-xs text-center">Human-reviewed within 24 hours. No automated pitch.</p>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- RECRUIT -->
+    <section id="builders" class="bg-[#F2EBDD] py-12 lg:py-16 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+
+          <article class="bg-white border border-[#E8DFD0] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 hover:shadow-[0_4px_24px_rgba(0,81,213,0.08)] transition-all">
+            <span class="text-[#0051D5] text-xs font-semibold tracking-[0.1em] uppercase mb-3 block">For Veteran Operators</span>
+            <h3 class="text-[#1A1A2E] recruit-title mb-3">Plant a Practice</h3>
+            <p class="text-[#5A6378] text-sm lg:text-base leading-relaxed mb-5 lg:mb-6">20+ years running operations and watching consultants burn your budget? We&rsquo;re recruiting operator partners who want to plant a practice with equity. You own your vertical. You mentor the builders. The firm scales behind you.</p>
+            <a href="mailto:vision@visiongenesisai.com?subject=Operator%20Partner%20application" class="text-[#0051D5] font-semibold text-sm border-b border-dashed border-[#0051D5] pb-0.5">Apply as an Operator Partner &rarr;</a>
+          </article>
+
+          <article class="bg-white border border-[#E8DFD0] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 hover:shadow-[0_4px_24px_rgba(0,81,213,0.08)] transition-all">
+            <span class="text-[#0051D5] text-xs font-semibold tracking-[0.1em] uppercase mb-3 block">For AI-Native Builders</span>
+            <h3 class="text-[#1A1A2E] recruit-title mb-3">Earn Equity. Ship Real Work.</h3>
+            <p class="text-[#5A6378] text-sm lg:text-base leading-relaxed mb-5 lg:mb-6">You can build. You know AI. You want equity and to learn how a business actually runs. VG builders hold equity-on-delivery and work under operator mentorship from day one. This is not a junior dev role. This is a founding position.</p>
+            <a href="mailto:vision@visiongenesisai.com?subject=Builder%20application" class="text-[#0051D5] font-semibold text-sm border-b border-dashed border-[#0051D5] pb-0.5">Apply as a Builder &rarr;</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#0A1628] border-t border-[#1E3050] py-12 lg:py-16">
+    <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+
+      <div class="grid grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 mb-10 lg:mb-12">
+
+        <div class="col-span-2 lg:col-span-4">
+          <img src="assets/vg-logo-tree.png" alt="Vision Genesis" class="h-10 lg:h-12 w-auto mb-4 lg:mb-5">
+          <p class="text-[#C8D0DC] text-sm leading-relaxed mb-4 lg:mb-5 max-w-[320px]">Owner-operated AI implementation. Veteran operators paired with AI-native builders to solve the most expensive pain points inside real businesses.</p>
+          <p class="text-[#8891A0] text-xs font-semibold tracking-[0.1em] uppercase">Human-Authored &middot; AI-Delivered</p>
+        </div>
+
+        <div class="hidden lg:block lg:col-span-2"></div>
+
+        <div class="lg:col-span-2">
+          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-3 lg:mb-4">The Firm</p>
+          <ul class="space-y-2.5">
+            <li><a href="#stack" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">The VG Stack</a></li>
+            <li><a href="#ryan" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Ryan Dix</a></li>
+            <li><a href="#principles" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Principles</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=VG%20Manifesto%20-%20send%20me%20a%20copy" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Manifesto</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-2">
+          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-3 lg:mb-4">Products</p>
+          <ul class="space-y-2.5">
+            <li><a href="#products" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Pain-Point Pilots</a></li>
+            <li><a href="https://buy.stripe.com/28E9AU1mjciQbSMbvQ5c400" target="_blank" rel="noopener" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Intelligence Brief</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=5-Agent%20Blueprint%20-%20I%27d%20like%20to%20buy" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">5-Agent Blueprint</a></li>
+            <li><a href="#audit" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Free AI Audit</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-2">
+          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-3 lg:mb-4">Join</p>
+          <ul class="space-y-2.5">
+            <li><a href="mailto:vision@visiongenesisai.com?subject=Operator%20Partner%20application" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">For Operators</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=Builder%20application" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">For Builders</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=VG%20Question" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Contact</a></li>
+            <li><a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">@VisionGenesisAI</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="border-t border-[#1E3050] pt-6 lg:pt-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
+        <p class="text-[#5A6378] text-xs lg:text-sm italic">&ldquo;We don&rsquo;t sell tools. We solve what&rsquo;s costing you money.&rdquo;</p>
+        <p class="text-[#5A6378] text-[10px] lg:text-xs">&copy; 2026 Vision Genesis LLC &middot; All rights reserved</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+  // Hamburger menu
+  (function () {
+    var btn = document.getElementById('menu-btn');
+    var panel = document.getElementById('menu-panel');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function () {
+      panel.classList.toggle('open');
     });
-  }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
-  els.forEach(el => io.observe(el));
-})();
+    panel.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { panel.classList.remove('open'); });
+    });
+  })();
 
-// Audit form — mailto fallback
-(function() {
-  const form = document.getElementById('audit-form');
-  if (!form) return;
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const fd = new FormData(form);
-    const name = (fd.get('name') || '').toString().trim();
-    const email = (fd.get('email') || '').toString().trim();
-    const business = (fd.get('business') || '').toString().trim();
-    if (!email) return;
-    const subject = encodeURIComponent('Send me the AI Operating Audit');
-    const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nBusiness: ${business}\n\nPlease send me the 10-question AI Operating Audit.`);
-    window.location.href = `mailto:vision@visiongenesisai.com?subject=${subject}&body=${body}`;
-    setTimeout(() => {
-      const tip = document.createElement('div');
-      tip.textContent = "Email opened. Send it and we'll reply with the Audit within 24 hrs.";
-      tip.style.cssText = 'position:fixed;bottom:24px;right:24px;background:var(--ink);color:var(--paper);padding:14px 20px;font-family:Inter,sans-serif;font-size:0.875rem;z-index:200;border-left:3px solid var(--forest);max-width:340px;box-shadow:0 6px 24px rgba(0,0,0,0.18);';
-      document.body.appendChild(tip);
-      setTimeout(() => tip.remove(), 6000);
-    }, 400);
-  });
-})();
-</script>
+  // Audit form → mailto submission (fallback until server endpoint)
+  (function () {
+    var form = document.getElementById('audit-form');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fd = new FormData(form);
+      var name = (fd.get('name') || '').toString().trim();
+      var email = (fd.get('email') || '').toString().trim();
+      var business = (fd.get('business') || '').toString().trim();
+      var pain = (fd.get('pain') || '').toString().trim();
+      if (!email) return;
+      var subject = encodeURIComponent('Send me the AI Operating Audit');
+      var body = encodeURIComponent(
+        'Name: ' + name + '\n' +
+        'Email: ' + email + '\n' +
+        'Business: ' + business + '\n\n' +
+        'Most-expensive pain right now:\n' + pain + '\n\n' +
+        'Please send me the 10-question AI Operating Audit.'
+      );
+      window.location.href = 'mailto:vision@visiongenesisai.com?subject=' + subject + '&body=' + body;
+      setTimeout(function () {
+        var tip = document.createElement('div');
+        tip.textContent = "Email opened. Send it and we'll reply with the Audit within 24 hours.";
+        tip.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1A1A2E;color:#fff;padding:14px 20px;font-family:Inter,sans-serif;font-size:13px;z-index:200;border-left:3px solid #FF8200;max-width:340px;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:8px;';
+        document.body.appendChild(tip);
+        setTimeout(function () { tip.remove(); }, 6000);
+      }, 400);
+    });
+  })();
+  </script>
 
 </body>
 </html>
