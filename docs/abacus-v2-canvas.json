@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "screens": [
+    {"screen_id": "home-desktop", "frame_kind": "desktop", "label": "Homepage Desktop"},
+    {"screen_id": "home-mobile", "frame_kind": "phone", "label": "Homepage Mobile"}
+  ]
+}
