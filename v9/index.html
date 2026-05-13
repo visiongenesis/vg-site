@@ -7,23 +7,13 @@
   <meta name="description" content="We don't sell tools. We solve what's costing you money. An owner-operated AI-implementation firm pairing veteran operators with AI-native builders.">
   <meta property="og:title" content="Vision Genesis — Human-First AI">
   <meta property="og:description" content="We don't sell tools. We solve what's costing you money.">
-  <meta property="og:image" content="https://visiongenesisai.com/v9/assets/vg-logo.png">
+  <meta property="og:image" content="https://visiongenesisai.com/assets/vg-logo.png">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://visiongenesisai.com/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://visiongenesisai.com/v9/assets/vg-logo.png">
+  <meta name="twitter:image" content="https://visiongenesisai.com/assets/vg-logo.png">
   <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-tree.png">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
-  <script>
-    // Redirect mobile users to mobile-optimized layout (Abacus shipped two mockups)
-    (function () {
-      try {
-        if (window.matchMedia && window.matchMedia('(max-width: 767px)').matches
-            && !location.search.includes('desktop=1')) {
-          location.replace('m.html');
-        }
-      } catch (e) { /* ignore */ }
-    })();
-  </script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
   <style>
@@ -48,160 +38,229 @@
       background-image:
         linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
         linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
-      background-size: 72px 72px;
+      background-size: 48px 48px;
+    }
+    @media (min-width: 1024px) {
+      .grid-bg { background-size: 72px 72px; }
     }
     .hero-display {
-      font-size: 86px;
+      font-size: 40px;
       line-height: 1.0;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.025em;
       font-weight: 800;
     }
-    .stack-watermark {
-      font-size: 160px;
-      line-height: 1;
-      font-weight: 900;
-      color: rgba(255,255,255,0.04);
-      font-family: 'JetBrains Mono', monospace;
-      pointer-events: none;
-      user-select: none;
-      position: absolute;
-      right: -8px;
-      top: 50%;
-      transform: translateY(-50%);
+    @media (min-width: 768px) {
+      .hero-display { font-size: 56px; }
     }
+    @media (min-width: 1024px) {
+      .hero-display { font-size: 86px; letter-spacing: -0.03em; }
+    }
+    .stack-watermark {
+      display: none;
+    }
+    @media (min-width: 1024px) {
+      .stack-watermark {
+        display: block;
+        font-size: 160px;
+        line-height: 1;
+        font-weight: 900;
+        color: rgba(255,255,255,0.04);
+        font-family: 'JetBrains Mono', monospace;
+        pointer-events: none;
+        user-select: none;
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    .section-h1 {
+      font-size: 34px;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      font-weight: 800;
+    }
+    @media (min-width: 768px) { .section-h1 { font-size: 44px; } }
+    @media (min-width: 1024px) { .section-h1 { font-size: 56px; } }
+    .section-h2 {
+      font-size: 30px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    @media (min-width: 1024px) { .section-h2 { font-size: 48px; line-height: 1.0; letter-spacing: -0.025em; } }
+    .tree-h2 {
+      font-size: 26px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    @media (min-width: 1024px) { .tree-h2 { font-size: 40px; } }
+    .card-title-lg { font-size: 22px; line-height: 1.1; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .card-title-lg { font-size: 30px; letter-spacing: -0.015em; } }
+    .card-title-md { font-size: 20px; line-height: 1.1; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .card-title-md { font-size: 26px; } }
+    .card-title-sm { font-size: 20px; line-height: 1.1; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .card-title-sm { font-size: 22px; } }
+    .recruit-title { font-size: 20px; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .recruit-title { font-size: 24px; } }
+    .stat-num {
+      font-size: 32px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    @media (min-width: 1024px) { .stat-num { font-size: 40px; } }
+    .counter-num {
+      font-size: 36px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+    @media (min-width: 1024px) { .counter-num { font-size: 44px; } }
+    /* Hamburger menu */
+    .menu-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .menu-panel.open { max-height: 400px; }
   </style>
 </head>
-<body class="min-w-[1440px] bg-[#0A1628]">
+<body class="bg-[#0A1628]">
 
-  <!-- ╔══════════════════════════════════════════════════════════╗ -->
-  <!-- ║  NAV                                                     ║ -->
-  <!-- ╚══════════════════════════════════════════════════════════╝ -->
-  <nav data-design-id="nav-primary-a1b2c3" class="bg-[#0A1628]/95 backdrop-blur-sm border-b border-[#1E3050] sticky top-0 z-50">
-    <div class="max-w-[1280px] mx-auto px-8 h-[66px] flex items-center justify-between">
+  <!-- NAV -->
+  <nav class="bg-[#0A1628]/95 backdrop-blur-sm border-b border-[#1E3050] sticky top-0 z-50">
+    <div class="max-w-[1280px] mx-auto px-5 lg:px-8 h-[58px] lg:h-[66px] flex items-center justify-between">
       <a href="#" class="flex-shrink-0">
-        <img src="assets/vg-logo-tree.png" alt="Vision Genesis" class="h-10 w-auto">
+        <img src="assets/vg-logo-tree.png" alt="Vision Genesis" class="h-8 lg:h-10 w-auto">
       </a>
-      <div class="flex items-center gap-8">
-        <a href="#" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">The Stack</a>
-        <a href="#" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">Products</a>
-        <a href="#" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">For Builders</a>
-        <a href="#" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">Ryan Dix</a>
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="#stack" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">The Stack</a>
+        <a href="#products" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">Products</a>
+        <a href="#builders" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">For Builders</a>
+        <a href="#ryan" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">Ryan Dix</a>
       </div>
-      <a href="#" class="bg-[#0051D5] hover:bg-[#003DA0] text-white text-sm font-bold tracking-wider px-5 py-2.5 rounded-lg transition-colors uppercase">Free AI Audit &rarr;</a>
+      <div class="flex items-center gap-3">
+        <a href="#audit" class="bg-[#0051D5] hover:bg-[#003DA0] text-white text-xs lg:text-sm font-bold tracking-wider px-4 lg:px-5 py-2 lg:py-2.5 rounded-lg transition-colors uppercase">Free AI Audit &rarr;</a>
+        <button id="menu-btn" type="button" aria-label="Open menu" class="lg:hidden text-[#C8D0DC] p-1.5 -mr-1.5 hover:text-white transition-colors">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="menu-panel" class="menu-panel lg:hidden bg-[#0A1628] border-t border-[#1E3050]">
+      <div class="px-5 py-4 space-y-3">
+        <a href="#stack" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">The Stack</a>
+        <a href="#products" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">Products</a>
+        <a href="#builders" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">For Builders</a>
+        <a href="#ryan" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">Ryan Dix</a>
+      </div>
     </div>
   </nav>
 
-  <main data-design-id="main-content-b2c3d4">
+  <main>
 
-    <!-- ╔══════════════════════════════════════════════════════════╗ -->
-    <!-- ║  HERO — Problem-first, Dark Navy, Typography-forward     ║ -->
-    <!-- ╚══════════════════════════════════════════════════════════╝ -->
-    <section data-design-id="hero-section-c3d4e5" class="bg-[#0A1628] min-h-[900px] relative overflow-hidden flex flex-col justify-center">
-      <!-- Grid texture overlay -->
+    <!-- HERO -->
+    <section class="bg-[#0A1628] min-h-[640px] lg:min-h-[900px] relative overflow-hidden flex flex-col justify-center">
       <div class="grid-bg absolute inset-0 pointer-events-none"></div>
-      <!-- Subtle radial gradient depth -->
       <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 900px 700px at 70% 50%, rgba(0,81,213,0.06) 0%, transparent 70%);"></div>
 
-      <div class="max-w-[1280px] mx-auto px-8 pt-16 pb-16 relative z-10 w-full">
-        <div class="grid grid-cols-12 gap-8 items-start">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8 pt-10 lg:pt-16 pb-12 lg:pb-16 relative z-10 w-full">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-start">
 
-          <!-- Left col: all hero text + CTAs -->
-          <div class="col-span-7">
+          <div class="lg:col-span-7">
 
-            <!-- Live agent pill -->
-            <div class="flex items-center gap-3 mb-10">
-              <div class="inline-flex items-center gap-2.5 bg-[#FF8200]/10 border border-[#FF8200]/30 rounded-full px-4 py-2">
+            <!-- Live pills -->
+            <div class="flex items-center flex-wrap gap-2.5 mb-7 lg:mb-10">
+              <div class="inline-flex items-center gap-2.5 bg-[#FF8200]/10 border border-[#FF8200]/30 rounded-full px-3 lg:px-4 py-1.5 lg:py-2">
                 <span class="pulse-dot w-2 h-2 rounded-full bg-[#FF8200] block flex-shrink-0"></span>
-                <span class="text-[#FF8200] text-xs font-semibold tracking-[0.08em] uppercase font-mono">9 Agents &middot; Active</span>
+                <span class="text-[#FF8200] text-[10px] lg:text-xs font-semibold tracking-[0.08em] uppercase font-mono">9 Agents &middot; Active</span>
               </div>
-              <div class="inline-flex items-center gap-2 bg-white/[0.04] border border-white/10 rounded-full px-4 py-2">
-                <span class="counter-live text-[#C8D0DC] text-xs font-mono tracking-wide">PIPELINE: <span class="text-white font-semibold">47</span> TASKS IN PROGRESS</span>
+              <div class="inline-flex items-center gap-2 bg-white/[0.04] border border-white/10 rounded-full px-3 lg:px-4 py-1.5 lg:py-2">
+                <span class="counter-live text-[#C8D0DC] text-[10px] lg:text-xs font-mono tracking-wide">PIPELINE: <span class="text-white font-semibold">47</span> TASKS</span>
               </div>
             </div>
 
-            <!-- Problem-first display headline -->
-            <h1 class="hero-display text-white mb-0" style="max-width:700px;">
+            <!-- Headline -->
+            <h1 class="hero-display text-white mb-0 max-w-[700px]">
               Your best people<br>
               are buried in work<br>
               <span class="text-[#0051D5]">that shouldn&rsquo;t exist.</span>
             </h1>
 
-            <!-- Pain points grid -->
-            <div class="grid grid-cols-3 gap-3 mt-8 mb-8" style="max-width:680px;">
-              <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-4">
+            <!-- Pain points -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 lg:gap-3 mt-7 mb-7 lg:mt-8 lg:mb-8 max-w-[680px]">
+              <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
                 <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 <p class="text-[#C8D0DC] text-sm leading-relaxed">Your estimator spends 3 hours quoting what should take 20 minutes</p>
               </div>
-              <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-4">
+              <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
                 <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 <p class="text-[#C8D0DC] text-sm leading-relaxed">You bought software your team works around instead of with</p>
               </div>
-              <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-4">
+              <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
                 <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 <p class="text-[#C8D0DC] text-sm leading-relaxed">The consultant took $40k and handed you a deck nobody reads</p>
               </div>
             </div>
 
-            <!-- Solution pivot -->
-            <p class="text-[#C8D0DC] text-xl leading-relaxed mb-10" style="max-width:580px;">
+            <!-- Solution -->
+            <p class="text-[#C8D0DC] text-base lg:text-xl leading-relaxed mb-8 lg:mb-10 max-w-[580px]">
               We find the three workflows bleeding your P&amp;L and fix them&nbsp;&mdash;&nbsp;<strong class="text-white">without replacing a single person.</strong>
             </p>
 
             <!-- CTAs -->
-            <div class="flex items-center gap-4">
-              <a href="#" class="inline-flex items-center gap-2 bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold text-base tracking-wider px-8 py-4 rounded-lg transition-colors uppercase">
-                Take the Free AI Operating Audit &rarr;
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+              <a href="#audit" class="inline-flex items-center justify-center gap-2 bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold text-sm lg:text-base tracking-wider px-6 lg:px-8 py-3.5 lg:py-4 rounded-lg transition-colors uppercase text-center">
+                Take the Free AI Audit &rarr;
               </a>
-              <a href="#" class="border border-[#4D8FFF]/40 text-[#4D8FFF] hover:border-[#4D8FFF] hover:bg-[#4D8FFF]/10 font-semibold text-base px-8 py-4 rounded-lg transition-all">
+              <a href="#stack" class="border border-[#4D8FFF]/40 text-[#4D8FFF] hover:border-[#4D8FFF] hover:bg-[#4D8FFF]/10 font-semibold text-sm lg:text-base px-6 lg:px-8 py-3.5 lg:py-4 rounded-lg transition-all text-center">
                 See the System &darr;
               </a>
             </div>
 
           </div>
 
-          <!-- Right col: Live terminal -->
-          <div class="col-span-5">
+          <!-- Terminal -->
+          <div class="lg:col-span-5">
             <div class="bg-[#060F1C] border border-[#1E3050] rounded-xl overflow-hidden" style="box-shadow: 0 0 60px rgba(0,81,213,0.08);">
-              <!-- Terminal chrome -->
-              <div class="flex items-center justify-between px-5 py-3 bg-[#0A1628] border-b border-[#1E3050]">
-                <div class="flex items-center gap-2">
-                  <span class="w-3 h-3 rounded-full bg-[#EF4444]/60"></span>
-                  <span class="w-3 h-3 rounded-full bg-[#FF8200]/60"></span>
-                  <span class="w-3 h-3 rounded-full bg-[#22C55E]/60"></span>
+              <div class="flex items-center justify-between px-4 lg:px-5 py-2.5 lg:py-3 bg-[#0A1628] border-b border-[#1E3050]">
+                <div class="flex items-center gap-1.5 lg:gap-2">
+                  <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#EF4444]/60"></span>
+                  <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#FF8200]/60"></span>
+                  <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#22C55E]/60"></span>
                 </div>
-                <span class="font-mono text-[#8891A0] text-xs tracking-[0.1em] uppercase">VG Agent Terminal &mdash; Live Output</span>
-                <div class="flex items-center gap-2">
+                <span class="font-mono text-[#8891A0] text-[10px] lg:text-xs tracking-[0.1em] uppercase truncate ml-2">VG Agent &mdash; Live</span>
+                <div class="flex items-center gap-1.5 lg:gap-2 flex-shrink-0">
                   <span class="pulse-green w-2 h-2 rounded-full bg-[#22C55E] block"></span>
-                  <span class="font-mono text-[#22C55E] text-xs font-semibold">ACTIVE</span>
+                  <span class="font-mono text-[#22C55E] text-[10px] lg:text-xs font-semibold">ACTIVE</span>
                 </div>
               </div>
-              <!-- Terminal output -->
-              <div class="p-6 font-mono text-sm leading-7 space-y-1">
+              <div class="p-4 lg:p-6 font-mono text-[11px] lg:text-sm leading-6 lg:leading-7 space-y-1 overflow-hidden">
                 <div>
                   <span class="text-[#FF8200]">&rsaquo;</span>
                   <span class="text-[#8891A0] ml-2">[08:41:03]</span>
                   <span class="text-[#4D8FFF] ml-2">EstimateAgent</span>
-                  <span class="text-[#C8D0DC] ml-1">&rarr; Parsed 847-word voice note &rarr; structured quote in</span>
+                  <span class="text-[#C8D0DC] ml-1">&rarr; Parsed voice note &rarr; structured quote</span>
                   <span class="text-white font-semibold"> 18s</span>
                 </div>
                 <div>
                   <span class="text-[#FF8200]">&rsaquo;</span>
                   <span class="text-[#8891A0] ml-2">[08:41:19]</span>
                   <span class="text-[#4D8FFF] ml-2">SchedulerAgent</span>
-                  <span class="text-[#C8D0DC] ml-1">&rarr; Resolved 3 crew conflicts, updated CRM, sent confirmations</span>
+                  <span class="text-[#C8D0DC] ml-1">&rarr; Resolved 3 crew conflicts</span>
                 </div>
                 <div>
                   <span class="text-[#FF8200]">&rsaquo;</span>
                   <span class="text-[#8891A0] ml-2">[08:41:47]</span>
                   <span class="text-[#4D8FFF] ml-2">IntelAgent</span>
-                  <span class="text-[#C8D0DC] ml-1">&rarr; 14 sources &rarr; 3 actionable items. Digest compiled.</span>
+                  <span class="text-[#C8D0DC] ml-1">&rarr; 14 sources &rarr; 3 actionable items</span>
                 </div>
                 <div>
                   <span class="text-[#FF8200]">&rsaquo;</span>
                   <span class="text-[#8891A0] ml-2">[08:42:01]</span>
                   <span class="text-[#4D8FFF] ml-2">EstimateAgent</span>
-                  <span class="text-white font-semibold ml-1">Estimate approved by operator.</span>
-                  <span class="text-[#C8D0DC]"> Sent to client.</span>
+                  <span class="text-white font-semibold ml-1">Approved by operator.</span>
                   <span class="text-[#22C55E] font-semibold"> 23 min total.</span>
                 </div>
                 <div class="opacity-50">
@@ -212,16 +271,13 @@
                   <span class="text-white animate-pulse">_</span>
                 </div>
               </div>
-              <!-- Terminal footer stats -->
-              <div class="px-6 py-3 bg-[#0A1628]/50 border-t border-[#1E3050] flex items-center gap-6">
+              <div class="px-4 lg:px-6 py-2.5 lg:py-3 bg-[#0A1628]/50 border-t border-[#1E3050] flex items-center gap-3 lg:gap-6 flex-wrap">
                 <div class="flex items-center gap-2">
-                  <span class="counter-live font-mono text-xs text-[#8891A0]">TASKS TODAY:</span>
-                  <span class="font-mono text-xs font-semibold text-[#FF8200] counter-live">47</span>
+                  <span class="counter-live font-mono text-[10px] lg:text-xs text-[#8891A0]">TASKS:</span>
+                  <span class="font-mono text-[10px] lg:text-xs font-semibold text-[#FF8200] counter-live">47</span>
                 </div>
-                <div class="w-px h-4 bg-[#1E3050]"></div>
-                <span class="font-mono text-xs text-[#8891A0]">AGENTS: <span class="text-white">9/9 ONLINE</span></span>
-                <div class="w-px h-4 bg-[#1E3050]"></div>
-                <span class="font-mono text-xs text-[#8891A0]">UPTIME: <span class="text-[#22C55E]">100%</span></span>
+                <span class="font-mono text-[10px] lg:text-xs text-[#8891A0]">AGENTS: <span class="text-white">9/9</span></span>
+                <span class="font-mono text-[10px] lg:text-xs text-[#8891A0]">UPTIME: <span class="text-[#22C55E]">100%</span></span>
               </div>
             </div>
           </div>
@@ -230,138 +286,149 @@
       </div>
     </section>
 
-    <!-- ╔══════════════════════════════════════════════════════════╗ -->
-    <!-- ║  PROOF STRIP — Paper / Warm, Ramp-style honest scale     ║ -->
-    <!-- ╚══════════════════════════════════════════════════════════╝ -->
-    <section data-design-id="proof-strip-d4e5f6" class="bg-[#F2EBDD] py-14">
-      <div class="max-w-[1280px] mx-auto px-8">
-        <div class="flex items-center justify-between">
+    <!-- PROOF STRIP -->
+    <section class="bg-[#F2EBDD] py-10 lg:py-14">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <!-- Mobile: 2x3 grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:hidden gap-6 mb-6">
+          <div>
+            <p class="counter-live font-mono font-bold text-[#1A1A2E] counter-num">47</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Tasks today</p>
+          </div>
+          <div>
+            <p class="text-[#0051D5] stat-num">20</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Years operator</p>
+          </div>
+          <div>
+            <p class="text-[#0051D5] stat-num">9</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Agents active</p>
+          </div>
+          <div>
+            <p class="text-[#0051D5] stat-num">170<span class="text-[#FF8200]">+</span></p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Specs in pipeline</p>
+          </div>
+          <div>
+            <p class="text-[#0051D5] stat-num">3</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Products live</p>
+          </div>
+          <div>
+            <p class="text-[#0051D5] stat-num">2</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Founding partners</p>
+          </div>
+        </div>
+        <p class="text-[#5A6378] text-xs leading-relaxed lg:hidden border-t border-[#E8DFD0] pt-4">Honest scale. No inflated numbers. Here&rsquo;s exactly where we are.</p>
 
-          <!-- Live task counter -->
+        <!-- Desktop: single horizontal strip -->
+        <div class="hidden lg:flex items-center justify-between">
           <div class="flex items-center gap-5">
             <div>
               <p class="text-[#5A6378] text-xs font-semibold tracking-[0.1em] uppercase mb-1">Tasks completed today</p>
-              <p class="counter-live font-mono font-bold text-[#1A1A2E]" style="font-size:44px;line-height:1;letter-spacing:-0.02em;">47</p>
+              <p class="counter-live font-mono font-bold text-[#1A1A2E] counter-num">47</p>
             </div>
             <div class="w-px h-12 bg-[#E8DFD0]"></div>
           </div>
-
-          <!-- Stat: 20 yrs -->
           <div class="text-center">
-            <p class="text-[#0051D5] font-extrabold mb-1" style="font-size:40px;line-height:1;letter-spacing:-0.02em;">20</p>
+            <p class="text-[#0051D5] stat-num mb-1">20</p>
             <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Years Operator<br>Experience</p>
           </div>
-
           <div class="w-px h-10 bg-[#E8DFD0]"></div>
-
-          <!-- Stat: 9 agents -->
           <div class="text-center">
-            <p class="text-[#0051D5] font-extrabold mb-1" style="font-size:40px;line-height:1;letter-spacing:-0.02em;">9</p>
+            <p class="text-[#0051D5] stat-num mb-1">9</p>
             <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">AI Agents<br>Active</p>
           </div>
-
           <div class="w-px h-10 bg-[#E8DFD0]"></div>
-
-          <!-- Stat: 170+ specs -->
           <div class="text-center">
-            <p class="text-[#0051D5] font-extrabold mb-1" style="font-size:40px;line-height:1;letter-spacing:-0.02em;">170<span class="text-[#FF8200]">+</span></p>
+            <p class="text-[#0051D5] stat-num mb-1">170<span class="text-[#FF8200]">+</span></p>
             <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Agent Specs<br>In Pipeline</p>
           </div>
-
           <div class="w-px h-10 bg-[#E8DFD0]"></div>
-
-          <!-- Stat: 3 products -->
           <div class="text-center">
-            <p class="text-[#0051D5] font-extrabold mb-1" style="font-size:40px;line-height:1;letter-spacing:-0.02em;">3</p>
+            <p class="text-[#0051D5] stat-num mb-1">3</p>
             <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Products<br>Live on Stripe</p>
           </div>
-
           <div class="w-px h-10 bg-[#E8DFD0]"></div>
-
-          <!-- Stat: 2 founders -->
           <div class="text-center">
-            <p class="text-[#0051D5] font-extrabold mb-1" style="font-size:40px;line-height:1;letter-spacing:-0.02em;">2</p>
+            <p class="text-[#0051D5] stat-num mb-1">2</p>
             <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Founding<br>Partners</p>
           </div>
-
           <div class="w-px h-10 bg-[#E8DFD0]"></div>
-
-          <!-- Honest disclaimer -->
           <div class="max-w-[160px]">
             <p class="text-[#5A6378] text-xs leading-relaxed">Honest scale. No inflated numbers. Here&rsquo;s exactly where we are.</p>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- ╔══════════════════════════════════════════════════════════╗ -->
-    <!-- ║  VG STACK 01–05 — Engineering Specification Layout       ║ -->
-    <!-- ╚══════════════════════════════════════════════════════════╝ -->
-    <section data-design-id="vg-stack-e5f6g7" class="bg-[#0A1628] py-24">
-      <div class="max-w-[1280px] mx-auto px-8">
+    <!-- VG STACK -->
+    <section id="stack" class="bg-[#0A1628] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
 
-        <!-- Section header -->
-        <div class="mb-16 grid grid-cols-12 gap-8">
-          <div class="col-span-8">
-            <p class="text-[#4D8FFF] text-xs font-semibold tracking-[0.12em] uppercase mb-4">The System</p>
-            <h2 class="text-white font-extrabold mb-4" style="font-size:56px;line-height:1.0;letter-spacing:-0.025em;">The VG Stack</h2>
-            <p class="text-[#8891A0] text-lg max-w-[520px] leading-relaxed">Five interdependent layers. Engineered to compound. Not a service menu&nbsp;&mdash; a system that runs inside a real business.</p>
+        <div class="mb-10 lg:mb-16 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
+          <div class="lg:col-span-8">
+            <p class="text-[#4D8FFF] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">The System</p>
+            <h2 class="text-white section-h1 mb-3 lg:mb-4">The VG Stack</h2>
+            <p class="text-[#8891A0] text-base lg:text-lg max-w-[520px] leading-relaxed">Five interdependent layers. Engineered to compound. Not a service menu&nbsp;&mdash; a system that runs inside a real business.</p>
           </div>
-          <div class="col-span-4 flex items-end justify-end">
+          <div class="hidden lg:flex lg:col-span-4 items-end justify-end">
             <div class="border border-[#1E3050] rounded-lg px-4 py-2 font-mono text-xs text-[#8891A0] tracking-wider">
               SPEC REV. 01 &mdash; 2026
             </div>
           </div>
         </div>
 
-        <!-- Stack items -->
         <div>
 
-          <!-- STACK 01 — OPERATORS -->
-          <article data-design-id="stack-01-f6g7h8" class="relative border-t border-[#1E3050] py-10 grid grid-cols-12 gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+          <!-- STACK 01 -->
+          <article class="relative border-t border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
             <div class="stack-watermark">01</div>
-            <div class="col-span-2">
-              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block mb-3">STACK 01</span>
-              <span class="text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">01</span>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 01</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">01</span>
+              <span class="lg:hidden border border-[#1E3050] text-[#8891A0] text-[10px] font-mono px-2 py-1 rounded tracking-wider">HUMAN LAYER</span>
             </div>
-            <div class="col-span-6">
-              <h3 class="text-white font-bold mb-3" style="font-size:30px;line-height:1.1;letter-spacing:-0.015em;">Operators</h3>
-              <p class="text-[#C8D0DC] text-base leading-relaxed max-w-[480px]">Veteran operators who ran real operations for decades. They hold the truth about what&rsquo;s actually breaking inside a business &mdash; not what the dashboard says. They lead client relationships, qualify engagements, and mentor the builders.</p>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Operators</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">Veteran operators who ran real operations for decades. They hold the truth about what&rsquo;s actually breaking inside a business &mdash; not what the dashboard says. They lead client relationships, qualify engagements, and mentor the builders.</p>
             </div>
-            <div class="col-span-4 flex items-start justify-end pt-1">
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
               <span class="border border-[#1E3050] text-[#8891A0] text-xs font-mono px-3 py-1.5 rounded tracking-wider">HUMAN LAYER</span>
             </div>
           </article>
 
-          <!-- STACK 02 — BUILDERS -->
-          <article data-design-id="stack-02-g7h8i9" class="relative border-t border-[#1E3050] py-10 grid grid-cols-12 gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+          <!-- STACK 02 -->
+          <article class="relative border-t border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
             <div class="stack-watermark">02</div>
-            <div class="col-span-2">
-              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block mb-3">STACK 02</span>
-              <span class="text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">02</span>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 02</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">02</span>
+              <span class="lg:hidden border border-[#1E3050] text-[#8891A0] text-[10px] font-mono px-2 py-1 rounded tracking-wider">HUMAN LAYER</span>
             </div>
-            <div class="col-span-6">
-              <h3 class="text-white font-bold mb-3" style="font-size:30px;line-height:1.1;letter-spacing:-0.015em;">Builders</h3>
-              <p class="text-[#C8D0DC] text-base leading-relaxed max-w-[480px]">AI-native technologists who ship working systems for paying clients from week one. Not consultants. Not architects. Builders &mdash; people who hold equity and deliver. They progress under operator mentorship. The firm is only as good as what they ship.</p>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Builders</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">AI-native technologists who ship working systems for paying clients from week one. Not consultants. Not architects. Builders &mdash; people who hold equity and deliver. They progress under operator mentorship. The firm is only as good as what they ship.</p>
             </div>
-            <div class="col-span-4 flex items-start justify-end pt-1">
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
               <span class="border border-[#1E3050] text-[#8891A0] text-xs font-mono px-3 py-1.5 rounded tracking-wider">HUMAN LAYER</span>
             </div>
           </article>
 
-          <!-- STACK 03 — AGENTS -->
-          <article data-design-id="stack-03-h8i9j0" class="relative border-t border-[#1E3050] py-10 grid grid-cols-12 gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+          <!-- STACK 03 -->
+          <article class="relative border-t border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
             <div class="stack-watermark">03</div>
-            <div class="col-span-2">
-              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block mb-3">STACK 03</span>
-              <span class="text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">03</span>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 03</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">03</span>
+              <div class="lg:hidden flex items-center gap-2">
+                <span class="border border-[#FF8200]/30 text-[#FF8200] text-[10px] font-mono px-2 py-1 rounded tracking-wider bg-[#FF8200]/[0.06]">AI LAYER</span>
+                <span class="pulse-dot w-1.5 h-1.5 rounded-full bg-[#FF8200] block"></span>
+                <span class="font-mono text-[#FF8200] text-[10px] font-semibold">9 ACTIVE</span>
+              </div>
             </div>
-            <div class="col-span-6">
-              <h3 class="text-white font-bold mb-3" style="font-size:30px;line-height:1.1;letter-spacing:-0.015em;">Agents</h3>
-              <p class="text-[#C8D0DC] text-base leading-relaxed max-w-[480px]">An internal team of named AI agents &mdash; 9 today, 170+ in the specification pipeline &mdash; handling research, drafting, scheduling, and monitoring. Coordination layer, not decision layer. People still make the calls. Agents multiply judgment. They do not lead it.</p>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Agents</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">An internal team of named AI agents &mdash; 9 today, 170+ in the specification pipeline &mdash; handling research, drafting, scheduling, and monitoring. Coordination layer, not decision layer. People still make the calls. Agents multiply judgment. They do not lead it.</p>
             </div>
-            <div class="col-span-4 flex items-start justify-end pt-1">
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
               <div class="flex flex-col items-end gap-2">
                 <span class="border border-[#FF8200]/30 text-[#FF8200] text-xs font-mono px-3 py-1.5 rounded tracking-wider bg-[#FF8200]/[0.06]">AI LAYER</span>
                 <div class="flex items-center gap-2">
@@ -372,34 +439,36 @@
             </div>
           </article>
 
-          <!-- STACK 04 — PRACTICES -->
-          <article data-design-id="stack-04-i9j0k1" class="relative border-t border-[#1E3050] py-10 grid grid-cols-12 gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+          <!-- STACK 04 -->
+          <article class="relative border-t border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
             <div class="stack-watermark">04</div>
-            <div class="col-span-2">
-              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block mb-3">STACK 04</span>
-              <span class="text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">04</span>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 04</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">04</span>
+              <span class="lg:hidden border border-[#1E3050] text-[#8891A0] text-[10px] font-mono px-2 py-1 rounded tracking-wider">DELIVERY LAYER</span>
             </div>
-            <div class="col-span-6">
-              <h3 class="text-white font-bold mb-3" style="font-size:30px;line-height:1.1;letter-spacing:-0.015em;">Practices</h3>
-              <p class="text-[#C8D0DC] text-base leading-relaxed max-w-[480px]">One operator + one builder + one agent team, installed inside a real business. Each practice is the unit the firm scales by. Not a project with a handoff date. A working relationship where VG has a P&amp;L stake in the outcome. The practice stays until the system runs without us.</p>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Practices</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">One operator + one builder + one agent team, installed inside a real business. Each practice is the unit the firm scales by. Not a project with a handoff date. A working relationship where VG has a P&amp;L stake in the outcome. The practice stays until the system runs without us.</p>
             </div>
-            <div class="col-span-4 flex items-start justify-end pt-1">
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
               <span class="border border-[#1E3050] text-[#8891A0] text-xs font-mono px-3 py-1.5 rounded tracking-wider">DELIVERY LAYER</span>
             </div>
           </article>
 
-          <!-- STACK 05 — PRODUCTS -->
-          <article data-design-id="stack-05-j0k1l2" class="relative border-t border-b border-[#1E3050] py-10 grid grid-cols-12 gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+          <!-- STACK 05 -->
+          <article class="relative border-t border-b border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
             <div class="stack-watermark">05</div>
-            <div class="col-span-2">
-              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block mb-3">STACK 05</span>
-              <span class="text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">05</span>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 05</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">05</span>
+              <span class="lg:hidden border border-[#0051D5]/40 text-[#4D8FFF] text-[10px] font-mono px-2 py-1 rounded tracking-wider bg-[#0051D5]/[0.08]">SCALE LAYER</span>
             </div>
-            <div class="col-span-6">
-              <h3 class="text-white font-bold mb-3" style="font-size:30px;line-height:1.1;letter-spacing:-0.015em;">Products</h3>
-              <p class="text-[#C8D0DC] text-base leading-relaxed max-w-[480px]">Every engagement is R&amp;D for the next product. What we solve for one owner becomes a packaged system the next owner can buy. The firm scales by standing up more practices AND productizing what proves useful. Custom today. Packaged tomorrow. Knowledge that compounds.</p>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Products</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">Every engagement is R&amp;D for the next product. What we solve for one owner becomes a packaged system the next owner can buy. The firm scales by standing up more practices AND productizing what proves useful. Custom today. Packaged tomorrow. Knowledge that compounds.</p>
             </div>
-            <div class="col-span-4 flex items-start justify-end pt-1">
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
               <span class="border border-[#0051D5]/40 text-[#4D8FFF] text-xs font-mono px-3 py-1.5 rounded tracking-wider bg-[#0051D5]/[0.08]">SCALE LAYER</span>
             </div>
           </article>
@@ -408,70 +477,63 @@
       </div>
     </section>
 
-    <!-- ╔══════════════════════════════════════════════════════════╗ -->
-    <!-- ║  REFRAIN BAND — Full-bleed VG Deep Blue                  ║ -->
-    <!-- ╚══════════════════════════════════════════════════════════╝ -->
-    <section data-design-id="refrain-band-k1l2m3" class="bg-[#0051D5] py-20">
-      <div class="max-w-[1280px] mx-auto px-8 text-center">
-        <p class="text-white/60 text-sm font-semibold tracking-[0.12em] uppercase mb-5">Customer-facing refrain</p>
-        <h2 class="text-white font-extrabold mb-2" style="font-size:56px;line-height:1.0;letter-spacing:-0.025em;">We don&rsquo;t sell tools.</h2>
-        <h2 class="text-white font-extrabold mb-8" style="font-size:56px;line-height:1.0;letter-spacing:-0.025em;">We solve what&rsquo;s costing you money.</h2>
-        <p class="text-white/50 text-xs font-semibold tracking-[0.14em] uppercase">Human-Authored &middot; AI-Delivered</p>
+    <!-- REFRAIN BAND -->
+    <section class="bg-[#0051D5] py-14 lg:py-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8 text-center">
+        <p class="text-white/60 text-[10px] lg:text-sm font-semibold tracking-[0.12em] uppercase mb-4 lg:mb-5">Customer-facing refrain</p>
+        <h2 class="text-white section-h1 mb-1 lg:mb-2">We don&rsquo;t sell tools.</h2>
+        <h2 class="text-white section-h1 mb-6 lg:mb-8">We solve what&rsquo;s costing you money.</h2>
+        <p class="text-white/50 text-[10px] lg:text-xs font-semibold tracking-[0.14em] uppercase">Human-Authored &middot; AI-Delivered</p>
       </div>
     </section>
 
-    <!-- ╔══════════════════════════════════════════════════════════╗ -->
-    <!-- ║  LIVING TREE — The Color Burst (Paper background)        ║ -->
-    <!-- ╚══════════════════════════════════════════════════════════╝ -->
-    <section data-design-id="living-tree-l2m3n4" class="bg-[#F2EBDD] py-24">
-      <div class="max-w-[1280px] mx-auto px-8">
-        <div class="grid grid-cols-2 gap-16 items-center">
+    <!-- LIVING TREE -->
+    <section id="principles" class="bg-[#F2EBDD] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-          <!-- Left: Logo large, THE color explosion -->
-          <div class="flex flex-col items-center">
-            <div class="mb-6" style="filter: drop-shadow(0 24px 64px rgba(0,81,213,0.18)) drop-shadow(0 8px 24px rgba(255,130,0,0.12));">
-              <img src="assets/vg-logo.png" alt="Vision Genesis &mdash; The Living Tree" class="w-[360px] h-auto mx-auto">
+          <div class="flex flex-col items-center order-1">
+            <div class="mb-5 lg:mb-6" style="filter: drop-shadow(0 24px 64px rgba(0,81,213,0.18)) drop-shadow(0 8px 24px rgba(255,130,0,0.12));">
+              <img src="assets/vg-logo.png" alt="Vision Genesis — The Living Tree" class="w-[220px] lg:w-[360px] h-auto mx-auto">
             </div>
-            <p class="text-[#5A6378] text-xs font-semibold tracking-[0.1em] uppercase text-center">The Living Tree &mdash; Firm Identity Mark</p>
+            <p class="text-[#5A6378] text-[10px] lg:text-xs font-semibold tracking-[0.1em] uppercase text-center">The Living Tree &mdash; Firm Identity Mark</p>
             <p class="text-[#5A6378] text-xs text-center mt-1 max-w-[280px] leading-relaxed">Operators and builders as intertwined trunks. Agents as sap. Practices as branches. Products as fruit.</p>
           </div>
 
-          <!-- Right: Six principles + Hard Rule -->
-          <div>
-            <p class="text-[#0051D5] text-xs font-semibold tracking-[0.12em] uppercase mb-4">Built on Six Principles</p>
-            <h2 class="text-[#1A1A2E] font-extrabold mb-8" style="font-size:40px;line-height:1.05;letter-spacing:-0.02em;">The architecture we hold ourselves to.</h2>
+          <div class="order-2">
+            <p class="text-[#0051D5] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">Built on Six Principles</p>
+            <h2 class="text-[#1A1A2E] tree-h2 mb-6 lg:mb-8">The architecture we hold ourselves to.</h2>
 
-            <div class="space-y-4 mb-8">
-              <div class="flex gap-4 items-start">
+            <div class="space-y-4 mb-7 lg:mb-8">
+              <div class="flex gap-3 lg:gap-4 items-start">
                 <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">01</span>
-                <p class="text-[#1A1A2E] text-base leading-relaxed">Restructure the work; never replace the people.</p>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Restructure the work; never replace the people.</p>
               </div>
-              <div class="flex gap-4 items-start">
+              <div class="flex gap-3 lg:gap-4 items-start">
                 <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">02</span>
-                <p class="text-[#1A1A2E] text-base leading-relaxed">Truth before sales pressure. Even when it costs us the engagement.</p>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Truth before sales pressure. Even when it costs us the engagement.</p>
               </div>
-              <div class="flex gap-4 items-start">
+              <div class="flex gap-3 lg:gap-4 items-start">
                 <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">03</span>
-                <p class="text-[#1A1A2E] text-base leading-relaxed">Playbooks, not dependencies. The system you keep is yours.</p>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Playbooks, not dependencies. The system you keep is yours.</p>
               </div>
-              <div class="flex gap-4 items-start">
+              <div class="flex gap-3 lg:gap-4 items-start">
                 <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">04</span>
-                <p class="text-[#1A1A2E] text-base leading-relaxed">Agents multiply judgment. They do not lead it.</p>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Agents multiply judgment. They do not lead it.</p>
               </div>
-              <div class="flex gap-4 items-start">
+              <div class="flex gap-3 lg:gap-4 items-start">
                 <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">05</span>
-                <p class="text-[#1A1A2E] text-base leading-relaxed">Every engagement is R&amp;D for the next product.</p>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Every engagement is R&amp;D for the next product.</p>
               </div>
-              <div class="flex gap-4 items-start">
+              <div class="flex gap-3 lg:gap-4 items-start">
                 <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">06</span>
-                <p class="text-[#1A1A2E] text-base leading-relaxed">Builders and operators are owners. Equity follows delivery, not tenure.</p>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Builders and operators are owners. Equity follows delivery, not tenure.</p>
               </div>
             </div>
 
-            <!-- Hard Rule -->
-            <div class="bg-[#1A1A2E] rounded-xl p-6">
-              <p class="text-[#FF8200] text-xs font-semibold tracking-[0.1em] uppercase mb-3">The Hard Rule &mdash; Non-Negotiable</p>
-              <p class="text-white text-base leading-relaxed">&ldquo;We do not serve companies whose explicit goal is to reduce headcount. AI multiplies team capacity. It does not replace people.&rdquo;</p>
+            <div class="bg-[#1A1A2E] rounded-xl p-5 lg:p-6">
+              <p class="text-[#FF8200] text-[10px] lg:text-xs font-semibold tracking-[0.1em] uppercase mb-2 lg:mb-3">The Hard Rule &mdash; Non-Negotiable</p>
+              <p class="text-white text-sm lg:text-base leading-relaxed">&ldquo;We do not serve companies whose explicit goal is to reduce headcount. AI multiplies team capacity. It does not replace people.&rdquo;</p>
             </div>
           </div>
 
@@ -479,81 +541,74 @@
       </div>
     </section>
 
-    <!-- ╔══════════════════════════════════════════════════════════╗ -->
-    <!-- ║  PRODUCTS — Dark Navy, Bento Grid                        ║ -->
-    <!-- ╚══════════════════════════════════════════════════════════╝ -->
-    <section data-design-id="products-m3n4o5" class="bg-[#0A1628] py-24">
-      <div class="max-w-[1280px] mx-auto px-8">
+    <!-- PRODUCTS -->
+    <section id="products" class="bg-[#0A1628] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
 
-        <!-- Section header -->
-        <div class="mb-12">
-          <p class="text-[#4D8FFF] text-xs font-semibold tracking-[0.12em] uppercase mb-4">What We Sell</p>
-          <h2 class="text-white font-extrabold" style="font-size:48px;line-height:1.0;letter-spacing:-0.025em;">Three entry points.<br>One outcome: your problem solved.</h2>
+        <div class="mb-8 lg:mb-12">
+          <p class="text-[#4D8FFF] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">What We Sell</p>
+          <h2 class="text-white section-h2">Three entry points.<br class="hidden sm:block"><span class="sm:hidden"> </span>One outcome: your problem solved.</h2>
         </div>
 
-        <!-- Bento grid -->
-        <div class="grid grid-cols-12 gap-4">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
 
-          <!-- Pain-point Pilots — wide card left -->
-          <article data-design-id="product-pilots-n4o5p6" class="col-span-7 bg-[#152238] border border-[#1E3050] rounded-2xl p-8 hover:border-[#0051D5]/50 transition-all group">
-            <div class="flex items-start justify-between mb-5">
+          <!-- Pain-point Pilots -->
+          <article class="lg:col-span-7 bg-[#152238] border border-[#1E3050] rounded-2xl p-6 lg:p-8 hover:border-[#0051D5]/50 transition-all">
+            <div class="flex items-start justify-between mb-4 lg:mb-5 gap-3">
               <div>
                 <span class="text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase mb-2 block">Custom Engagement</span>
-                <h3 class="text-white font-bold" style="font-size:26px;letter-spacing:-0.01em;">Pain-Point Pilots</h3>
+                <h3 class="text-white card-title-md">Pain-Point Pilots</h3>
               </div>
-              <span class="text-[#8891A0] font-mono text-xs border border-[#1E3050] px-3 py-1.5 rounded">ENGAGEMENT-BASED</span>
+              <span class="text-[#8891A0] font-mono text-[10px] lg:text-xs border border-[#1E3050] px-2 lg:px-3 py-1 lg:py-1.5 rounded whitespace-nowrap flex-shrink-0">ENGAGEMENT-BASED</span>
             </div>
-            <p class="text-[#C8D0DC] text-base leading-relaxed mb-6">One operator. One builder. One expensive workflow &mdash; diagnosed and fixed. We embed with your team, find the bleed, and ship a working AI system. You keep the playbook. The agents stay running.</p>
-            <div class="space-y-2.5 mb-7">
-              <div class="flex items-center gap-3 text-sm text-[#C8D0DC]">
-                <svg class="text-[#22C55E] flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed mb-5 lg:mb-6">One operator. One builder. One expensive workflow &mdash; diagnosed and fixed. We embed with your team, find the bleed, and ship a working AI system. You keep the playbook. The agents stay running.</p>
+            <div class="space-y-2.5 mb-6 lg:mb-7">
+              <div class="flex items-start gap-3 text-sm text-[#C8D0DC]">
+                <svg class="text-[#22C55E] flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 Voice-to-Quote: 72-hour turnaround &rarr; 20 minutes for a landscaping operator
               </div>
-              <div class="flex items-center gap-3 text-sm text-[#C8D0DC]">
-                <svg class="text-[#22C55E] flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <div class="flex items-start gap-3 text-sm text-[#C8D0DC]">
+                <svg class="text-[#22C55E] flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 Event Management Ledger in build with Southeastern Dermatology
               </div>
-              <div class="flex items-center gap-3 text-sm text-[#C8D0DC]">
-                <svg class="text-[#22C55E] flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <div class="flex items-start gap-3 text-sm text-[#C8D0DC]">
+                <svg class="text-[#22C55E] flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
                 You own the output. No recurring dependency on VG.
               </div>
             </div>
-            <a href="#" class="inline-flex items-center gap-2 bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold text-sm tracking-wider px-6 py-3 rounded-lg transition-colors uppercase">Start with the Free Audit &rarr;</a>
+            <a href="#audit" class="inline-flex items-center gap-2 bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold text-xs lg:text-sm tracking-wider px-5 lg:px-6 py-3 rounded-lg transition-colors uppercase">Start with the Free Audit &rarr;</a>
           </article>
 
-          <!-- Right column: two smaller cards -->
-          <div class="col-span-5 flex flex-col gap-4">
+          <div class="lg:col-span-5 flex flex-col gap-4">
 
-            <!-- Intelligence Brief -->
-            <article data-design-id="product-brief-p6q7r8" class="flex-1 bg-[#152238] border border-[#1E3050] rounded-2xl p-7 hover:border-[#0051D5]/50 transition-all">
-              <div class="flex items-start justify-between mb-4">
+            <article class="flex-1 bg-[#152238] border border-[#1E3050] rounded-2xl p-6 lg:p-7 hover:border-[#0051D5]/50 transition-all">
+              <div class="flex items-start justify-between mb-4 gap-3">
                 <div>
                   <span class="text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase mb-2 block">Subscription</span>
-                  <h3 class="text-white font-bold" style="font-size:22px;letter-spacing:-0.01em;">Weekly Intelligence Brief</h3>
+                  <h3 class="text-white card-title-sm">Weekly Intelligence Brief</h3>
                 </div>
-                <div class="text-right flex-shrink-0 ml-4">
-                  <span class="text-[#FF8200] font-extrabold" style="font-size:28px;line-height:1;">$47</span>
+                <div class="text-right flex-shrink-0">
+                  <span class="text-[#FF8200] font-extrabold text-2xl lg:text-[28px]" style="line-height:1;">$47</span>
                   <span class="text-[#8891A0] text-xs block">/month</span>
                 </div>
               </div>
-              <p class="text-[#C8D0DC] text-sm leading-relaxed mb-5">14 sources synthesized weekly into 3 things worth acting on. Operator-curated. For owners who don&rsquo;t have time to sort signal from hype.</p>
-              <button data-design-id="btn-brief-q7r8s9" type="button" class="w-full border border-[#4D8FFF]/40 text-[#4D8FFF] hover:border-[#4D8FFF] hover:bg-[#4D8FFF]/10 font-semibold text-sm py-2.5 rounded-lg transition-all">Subscribe &mdash; Live on Stripe</button>
+              <p class="text-[#C8D0DC] text-sm leading-relaxed mb-4 lg:mb-5">14 sources synthesized weekly into 3 things worth acting on. Operator-curated. For owners who don&rsquo;t have time to sort signal from hype.</p>
+              <a href="https://buy.stripe.com/28E9AU1mjciQbSMbvQ5c400" target="_blank" rel="noopener" class="block text-center w-full border border-[#4D8FFF]/40 text-[#4D8FFF] hover:border-[#4D8FFF] hover:bg-[#4D8FFF]/10 font-semibold text-sm py-2.5 rounded-lg transition-all">Subscribe &mdash; Live on Stripe</a>
             </article>
 
-            <!-- 5-Agent Blueprint -->
-            <article data-design-id="product-blueprint-r8s9t0" class="flex-1 bg-[#152238] border border-[#1E3050] rounded-2xl p-7 hover:border-[#0051D5]/50 transition-all">
-              <div class="flex items-start justify-between mb-4">
+            <article class="flex-1 bg-[#152238] border border-[#1E3050] rounded-2xl p-6 lg:p-7 hover:border-[#0051D5]/50 transition-all">
+              <div class="flex items-start justify-between mb-4 gap-3">
                 <div>
                   <span class="text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase mb-2 block">Strategic Deliverable</span>
-                  <h3 class="text-white font-bold" style="font-size:22px;letter-spacing:-0.01em;">5-Agent Business Blueprint</h3>
+                  <h3 class="text-white card-title-sm">5-Agent Business Blueprint</h3>
                 </div>
-                <div class="text-right flex-shrink-0 ml-4">
-                  <span class="text-[#FF8200] font-extrabold" style="font-size:28px;line-height:1;">$47</span>
+                <div class="text-right flex-shrink-0">
+                  <span class="text-[#FF8200] font-extrabold text-2xl lg:text-[28px]" style="line-height:1;">$47</span>
                   <span class="text-[#8891A0] text-xs block">one-time</span>
                 </div>
               </div>
-              <p class="text-[#C8D0DC] text-sm leading-relaxed mb-5">The five agents every owner-operated business should run today &mdash; with specs, priority, and ROI framing your team can act on immediately.</p>
-              <button data-design-id="btn-blueprint-s9t0u1" type="button" class="w-full border border-[#4D8FFF]/40 text-[#4D8FFF] hover:border-[#4D8FFF] hover:bg-[#4D8FFF]/10 font-semibold text-sm py-2.5 rounded-lg transition-all">Get the Blueprint &mdash; Live on Stripe</button>
+              <p class="text-[#C8D0DC] text-sm leading-relaxed mb-4 lg:mb-5">The five agents every owner-operated business should run today &mdash; with specs, priority, and ROI framing your team can act on immediately.</p>
+              <a href="mailto:vision@visiongenesisai.com?subject=5-Agent%20Blueprint%20-%20I%27d%20like%20to%20buy" class="block text-center w-full border border-[#4D8FFF]/40 text-[#4D8FFF] hover:border-[#4D8FFF] hover:bg-[#4D8FFF]/10 font-semibold text-sm py-2.5 rounded-lg transition-all">Get the Blueprint &rarr;</a>
             </article>
 
           </div>
@@ -561,51 +616,47 @@
       </div>
     </section>
 
-    <!-- ╔══════════════════════════════════════════════════════════╗ -->
-    <!-- ║  FOUNDER — Paper, Operator not Consultant                ║ -->
-    <!-- ╚══════════════════════════════════════════════════════════╝ -->
-    <section data-design-id="founder-section-t0u1v2" class="bg-[#F2EBDD] py-24">
-      <div class="max-w-[1280px] mx-auto px-8">
-        <div class="grid grid-cols-12 gap-12 items-center">
+    <!-- FOUNDER -->
+    <section id="ryan" class="bg-[#F2EBDD] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
 
-          <!-- Portrait card -->
-          <div class="col-span-4">
-            <div class="rounded-xl border-2 border-[#0051D5] bg-[#0A1628] overflow-hidden" style="max-width:300px; aspect-ratio: 3/4; display:flex; align-items:center; justify-content:center; box-shadow: 0 0 60px rgba(0,81,213,0.12);">
-              <div class="text-center p-8">
-                <div class="w-20 h-20 rounded-full bg-[#0051D5] mx-auto mb-5 flex items-center justify-center">
-                  <span class="text-white font-bold text-2xl">RD</span>
+          <div class="lg:col-span-4 flex justify-center lg:justify-start">
+            <div class="rounded-xl border-2 border-[#0051D5] bg-[#0A1628] overflow-hidden w-full max-w-[220px] lg:max-w-[300px]" style="aspect-ratio: 3/4; display:flex; align-items:center; justify-content:center; box-shadow: 0 0 60px rgba(0,81,213,0.12);">
+              <div class="text-center p-6 lg:p-8">
+                <div class="w-16 h-16 lg:w-20 lg:h-20 rounded-full bg-[#0051D5] mx-auto mb-4 lg:mb-5 flex items-center justify-center">
+                  <span class="text-white font-bold text-xl lg:text-2xl">RD</span>
                 </div>
-                <p class="text-white font-bold text-lg mb-1">Ryan Dix</p>
-                <p class="text-[#8891A0] text-xs tracking-wider uppercase">Portrait placeholder</p>
-                <p class="text-[#8891A0] text-xs mt-1">Deep Blue crewneck #0051D5</p>
+                <p class="text-white font-bold text-base lg:text-lg mb-1">Ryan Dix</p>
+                <p class="text-[#8891A0] text-[10px] lg:text-xs tracking-wider uppercase">Portrait placeholder</p>
+                <p class="text-[#8891A0] text-[10px] lg:text-xs mt-1">Deep Blue crewneck #0051D5</p>
               </div>
             </div>
           </div>
 
-          <!-- Bio -->
-          <div class="col-span-8">
-            <p class="text-[#0051D5] text-xs font-semibold tracking-[0.12em] uppercase mb-4">The Founder</p>
-            <h2 class="text-[#1A1A2E] font-extrabold mb-1" style="font-size:48px;line-height:1.0;letter-spacing:-0.025em;">Ryan Dix</h2>
-            <p class="text-[#5A6378] text-sm font-semibold tracking-widest uppercase mb-7">Operator &middot; Founder &middot; Not a Consultant</p>
+          <div class="lg:col-span-8">
+            <p class="text-[#0051D5] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">The Founder</p>
+            <h2 class="text-[#1A1A2E] section-h2 mb-1">Ryan Dix</h2>
+            <p class="text-[#5A6378] text-xs lg:text-sm font-semibold tracking-widest uppercase mb-5 lg:mb-7">Operator &middot; Founder &middot; Not a Consultant</p>
 
-            <p class="text-[#1A1A2E] text-lg leading-relaxed mb-5">20 years at ExxonMobil and Iron Mountain running industrial finance and operations. Not in a slide deck &mdash; in the field. When something broke, Ryan fixed it. When a process was costing money nobody could explain, Ryan found it.</p>
+            <p class="text-[#1A1A2E] text-base lg:text-lg leading-relaxed mb-4 lg:mb-5">20 years at ExxonMobil and Iron Mountain running industrial finance and operations. Not in a slide deck &mdash; in the field. When something broke, Ryan fixed it. When a process was costing money nobody could explain, Ryan found it.</p>
 
-            <p class="text-[#1A1A2E] text-lg leading-relaxed mb-8">Vision Genesis is what happens when that operator stops renting consultants and starts building AI systems with people who know how to ship. The firm exists because the market has too many strategy decks and not enough working systems.</p>
+            <p class="text-[#1A1A2E] text-base lg:text-lg leading-relaxed mb-6 lg:mb-8">Vision Genesis is what happens when that operator stops renting consultants and starts building AI systems with people who know how to ship. The firm exists because the market has too many strategy decks and not enough working systems.</p>
 
-            <div class="flex items-center gap-8">
+            <div class="grid grid-cols-3 gap-3 lg:gap-0 lg:flex lg:items-center lg:gap-8">
               <div>
-                <p class="text-[#0051D5] font-extrabold text-2xl mb-0.5">20 yrs</p>
-                <p class="text-[#5A6378] text-xs font-semibold tracking-wider uppercase">ExxonMobil + Iron Mountain</p>
+                <p class="text-[#0051D5] font-extrabold text-lg lg:text-2xl mb-0.5">20 yrs</p>
+                <p class="text-[#5A6378] text-[10px] lg:text-xs font-semibold tracking-wider uppercase">ExxonMobil + Iron Mountain</p>
               </div>
-              <div class="w-px h-10 bg-[#E8DFD0]"></div>
+              <div class="hidden lg:block w-px h-10 bg-[#E8DFD0]"></div>
               <div>
-                <p class="text-[#0051D5] font-extrabold text-2xl mb-0.5">Operator</p>
-                <p class="text-[#5A6378] text-xs font-semibold tracking-wider uppercase">Not a consultant</p>
+                <p class="text-[#0051D5] font-extrabold text-lg lg:text-2xl mb-0.5">Operator</p>
+                <p class="text-[#5A6378] text-[10px] lg:text-xs font-semibold tracking-wider uppercase">Not a consultant</p>
               </div>
-              <div class="w-px h-10 bg-[#E8DFD0]"></div>
+              <div class="hidden lg:block w-px h-10 bg-[#E8DFD0]"></div>
               <div>
-                <p class="text-[#0051D5] font-extrabold text-2xl mb-0.5">Ships first</p>
-                <p class="text-[#5A6378] text-xs font-semibold tracking-wider uppercase">Strategy follows delivery</p>
+                <p class="text-[#0051D5] font-extrabold text-lg lg:text-2xl mb-0.5">Ships first</p>
+                <p class="text-[#5A6378] text-[10px] lg:text-xs font-semibold tracking-wider uppercase">Strategy follows delivery</p>
               </div>
             </div>
           </div>
@@ -614,76 +665,72 @@
       </div>
     </section>
 
-    <!-- ╔══════════════════════════════════════════════════════════╗ -->
-    <!-- ║  FREE AI AUDIT — The Conversion Moment                   ║ -->
-    <!-- ╚══════════════════════════════════════════════════════════╝ -->
-    <section data-design-id="audit-section-u1v2w3" class="bg-[#0A1628] py-24">
-      <div class="max-w-[1280px] mx-auto px-8">
-        <div class="grid grid-cols-2 gap-16 items-start">
+    <!-- AUDIT -->
+    <section id="audit" class="bg-[#0A1628] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-start">
 
-          <!-- Left: What the audit is -->
           <div>
-            <p class="text-[#FF8200] text-xs font-semibold tracking-[0.12em] uppercase mb-4">Start Here. Free. No Pitch.</p>
-            <h2 class="text-white font-extrabold mb-6" style="font-size:48px;line-height:1.0;letter-spacing:-0.025em;">The Free AI<br>Operating Audit</h2>
-            <p class="text-[#C8D0DC] text-xl leading-relaxed mb-8">10 questions. Graded assessment. You&rsquo;ll know exactly where AI fits in your business and what&rsquo;s worth fixing first &mdash; before spending a dollar with us.</p>
+            <p class="text-[#FF8200] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">Start Here. Free. No Pitch.</p>
+            <h2 class="text-white section-h2 mb-4 lg:mb-6">The Free AI<br>Operating Audit</h2>
+            <p class="text-[#C8D0DC] text-base lg:text-xl leading-relaxed mb-7 lg:mb-8">10 questions. Graded assessment. You&rsquo;ll know exactly where AI fits in your business and what&rsquo;s worth fixing first &mdash; before spending a dollar with us.</p>
 
-            <div class="space-y-5">
-              <div class="flex items-start gap-4">
+            <div class="space-y-4 lg:space-y-5">
+              <div class="flex items-start gap-3 lg:gap-4">
                 <div class="w-7 h-7 rounded-full bg-[#0051D5]/20 border border-[#0051D5]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span class="text-[#4D8FFF] text-xs font-bold">1</span>
                 </div>
                 <div>
-                  <p class="text-white font-semibold text-base mb-1">Where are you losing time?</p>
-                  <p class="text-[#8891A0] text-sm leading-relaxed">We map the workflows eating your best operators alive.</p>
+                  <p class="text-white font-semibold text-sm lg:text-base mb-1">Where are you losing time?</p>
+                  <p class="text-[#8891A0] text-xs lg:text-sm leading-relaxed">We map the workflows eating your best operators alive.</p>
                 </div>
               </div>
-              <div class="flex items-start gap-4">
+              <div class="flex items-start gap-3 lg:gap-4">
                 <div class="w-7 h-7 rounded-full bg-[#0051D5]/20 border border-[#0051D5]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span class="text-[#4D8FFF] text-xs font-bold">2</span>
                 </div>
                 <div>
-                  <p class="text-white font-semibold text-base mb-1">What&rsquo;s actually automatable?</p>
-                  <p class="text-[#8891A0] text-sm leading-relaxed">Not everything is. We&rsquo;ll tell you what&rsquo;s worth it and what isn&rsquo;t.</p>
+                  <p class="text-white font-semibold text-sm lg:text-base mb-1">What&rsquo;s actually automatable?</p>
+                  <p class="text-[#8891A0] text-xs lg:text-sm leading-relaxed">Not everything is. We&rsquo;ll tell you what&rsquo;s worth it and what isn&rsquo;t.</p>
                 </div>
               </div>
-              <div class="flex items-start gap-4">
+              <div class="flex items-start gap-3 lg:gap-4">
                 <div class="w-7 h-7 rounded-full bg-[#0051D5]/20 border border-[#0051D5]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span class="text-[#4D8FFF] text-xs font-bold">3</span>
                 </div>
                 <div>
-                  <p class="text-white font-semibold text-base mb-1">What&rsquo;s the graded result?</p>
-                  <p class="text-[#8891A0] text-sm leading-relaxed">A scored assessment of your AI readiness. Yours to keep forever.</p>
+                  <p class="text-white font-semibold text-sm lg:text-base mb-1">What&rsquo;s the graded result?</p>
+                  <p class="text-[#8891A0] text-xs lg:text-sm leading-relaxed">A scored assessment of your AI readiness. Yours to keep forever.</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Right: Intake form -->
-          <div class="bg-[#152238] border border-[#1E3050] rounded-2xl p-8">
-            <h3 class="text-white font-bold text-xl mb-1">Take the Audit</h3>
-            <p class="text-[#8891A0] text-sm mb-6">Takes 4 minutes. Human-reviewed. No pitch on the back end.</p>
+          <div class="bg-[#152238] border border-[#1E3050] rounded-2xl p-6 lg:p-8">
+            <h3 class="text-white font-bold text-lg lg:text-xl mb-1">Take the Audit</h3>
+            <p class="text-[#8891A0] text-xs lg:text-sm mb-5 lg:mb-6">Takes 4 minutes. Human-reviewed. No pitch on the back end.</p>
 
-            <form data-design-id="audit-form-v2w3x4" action="#" class="space-y-4">
+            <form id="audit-form" class="space-y-3 lg:space-y-4">
               <div>
-                <label class="text-[#C8D0DC] text-sm font-medium block mb-1.5">Your name</label>
-                <input type="text" placeholder="First name" class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
+                <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">Your name</label>
+                <input name="name" type="text" placeholder="First name" required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
               </div>
               <div>
-                <label class="text-[#C8D0DC] text-sm font-medium block mb-1.5">Business email</label>
-                <input type="email" placeholder="you@yourbusiness.com" class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
+                <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">Business email</label>
+                <input name="email" type="email" placeholder="you@yourbusiness.com" required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
               </div>
               <div>
-                <label class="text-[#C8D0DC] text-sm font-medium block mb-1.5">What does your business do?</label>
-                <input type="text" placeholder="e.g. landscaping, HVAC, medical practice..." class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
+                <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">What does your business do?</label>
+                <input name="business" type="text" placeholder="e.g. landscaping, HVAC, medical practice..." class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
               </div>
               <div>
-                <label class="text-[#C8D0DC] text-sm font-medium block mb-1.5">What&rsquo;s costing you the most right now?</label>
-                <textarea placeholder="Briefly describe the workflow or problem bleeding the most time and money..." rows="3" class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-none"></textarea>
+                <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">What&rsquo;s costing you the most right now?</label>
+                <textarea name="pain" placeholder="Briefly describe the workflow or problem bleeding the most time and money..." rows="3" class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-none"></textarea>
               </div>
-              <button data-design-id="btn-submit-audit-w3x4y5" type="button" class="w-full bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold tracking-wider py-4 rounded-lg transition-colors uppercase text-sm">
+              <button type="submit" class="w-full bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold tracking-wider py-3.5 lg:py-4 rounded-lg transition-colors uppercase text-xs lg:text-sm">
                 Send Me the Audit Assessment &rarr;
               </button>
-              <p class="text-[#8891A0] text-xs text-center">Human-reviewed within 24 hours. No automated pitch.</p>
+              <p class="text-[#8891A0] text-[10px] lg:text-xs text-center">Human-reviewed within 24 hours. No automated pitch.</p>
             </form>
           </div>
 
@@ -691,25 +738,23 @@
       </div>
     </section>
 
-    <!-- ╔══════════════════════════════════════════════════════════╗ -->
-    <!-- ║  FOR BUILDERS & OPERATORS — Recruit Band                 ║ -->
-    <!-- ╚══════════════════════════════════════════════════════════╝ -->
-    <section data-design-id="recruit-section-x4y5z6" class="bg-[#F2EBDD] py-16">
-      <div class="max-w-[1280px] mx-auto px-8">
-        <div class="grid grid-cols-2 gap-6">
+    <!-- RECRUIT -->
+    <section id="builders" class="bg-[#F2EBDD] py-12 lg:py-16 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
 
-          <article data-design-id="recruit-ops-y5z6a7" class="bg-white border border-[#E8DFD0] rounded-xl p-8 hover:border-[#0051D5]/30 hover:shadow-[0_4px_24px_rgba(0,81,213,0.08)] transition-all">
+          <article class="bg-white border border-[#E8DFD0] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 hover:shadow-[0_4px_24px_rgba(0,81,213,0.08)] transition-all">
             <span class="text-[#0051D5] text-xs font-semibold tracking-[0.1em] uppercase mb-3 block">For Veteran Operators</span>
-            <h3 class="text-[#1A1A2E] font-bold mb-3" style="font-size:24px;letter-spacing:-0.01em;">Plant a Practice</h3>
-            <p class="text-[#5A6378] text-base leading-relaxed mb-6">20+ years running operations and watching consultants burn your budget? We&rsquo;re recruiting operator partners who want to plant a practice with equity. You own your vertical. You mentor the builders. The firm scales behind you.</p>
-            <a href="#" class="text-[#0051D5] font-semibold text-sm border-b border-dashed border-[#0051D5] pb-0.5">Apply as an Operator Partner &rarr;</a>
+            <h3 class="text-[#1A1A2E] recruit-title mb-3">Plant a Practice</h3>
+            <p class="text-[#5A6378] text-sm lg:text-base leading-relaxed mb-5 lg:mb-6">20+ years running operations and watching consultants burn your budget? We&rsquo;re recruiting operator partners who want to plant a practice with equity. You own your vertical. You mentor the builders. The firm scales behind you.</p>
+            <a href="mailto:vision@visiongenesisai.com?subject=Operator%20Partner%20application" class="text-[#0051D5] font-semibold text-sm border-b border-dashed border-[#0051D5] pb-0.5">Apply as an Operator Partner &rarr;</a>
           </article>
 
-          <article data-design-id="recruit-builders-z6a7b8" class="bg-white border border-[#E8DFD0] rounded-xl p-8 hover:border-[#0051D5]/30 hover:shadow-[0_4px_24px_rgba(0,81,213,0.08)] transition-all">
+          <article class="bg-white border border-[#E8DFD0] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 hover:shadow-[0_4px_24px_rgba(0,81,213,0.08)] transition-all">
             <span class="text-[#0051D5] text-xs font-semibold tracking-[0.1em] uppercase mb-3 block">For AI-Native Builders</span>
-            <h3 class="text-[#1A1A2E] font-bold mb-3" style="font-size:24px;letter-spacing:-0.01em;">Earn Equity. Ship Real Work.</h3>
-            <p class="text-[#5A6378] text-base leading-relaxed mb-6">You can build. You know AI. You want equity and to learn how a business actually runs. VG builders hold equity-on-delivery and work under operator mentorship from day one. This is not a junior dev role. This is a founding position.</p>
-            <a href="#" class="text-[#0051D5] font-semibold text-sm border-b border-dashed border-[#0051D5] pb-0.5">Apply as a Builder &rarr;</a>
+            <h3 class="text-[#1A1A2E] recruit-title mb-3">Earn Equity. Ship Real Work.</h3>
+            <p class="text-[#5A6378] text-sm lg:text-base leading-relaxed mb-5 lg:mb-6">You can build. You know AI. You want equity and to learn how a business actually runs. VG builders hold equity-on-delivery and work under operator mentorship from day one. This is not a junior dev role. This is a founding position.</p>
+            <a href="mailto:vision@visiongenesisai.com?subject=Builder%20application" class="text-[#0051D5] font-semibold text-sm border-b border-dashed border-[#0051D5] pb-0.5">Apply as a Builder &rarr;</a>
           </article>
 
         </div>
@@ -718,66 +763,105 @@
 
   </main>
 
-  <!-- ╔══════════════════════════════════════════════════════════╗ -->
-  <!-- ║  FOOTER                                                   ║ -->
-  <!-- ╚══════════════════════════════════════════════════════════╝ -->
-  <footer data-design-id="footer-main-a8b9c0" class="bg-[#0A1628] border-t border-[#1E3050] py-16">
-    <div class="max-w-[1280px] mx-auto px-8">
+  <!-- FOOTER -->
+  <footer class="bg-[#0A1628] border-t border-[#1E3050] py-12 lg:py-16">
+    <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
 
-      <div class="grid grid-cols-12 gap-8 mb-12">
+      <div class="grid grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 mb-10 lg:mb-12">
 
-        <!-- Brand col -->
-        <div class="col-span-4">
-          <img src="assets/vg-logo-tree.png" alt="Vision Genesis" class="h-12 w-auto mb-5">
-          <p class="text-[#C8D0DC] text-sm leading-relaxed mb-5 max-w-[280px]">Owner-operated AI implementation. Veteran operators paired with AI-native builders to solve the most expensive pain points inside real businesses.</p>
+        <div class="col-span-2 lg:col-span-4">
+          <img src="assets/vg-logo-tree.png" alt="Vision Genesis" class="h-10 lg:h-12 w-auto mb-4 lg:mb-5">
+          <p class="text-[#C8D0DC] text-sm leading-relaxed mb-4 lg:mb-5 max-w-[320px]">Owner-operated AI implementation. Veteran operators paired with AI-native builders to solve the most expensive pain points inside real businesses.</p>
           <p class="text-[#8891A0] text-xs font-semibold tracking-[0.1em] uppercase">Human-Authored &middot; AI-Delivered</p>
         </div>
 
-        <div class="col-span-2"></div>
+        <div class="hidden lg:block lg:col-span-2"></div>
 
-        <!-- The Firm -->
-        <div class="col-span-2">
-          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-4">The Firm</p>
+        <div class="lg:col-span-2">
+          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-3 lg:mb-4">The Firm</p>
           <ul class="space-y-2.5">
-            <li><a href="#" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">The VG Stack</a></li>
-            <li><a href="#" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Ryan Dix</a></li>
-            <li><a href="#" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Principles</a></li>
-            <li><a href="#" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Manifesto</a></li>
+            <li><a href="#stack" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">The VG Stack</a></li>
+            <li><a href="#ryan" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Ryan Dix</a></li>
+            <li><a href="#principles" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Principles</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=VG%20Manifesto%20-%20send%20me%20a%20copy" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Manifesto</a></li>
           </ul>
         </div>
 
-        <!-- Products -->
-        <div class="col-span-2">
-          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-4">Products</p>
+        <div class="lg:col-span-2">
+          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-3 lg:mb-4">Products</p>
           <ul class="space-y-2.5">
-            <li><a href="#" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Pain-Point Pilots</a></li>
-            <li><a href="#" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Intelligence Brief</a></li>
-            <li><a href="#" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">5-Agent Blueprint</a></li>
-            <li><a href="#" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Free AI Audit</a></li>
+            <li><a href="#products" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Pain-Point Pilots</a></li>
+            <li><a href="https://buy.stripe.com/28E9AU1mjciQbSMbvQ5c400" target="_blank" rel="noopener" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Intelligence Brief</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=5-Agent%20Blueprint%20-%20I%27d%20like%20to%20buy" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">5-Agent Blueprint</a></li>
+            <li><a href="#audit" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Free AI Audit</a></li>
           </ul>
         </div>
 
-        <!-- Join -->
-        <div class="col-span-2">
-          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-4">Join</p>
+        <div class="lg:col-span-2">
+          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-3 lg:mb-4">Join</p>
           <ul class="space-y-2.5">
-            <li><a href="#" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">For Operators</a></li>
-            <li><a href="#" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">For Builders</a></li>
-            <li><a href="#" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">FAQ</a></li>
-            <li><a href="#" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Contact</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=Operator%20Partner%20application" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">For Operators</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=Builder%20application" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">For Builders</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=VG%20Question" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Contact</a></li>
+            <li><a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">@VisionGenesisAI</a></li>
           </ul>
         </div>
 
       </div>
 
-      <!-- Bottom bar -->
-      <div class="border-t border-[#1E3050] pt-8 flex items-center justify-between">
-        <p class="text-[#5A6378] text-sm italic">&ldquo;We don&rsquo;t sell tools. We solve what&rsquo;s costing you money.&rdquo;</p>
-        <p class="text-[#5A6378] text-xs">&copy; 2026 Vision Genesis LLC &middot; All rights reserved</p>
+      <div class="border-t border-[#1E3050] pt-6 lg:pt-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
+        <p class="text-[#5A6378] text-xs lg:text-sm italic">&ldquo;We don&rsquo;t sell tools. We solve what&rsquo;s costing you money.&rdquo;</p>
+        <p class="text-[#5A6378] text-[10px] lg:text-xs">&copy; 2026 Vision Genesis LLC &middot; All rights reserved</p>
       </div>
 
     </div>
   </footer>
+
+  <script>
+  // Hamburger menu
+  (function () {
+    var btn = document.getElementById('menu-btn');
+    var panel = document.getElementById('menu-panel');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function () {
+      panel.classList.toggle('open');
+    });
+    panel.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { panel.classList.remove('open'); });
+    });
+  })();
+
+  // Audit form → mailto submission (fallback until server endpoint)
+  (function () {
+    var form = document.getElementById('audit-form');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fd = new FormData(form);
+      var name = (fd.get('name') || '').toString().trim();
+      var email = (fd.get('email') || '').toString().trim();
+      var business = (fd.get('business') || '').toString().trim();
+      var pain = (fd.get('pain') || '').toString().trim();
+      if (!email) return;
+      var subject = encodeURIComponent('Send me the AI Operating Audit');
+      var body = encodeURIComponent(
+        'Name: ' + name + '\n' +
+        'Email: ' + email + '\n' +
+        'Business: ' + business + '\n\n' +
+        'Most-expensive pain right now:\n' + pain + '\n\n' +
+        'Please send me the 10-question AI Operating Audit.'
+      );
+      window.location.href = 'mailto:vision@visiongenesisai.com?subject=' + subject + '&body=' + body;
+      setTimeout(function () {
+        var tip = document.createElement('div');
+        tip.textContent = "Email opened. Send it and we'll reply with the Audit within 24 hours.";
+        tip.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1A1A2E;color:#fff;padding:14px 20px;font-family:Inter,sans-serif;font-size:13px;z-index:200;border-left:3px solid #FF8200;max-width:340px;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:8px;';
+        document.body.appendChild(tip);
+        setTimeout(function () { tip.remove(); }, 6000);
+      }, 400);
+    });
+  })();
+  </script>
 
 </body>
 </html>
