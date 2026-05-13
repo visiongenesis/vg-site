@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /_incoming/
+Disallow: /secureworkspace/
+
+Sitemap: https://visiongenesisai.com/sitemap.xml
