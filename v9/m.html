@@ -1,0 +1,529 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vision Genesis — Human-First AI</title>
+  <meta name="description" content="We don't sell tools. We solve what's costing you money. An owner-operated AI-implementation firm pairing veteran operators with AI-native builders.">
+  <meta property="og:title" content="Vision Genesis — Human-First AI">
+  <meta property="og:description" content="We don't sell tools. We solve what's costing you money.">
+  <meta property="og:image" content="https://visiongenesisai.com/v9/assets/vg-logo.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://visiongenesisai.com/v9/assets/vg-logo.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="assets/favicon-tree.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+    .font-mono, .font-mono * { font-family: 'JetBrains Mono', 'Fira Code', monospace !important; }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,130,0,0.4); }
+      50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(255,130,0,0); }
+    }
+    @keyframes pulse-green {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.4); }
+      50% { opacity: 0.7; box-shadow: 0 0 0 4px rgba(34,197,94,0); }
+    }
+    @keyframes counter-breathe {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .pulse-dot { animation: pulse-dot 2.2s ease-in-out infinite; }
+    .pulse-green { animation: pulse-green 2.5s ease-in-out infinite; }
+    .counter-live { animation: counter-breathe 3.5s ease-in-out infinite; }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+  </style>
+</head>
+<body class="w-full max-w-[480px] mx-auto bg-[#0A1628]">
+
+  <!-- ╔═════════════════════════════╗ -->
+  <!-- ║  NAV                          ║ -->
+  <!-- ╚═════════════════════════════╝ -->
+  <nav data-design-id="nav-primary-m1n2o3" class="bg-[#0A1628]/95 border-b border-[#1E3050] sticky top-0 z-50">
+    <div class="px-5 h-[58px] flex items-center justify-between">
+      <a href="#" class="flex-shrink-0">
+        <img src="assets/vg-logo-tree.png" alt="Vision Genesis" class="h-8 w-auto">
+      </a>
+      <a href="#" class="bg-[#0051D5] hover:bg-[#003DA0] text-white text-xs font-bold tracking-wider px-4 py-2 rounded-lg transition-colors uppercase">Free Audit &rarr;</a>
+    </div>
+  </nav>
+
+  <main data-design-id="main-content-n2o3p4">
+
+    <!-- ╔═════════════════════════════╗ -->
+    <!-- ║  HERO                         ║ -->
+    <!-- ╚═════════════════════════════╝ -->
+    <section data-design-id="hero-section-o3p4q5" class="bg-[#0A1628] min-h-[844px] relative overflow-hidden pt-10 pb-12 px-5">
+      <div class="grid-bg absolute inset-0 pointer-events-none"></div>
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 400px 400px at 80% 20%, rgba(0,81,213,0.07) 0%, transparent 70%);"></div>
+
+      <div class="relative z-10">
+
+        <!-- Live pills -->
+        <div class="flex flex-wrap gap-2 mb-8">
+          <div class="inline-flex items-center gap-2 bg-[#FF8200]/10 border border-[#FF8200]/30 rounded-full px-3 py-1.5">
+            <span class="pulse-dot w-2 h-2 rounded-full bg-[#FF8200] block flex-shrink-0"></span>
+            <span class="text-[#FF8200] text-[10px] font-semibold tracking-[0.08em] uppercase font-mono">9 Agents &middot; Active</span>
+          </div>
+          <div class="inline-flex items-center gap-2 bg-white/[0.04] border border-white/10 rounded-full px-3 py-1.5">
+            <span class="counter-live text-[#C8D0DC] text-[10px] font-mono tracking-wide">PIPELINE: <span class="text-white font-semibold">47</span></span>
+          </div>
+        </div>
+
+        <!-- Problem headline -->
+        <h1 class="text-white font-extrabold mb-8" style="font-size:40px;line-height:1.0;letter-spacing:-0.025em;">
+          Your best people<br>
+          are buried in work<br>
+          <span class="text-[#0051D5]">that shouldn&rsquo;t exist.</span>
+        </h1>
+
+        <!-- Pain points vertical -->
+        <div class="space-y-2.5 mb-7">
+          <div class="flex items-start gap-3 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5">
+            <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <p class="text-[#C8D0DC] text-sm leading-relaxed">Your estimator spends 3 hours quoting what should take 20 minutes</p>
+          </div>
+          <div class="flex items-start gap-3 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5">
+            <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <p class="text-[#C8D0DC] text-sm leading-relaxed">You bought software your team works around instead of with</p>
+          </div>
+          <div class="flex items-start gap-3 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5">
+            <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <p class="text-[#C8D0DC] text-sm leading-relaxed">The consultant took $40k and handed you a deck nobody reads</p>
+          </div>
+        </div>
+
+        <!-- Solution pivot -->
+        <p class="text-[#C8D0DC] text-base leading-relaxed mb-7">
+          We find the three workflows bleeding your P&amp;L and fix them&nbsp;&mdash;&nbsp;<strong class="text-white">without replacing a single person.</strong>
+        </p>
+
+        <!-- Primary CTA -->
+        <a href="#" class="flex items-center justify-center gap-2 bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold text-sm tracking-wider py-4 rounded-lg transition-colors uppercase mb-3 w-full">
+          Take the Free AI Operating Audit &rarr;
+        </a>
+        <a href="#" class="flex items-center justify-center border border-[#4D8FFF]/40 text-[#4D8FFF] font-semibold text-sm py-3.5 rounded-lg transition-all w-full">
+          See the System &darr;
+        </a>
+
+      </div>
+    </section>
+
+    <!-- Terminal (below fold) -->
+    <section data-design-id="hero-terminal-p4q5r6" class="bg-[#0A1628] pb-10 px-5">
+      <div class="bg-[#060F1C] border border-[#1E3050] rounded-xl overflow-hidden">
+        <!-- Chrome -->
+        <div class="flex items-center justify-between px-4 py-2.5 bg-[#0A1628] border-b border-[#1E3050]">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#EF4444]/60"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#FF8200]/60"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#22C55E]/60"></span>
+          </div>
+          <span class="font-mono text-[#8891A0] text-[9px] tracking-[0.1em] uppercase">VG Agent Terminal</span>
+          <div class="flex items-center gap-1.5">
+            <span class="pulse-green w-1.5 h-1.5 rounded-full bg-[#22C55E] block"></span>
+            <span class="font-mono text-[#22C55E] text-[9px] font-semibold">LIVE</span>
+          </div>
+        </div>
+        <!-- Output -->
+        <div class="p-4 font-mono space-y-1" style="font-size:11px;line-height:1.6;">
+          <div>
+            <span class="text-[#FF8200]">&rsaquo;</span>
+            <span class="text-[#4D8FFF] ml-1">EstimateAgent</span>
+            <span class="text-[#C8D0DC]"> &rarr; Voice note &rarr; quote in</span>
+            <span class="text-white font-semibold"> 18s</span>
+          </div>
+          <div>
+            <span class="text-[#FF8200]">&rsaquo;</span>
+            <span class="text-[#4D8FFF] ml-1">SchedulerAgent</span>
+            <span class="text-[#C8D0DC]"> &rarr; 3 crew conflicts resolved</span>
+          </div>
+          <div>
+            <span class="text-[#FF8200]">&rsaquo;</span>
+            <span class="text-[#4D8FFF] ml-1">IntelAgent</span>
+            <span class="text-[#C8D0DC]"> &rarr; Digest: 3 actions flagged</span>
+          </div>
+          <div>
+            <span class="text-[#FF8200]">&rsaquo;</span>
+            <span class="text-[#4D8FFF] ml-1">EstimateAgent</span>
+            <span class="text-[#22C55E] font-semibold"> Approved &amp; sent.</span>
+            <span class="text-[#C8D0DC]"> 23 min.</span>
+          </div>
+        </div>
+        <div class="px-4 py-2 border-t border-[#1E3050] flex items-center gap-4">
+          <span class="font-mono text-[#8891A0]" style="font-size:10px;">TASKS TODAY: <span class="text-[#FF8200] counter-live">47</span></span>
+          <span class="font-mono text-[#8891A0]" style="font-size:10px;">9/9 <span class="text-[#22C55E]">ONLINE</span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ╔═════════════════════════════╗ -->
+    <!-- ║  PROOF STRIP — Paper          ║ -->
+    <!-- ╚═════════════════════════════╝ -->
+    <section data-design-id="proof-strip-q5r6s7" class="bg-[#F2EBDD] py-10 px-5">
+      <!-- Live counter -->
+      <div class="flex items-center gap-3 mb-6 pb-6 border-b border-[#E8DFD0]">
+        <div>
+          <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.1em] uppercase mb-1">Tasks completed today</p>
+          <p class="counter-live font-mono font-bold text-[#1A1A2E]" style="font-size:36px;line-height:1;letter-spacing:-0.02em;">47</p>
+        </div>
+        <p class="text-[#5A6378] text-xs leading-relaxed ml-4">Honest scale. No inflated numbers.</p>
+      </div>
+
+      <!-- Stats 2x2 grid -->
+      <div class="grid grid-cols-2 gap-5">
+        <div>
+          <p class="text-[#0051D5] font-extrabold mb-0.5" style="font-size:32px;line-height:1;">20</p>
+          <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase">Yrs Operator Exp.</p>
+        </div>
+        <div>
+          <p class="text-[#0051D5] font-extrabold mb-0.5" style="font-size:32px;line-height:1;">9</p>
+          <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase">AI Agents Active</p>
+        </div>
+        <div>
+          <p class="text-[#0051D5] font-extrabold mb-0.5" style="font-size:32px;line-height:1;">170<span class="text-[#FF8200]">+</span></p>
+          <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase">Specs In Pipeline</p>
+        </div>
+        <div>
+          <p class="text-[#0051D5] font-extrabold mb-0.5" style="font-size:32px;line-height:1;">3</p>
+          <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase">Products Live</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ╔═════════════════════════════╗ -->
+    <!-- ║  VG STACK 01–05              ║ -->
+    <!-- ╚═════════════════════════════╝ -->
+    <section data-design-id="vg-stack-r6s7t8" class="bg-[#0A1628] py-14 px-5">
+
+      <p class="text-[#4D8FFF] text-[10px] font-semibold tracking-[0.12em] uppercase mb-3">The System</p>
+      <h2 class="text-white font-extrabold mb-3" style="font-size:34px;line-height:1.0;letter-spacing:-0.025em;">The VG Stack</h2>
+      <p class="text-[#8891A0] text-sm leading-relaxed mb-10">Five interdependent layers. Engineered to compound.</p>
+
+      <div>
+
+        <article data-design-id="stack-m01-s7t8u9" class="border-t border-[#1E3050] py-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="font-mono text-[#4D8FFF] text-[10px] font-semibold tracking-[0.1em] uppercase">STACK 01</span>
+            <span class="border border-[#1E3050] text-[#8891A0] text-[10px] font-mono px-2 py-1 rounded tracking-wider">HUMAN</span>
+          </div>
+          <h3 class="text-white font-bold mb-2" style="font-size:22px;letter-spacing:-0.01em;">Operators</h3>
+          <p class="text-[#C8D0DC] text-sm leading-relaxed">Veteran operators who ran real operations for decades. They hold the truth about what&rsquo;s actually breaking inside a business. They lead client relationships and mentor the builders.</p>
+        </article>
+
+        <article data-design-id="stack-m02-t8u9v0" class="border-t border-[#1E3050] py-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="font-mono text-[#4D8FFF] text-[10px] font-semibold tracking-[0.1em] uppercase">STACK 02</span>
+            <span class="border border-[#1E3050] text-[#8891A0] text-[10px] font-mono px-2 py-1 rounded tracking-wider">HUMAN</span>
+          </div>
+          <h3 class="text-white font-bold mb-2" style="font-size:22px;letter-spacing:-0.01em;">Builders</h3>
+          <p class="text-[#C8D0DC] text-sm leading-relaxed">AI-native technologists who ship working systems for paying clients from week one. Not consultants. Builders who hold equity and deliver under operator mentorship.</p>
+        </article>
+
+        <article data-design-id="stack-m03-u9v0w1" class="border-t border-[#1E3050] py-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="font-mono text-[#4D8FFF] text-[10px] font-semibold tracking-[0.1em] uppercase">STACK 03</span>
+            <div class="flex items-center gap-2">
+              <span class="pulse-dot w-1.5 h-1.5 rounded-full bg-[#FF8200] block"></span>
+              <span class="border border-[#FF8200]/30 text-[#FF8200] text-[10px] font-mono px-2 py-1 rounded tracking-wider bg-[#FF8200]/[0.06]">AI LAYER</span>
+            </div>
+          </div>
+          <h3 class="text-white font-bold mb-2" style="font-size:22px;letter-spacing:-0.01em;">Agents</h3>
+          <p class="text-[#C8D0DC] text-sm leading-relaxed">9 named AI agents today, 170+ in the spec pipeline. Coordination layer, not decision layer. Agents multiply judgment. They do not lead it.</p>
+        </article>
+
+        <article data-design-id="stack-m04-v0w1x2" class="border-t border-[#1E3050] py-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="font-mono text-[#4D8FFF] text-[10px] font-semibold tracking-[0.1em] uppercase">STACK 04</span>
+            <span class="border border-[#1E3050] text-[#8891A0] text-[10px] font-mono px-2 py-1 rounded tracking-wider">DELIVERY</span>
+          </div>
+          <h3 class="text-white font-bold mb-2" style="font-size:22px;letter-spacing:-0.01em;">Practices</h3>
+          <p class="text-[#C8D0DC] text-sm leading-relaxed">One operator + one builder + one agent team installed inside a real business. Each practice is the unit the firm scales by. Not a project &mdash; a working relationship.</p>
+        </article>
+
+        <article data-design-id="stack-m05-w1x2y3" class="border-t border-b border-[#1E3050] py-6">
+          <div class="flex items-start justify-between mb-3">
+            <span class="font-mono text-[#4D8FFF] text-[10px] font-semibold tracking-[0.1em] uppercase">STACK 05</span>
+            <span class="border border-[#0051D5]/40 text-[#4D8FFF] text-[10px] font-mono px-2 py-1 rounded tracking-wider bg-[#0051D5]/[0.08]">SCALE</span>
+          </div>
+          <h3 class="text-white font-bold mb-2" style="font-size:22px;letter-spacing:-0.01em;">Products</h3>
+          <p class="text-[#C8D0DC] text-sm leading-relaxed">Every engagement is R&amp;D for the next product. Custom today. Packaged tomorrow. Knowledge that compounds across every practice.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ╔═════════════════════════════╗ -->
+    <!-- ║  REFRAIN BAND               ║ -->
+    <!-- ╚═════════════════════════════╝ -->
+    <section data-design-id="refrain-band-x2y3z4" class="bg-[#0051D5] py-14 px-5 text-center">
+      <p class="text-white/60 text-[10px] font-semibold tracking-[0.12em] uppercase mb-4">Customer-facing refrain</p>
+      <h2 class="text-white font-extrabold mb-1" style="font-size:30px;line-height:1.05;letter-spacing:-0.02em;">We don&rsquo;t sell tools.</h2>
+      <h2 class="text-white font-extrabold mb-6" style="font-size:30px;line-height:1.05;letter-spacing:-0.02em;">We solve what&rsquo;s costing you money.</h2>
+      <p class="text-white/50 text-[10px] font-semibold tracking-[0.14em] uppercase">Human-Authored &middot; AI-Delivered</p>
+    </section>
+
+    <!-- ╔═════════════════════════════╗ -->
+    <!-- ║  LIVING TREE — Color Burst  ║ -->
+    <!-- ╚═════════════════════════════╝ -->
+    <section data-design-id="living-tree-y3z4a5" class="bg-[#F2EBDD] py-14 px-5">
+
+      <!-- Logo large (color burst moment) -->
+      <div class="flex flex-col items-center mb-10">
+        <div style="filter: drop-shadow(0 16px 48px rgba(0,81,213,0.16)) drop-shadow(0 4px 16px rgba(255,130,0,0.1));">
+          <img src="assets/vg-logo.png" alt="Vision Genesis — The Living Tree" class="w-[220px] h-auto mx-auto">
+        </div>
+        <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.1em] uppercase text-center mt-4">The Living Tree &mdash; Firm Identity Mark</p>
+      </div>
+
+      <!-- Principles -->
+      <p class="text-[#0051D5] text-[10px] font-semibold tracking-[0.12em] uppercase mb-3">Built on Six Principles</p>
+      <h2 class="text-[#1A1A2E] font-extrabold mb-6" style="font-size:26px;line-height:1.05;letter-spacing:-0.02em;">The architecture we hold ourselves to.</h2>
+
+      <div class="space-y-3.5 mb-8">
+        <div class="flex gap-3 items-start">
+          <span class="text-[#0051D5] font-mono text-[10px] font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">01</span>
+          <p class="text-[#1A1A2E] text-sm leading-relaxed">Restructure the work; never replace the people.</p>
+        </div>
+        <div class="flex gap-3 items-start">
+          <span class="text-[#0051D5] font-mono text-[10px] font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">02</span>
+          <p class="text-[#1A1A2E] text-sm leading-relaxed">Truth before sales pressure. Even when it costs us the engagement.</p>
+        </div>
+        <div class="flex gap-3 items-start">
+          <span class="text-[#0051D5] font-mono text-[10px] font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">03</span>
+          <p class="text-[#1A1A2E] text-sm leading-relaxed">Playbooks, not dependencies. The system you keep is yours.</p>
+        </div>
+        <div class="flex gap-3 items-start">
+          <span class="text-[#0051D5] font-mono text-[10px] font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">04</span>
+          <p class="text-[#1A1A2E] text-sm leading-relaxed">Agents multiply judgment. They do not lead it.</p>
+        </div>
+        <div class="flex gap-3 items-start">
+          <span class="text-[#0051D5] font-mono text-[10px] font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">05</span>
+          <p class="text-[#1A1A2E] text-sm leading-relaxed">Every engagement is R&amp;D for the next product.</p>
+        </div>
+        <div class="flex gap-3 items-start">
+          <span class="text-[#0051D5] font-mono text-[10px] font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">06</span>
+          <p class="text-[#1A1A2E] text-sm leading-relaxed">Builders and operators are owners. Equity follows delivery, not tenure.</p>
+        </div>
+      </div>
+
+      <!-- Hard Rule -->
+      <div class="bg-[#1A1A2E] rounded-xl p-5">
+        <p class="text-[#FF8200] text-[10px] font-semibold tracking-[0.1em] uppercase mb-2">The Hard Rule</p>
+        <p class="text-white text-sm leading-relaxed">&ldquo;We do not serve companies whose explicit goal is to reduce headcount. AI multiplies team capacity. It does not replace people.&rdquo;</p>
+      </div>
+
+    </section>
+
+    <!-- ╔═════════════════════════════╗ -->
+    <!-- ║  PRODUCTS                    ║ -->
+    <!-- ╚═════════════════════════════╝ -->
+    <section data-design-id="products-z4a5b6" class="bg-[#0A1628] py-14 px-5">
+
+      <p class="text-[#4D8FFF] text-[10px] font-semibold tracking-[0.12em] uppercase mb-3">What We Sell</p>
+      <h2 class="text-white font-extrabold mb-8" style="font-size:30px;line-height:1.05;letter-spacing:-0.02em;">Three entry points. One outcome.</h2>
+
+      <div class="space-y-4">
+
+        <article data-design-id="product-pilots-a5b6c7" class="bg-[#152238] border border-[#1E3050] rounded-2xl p-6 hover:border-[#0051D5]/50 transition-all">
+          <span class="text-[#4D8FFF] text-[10px] font-semibold tracking-[0.1em] uppercase mb-2 block">Custom Engagement</span>
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-white font-bold" style="font-size:20px;letter-spacing:-0.01em;">Pain-Point Pilots</h3>
+            <span class="text-[#8891A0] font-mono text-[9px] border border-[#1E3050] px-2 py-1 rounded">CUSTOM</span>
+          </div>
+          <p class="text-[#C8D0DC] text-sm leading-relaxed mb-4">One operator. One builder. One expensive workflow &mdash; fixed. We embed, diagnose, and ship a working AI system. You keep the playbook.</p>
+          <div class="space-y-1.5 mb-5">
+            <div class="flex items-center gap-2 text-xs text-[#C8D0DC]">
+              <svg class="text-[#22C55E] flex-shrink-0" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Voice-to-Quote: 72hr &rarr; 20 min for landscaping op
+            </div>
+            <div class="flex items-center gap-2 text-xs text-[#C8D0DC]">
+              <svg class="text-[#22C55E] flex-shrink-0" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              Event Ledger in build with Southeastern Derm
+            </div>
+          </div>
+          <a href="#" class="flex items-center justify-center bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold text-xs tracking-wider py-3 rounded-lg transition-colors uppercase w-full">Start with Free Audit &rarr;</a>
+        </article>
+
+        <article data-design-id="product-brief-b6c7d8" class="bg-[#152238] border border-[#1E3050] rounded-2xl p-6 hover:border-[#0051D5]/50 transition-all">
+          <span class="text-[#4D8FFF] text-[10px] font-semibold tracking-[0.1em] uppercase mb-2 block">Subscription</span>
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-white font-bold" style="font-size:20px;letter-spacing:-0.01em;">Weekly Intelligence Brief</h3>
+            <div class="text-right flex-shrink-0 ml-3">
+              <span class="text-[#FF8200] font-extrabold" style="font-size:22px;line-height:1;">$47</span>
+              <span class="text-[#8891A0] text-[10px] block">/month</span>
+            </div>
+          </div>
+          <p class="text-[#C8D0DC] text-sm leading-relaxed mb-4">14 sources &rarr; 3 actionable items weekly. Operator-curated. No hype.</p>
+          <button data-design-id="btn-brief-c7d8e9" type="button" class="w-full border border-[#4D8FFF]/40 text-[#4D8FFF] font-semibold text-xs py-3 rounded-lg transition-all">Subscribe &mdash; Live on Stripe</button>
+        </article>
+
+        <article data-design-id="product-blueprint-d8e9f0" class="bg-[#152238] border border-[#1E3050] rounded-2xl p-6 hover:border-[#0051D5]/50 transition-all">
+          <span class="text-[#4D8FFF] text-[10px] font-semibold tracking-[0.1em] uppercase mb-2 block">Strategic Deliverable</span>
+          <div class="flex items-start justify-between mb-3">
+            <h3 class="text-white font-bold" style="font-size:20px;letter-spacing:-0.01em;">5-Agent Business Blueprint</h3>
+            <div class="text-right flex-shrink-0 ml-3">
+              <span class="text-[#FF8200] font-extrabold" style="font-size:22px;line-height:1;">$47</span>
+              <span class="text-[#8891A0] text-[10px] block">one-time</span>
+            </div>
+          </div>
+          <p class="text-[#C8D0DC] text-sm leading-relaxed mb-4">The five agents every owner-operated business should run now. Specs, priority, ROI framing.</p>
+          <button data-design-id="btn-blueprint-e9f0g1" type="button" class="w-full border border-[#4D8FFF]/40 text-[#4D8FFF] font-semibold text-xs py-3 rounded-lg transition-all">Get the Blueprint &mdash; Stripe</button>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ╔═════════════════════════════╗ -->
+    <!-- ║  FOUNDER                     ║ -->
+    <!-- ╚═════════════════════════════╝ -->
+    <section data-design-id="founder-section-c5d6e7" class="bg-[#F2EBDD] py-14 px-5">
+
+      <!-- Portrait -->
+      <div class="flex justify-center mb-7">
+        <div class="rounded-xl border-2 border-[#0051D5] bg-[#0A1628] overflow-hidden flex items-center justify-center" style="width:180px;height:220px;box-shadow: 0 0 40px rgba(0,81,213,0.14);">
+          <div class="text-center p-5">
+            <div class="w-14 h-14 rounded-full bg-[#0051D5] mx-auto mb-3 flex items-center justify-center">
+              <span class="text-white font-bold text-lg">RD</span>
+            </div>
+            <p class="text-white font-bold text-sm mb-0.5">Ryan Dix</p>
+            <p class="text-[#8891A0] text-[9px] tracking-wider uppercase">Portrait</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-[#0051D5] text-[10px] font-semibold tracking-[0.12em] uppercase mb-2">The Founder</p>
+      <h2 class="text-[#1A1A2E] font-extrabold mb-1" style="font-size:34px;line-height:1.0;letter-spacing:-0.025em;">Ryan Dix</h2>
+      <p class="text-[#5A6378] text-xs font-semibold tracking-widest uppercase mb-5">Operator &middot; Founder &middot; Not a Consultant</p>
+
+      <p class="text-[#1A1A2E] text-base leading-relaxed mb-4">20 years at ExxonMobil and Iron Mountain running industrial finance and operations. Not in a slide deck &mdash; in the field. When something broke, Ryan fixed it.</p>
+
+      <p class="text-[#1A1A2E] text-base leading-relaxed mb-7">Vision Genesis is what happens when that operator stops renting consultants and starts building AI systems with people who know how to ship.</p>
+
+      <div class="grid grid-cols-3 gap-3">
+        <div class="text-center">
+          <p class="text-[#0051D5] font-extrabold text-xl mb-0.5">20 yrs</p>
+          <p class="text-[#5A6378] text-[9px] font-semibold tracking-wider uppercase">ExxonMobil</p>
+        </div>
+        <div class="text-center">
+          <p class="text-[#0051D5] font-extrabold text-xl mb-0.5">Operator</p>
+          <p class="text-[#5A6378] text-[9px] font-semibold tracking-wider uppercase">Not a consultant</p>
+        </div>
+        <div class="text-center">
+          <p class="text-[#0051D5] font-extrabold text-xl mb-0.5">Ships</p>
+          <p class="text-[#5A6378] text-[9px] font-semibold tracking-wider uppercase">First</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ╔═════════════════════════════╗ -->
+    <!-- ║  FREE AI AUDIT               ║ -->
+    <!-- ╚═════════════════════════════╝ -->
+    <section data-design-id="audit-section-d6e7f8" class="bg-[#0A1628] py-14 px-5">
+
+      <p class="text-[#FF8200] text-[10px] font-semibold tracking-[0.12em] uppercase mb-3">Start Here. Free. No Pitch.</p>
+      <h2 class="text-white font-extrabold mb-3" style="font-size:32px;line-height:1.0;letter-spacing:-0.025em;">The Free AI<br>Operating Audit</h2>
+      <p class="text-[#C8D0DC] text-base leading-relaxed mb-8">10 questions. Graded assessment. Know exactly where AI fits before spending a dollar with us.</p>
+
+      <div class="bg-[#152238] border border-[#1E3050] rounded-2xl p-6">
+        <h3 class="text-white font-bold text-lg mb-1">Take the Audit</h3>
+        <p class="text-[#8891A0] text-xs mb-5">4 minutes. Human-reviewed. No pitch.</p>
+
+        <form data-design-id="audit-form-e7f8g9" action="#" class="space-y-3.5">
+          <div>
+            <label class="text-[#C8D0DC] text-xs font-medium block mb-1.5">Your name</label>
+            <input type="text" placeholder="First name" class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-3.5 py-3 text-sm outline-none">
+          </div>
+          <div>
+            <label class="text-[#C8D0DC] text-xs font-medium block mb-1.5">Business email</label>
+            <input type="email" placeholder="you@yourbusiness.com" class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-3.5 py-3 text-sm outline-none">
+          </div>
+          <div>
+            <label class="text-[#C8D0DC] text-xs font-medium block mb-1.5">What does your business do?</label>
+            <input type="text" placeholder="e.g. landscaping, HVAC, medical practice..." class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-3.5 py-3 text-sm outline-none">
+          </div>
+          <div>
+            <label class="text-[#C8D0DC] text-xs font-medium block mb-1.5">What&rsquo;s costing you the most right now?</label>
+            <textarea placeholder="Describe the workflow bleeding time and money..." rows="3" class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-3.5 py-3 text-sm outline-none resize-none"></textarea>
+          </div>
+          <button data-design-id="btn-submit-audit-f8g9h0" type="button" class="w-full bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold tracking-wider py-4 rounded-lg transition-colors uppercase text-xs">
+            Send Me the Audit Assessment &rarr;
+          </button>
+          <p class="text-[#8891A0] text-[10px] text-center">Human-reviewed within 24 hours.</p>
+        </form>
+      </div>
+
+    </section>
+
+    <!-- ╔═════════════════════════════╗ -->
+    <!-- ║  FOR BUILDERS & OPERATORS   ║ -->
+    <!-- ╚═════════════════════════════╝ -->
+    <section data-design-id="recruit-section-g9h0i1" class="bg-[#F2EBDD] py-12 px-5">
+      <div class="space-y-4">
+
+        <article data-design-id="recruit-ops-h0i1j2" class="bg-white border border-[#E8DFD0] rounded-xl p-6">
+          <span class="text-[#0051D5] text-[10px] font-semibold tracking-[0.1em] uppercase mb-2 block">For Veteran Operators</span>
+          <h3 class="text-[#1A1A2E] font-bold mb-3" style="font-size:20px;letter-spacing:-0.01em;">Plant a Practice</h3>
+          <p class="text-[#5A6378] text-sm leading-relaxed mb-4">20+ years running operations? Recruit as an operator partner with equity. Own your vertical. Mentor the builders.</p>
+          <a href="#" class="text-[#0051D5] font-semibold text-sm border-b border-dashed border-[#0051D5] pb-0.5">Apply as an Operator Partner &rarr;</a>
+        </article>
+
+        <article data-design-id="recruit-builders-i1j2k3" class="bg-white border border-[#E8DFD0] rounded-xl p-6">
+          <span class="text-[#0051D5] text-[10px] font-semibold tracking-[0.1em] uppercase mb-2 block">For AI-Native Builders</span>
+          <h3 class="text-[#1A1A2E] font-bold mb-3" style="font-size:20px;letter-spacing:-0.01em;">Earn Equity. Ship Real Work.</h3>
+          <p class="text-[#5A6378] text-sm leading-relaxed mb-4">You can build. You know AI. VG builders hold equity-on-delivery and learn how a business actually runs from day one.</p>
+          <a href="#" class="text-[#0051D5] font-semibold text-sm border-b border-dashed border-[#0051D5] pb-0.5">Apply as a Builder &rarr;</a>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ╔═════════════════════════════╗ -->
+  <!-- ║  FOOTER                       ║ -->
+  <!-- ╚═════════════════════════════╝ -->
+  <footer data-design-id="footer-main-j2k3l4" class="bg-[#0A1628] border-t border-[#1E3050] py-10 px-5">
+
+    <img src="assets/vg-logo-tree.png" alt="Vision Genesis" class="h-10 w-auto mb-5">
+    <p class="text-[#C8D0DC] text-sm leading-relaxed mb-5 max-w-[280px]">Owner-operated AI implementation. Veteran operators paired with AI-native builders to solve real business pain.</p>
+    <p class="text-[#8891A0] text-[10px] font-semibold tracking-[0.1em] uppercase mb-8">Human-Authored &middot; AI-Delivered</p>
+
+    <div class="grid grid-cols-2 gap-6 mb-8">
+      <div>
+        <p class="text-white font-semibold text-[10px] uppercase tracking-widest mb-3">The Firm</p>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-[#8891A0] text-sm">The VG Stack</a></li>
+          <li><a href="#" class="text-[#8891A0] text-sm">Ryan Dix</a></li>
+          <li><a href="#" class="text-[#8891A0] text-sm">Principles</a></li>
+          <li><a href="#" class="text-[#8891A0] text-sm">Manifesto</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="text-white font-semibold text-[10px] uppercase tracking-widest mb-3">Products</p>
+        <ul class="space-y-2">
+          <li><a href="#" class="text-[#8891A0] text-sm">Pain-Point Pilots</a></li>
+          <li><a href="#" class="text-[#8891A0] text-sm">Intelligence Brief</a></li>
+          <li><a href="#" class="text-[#8891A0] text-sm">5-Agent Blueprint</a></li>
+          <li><a href="#" class="text-[#8891A0] text-sm">Free AI Audit</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-[#1E3050] pt-6">
+      <p class="text-[#5A6378] text-xs italic mb-2">&ldquo;We don&rsquo;t sell tools. We solve what&rsquo;s costing you money.&rdquo;</p>
+      <p class="text-[#5A6378] text-[10px]">&copy; 2026 Vision Genesis LLC</p>
+    </div>
+
+  </footer>
+
+</body>
+</html>
