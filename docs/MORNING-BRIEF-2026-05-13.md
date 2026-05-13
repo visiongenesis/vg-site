@@ -98,7 +98,7 @@ You picked Abacus's dark-dominant after seeing R11's Paper-dominant verdict. I a
 ### Hard blockers — need you to provide
 1. **Real Ryan portrait** — Apple Deep Blue #0051D5 crewneck, chest-up, direct gaze. Currently shows "RD" placeholder card on the Founder section.
 2. **Real Living Tree diagram** — I used your production tree logo for the Living Tree section. If you want the annotated diagram version (roots labeled Truth/Service/Ownership, branches labeled Practices, fruit labeled Productized solutions), Abacus needs to render it per the brief at `docs/ABACUS-BRIEF-V8-2026-05-12.md` Priority 1.
-3. **Real OG social image** — currently OG image points to the logo PNG. Per the Abacus brief, you'd want a 1200×630 with the headline + portrait + watermark composition.
+3. ~~**Real OG social image**~~ → DONE. Generated 1200×630 with your production logo centered on dark navy. Live at `https://visiongenesisai.com/assets/og-social.png`. Use the more elaborate "Ryan portrait + headline" version Abacus is rendering as v2 when it arrives.
 4. **Calendly URL** — none of the CTAs link to scheduling. All conversion currently funnels through the Audit form (mailto) or direct mailto.
 
 ### Soft blockers — known limitations to revisit
@@ -110,6 +110,12 @@ You picked Abacus's dark-dominant after seeing R11's Paper-dominant verdict. I a
 ### Things I could have done but didn't
 9. **Live-update the agent terminal** — currently static text. JS animation (Framer Motion's `useInView` per Abacus's brief) would add a typing-fade effect. Decided it wasn't worth the JS overhead for v9.0; static reads fine.
 10. **The HeyGen-rendered avatar** — none of Christian's avatar work is wired. When Episode 01 lands, we'll integrate it.
+
+### Late additions (after the initial push)
+11. **OG social image** — generated `assets/og-social.png` (1200×630, full tree logo centered on #0A1628 navy). Wired into root + `/v9/` og:image and twitter:image. Live.
+12. **`sitemap.xml`** — published at root with anchor URLs for primary sections (#stack, #products, #audit, #ryan, #builders, #principles).
+13. **`robots.txt`** — published at root, allows all crawlers, blocks `_incoming/` + `secureworkspace/`, references sitemap.
+14. **Brand logo link** — changed from `href="#"` to `href="/"` with proper aria-label so clicking the nav logo returns to home.
 
 ---
 
