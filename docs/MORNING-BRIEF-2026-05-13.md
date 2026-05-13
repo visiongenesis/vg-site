@@ -117,6 +117,41 @@ You picked Abacus's dark-dominant after seeing R11's Paper-dominant verdict. I a
 13. **`robots.txt`** — published at root, allows all crawlers, blocks `_incoming/` + `secureworkspace/`, references sitemap.
 14. **Brand logo link** — changed from `href="#"` to `href="/"` with proper aria-label so clicking the nav logo returns to home.
 
+### Final addition before bed — substantive 10-question audit
+You asked for the free audit to be **real intake** — 10 free-form questions, name + business type required but not counted. Built it.
+
+**Structure (live at https://visiongenesisai.com/#audit):**
+- Required basics (not counted): Name · Business email · "In one line, what does your business do?" (with operator-honest placeholder like "residential HVAC service in Knoxville · 12 trucks · 22 employees")
+- Visual divider: *"10 Questions · Free-form"*
+- Q01–Q10 free-form textareas, all required, each with the question + a helper placeholder that nudges the right kind of answer
+
+**The 10 questions** — each targets a different signal so the assessment writer has real material:
+
+| # | Question | Targets |
+|---|---|---|
+| 01 | Where in your business does work pile up faster than your team can clear it? | The bottleneck workflow |
+| 02 | What's one task that eats more of your best people's time than it should? | Wasted-talent hours |
+| 03 | What software did you buy in the last 24 months that nobody really uses? Why didn't it stick? | Tool graveyard + adoption failure pattern |
+| 04 | If you could give your operations team one hour back per day, what would they actually do with it? | Real opportunity cost (not aspirational) |
+| 05 | What's the most expensive mistake you watched happen in the past year — and why did it happen? | Process failure modes |
+| 06 | How do you find out when something's broken — a number, a phone call, or a customer complaint? | Observability maturity |
+| 07 | What does your business do better than anyone else in your market — and what would break if that one operator left tomorrow? | True moat + key-person risk |
+| 08 | What's the biggest growth blocker right now — people, process, demand, or capital? | The actual constraint |
+| 09 | Have you tried AI tools before? What worked, what didn't, and what did it cost you to find out? | AI maturity + skepticism level |
+| 10 | If we built one thing for you in the next 90 days that paid for itself within a year, what would you want it to be? | Crystallized one-thing + ROI expectation |
+
+**Layout restructure:** the previous 2-column audit section (3-step explainer left / 4-field form right) was redesigned because 10 textareas + a 3-step bullet list would have left massive whitespace on the left. New layout:
+1. Full-width section header at top
+2. 3-step explainer as a horizontal 3-card band (mobile stacks)
+3. Form full-width below, centered max-w-860px card
+
+**Mailto handler updated** to capture all 10 answers in a structured email body. Subject line is now `AI Operating Audit — <name> / <business>` so you can scan intake responses in your inbox.
+
+**Copy updates:**
+- "Takes 4 minutes" → **"Takes 10–15 minutes if you do it right"**
+- "Human-reviewed within 24 hours" → **"24–48 hours. Personalized assessment, no automated pitch"**
+- Submit button: "Send Me the Audit Assessment →" → **"Send Me the Personalized Assessment →"**
+
 ---
 
 ## File map for your morning review
