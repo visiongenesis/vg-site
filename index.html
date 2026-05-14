@@ -127,24 +127,32 @@
       backdrop-filter: blur(6px);
       -webkit-backdrop-filter: blur(6px);
     }
+    .term-feed {
+      scroll-behavior: smooth;
+      scrollbar-width: none;            /* Firefox */
+      -ms-overflow-style: none;         /* legacy Edge */
+    }
+    .term-feed::-webkit-scrollbar {
+      display: none;                    /* Chrome/Safari */
+    }
     .term-feed .term-line {
       opacity: 0;
-      transform: translateY(4px);
-      animation: term-line-in 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+      transform: translateY(6px);
+      animation: term-line-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
     }
     .term-feed .term-line.term-line-active {
-      animation: term-line-in-fade 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+      animation: term-line-in-fade 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
     }
     .term-feed .term-line.term-line-fadeout {
       animation: term-line-out 0.3s ease-in forwards;
     }
     @keyframes term-line-in {
-      from { opacity: 0; transform: translateY(4px); }
+      from { opacity: 0; transform: translateY(6px); }
       to   { opacity: 1; transform: translateY(0); }
     }
     @keyframes term-line-in-fade {
-      from { opacity: 0; transform: translateY(4px); }
-      to   { opacity: 0.55; transform: translateY(0); }
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 0.6; transform: translateY(0); }
     }
     @keyframes term-line-out {
       from { opacity: 1; transform: translateY(0); }
@@ -343,7 +351,7 @@
                   <span class="font-mono text-[#22C55E] text-[10px] lg:text-xs font-semibold">ACTIVE</span>
                 </div>
               </div>
-              <div id="term-feed" class="term-feed p-4 lg:p-6 font-mono text-[11px] lg:text-sm leading-6 lg:leading-7 space-y-1 overflow-hidden h-[200px] lg:h-[280px]"></div>
+              <div id="term-feed" class="term-feed p-4 lg:p-6 font-mono text-[11px] lg:text-sm leading-6 lg:leading-7 space-y-1 overflow-y-auto overflow-x-hidden h-[200px] lg:h-[280px]"></div>
               <div class="px-4 lg:px-6 py-2.5 lg:py-3 bg-[#0A1628]/55 border-t border-[#1E3050] flex items-center gap-3 lg:gap-6 flex-wrap">
                 <div class="flex items-center gap-2">
                   <span class="counter-live font-mono text-[10px] lg:text-xs text-[#8891A0]">TASKS:</span>
@@ -905,7 +913,6 @@
       {ts:'08:48:14', agent:'OpsAgent',       body:'→ Daily checklist:',                    valOk:' 47 tasks · 9/9 agents up'}
     ];
 
-    var MAX_VISIBLE = 7;
     var MIN_DELAY = 1100;  // ms between lines
     var MAX_DELAY = 1900;
     var RESTART_PAUSE = 2400; // ms after last line before clearing + restarting
@@ -926,32 +933,24 @@
       return html;
     }
 
-    function tick() {
-      // Mark previous "active" line (if any) as a normal completed line
-      var prevActive = feed.querySelector('.term-line.term-line-active');
-      if (prevActive) {
-        prevActive.classList.remove('term-line-active');
-      }
+    function scrollToBottom() {
+      // Native smooth-scroll via scroll-behavior CSS on the feed
+      feed.scrollTop = feed.scrollHeight;
+    }
 
-      // Fade-out oldest if at capacity
-      while (feed.children.length >= MAX_VISIBLE) {
-        var oldest = feed.firstChild;
-        if (oldest && !oldest.classList.contains('term-line-fadeout')) {
-          oldest.classList.add('term-line-fadeout');
-          (function (el) {
-            setTimeout(function () { if (el && el.parentNode === feed) feed.removeChild(el); }, 320);
-          })(oldest);
-        } else {
-          if (oldest) feed.removeChild(oldest);
-        }
-        if (feed.children.length < MAX_VISIBLE) break;
-      }
+    function tick() {
+      // Demote the previous "active" line (the half-faded one with cursor)
+      var prevActive = feed.querySelector('.term-line.term-line-active');
+      if (prevActive) prevActive.classList.remove('term-line-active');
 
       var l = lines[lineIdx];
       var div = document.createElement('div');
       div.className = 'term-line term-line-active';
       div.innerHTML = renderLine(l, true);
       feed.appendChild(div);
+
+      // Smooth-scroll the feed to keep the latest line visible at the bottom
+      requestAnimationFrame(scrollToBottom);
 
       // Bump the task-count to feel alive — increments slowly across the loop
       if (taskCount) {
@@ -968,6 +967,7 @@
           Array.prototype.forEach.call(feed.children, function (c) { c.classList.add('term-line-fadeout'); });
           setTimeout(function () {
             feed.innerHTML = '';
+            feed.scrollTop = 0;
             lineIdx = 0;
             if (taskCount) taskCount.textContent = '47';
             tick();
