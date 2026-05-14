@@ -455,12 +455,20 @@
 
     <!-- LIVING TREE — navy panel left / paper panel right -->
     <section id="principles" class="tree-split pt-0 pb-10 lg:py-24 scroll-mt-20">
+
+      <!-- Mobile-only navy panel: lives OUTSIDE the max-w container so it
+           guarantees true edge-to-edge bleed regardless of viewport width. -->
+      <div class="lg:hidden bg-[#0A1628] py-16 px-5 w-full">
+        <img src="/favicon.svg" alt="Vision Genesis · Human-First AI" class="w-full max-w-[300px] sm:max-w-[360px] h-auto mx-auto block">
+      </div>
+
       <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-          <div class="flex items-center justify-center order-1 w-full bg-[#0A1628] lg:bg-transparent -mx-5 lg:mx-0 px-5 lg:px-0 py-14 lg:py-0">
+          <!-- Desktop logo column: sits inside the 2-col grid on lg+, hidden on mobile -->
+          <div class="hidden lg:flex items-center justify-center order-1 w-full">
             <div class="w-full">
-              <img src="/favicon.svg" alt="Vision Genesis · Human-First AI" class="w-full max-w-[280px] sm:max-w-[340px] lg:max-w-none h-auto mx-auto block">
+              <img src="/favicon.svg" alt="Vision Genesis · Human-First AI" class="w-full h-auto mx-auto block">
             </div>
           </div>
 
