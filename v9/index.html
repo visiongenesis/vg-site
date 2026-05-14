@@ -180,6 +180,15 @@
       transition: max-height 0.3s ease;
     }
     .menu-panel.open { max-height: 400px; }
+    /* Living Tree section — two-panel split (navy left / paper right) */
+    .tree-split {
+      background: #F2EBDD;
+    }
+    @media (min-width: 1024px) {
+      .tree-split {
+        background: linear-gradient(to right, #0A1628 0%, #0A1628 50%, #F2EBDD 50%, #F2EBDD 100%);
+      }
+    }
     /* Apply tabs */
     .apply-tab {
       background: transparent;
@@ -557,14 +566,14 @@
       </div>
     </section>
 
-    <!-- LIVING TREE -->
-    <section id="principles" class="bg-[#F2EBDD] py-14 lg:py-24 scroll-mt-20">
+    <!-- LIVING TREE — navy panel left / paper panel right -->
+    <section id="principles" class="tree-split py-14 lg:py-24 scroll-mt-20">
       <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
 
-          <div class="flex items-center justify-center order-1 w-full">
-            <div class="w-full" style="filter: drop-shadow(0 32px 80px rgba(0,81,213,0.22)) drop-shadow(0 12px 32px rgba(255,130,0,0.14));">
-              <img src="assets/vg-logo.png" alt="Vision Genesis · Human-First AI" class="w-full max-w-[280px] sm:max-w-[420px] lg:max-w-none h-auto mx-auto block">
+          <div class="flex items-center justify-center order-1 w-full bg-[#0A1628] lg:bg-transparent -mx-5 lg:mx-0 px-5 lg:px-0 py-10 lg:py-0">
+            <div class="w-full">
+              <img src="assets/vg-logo.png" alt="Vision Genesis · Human-First AI" class="w-full max-w-[320px] sm:max-w-[440px] lg:max-w-none h-auto mx-auto block">
             </div>
           </div>
 
