@@ -1,0 +1,1156 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vision Genesis — Human-First AI</title>
+  <meta name="description" content="We don't promise to 10x your business. We solve your next bottleneck to growth. An owner-operated AI-implementation firm pairing veteran operators with AI-native builders.">
+  <meta property="og:title" content="Vision Genesis — Human-First AI">
+  <meta property="og:description" content="We don't promise to 10x your business. We solve your next bottleneck to growth.">
+  <meta property="og:image" content="https://visiongenesisai.com/assets/og-social.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://visiongenesisai.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://visiongenesisai.com/assets/og-social.png">
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+    .font-mono, .font-mono * { font-family: 'JetBrains Mono', 'Fira Code', monospace !important; }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(212,160,36,0.45); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 7px rgba(212,160,36,0); }
+    }
+    @keyframes pulse-green {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.45); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 5px rgba(34,197,94,0); }
+    }
+    @keyframes counter-breathe {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.75; }
+    }
+    .pulse-dot { animation: pulse-dot 2.2s ease-in-out infinite; }
+    .pulse-green { animation: pulse-green 2.5s ease-in-out infinite; }
+    .counter-live { animation: counter-breathe 3.5s ease-in-out infinite; }
+    .grid-bg {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+    @media (min-width: 1024px) {
+      .grid-bg { background-size: 72px 72px; }
+    }
+    .hero-display {
+      font-size: 40px;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      font-weight: 800;
+    }
+    @media (min-width: 768px) {
+      .hero-display { font-size: 56px; }
+    }
+    @media (min-width: 1024px) {
+      .hero-display { font-size: 86px; letter-spacing: -0.03em; }
+    }
+    .stack-watermark {
+      display: none;
+    }
+    @media (min-width: 1024px) {
+      .stack-watermark {
+        display: block;
+        font-size: 160px;
+        line-height: 1;
+        font-weight: 900;
+        color: rgba(255,255,255,0.04);
+        font-family: 'JetBrains Mono', monospace;
+        pointer-events: none;
+        user-select: none;
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    .section-h1 {
+      font-size: 34px;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      font-weight: 800;
+    }
+    @media (min-width: 768px) { .section-h1 { font-size: 44px; } }
+    @media (min-width: 1024px) { .section-h1 { font-size: 56px; } }
+    .section-h2 {
+      font-size: 30px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    @media (min-width: 1024px) { .section-h2 { font-size: 48px; line-height: 1.0; letter-spacing: -0.025em; } }
+    .tree-h2 {
+      font-size: 26px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    @media (min-width: 1024px) { .tree-h2 { font-size: 40px; } }
+    .card-title-lg { font-size: 22px; line-height: 1.1; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .card-title-lg { font-size: 30px; letter-spacing: -0.015em; } }
+    .card-title-md { font-size: 20px; line-height: 1.1; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .card-title-md { font-size: 26px; } }
+    .card-title-sm { font-size: 20px; line-height: 1.1; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .card-title-sm { font-size: 22px; } }
+    .recruit-title { font-size: 20px; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .recruit-title { font-size: 24px; } }
+    .stat-num {
+      font-size: 32px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    @media (min-width: 1024px) { .stat-num { font-size: 40px; } }
+    .counter-num {
+      font-size: 36px;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      font-weight: 700;
+    }
+    @media (min-width: 1024px) { .counter-num { font-size: 44px; } }
+    /* Live terminal — JS-driven looping feed */
+    .terminal-card {
+      background: rgba(6, 15, 28, 0.82);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    .term-feed {
+      scroll-behavior: smooth;
+      scrollbar-width: none;            /* Firefox */
+      -ms-overflow-style: none;         /* legacy Edge */
+    }
+    .term-feed::-webkit-scrollbar {
+      display: none;                    /* Chrome/Safari */
+    }
+    .term-feed .term-line {
+      opacity: 0;
+      transform: translateY(6px);
+      animation: term-line-in 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+    }
+    .term-feed .term-line.term-line-active {
+      animation: term-line-in-fade 0.35s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+    }
+    .term-feed .term-line.term-line-fadeout {
+      animation: term-line-out 0.3s ease-in forwards;
+    }
+    @keyframes term-line-in {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes term-line-in-fade {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 0.6; transform: translateY(0); }
+    }
+    @keyframes term-line-out {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-6px); }
+    }
+    /* Hero tree — animated video watermark, bottom-right anchored */
+    .hero-video {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: clamp(430px, 52vw, 940px);
+      height: auto;
+      opacity: 0.09;
+      pointer-events: none;
+      z-index: 0;
+      mix-blend-mode: screen;
+      object-fit: contain;
+    }
+    @media (max-width: 1023px) {
+      .hero-video {
+        width: clamp(220px, 64vw, 350px);
+        opacity: 0.08;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-video { display: none; }
+      .hero-video-fallback {
+        position: absolute;
+        inset: 0;
+        background-image: url('/assets/hero-tree.png');
+        background-repeat: no-repeat;
+        background-position: 100% 100%;
+        background-size: clamp(430px, 52vw, 940px) auto;
+        opacity: 0.09;
+        pointer-events: none;
+        z-index: 0;
+        mix-blend-mode: screen;
+      }
+    }
+    /* Brand wordmark in nav */
+    .brand-wordmark {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.018em;
+      color: #fff;
+      font-size: 0.875rem;
+      line-height: 1;
+      white-space: nowrap;
+    }
+    @media (min-width: 768px) { .brand-wordmark { font-size: 1rem; } }
+    @media (min-width: 1024px) { .brand-wordmark { font-size: 1.0625rem; } }
+    /* Hamburger menu */
+    .menu-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .menu-panel.open { max-height: 400px; }
+    /* Living Tree section — two-panel split (navy left / paper right) */
+    .tree-split {
+      background: #F2EBDD;
+    }
+    @media (min-width: 1024px) {
+      .tree-split {
+        background: linear-gradient(to right, #0C1B2A 0%, #0C1B2A 50%, #F2EBDD 50%, #F2EBDD 100%);
+      }
+    }
+    /* Apply tabs */
+    .apply-tab {
+      background: transparent;
+      color: #8891A0;
+      cursor: pointer;
+    }
+    .apply-tab:hover { color: #C8D0DC; border-color: #2C4060; }
+    .apply-tab.active {
+      background: #0051D5;
+      color: #fff;
+      border-color: #0051D5;
+    }
+  </style>
+</head>
+<body class="bg-[#0C1B2A]">
+
+  <!-- NAV -->
+  <nav class="bg-[#0C1B2A]/95 backdrop-blur-sm border-b border-[#1E3050] sticky top-0 z-50">
+    <div class="max-w-[1280px] mx-auto px-5 lg:px-8 h-[58px] lg:h-[66px] flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2.5 flex-shrink-0" aria-label="Vision Genesis AI — home">
+        <img src="assets/vg-logo-tree.png" alt="" class="h-8 lg:h-10 w-auto">
+        <span class="brand-wordmark">Vision Genesis AI</span>
+      </a>
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="/stack/" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">The Stack</a>
+        <a href="#products" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">Products</a>
+        <a href="/apply/" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">For Builders</a>
+        <a href="#ryan" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">Ryan Dix</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="#audit" class="bg-[#0051D5] hover:bg-[#003DA0] text-white text-xs lg:text-sm font-bold tracking-wider px-4 lg:px-5 py-2 lg:py-2.5 rounded-lg transition-colors uppercase">Free AI Audit &rarr;</a>
+        <button id="menu-btn" type="button" aria-label="Open menu" class="lg:hidden text-[#C8D0DC] p-1.5 -mr-1.5 hover:text-white transition-colors">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="menu-panel" class="menu-panel lg:hidden bg-[#0C1B2A] border-t border-[#1E3050]">
+      <div class="px-5 py-4 space-y-3">
+        <a href="/stack/" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">The Stack</a>
+        <a href="#products" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">Products</a>
+        <a href="/apply/" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">For Builders</a>
+        <a href="#ryan" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">Ryan Dix</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="bg-[#0C1B2A] min-h-[640px] lg:min-h-[900px] relative overflow-hidden flex flex-col justify-center">
+      <video class="hero-video" autoplay muted playsinline preload="metadata" poster="/assets/hero-tree.png" aria-hidden="true">
+        <source src="/assets/hero-tree.webm" type="video/webm">
+        <source src="/assets/hero-tree.mp4" type="video/mp4">
+      </video>
+      <div class="hero-video-fallback" aria-hidden="true"></div>
+      <div class="grid-bg absolute inset-0 pointer-events-none"></div>
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 900px 700px at 70% 50%, rgba(0,81,213,0.06) 0%, transparent 70%);"></div>
+
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8 pt-10 lg:pt-16 pb-12 lg:pb-16 relative z-10 w-full">
+
+        <!-- Live pills — full container width on desktop -->
+        <div class="flex items-center flex-wrap gap-2.5 mb-7 lg:mb-10">
+          <div class="inline-flex items-center gap-2.5 bg-[#D4A024]/10 border border-[#D4A024]/30 rounded-full px-3 lg:px-4 py-1.5 lg:py-2">
+            <span class="pulse-dot w-2 h-2 rounded-full bg-[#D4A024] block flex-shrink-0"></span>
+            <span class="text-[#D4A024] text-[10px] lg:text-xs font-semibold tracking-[0.08em] uppercase font-mono">Agent Network &middot; Active</span>
+          </div>
+          <div class="inline-flex items-center gap-2 bg-white/[0.04] border border-white/10 rounded-full px-3 lg:px-4 py-1.5 lg:py-2">
+            <span class="counter-live text-[#C8D0DC] text-[10px] lg:text-xs font-mono tracking-wide">PIPELINE: <span class="text-white font-semibold">27</span> WORKSTREAMS</span>
+          </div>
+        </div>
+
+        <!-- Headline — full container width on desktop so 2-line-per-sentence holds at 86px -->
+        <h1 class="hero-display text-white mb-9 lg:mb-12 max-w-none">
+          You&rsquo;re maxed out<br>
+          running the business.<br>
+          <span class="text-[#0051D5]">Your competitors are using AI<br>to grow it.</span>
+        </h1>
+
+        <!-- Below-headline 2-col content -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-start">
+
+          <div class="lg:col-span-7">
+
+            <!-- Pain points -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 lg:gap-3 mt-7 mb-7 lg:mt-8 lg:mb-8 max-w-[680px]">
+              <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
+                <svg class="text-[#D4A024] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <p class="text-[#C8D0DC] text-sm leading-relaxed">Your consultation-to-quote is two weeks out. It could be going out same-day.</p>
+              </div>
+              <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
+                <svg class="text-[#D4A024] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <p class="text-[#C8D0DC] text-sm leading-relaxed">You bought software your team works around instead of with</p>
+              </div>
+              <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
+                <svg class="text-[#D4A024] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <p class="text-[#C8D0DC] text-sm leading-relaxed">Every vendor pitches tools. Nobody offers to fix what&rsquo;s actually broken.</p>
+              </div>
+            </div>
+
+            <!-- Solution -->
+            <p class="text-[#C8D0DC] text-base lg:text-xl leading-relaxed mb-8 lg:mb-10 max-w-[620px]">
+              We find the three workflows bleeding your time and P&amp;L. The audit maps a path to fix them&nbsp;&mdash;&nbsp;<strong class="text-white">and we can lead the way from there.</strong>
+            </p>
+
+            <!-- CTAs -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
+              <a href="#audit" class="inline-flex items-center justify-center gap-2 bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold text-sm lg:text-base tracking-wider px-6 lg:px-8 py-3.5 lg:py-4 rounded-lg transition-colors uppercase text-center">
+                Take the Free AI Audit &rarr;
+              </a>
+              <a href="/stack/" class="border border-[#4D8FFF]/40 text-[#4D8FFF] hover:border-[#4D8FFF] hover:bg-[#4D8FFF]/10 font-semibold text-sm lg:text-base px-6 lg:px-8 py-3.5 lg:py-4 rounded-lg transition-all text-center">
+                See the System &darr;
+              </a>
+            </div>
+
+          </div>
+
+          <!-- Terminal -->
+          <div class="lg:col-span-5">
+            <div class="terminal-card border border-[#1E3050] rounded-xl overflow-hidden" style="box-shadow: 0 0 60px rgba(0,81,213,0.08);">
+              <div class="flex items-center justify-between px-4 lg:px-5 py-2.5 lg:py-3 bg-[#0C1B2A]/70 border-b border-[#1E3050]">
+                <div class="flex items-center gap-1.5 lg:gap-2">
+                  <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#EF4444]/60"></span>
+                  <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#D4A024]/60"></span>
+                  <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#22C55E]/60"></span>
+                </div>
+                <span class="font-mono text-[#8891A0] text-[10px] lg:text-xs tracking-[0.1em] uppercase truncate ml-2">VG Agent &mdash; Live</span>
+                <div class="flex items-center gap-1.5 lg:gap-2 flex-shrink-0">
+                  <span class="pulse-green w-2 h-2 rounded-full bg-[#22C55E] block"></span>
+                  <span class="font-mono text-[#22C55E] text-[10px] lg:text-xs font-semibold">ACTIVE</span>
+                </div>
+              </div>
+              <div id="term-feed" class="term-feed p-4 lg:p-6 font-mono text-[11px] lg:text-sm leading-6 lg:leading-7 space-y-1 overflow-y-auto overflow-x-hidden h-[200px] lg:h-[280px]"></div>
+              <div class="px-4 lg:px-6 py-2.5 lg:py-3 bg-[#0C1B2A]/55 border-t border-[#1E3050] flex items-center gap-3 lg:gap-6 flex-wrap">
+                <div class="flex items-center gap-2">
+                  <span class="counter-live font-mono text-[10px] lg:text-xs text-[#8891A0]">TASKS:</span>
+                  <span id="term-task-count" class="font-mono text-[10px] lg:text-xs font-semibold text-[#D4A024] counter-live">47</span>
+                </div>
+                <span class="font-mono text-[10px] lg:text-xs text-[#8891A0]">AGENTS: <span class="text-white">11/11</span></span>
+                <span class="font-mono text-[10px] lg:text-xs text-[#8891A0]">UPTIME: <span class="text-[#22C55E]">100%</span></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PROOF STRIP -->
+    <section class="bg-[#F2EBDD] py-10 lg:py-14">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <!-- Mobile: 2x4 grid -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 lg:hidden gap-6">
+          <div>
+            <p class="text-[#0051D5] stat-num">8</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Industry verticals covered</p>
+          </div>
+          <div>
+            <p class="text-[#0051D5] stat-num">126</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Operator + Builder + Advisor years</p>
+          </div>
+          <div>
+            <p class="text-[#0051D5] stat-num">9</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Named agents 24/7</p>
+          </div>
+          <div>
+            <p class="text-[#0051D5] stat-num">170<span class="text-[#D4A024]">+</span></p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Specs in pipeline</p>
+          </div>
+          <div>
+            <p class="text-[#0051D5] stat-num" style="font-size: 22px;">Multiple</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Products live on Stripe</p>
+          </div>
+          <div>
+            <p class="text-[#0051D5] stat-num">2</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Founding partners</p>
+          </div>
+          <div>
+            <p class="text-[#0051D5] stat-num">5</p>
+            <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Senior Operator Advisory Board</p>
+          </div>
+        </div>
+
+        <!-- Desktop: single horizontal strip -->
+        <div class="hidden lg:flex items-stretch justify-between gap-4">
+          <div class="text-center flex flex-col justify-center">
+            <p class="text-[#0051D5] stat-num mb-1">8</p>
+            <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Industry verticals<br>covered</p>
+          </div>
+          <div class="w-px self-stretch bg-[#E8DFD0]"></div>
+          <div class="text-center flex flex-col justify-center">
+            <p class="text-[#0051D5] stat-num mb-1">126</p>
+            <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Operator + Builder<br>+ Advisor Years</p>
+          </div>
+          <div class="w-px self-stretch bg-[#E8DFD0]"></div>
+          <div class="text-center flex flex-col justify-center">
+            <p class="text-[#0051D5] stat-num mb-1">9</p>
+            <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Named Agents<br>24/7</p>
+          </div>
+          <div class="w-px self-stretch bg-[#E8DFD0]"></div>
+          <div class="text-center flex flex-col justify-center">
+            <p class="text-[#0051D5] stat-num mb-1">170<span class="text-[#D4A024]">+</span></p>
+            <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Agent Specs<br>In Pipeline</p>
+          </div>
+          <div class="w-px self-stretch bg-[#E8DFD0]"></div>
+          <div class="text-center flex flex-col justify-center">
+            <p class="text-[#0051D5] mb-1 font-extrabold" style="font-size: 26px; line-height: 1; letter-spacing: -0.01em;">Multiple</p>
+            <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Products<br>Live on Stripe</p>
+          </div>
+          <div class="w-px self-stretch bg-[#E8DFD0]"></div>
+          <div class="text-center flex flex-col justify-center">
+            <p class="text-[#0051D5] stat-num mb-1">2</p>
+            <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Founding<br>Partners</p>
+          </div>
+          <div class="w-px self-stretch bg-[#E8DFD0]"></div>
+          <div class="text-center flex flex-col justify-center">
+            <p class="text-[#0051D5] stat-num mb-1">5</p>
+            <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Senior Operator<br>Advisory Board</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEET RYAN PRIME -->
+    <section id="ryan-prime" class="bg-[#0C1B2A] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <!-- Video / placeholder -->
+          <div class="lg:col-span-5 order-1">
+            <div class="relative bg-[#060F1C] border border-[#1E3050] rounded-xl overflow-hidden" style="aspect-ratio: 16/9;">
+              <div class="absolute inset-0 flex items-center justify-center">
+                <div class="w-16 h-16 rounded-full bg-white/15 backdrop-blur-sm flex items-center justify-center">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="white" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+              </div>
+              <div class="absolute top-3 right-3 bg-[#0C1B2A]/85 rounded-md px-2.5 py-1 flex items-center gap-1.5">
+                <span class="text-[#D4A024] font-bold text-xs font-mono">RP</span>
+                <span class="w-px h-3 bg-[#1E3050] inline-block"></span>
+                <span class="text-[#8891A0] text-[10px] font-semibold font-mono">AI</span>
+              </div>
+              <div class="absolute bottom-3 left-3 font-mono text-[10px] tracking-[0.14em] uppercase text-[#8891A0]">Ryan Prime &middot; AI Avatar &middot; in production</div>
+            </div>
+          </div>
+          <!-- Copy -->
+          <div class="lg:col-span-7 order-2">
+            <p class="text-[#D4A024] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">The Meta-Credibility Play</p>
+            <h2 class="text-white section-h2 mb-5 lg:mb-6">Meet Ryan Prime.</h2>
+            <p class="text-[#C8D0DC] text-base lg:text-xl leading-relaxed mb-4">Ryan Prime is the AI clone of Vision Genesis founder Ryan Dix. He&rsquo;s built with HeyGen, and he produces three episodes a week analyzing broken business workflows &mdash; so the real Ryan can spend his time in the field, solving actual problems.</p>
+            <p class="text-[#C8D0DC] text-base lg:text-xl leading-relaxed mb-4">This isn&rsquo;t a gimmick. It&rsquo;s the product demo.</p>
+            <p class="text-white text-base lg:text-xl font-semibold leading-relaxed mb-7 lg:mb-8">If we can clone the founder, imagine what we can build for your business.</p>
+            <a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="inline-block border border-[#D4A024]/40 text-[#D4A024] hover:border-[#D4A024] hover:bg-[#D4A024]/10 font-semibold text-sm lg:text-base px-6 py-3.5 rounded-lg transition-all">Watch the Channel &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THREE FORMATS -->
+    <section class="bg-[#152238] py-14 lg:py-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="mb-8 lg:mb-12 max-w-[760px]">
+          <p class="text-[#4D8FFF] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">What We Cover</p>
+          <h2 class="text-white section-h2 mb-2 lg:mb-3">Three ways we break down what&rsquo;s costing you money.</h2>
+          <p class="text-[#8891A0] text-base">New episodes Monday, Wednesday, Friday.</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+          <article class="bg-[#0C1B2A] border border-[#1E3050] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 transition-all group">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D4A024" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <p class="text-[#D4A024] text-xs font-semibold tracking-[0.1em] uppercase font-mono mb-3">Mondays</p>
+            <h3 class="text-white font-bold text-xl mb-3">AI Game Tape</h3>
+            <p class="text-[#C8D0DC] text-sm leading-relaxed mb-5">We break down broken business workflows like a coach reviews game film. Telestrator markups, play-by-play analysis, and the exact fix.</p>
+            <a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="text-[#4D8FFF] text-sm font-semibold group-hover:underline">Watch the latest &rarr;</a>
+          </article>
+          <article class="bg-[#0C1B2A] border border-[#1E3050] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 transition-all group">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <p class="text-[#D4A024] text-xs font-semibold tracking-[0.1em] uppercase font-mono mb-3">Wednesdays</p>
+            <h3 class="text-white font-bold text-xl mb-3">Workflow ER</h3>
+            <p class="text-[#C8D0DC] text-sm leading-relaxed mb-5">Your business has symptoms &mdash; late invoices, missed quotes, manual chaos. We diagnose the disease underneath and prescribe the treatment.</p>
+            <a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="text-[#4D8FFF] text-sm font-semibold group-hover:underline">Watch the latest &rarr;</a>
+          </article>
+          <article class="bg-[#0C1B2A] border border-[#1E3050] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 transition-all group">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <p class="text-[#D4A024] text-xs font-semibold tracking-[0.1em] uppercase font-mono mb-3">Fridays</p>
+            <h3 class="text-white font-bold text-xl mb-3">Business CSI</h3>
+            <p class="text-[#C8D0DC] text-sm leading-relaxed mb-5">Where did the money go? We trace leaked revenue through broken processes like a forensic investigation. Evidence boards, timelines, and the reveal.</p>
+            <a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="text-[#4D8FFF] text-sm font-semibold group-hover:underline">Watch the latest &rarr;</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- REFRAIN BAND -->
+    <section class="bg-[#0051D5] py-14 lg:py-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8 text-center">
+        <h2 class="text-white section-h1 mb-5 lg:mb-7">We don&rsquo;t promise to 10x your business.</h2>
+        <h2 class="text-white section-h1 mb-6 lg:mb-8">We solve your next bottleneck to growth.</h2>
+        <p class="text-white/50 text-[10px] lg:text-xs font-semibold tracking-[0.14em] uppercase">Human-Authored &middot; AI-Delivered</p>
+      </div>
+    </section>
+
+    <!-- LIVING TREE — navy panel left / paper panel right -->
+    <section id="principles" class="tree-split pt-0 pb-10 lg:py-24 scroll-mt-20">
+
+      <!-- Mobile-only navy panel: lives OUTSIDE the max-w container so it
+           guarantees true edge-to-edge bleed regardless of viewport width. -->
+      <div class="lg:hidden bg-[#0C1B2A] py-16 px-5 w-full">
+        <video class="w-full max-w-[300px] sm:max-w-[360px] h-auto mx-auto block" data-play-on-view muted playsinline preload="metadata" poster="/assets/principles-tree.jpg" aria-label="Vision Genesis — Human-First AI">
+          <source src="/assets/principles-tree.webm" type="video/webm">
+          <source src="/assets/principles-tree.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+          <!-- Desktop logo column: sits inside the 2-col grid on lg+, hidden on mobile -->
+          <div class="hidden lg:flex items-center justify-center order-1 w-full">
+            <div class="w-full">
+              <video class="w-full h-auto mx-auto block" data-play-on-view muted playsinline preload="metadata" poster="/assets/principles-tree.jpg" aria-label="Vision Genesis — Human-First AI">
+                <source src="/assets/principles-tree.webm" type="video/webm">
+                <source src="/assets/principles-tree.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+
+          <div class="order-2">
+            <p class="text-[#0051D5] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">Built on Six Principles</p>
+            <h2 class="text-[#1A1A2E] tree-h2 mb-6 lg:mb-8">The architecture we hold ourselves to.</h2>
+
+            <div class="space-y-4 mb-7 lg:mb-8">
+              <div class="flex gap-3 lg:gap-4 items-start">
+                <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">01</span>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Restructure the work. Uplevel your people.</p>
+              </div>
+              <div class="flex gap-3 lg:gap-4 items-start">
+                <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">02</span>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Truth before sales pressure. The truth will set you free.</p>
+              </div>
+              <div class="flex gap-3 lg:gap-4 items-start">
+                <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">03</span>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Solutions, not just diagnostics. We don&rsquo;t spend time on problems we can&rsquo;t help you fix.</p>
+              </div>
+              <div class="flex gap-3 lg:gap-4 items-start">
+                <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">04</span>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Agents multiply capability. The human in the loop differentiates the outcome.</p>
+              </div>
+              <div class="flex gap-3 lg:gap-4 items-start">
+                <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">05</span>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Every engagement is R&amp;D for the next solution product.</p>
+              </div>
+              <div class="flex gap-3 lg:gap-4 items-start">
+                <span class="text-[#0051D5] font-mono text-xs font-bold tracking-wider flex-shrink-0 mt-0.5 w-5">06</span>
+                <p class="text-[#1A1A2E] text-sm lg:text-base leading-relaxed">Builders and operators are equity owners. Value creation is not capped.</p>
+              </div>
+            </div>
+
+            <div class="bg-[#1A1A2E] rounded-xl p-5 lg:p-6">
+              <p class="text-[#D4A024] text-[10px] lg:text-xs font-semibold tracking-[0.1em] uppercase mb-2 lg:mb-3">The Vision</p>
+              <p class="text-white text-sm lg:text-base leading-relaxed">&ldquo;We work with companies using AI to expand human capability and flourishing. AI multiplies what your team can do. It does not replace the human element.&rdquo;</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section id="products" class="bg-[#0C1B2A] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+
+        <div class="mb-8 lg:mb-12">
+          <p class="text-[#4D8FFF] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">What We Sell</p>
+          <h2 class="text-white section-h2">Three entry points.<br class="hidden sm:block"><span class="sm:hidden"> </span>One outcome: your problem solved.</h2>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4">
+
+          <!-- Pain-point Pilots -->
+          <article class="lg:col-span-7 bg-[#152238] border border-[#1E3050] rounded-2xl p-6 lg:p-8 hover:border-[#0051D5]/50 transition-all">
+            <div class="flex items-start justify-between mb-4 lg:mb-5 gap-3">
+              <div>
+                <span class="text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase mb-2 block">Custom Engagement</span>
+                <h3 class="text-white card-title-md">Pain-Point Pilots</h3>
+              </div>
+              <span class="text-[#8891A0] font-mono text-[10px] lg:text-xs border border-[#1E3050] px-2 lg:px-3 py-1 lg:py-1.5 rounded whitespace-nowrap flex-shrink-0">ENGAGEMENT-BASED</span>
+            </div>
+            <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed mb-5 lg:mb-6">One operator. One builder. One expensive workflow &mdash; diagnosed and fixed. We embed with your team, find the bleed, and ship a working AI system. You keep the playbook. The agents stay running.</p>
+            <div class="space-y-2.5 mb-6 lg:mb-7">
+              <div class="flex items-start gap-3 text-sm text-[#C8D0DC]">
+                <svg class="text-[#22C55E] flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                <span><strong class="text-white font-semibold">Flagship solution &mdash; Voice-to-Quote:</strong> from 72-hour turnaround to same-day delivery</span>
+              </div>
+              <div class="flex items-start gap-3 text-sm text-[#C8D0DC]">
+                <svg class="text-[#22C55E] flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                Solutions for medical and hospitality verticals &mdash; in development
+              </div>
+              <div class="flex items-start gap-3 text-sm text-[#C8D0DC]">
+                <svg class="text-[#22C55E] flex-shrink-0 mt-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                You choose: custom client-owned on-prem solution OR VG-managed hosting
+              </div>
+            </div>
+            <a href="#audit" class="inline-flex items-center gap-2 bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold text-xs lg:text-sm tracking-wider px-5 lg:px-6 py-3 rounded-lg transition-colors uppercase">Start with the Free Audit &rarr;</a>
+          </article>
+
+          <div class="lg:col-span-5 flex flex-col gap-4">
+
+            <article class="flex-1 bg-[#152238] border border-[#1E3050] rounded-2xl p-6 lg:p-7 hover:border-[#0051D5]/50 transition-all">
+              <div class="flex items-start justify-between mb-4 gap-3">
+                <div>
+                  <span class="text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase mb-2 block">Subscription</span>
+                  <h3 class="text-white card-title-sm">Weekly Intelligence Brief</h3>
+                </div>
+                <div class="text-right flex-shrink-0">
+                  <span class="text-[#D4A024] font-extrabold text-2xl lg:text-[28px]" style="line-height:1;">$19</span>
+                  <span class="text-[#8891A0] text-xs block">/month</span>
+                </div>
+              </div>
+              <p class="text-[#C8D0DC] text-sm leading-relaxed mb-4 lg:mb-5">14 sources synthesized weekly into 3 things worth acting on. Operator-curated. For owners who don&rsquo;t have time to sort signal from hype.</p>
+              <a href="mailto:vision@visiongenesisai.com?subject=Weekly%20Brief%20%E2%80%94%20add%20me%20to%20the%20waitlist" class="block text-center w-full border border-[#4D8FFF]/40 text-[#4D8FFF] hover:border-[#4D8FFF] hover:bg-[#4D8FFF]/10 font-semibold text-sm py-2.5 rounded-lg transition-all">Join the waitlist &rarr;</a>
+            </article>
+
+            <article class="flex-1 bg-[#152238] border border-[#1E3050] rounded-2xl p-6 lg:p-7 transition-all opacity-90">
+              <div class="flex items-start justify-between mb-4 gap-3">
+                <div>
+                  <span class="text-[#D4A024] text-xs font-semibold tracking-[0.1em] uppercase mb-2 block">Coming Soon</span>
+                  <h3 class="text-white card-title-sm">5-Agent Business Blueprint</h3>
+                </div>
+                <div class="text-right flex-shrink-0">
+                  <span class="text-[#8891A0] font-mono text-xs uppercase tracking-wider">In progress</span>
+                </div>
+              </div>
+              <p class="text-[#C8D0DC] text-sm leading-relaxed mb-4 lg:mb-5">The five agents every owner-operated business should run today &mdash; with specs, priority, and ROI framing. Currently in revision.</p>
+              <span class="block text-center w-full border border-[#1E3050] text-[#8891A0] font-semibold text-sm py-2.5 rounded-lg cursor-default">Coming Soon</span>
+            </article>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOUNDER -->
+    <section id="ryan" class="bg-[#F2EBDD] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="max-w-[820px] mx-auto">
+          <p class="text-[#0051D5] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">The Founder</p>
+          <h2 class="text-[#1A1A2E] section-h2 mb-1">Ryan Dix</h2>
+          <p class="text-[#5A6378] text-xs lg:text-sm font-semibold tracking-widest uppercase mb-5 lg:mb-7">Operator &middot; Founder</p>
+
+          <p class="text-[#1A1A2E] text-base lg:text-lg leading-relaxed mb-4 lg:mb-5">20 years deploying capital, operations, and Agentic AI inside multi-billion-dollar ventures at ExxonMobil and Iron Mountain. The pattern was always the same: too slow, too bureaucratic. The competitive edge in the AI race won&rsquo;t go to massive incumbents &mdash; it&rsquo;ll go to the operators who start small and move fast.</p>
+
+          <p class="text-[#1A1A2E] text-base lg:text-lg leading-relaxed mb-6 lg:mb-8">Vision Genesis is built to give small and medium businesses that same edge. We innovate like a special-ops team &mdash; drop into the field, identify the highest-leverage problem, ship the solution. The dominant players in every industry vertical can&rsquo;t innovate fast enough. Owners who move now can take real market share.</p>
+
+          <div class="grid grid-cols-3 gap-3 lg:gap-0 lg:flex lg:items-center lg:gap-8">
+            <div>
+              <p class="text-[#0051D5] font-extrabold text-lg lg:text-2xl mb-0.5">20 yrs</p>
+              <p class="text-[#5A6378] text-[10px] lg:text-xs font-semibold tracking-wider uppercase">ExxonMobil + Iron Mountain</p>
+            </div>
+            <div class="hidden lg:block w-px h-10 bg-[#E8DFD0]"></div>
+            <div>
+              <p class="text-[#0051D5] font-extrabold text-lg lg:text-2xl mb-0.5">Operator</p>
+              <p class="text-[#5A6378] text-[10px] lg:text-xs font-semibold tracking-wider uppercase">Not a consultant</p>
+            </div>
+            <div class="hidden lg:block w-px h-10 bg-[#E8DFD0]"></div>
+            <div>
+              <p class="text-[#0051D5] font-extrabold text-lg lg:text-2xl mb-0.5">Hands-on</p>
+              <p class="text-[#5A6378] text-[10px] lg:text-xs font-semibold tracking-wider uppercase">In the work, not above it</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- AUDIT -->
+    <section id="audit" class="bg-[#0C1B2A] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+
+        <!-- Section header -->
+        <div class="mb-10 lg:mb-14 max-w-[820px]">
+          <p class="text-[#D4A024] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">Start Here. Free. No Pitch.</p>
+          <h2 class="text-white section-h2 mb-4 lg:mb-6">The Free AI<br>Operating Audit</h2>
+          <p class="text-[#C8D0DC] text-base lg:text-xl leading-relaxed">10 substantive questions about how your business actually runs. Human-reviewed. You&rsquo;ll get back a personalized assessment of where AI fits and what&rsquo;s worth fixing first &mdash; before you spend a dollar with us.</p>
+        </div>
+
+        <!-- 3-step explainer band -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5 lg:gap-8 mb-10 lg:mb-14">
+          <div class="flex items-start gap-3 lg:gap-4 bg-[#152238]/40 border border-[#1E3050] rounded-xl p-5 lg:p-6">
+            <div class="w-8 h-8 rounded-full bg-[#0051D5]/20 border border-[#0051D5]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span class="text-[#4D8FFF] text-xs font-bold">1</span>
+            </div>
+            <div>
+              <p class="text-white font-semibold text-sm lg:text-base mb-1">Where you&rsquo;re losing time</p>
+              <p class="text-[#8891A0] text-xs lg:text-sm leading-relaxed">We map the workflows eating your best operators alive.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 lg:gap-4 bg-[#152238]/40 border border-[#1E3050] rounded-xl p-5 lg:p-6">
+            <div class="w-8 h-8 rounded-full bg-[#0051D5]/20 border border-[#0051D5]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span class="text-[#4D8FFF] text-xs font-bold">2</span>
+            </div>
+            <div>
+              <p class="text-white font-semibold text-sm lg:text-base mb-1">What&rsquo;s actually automatable</p>
+              <p class="text-[#8891A0] text-xs lg:text-sm leading-relaxed">Not everything is. We&rsquo;ll tell you what&rsquo;s worth it and what isn&rsquo;t.</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3 lg:gap-4 bg-[#152238]/40 border border-[#1E3050] rounded-xl p-5 lg:p-6">
+            <div class="w-8 h-8 rounded-full bg-[#0051D5]/20 border border-[#0051D5]/40 flex items-center justify-center flex-shrink-0 mt-0.5">
+              <span class="text-[#4D8FFF] text-xs font-bold">3</span>
+            </div>
+            <div>
+              <p class="text-white font-semibold text-sm lg:text-base mb-1">Your graded result</p>
+              <p class="text-[#8891A0] text-xs lg:text-sm leading-relaxed">A personalized assessment of where AI fits. Yours to keep.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- The form, full width, centered max-w-[820px] -->
+        <div class="bg-[#152238] border border-[#1E3050] rounded-2xl p-6 lg:p-10 max-w-[860px] mx-auto">
+          <div class="mb-6 lg:mb-8">
+            <h3 class="text-white font-bold text-xl lg:text-2xl mb-2">Take the Audit</h3>
+            <p class="text-[#8891A0] text-xs lg:text-sm">10 substantive questions. Free-form answers. Takes 10&ndash;15 minutes if you do it right. Human-reviewed within 24&ndash;48 hours. Personalized assessment, no automated pitch on the back end.</p>
+          </div>
+
+          <form id="audit-form" class="space-y-5">
+
+            <!-- Basics (required, do not count against 10) -->
+            <div class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">Your name <span class="text-[#D4A024]">*</span></label>
+                  <input name="name" type="text" placeholder="First name" required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
+                </div>
+                <div>
+                  <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">Business email <span class="text-[#D4A024]">*</span></label>
+                  <input name="email" type="email" placeholder="you@yourbusiness.com" required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
+                </div>
+              </div>
+              <div>
+                <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">In one line, what does your business do? <span class="text-[#D4A024]">*</span></label>
+                <input name="business" type="text" placeholder="e.g. residential HVAC service in Knoxville · 12 trucks · 22 employees" required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
+              </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="flex items-center gap-3 pt-2">
+              <div class="flex-1 h-px bg-[#1E3050]"></div>
+              <p class="text-[#4D8FFF] text-[10px] lg:text-xs font-semibold tracking-[0.16em] uppercase font-mono whitespace-nowrap">10 Questions &middot; Free-form</p>
+              <div class="flex-1 h-px bg-[#1E3050]"></div>
+            </div>
+
+            <!-- Q1 -->
+            <div>
+              <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
+                <span class="text-[#D4A024] font-mono mr-2">01</span>Where in your business does work pile up faster than your team can clear it?
+              </label>
+              <textarea name="q1" rows="2" placeholder="The workflow or function that always has a backlog — even when nothing&rsquo;s technically broken." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+            </div>
+
+            <!-- Q2 -->
+            <div>
+              <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
+                <span class="text-[#D4A024] font-mono mr-2">02</span>What&rsquo;s one task that eats more of your best people&rsquo;s time than it should?
+              </label>
+              <textarea name="q2" rows="2" placeholder="The thing your strongest operator does every week that you wish they didn&rsquo;t have to." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+            </div>
+
+            <!-- Q3 -->
+            <div>
+              <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
+                <span class="text-[#D4A024] font-mono mr-2">03</span>What software did you buy in the last 24 months that nobody really uses? Why didn&rsquo;t it stick?
+              </label>
+              <textarea name="q3" rows="3" placeholder="The tool that sounded great in the demo. What you actually paid. Why your team works around it." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+            </div>
+
+            <!-- Q4 -->
+            <div>
+              <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
+                <span class="text-[#D4A024] font-mono mr-2">04</span>If you could give your operations team one hour back per day, what would they actually do with it?
+              </label>
+              <textarea name="q4" rows="2" placeholder="Not aspirational. What would actually happen with that hour, given who&rsquo;s on your team today." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+            </div>
+
+            <!-- Q5 -->
+            <div>
+              <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
+                <span class="text-[#D4A024] font-mono mr-2">05</span>What&rsquo;s the most expensive mistake you watched happen in the past year &mdash; and why did it happen?
+              </label>
+              <textarea name="q5" rows="3" placeholder="Roughly what it cost. Where the breakdown happened. Whether you&rsquo;ve fixed the underlying cause." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+            </div>
+
+            <!-- Q6 -->
+            <div>
+              <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
+                <span class="text-[#D4A024] font-mono mr-2">06</span>How do you find out when something&rsquo;s broken in operations &mdash; a number on a dashboard, a phone call, or a customer complaint?
+              </label>
+              <textarea name="q6" rows="2" placeholder="Be honest about which signal usually reaches you first." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+            </div>
+
+            <!-- Q7 -->
+            <div>
+              <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
+                <span class="text-[#D4A024] font-mono mr-2">07</span>What does your business do better than anyone else in your market &mdash; and what would break if that one operator left tomorrow?
+              </label>
+              <textarea name="q7" rows="3" placeholder="The true moat. The key-person risk wrapped up inside it." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+            </div>
+
+            <!-- Q8 -->
+            <div>
+              <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
+                <span class="text-[#D4A024] font-mono mr-2">08</span>What&rsquo;s the biggest growth blocker right now &mdash; people, process, demand, or capital?
+              </label>
+              <textarea name="q8" rows="2" placeholder="Pick the one that matters most. Briefly explain why it&rsquo;s that one and not the others." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+            </div>
+
+            <!-- Q9 -->
+            <div>
+              <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
+                <span class="text-[#D4A024] font-mono mr-2">09</span>Have you tried AI tools before? What worked, what didn&rsquo;t, and what did it cost you to find out?
+              </label>
+              <textarea name="q9" rows="3" placeholder="Tools you&rsquo;ve actually used. What stuck, what got abandoned, what it taught you." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+            </div>
+
+            <!-- Q10 -->
+            <div>
+              <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
+                <span class="text-[#D4A024] font-mono mr-2">10</span>If we built one thing for you in the next 90 days that paid for itself within a year, what would you want it to be?
+              </label>
+              <textarea name="q10" rows="3" placeholder="The single highest-leverage thing. Why that, not the others on your list." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+            </div>
+
+            <button type="submit" class="w-full bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold tracking-wider py-4 rounded-lg transition-colors uppercase text-sm mt-2">
+              Send Me the Personalized Assessment &rarr;
+            </button>
+            <p class="text-[#8891A0] text-[10px] lg:text-xs text-center">Human-reviewed within 24&ndash;48 hours. Your answers stay private. No automated pitch.</p>
+          </form>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- RECRUIT -->
+    <section id="builders" class="bg-[#F2EBDD] py-12 lg:py-16 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+
+          <article class="bg-white border border-[#E8DFD0] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 hover:shadow-[0_4px_24px_rgba(0,81,213,0.08)] transition-all">
+            <span class="text-[#0051D5] text-xs font-semibold tracking-[0.1em] uppercase mb-3 block">For Veteran Operators</span>
+            <h3 class="text-[#1A1A2E] recruit-title mb-3">Plant a Practice</h3>
+            <p class="text-[#5A6378] text-sm lg:text-base leading-relaxed mb-5 lg:mb-6">20+ years running operations and watching consultants burn your budget? We&rsquo;re recruiting operator partners who want to plant a practice with equity. You own your vertical. You mentor the builders. The firm scales behind you.</p>
+            <a href="/apply/?role=operator" class="text-[#0051D5] font-semibold text-sm border-b border-dashed border-[#0051D5] pb-0.5 hover:text-[#003DA0] hover:border-[#003DA0] transition-colors">Apply as an Operator Partner &rarr;</a>
+          </article>
+
+          <article class="bg-white border border-[#E8DFD0] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 hover:shadow-[0_4px_24px_rgba(0,81,213,0.08)] transition-all">
+            <span class="text-[#0051D5] text-xs font-semibold tracking-[0.1em] uppercase mb-3 block">For AI-Native Builders</span>
+            <h3 class="text-[#1A1A2E] recruit-title mb-3">Earn Equity. Ship Real Work.</h3>
+            <p class="text-[#5A6378] text-sm lg:text-base leading-relaxed mb-5 lg:mb-6">You can build. You know AI. You want equity and to learn how a business actually runs. VG builders hold equity-on-delivery and work under operator mentorship from day one. This is not a junior dev role. This is a founding position.</p>
+            <a href="/apply/?role=builder" class="text-[#0051D5] font-semibold text-sm border-b border-dashed border-[#0051D5] pb-0.5 hover:text-[#003DA0] hover:border-[#003DA0] transition-colors">Apply as a Builder &rarr;</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#0C1B2A] border-t border-[#1E3050] py-12 lg:py-16">
+    <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+
+      <div class="grid grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 mb-10 lg:mb-12">
+
+        <div class="col-span-2 lg:col-span-4">
+          <img src="assets/vg-logo-tree.png" alt="Vision Genesis" class="h-10 lg:h-12 w-auto mb-4 lg:mb-5">
+          <p class="text-[#C8D0DC] text-sm leading-relaxed mb-4 lg:mb-5 max-w-[320px]">Owner-operated AI implementation. Veteran operators paired with AI-native builders to solve your next bottleneck to growth.</p>
+          <p class="text-[#8891A0] text-xs font-semibold tracking-[0.1em] uppercase">Human-Authored &middot; AI-Delivered</p>
+        </div>
+
+        <div class="hidden lg:block lg:col-span-2"></div>
+
+        <div class="lg:col-span-2">
+          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-3 lg:mb-4">The Firm</p>
+          <ul class="space-y-2.5">
+            <li><a href="/stack/" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">The VG Stack</a></li>
+            <li><a href="#ryan" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Ryan Dix</a></li>
+            <li><a href="#principles" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Principles</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=VG%20Manifesto%20-%20send%20me%20a%20copy" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Manifesto</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-2">
+          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-3 lg:mb-4">Products</p>
+          <ul class="space-y-2.5">
+            <li><a href="#products" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Pain-Point Pilots</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=Weekly%20Brief%20%E2%80%94%20add%20me%20to%20the%20waitlist" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Intelligence Brief</a></li>
+            <li><a href="#products" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">5-Agent Blueprint <span class="text-[#D4A024]/70 text-[10px] uppercase tracking-wider ml-1">soon</span></a></li>
+            <li><a href="#audit" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Free AI Audit</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-2">
+          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-3 lg:mb-4">Join</p>
+          <ul class="space-y-2.5">
+            <li><a href="/apply/?role=operator" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">For Operators</a></li>
+            <li><a href="/apply/?role=builder" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">For Builders</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=VG%20Question" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Contact</a></li>
+            <li><a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">@VisionGenesisAI</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="border-t border-[#1E3050] pt-6 lg:pt-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
+        <p class="text-[#5A6378] text-xs lg:text-sm italic">&ldquo;We don&rsquo;t promise to 10x your business. We solve your next bottleneck to growth.&rdquo;</p>
+        <p class="text-[#5A6378] text-[10px] lg:text-xs">&copy; 2026 Vision Genesis LLC &middot; All rights reserved</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+  // Play any [data-play-on-view] video the first time it scrolls into view
+  (function () {
+    var vids = document.querySelectorAll('video[data-play-on-view]');
+    if (!vids.length) return;
+    if (!('IntersectionObserver' in window)) {
+      // Fallback: play immediately
+      vids.forEach(function (v) { try { v.play(); } catch (e) {} });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var v = entry.target;
+          try {
+            v.currentTime = 0;
+            var p = v.play();
+            if (p && typeof p.catch === 'function') p.catch(function () {});
+          } catch (e) {}
+          io.unobserve(v);   // play once, don't re-trigger
+        }
+      });
+    }, { threshold: 0.25, rootMargin: '0px 0px -10% 0px' });
+    vids.forEach(function (v) { io.observe(v); });
+  })();
+
+  // Hamburger menu
+  (function () {
+    var btn = document.getElementById('menu-btn');
+    var panel = document.getElementById('menu-panel');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function () {
+      panel.classList.toggle('open');
+    });
+    panel.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { panel.classList.remove('open'); });
+    });
+  })();
+
+  // Live terminal feed — looping sequence (~30s before restart)
+  (function () {
+    var feed = document.getElementById('term-feed');
+    var taskCount = document.getElementById('term-task-count');
+    if (!feed) return;
+
+    // Each entry: {ts, agent, body, val (white emphasis), valOk (green ok)}
+    var lines = [
+      {ts:'08:41:03', agent:'EstimateAgent',  body:'→ Parsed voice note → structured quote', val:' 18s'},
+      {ts:'08:41:19', agent:'SchedulerAgent', body:'→ Resolved 3 crew conflicts'},
+      {ts:'08:41:47', agent:'IntelAgent',     body:'→ 14 sources → 3 actionable items'},
+      {ts:'08:42:01', agent:'EstimateAgent',  emph:'Approved by operator.',  valOk:' 23 min total.'},
+      {ts:'08:42:18', agent:'OpsAgent',       body:'→ Parsing supplier invoice (12 line items)'},
+      {ts:'08:42:35', agent:'OpsAgent',       body:'→ Variance detected:',                 val:' +4.2% Supplier X'},
+      {ts:'08:43:02', agent:'OpsAgent',       body:'→ Flagged for owner review → Inbox'},
+      {ts:'08:43:18', agent:'QuoteAgent',     body:'→ Voice memo in: Knoxville Leaf & Lawn'},
+      {ts:'08:43:44', agent:'QuoteAgent',     body:'→ Crew 3 · Hours 4.5 · Mat $187'},
+      {ts:'08:44:01', agent:'QuoteAgent',     emph:'Quote sent.',                              valOk:' 14 min round-trip'},
+      {ts:'08:44:30', agent:'SchedulerAgent', body:'→ Crew B finished early · 90 min open'},
+      {ts:'08:44:52', agent:'SchedulerAgent', body:'→ Auto-rescheduled 2 follow-ups → tomorrow'},
+      {ts:'08:45:21', agent:'IntelAgent',     body:'→ Competitor funding signal: dermatology vertical'},
+      {ts:'08:45:48', agent:'IntelAgent',     body:'→ 3 of your suppliers raised quotes this week'},
+      {ts:'08:46:10', agent:'BriefAgent',     body:'→ Composing weekly intelligence brief'},
+      {ts:'08:46:42', agent:'BriefAgent',     body:'→ 3 actionable items identified'},
+      {ts:'08:47:05', agent:'AuditAgent',     body:'→ New audit submission: Knoxville HVAC'},
+      {ts:'08:47:31', agent:'AuditAgent',     body:'→ Pattern matched: Tier 2 / quote bottleneck'},
+      {ts:'08:47:55', agent:'AuditAgent',     emph:'Routed to Ryan for personal review.'},
+      {ts:'08:48:14', agent:'OpsAgent',       body:'→ Daily checklist:',                    valOk:' 47 tasks · 11/11 agents up'}
+    ];
+
+    var MIN_DELAY = 1100;  // ms between lines
+    var MAX_DELAY = 1900;
+    var RESTART_PAUSE = 2400; // ms after last line before clearing + restarting
+    var lineIdx = 0;
+    var timer = null;
+
+    function escape(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function renderLine(l, isActive) {
+      var html = '<span class="text-[#D4A024]">&rsaquo;</span>';
+      html += '<span class="text-[#8891A0] ml-2">[' + escape(l.ts) + ']</span>';
+      html += '<span class="text-[#4D8FFF] ml-2">' + escape(l.agent) + '</span>';
+      if (l.body)  html += '<span class="text-[#C8D0DC] ml-1">' + escape(l.body) + '</span>';
+      if (l.emph)  html += '<span class="text-white font-semibold ml-1">' + escape(l.emph) + '</span>';
+      if (l.val)   html += '<span class="text-white font-semibold">' + escape(l.val) + '</span>';
+      if (l.valOk) html += '<span class="text-[#22C55E] font-semibold">' + escape(l.valOk) + '</span>';
+      if (isActive) html += '<span class="text-white animate-pulse"> _</span>';
+      return html;
+    }
+
+    function scrollToBottom() {
+      // Native smooth-scroll via scroll-behavior CSS on the feed
+      feed.scrollTop = feed.scrollHeight;
+    }
+
+    function tick() {
+      // Demote the previous "active" line (the half-faded one with cursor)
+      var prevActive = feed.querySelector('.term-line.term-line-active');
+      if (prevActive) prevActive.classList.remove('term-line-active');
+
+      var l = lines[lineIdx];
+      var div = document.createElement('div');
+      div.className = 'term-line term-line-active';
+      div.innerHTML = renderLine(l, true);
+      feed.appendChild(div);
+
+      // Smooth-scroll the feed to keep the latest line visible at the bottom
+      requestAnimationFrame(scrollToBottom);
+
+      // Bump the task-count to feel alive — increments slowly across the loop
+      if (taskCount) {
+        var base = 47;
+        taskCount.textContent = String(base + lineIdx);
+      }
+
+      lineIdx++;
+
+      if (lineIdx >= lines.length) {
+        // Sequence done — pause, then clear and restart
+        timer = setTimeout(function () {
+          // Soft clear: fade everything out
+          Array.prototype.forEach.call(feed.children, function (c) { c.classList.add('term-line-fadeout'); });
+          setTimeout(function () {
+            feed.innerHTML = '';
+            feed.scrollTop = 0;
+            lineIdx = 0;
+            if (taskCount) taskCount.textContent = '47';
+            tick();
+          }, 340);
+        }, RESTART_PAUSE);
+      } else {
+        var delay = MIN_DELAY + Math.random() * (MAX_DELAY - MIN_DELAY);
+        timer = setTimeout(tick, delay);
+      }
+    }
+
+    // Honor reduced-motion: render the first 5 lines statically and stop
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      for (var i = 0; i < Math.min(5, lines.length); i++) {
+        var div = document.createElement('div');
+        div.className = 'term-line';
+        div.style.opacity = '1';
+        div.style.transform = 'none';
+        div.innerHTML = renderLine(lines[i], i === 4);
+        feed.appendChild(div);
+      }
+      return;
+    }
+
+    // Start the loop after a short initial delay so the page settles first
+    timer = setTimeout(tick, 600);
+  })();
+
+  // Audit form → mailto submission (fallback until server endpoint)
+  (function () {
+    var form = document.getElementById('audit-form');
+    if (!form) return;
+
+    var questions = [
+      ['q1',  'Where in your business does work pile up faster than your team can clear it?'],
+      ['q2',  "What's one task that eats more of your best people's time than it should?"],
+      ['q3',  "What software did you buy in the last 24 months that nobody really uses? Why didn't it stick?"],
+      ['q4',  'If you could give your operations team one hour back per day, what would they actually do with it?'],
+      ['q5',  "What's the most expensive mistake you watched happen in the past year — and why did it happen?"],
+      ['q6',  "How do you find out when something's broken in operations — a number on a dashboard, a phone call, or a customer complaint?"],
+      ['q7',  'What does your business do better than anyone else in your market — and what would break if that one operator left tomorrow?'],
+      ['q8',  "What's the biggest growth blocker right now — people, process, demand, or capital?"],
+      ['q9',  "Have you tried AI tools before? What worked, what didn't, and what did it cost you to find out?"],
+      ['q10', 'If we built one thing for you in the next 90 days that paid for itself within a year, what would you want it to be?']
+    ];
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fd = new FormData(form);
+      var name = (fd.get('name') || '').toString().trim();
+      var email = (fd.get('email') || '').toString().trim();
+      var business = (fd.get('business') || '').toString().trim();
+      if (!email) return;
+
+      var lines = [];
+      lines.push('Name:     ' + name);
+      lines.push('Email:    ' + email);
+      lines.push('Business: ' + business);
+      lines.push('');
+      lines.push('============================================');
+      lines.push('  10-QUESTION AI OPERATING AUDIT — INTAKE');
+      lines.push('============================================');
+      lines.push('');
+
+      questions.forEach(function (pair, i) {
+        var key = pair[0], q = pair[1];
+        var v = (fd.get(key) || '').toString().trim();
+        var num = (i + 1).toString().padStart(2, '0');
+        lines.push(num + '. ' + q);
+        lines.push('');
+        lines.push((v || '(no answer)').replace(/^/gm, '    '));
+        lines.push('');
+      });
+
+      lines.push('--');
+      lines.push('Please send my personalized assessment within 24–48 hours.');
+
+      var subject = encodeURIComponent('AI Operating Audit — ' + (name || 'New intake') + ' / ' + business);
+      var body = encodeURIComponent(lines.join('\n'));
+      window.location.href = 'mailto:vision@visiongenesisai.com?subject=' + subject + '&body=' + body;
+      setTimeout(function () {
+        var tip = document.createElement('div');
+        tip.textContent = "Email opened. Send it — we'll reply with your personalized assessment within 24–48 hours.";
+        tip.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1A1A2E;color:#fff;padding:14px 20px;font-family:Inter,sans-serif;font-size:13px;z-index:200;border-left:3px solid #D4A024;max-width:360px;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:8px;';
+        document.body.appendChild(tip);
+        setTimeout(function () { tip.remove(); }, 7000);
+      }, 400);
+    });
+  })();
+
+  </script>
+
+</body>
+</html>
