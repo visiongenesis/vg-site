@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The VG Stack — Vision Genesis AI</title>
+  <meta name="description" content="The five-layer system that powers Vision Genesis: Operators, Builders, Agents, Practices, Products. Engineered to compound.">
+  <meta property="og:title" content="The VG Stack — Vision Genesis AI">
+  <meta property="og:description" content="Five interdependent layers. Engineered to compound. Not a service menu — a system that runs inside a real business.">
+  <meta property="og:image" content="https://visiongenesisai.com/assets/og-social.png">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://visiongenesisai.com/stack/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://visiongenesisai.com/assets/og-social.png">
+  <link rel="icon" type="image/png" sizes="256x256" href="/assets/favicon-tree.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
+    .font-mono, .font-mono * { font-family: 'JetBrains Mono', 'Fira Code', monospace !important; }
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,130,0,0.45); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 7px rgba(255,130,0,0); }
+    }
+    .pulse-dot { animation: pulse-dot 2.2s ease-in-out infinite; }
+    .stack-watermark { display: none; }
+    @media (min-width: 1024px) {
+      .stack-watermark {
+        display: block;
+        font-size: 160px;
+        line-height: 1;
+        font-weight: 900;
+        color: rgba(255,255,255,0.04);
+        font-family: 'JetBrains Mono', monospace;
+        pointer-events: none;
+        user-select: none;
+        position: absolute;
+        right: -8px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+    .section-h1 {
+      font-size: 34px;
+      line-height: 1.0;
+      letter-spacing: -0.025em;
+      font-weight: 800;
+    }
+    @media (min-width: 768px) { .section-h1 { font-size: 44px; } }
+    @media (min-width: 1024px) { .section-h1 { font-size: 56px; } }
+    .section-h2 {
+      font-size: 30px;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    @media (min-width: 1024px) { .section-h2 { font-size: 48px; line-height: 1.0; letter-spacing: -0.025em; } }
+    .card-title-lg { font-size: 22px; line-height: 1.1; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .card-title-lg { font-size: 30px; letter-spacing: -0.015em; } }
+    .recruit-title { font-size: 20px; letter-spacing: -0.01em; font-weight: 700; }
+    @media (min-width: 1024px) { .recruit-title { font-size: 24px; } }
+    .brand-wordmark {
+      font-family: 'Inter', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.018em;
+      color: #fff;
+      font-size: 1rem;
+      line-height: 1;
+    }
+    @media (min-width: 1024px) { .brand-wordmark { font-size: 1.0625rem; } }
+    .menu-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+    .menu-panel.open { max-height: 400px; }
+  </style>
+</head>
+<body class="bg-[#0A1628]">
+
+  <!-- NAV -->
+  <nav class="bg-[#0A1628]/95 backdrop-blur-sm border-b border-[#1E3050] sticky top-0 z-50">
+    <div class="max-w-[1280px] mx-auto px-5 lg:px-8 h-[58px] lg:h-[66px] flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2.5 flex-shrink-0" aria-label="Vision Genesis AI — home">
+        <img src="/assets/vg-logo-tree.png" alt="" class="h-8 lg:h-10 w-auto">
+        <span class="brand-wordmark hidden sm:inline">Vision Genesis AI</span>
+      </a>
+      <div class="hidden lg:flex items-center gap-8">
+        <a href="/stack/" class="text-white text-sm font-semibold tracking-wide transition-colors">The Stack</a>
+        <a href="/#products" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">Products</a>
+        <a href="/#builders" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">For Builders</a>
+        <a href="/#ryan" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">Ryan Dix</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="/#audit" class="bg-[#0051D5] hover:bg-[#003DA0] text-white text-xs lg:text-sm font-bold tracking-wider px-4 lg:px-5 py-2 lg:py-2.5 rounded-lg transition-colors uppercase">Free AI Audit &rarr;</a>
+        <button id="menu-btn" type="button" aria-label="Open menu" class="lg:hidden text-[#C8D0DC] p-1.5 -mr-1.5 hover:text-white transition-colors">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </div>
+    </div>
+    <div id="menu-panel" class="menu-panel lg:hidden bg-[#0A1628] border-t border-[#1E3050]">
+      <div class="px-5 py-4 space-y-3">
+        <a href="/stack/" class="block text-white text-sm font-semibold py-1.5 transition-colors">The Stack</a>
+        <a href="/#products" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">Products</a>
+        <a href="/#builders" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">For Builders</a>
+        <a href="/#ryan" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">Ryan Dix</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+
+    <!-- PAGE HEADER -->
+    <section class="bg-[#0A1628] pt-14 lg:pt-24 pb-10 lg:pb-16">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 items-end">
+          <div class="lg:col-span-8">
+            <p class="text-[#4D8FFF] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">The System</p>
+            <h1 class="text-white section-h1 mb-4 lg:mb-5">The VG Stack</h1>
+            <p class="text-[#C8D0DC] text-base lg:text-lg max-w-[640px] leading-relaxed">Five interdependent layers. Engineered to compound. Not a service menu&nbsp;&mdash; a system that runs inside a real business.</p>
+          </div>
+          <div class="hidden lg:flex lg:col-span-4 items-end justify-end">
+            <div class="border border-[#1E3050] rounded-lg px-4 py-2 font-mono text-xs text-[#8891A0] tracking-wider">
+              EST. 2026 &middot; OWNER-OPERATED
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE 5 STACK ITEMS -->
+    <section class="bg-[#0A1628] pb-14 lg:pb-24">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div>
+
+          <!-- STACK 01 -->
+          <article class="relative border-t border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+            <div class="stack-watermark">01</div>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 01</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">01</span>
+              <span class="lg:hidden border border-[#1E3050] text-[#8891A0] text-[10px] font-mono px-2 py-1 rounded tracking-wider">HUMAN LAYER</span>
+            </div>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Operators</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">Veteran operators who ran real operations for decades. They hold the truth about what&rsquo;s actually breaking inside a business &mdash; not what the dashboard says. They lead client relationships, qualify engagements, and mentor the builders.</p>
+            </div>
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
+              <span class="border border-[#1E3050] text-[#8891A0] text-xs font-mono px-3 py-1.5 rounded tracking-wider">HUMAN LAYER</span>
+            </div>
+          </article>
+
+          <!-- STACK 02 -->
+          <article class="relative border-t border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+            <div class="stack-watermark">02</div>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 02</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">02</span>
+              <span class="lg:hidden border border-[#1E3050] text-[#8891A0] text-[10px] font-mono px-2 py-1 rounded tracking-wider">HUMAN LAYER</span>
+            </div>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Builders</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">AI-native technologists who ship working systems for paying clients from week one. Not consultants. Not architects. Builders &mdash; people who hold equity and deliver. They progress under operator mentorship. The firm is only as good as what they ship.</p>
+            </div>
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
+              <span class="border border-[#1E3050] text-[#8891A0] text-xs font-mono px-3 py-1.5 rounded tracking-wider">HUMAN LAYER</span>
+            </div>
+          </article>
+
+          <!-- STACK 03 -->
+          <article class="relative border-t border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+            <div class="stack-watermark">03</div>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 03</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">03</span>
+              <div class="lg:hidden flex items-center gap-2">
+                <span class="border border-[#FF8200]/30 text-[#FF8200] text-[10px] font-mono px-2 py-1 rounded tracking-wider bg-[#FF8200]/[0.06]">AI LAYER</span>
+                <span class="pulse-dot w-1.5 h-1.5 rounded-full bg-[#FF8200] block"></span>
+                <span class="font-mono text-[#FF8200] text-[10px] font-semibold">9 ACTIVE</span>
+              </div>
+            </div>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Agents</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">An internal team of named AI agents &mdash; 9 today, 170+ in the specification pipeline &mdash; handling research, drafting, scheduling, and monitoring. Coordination layer, not decision layer. People still make the calls. Agents multiply judgment. They do not lead it.</p>
+            </div>
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
+              <div class="flex flex-col items-end gap-2">
+                <span class="border border-[#FF8200]/30 text-[#FF8200] text-xs font-mono px-3 py-1.5 rounded tracking-wider bg-[#FF8200]/[0.06]">AI LAYER</span>
+                <div class="flex items-center gap-2">
+                  <span class="pulse-dot w-1.5 h-1.5 rounded-full bg-[#FF8200] block"></span>
+                  <span class="font-mono text-[#FF8200] text-xs font-semibold">9 ACTIVE</span>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <!-- STACK 04 -->
+          <article class="relative border-t border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+            <div class="stack-watermark">04</div>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 04</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">04</span>
+              <span class="lg:hidden border border-[#1E3050] text-[#8891A0] text-[10px] font-mono px-2 py-1 rounded tracking-wider">DELIVERY LAYER</span>
+            </div>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Practices</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">One operator + one builder + one agent team &mdash; diagnose opportunities and deploy solutions inside real businesses. Each practice is the unit the firm scales by. A working relationship where Vision Genesis Partners has a P&amp;L stake in the outcome. The practice expands with ongoing engagements, developing greater domain expertise, feeding Stack 05 products.</p>
+            </div>
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
+              <span class="border border-[#1E3050] text-[#8891A0] text-xs font-mono px-3 py-1.5 rounded tracking-wider">DELIVERY LAYER</span>
+            </div>
+          </article>
+
+          <!-- STACK 05 -->
+          <article class="relative border-t border-b border-[#1E3050] py-7 lg:py-10 grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-6 group hover:bg-white/[0.015] transition-colors overflow-hidden">
+            <div class="stack-watermark">05</div>
+            <div class="flex items-center justify-between lg:block lg:col-span-2">
+              <span class="font-mono text-[#4D8FFF] text-xs font-semibold tracking-[0.1em] uppercase block lg:mb-3">STACK 05</span>
+              <span class="hidden lg:block text-white/[0.08] font-extrabold font-mono select-none" style="font-size:72px;line-height:1;">05</span>
+              <span class="lg:hidden border border-[#0051D5]/40 text-[#4D8FFF] text-[10px] font-mono px-2 py-1 rounded tracking-wider bg-[#0051D5]/[0.08]">SCALE LAYER</span>
+            </div>
+            <div class="lg:col-span-6">
+              <h3 class="text-white card-title-lg mb-2 lg:mb-3">Products</h3>
+              <p class="text-[#C8D0DC] text-sm lg:text-base leading-relaxed max-w-[480px]">Every engagement is R&amp;D for the next product. What we solve for one owner becomes a packaged system the next owner can buy. The firm scales by standing up more practices AND productizing what proves useful. Custom today. Packaged tomorrow. Knowledge that compounds.</p>
+            </div>
+            <div class="hidden lg:flex lg:col-span-4 items-start justify-end pt-1">
+              <span class="border border-[#0051D5]/40 text-[#4D8FFF] text-xs font-mono px-3 py-1.5 rounded tracking-wider bg-[#0051D5]/[0.08]">SCALE LAYER</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- INTERESTED IN WORKING WITH US -->
+    <section class="bg-[#F2EBDD] py-14 lg:py-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+
+        <div class="mb-8 lg:mb-12 max-w-[820px]">
+          <p class="text-[#0051D5] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">Join the stack</p>
+          <h2 class="text-[#1A1A2E] section-h2 mb-4 lg:mb-5">Interested in working with us?</h2>
+          <p class="text-[#5A6378] text-base lg:text-lg leading-relaxed">Two ways in. Operators plant practices &amp; mentor builders. Builders ship for paying clients and earn equity on delivery. Pick your lane.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
+
+          <article class="bg-white border border-[#E8DFD0] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 hover:shadow-[0_4px_24px_rgba(0,81,213,0.08)] transition-all">
+            <span class="text-[#0051D5] text-xs font-semibold tracking-[0.1em] uppercase mb-3 block">For Veteran Operators</span>
+            <h3 class="text-[#1A1A2E] recruit-title mb-3">Plant a Practice</h3>
+            <p class="text-[#5A6378] text-sm lg:text-base leading-relaxed mb-5 lg:mb-6">20+ years running operations and watching consultants burn your budget? We&rsquo;re recruiting operator partners who want to plant a practice with equity. You own your vertical. You mentor the builders. The firm scales behind you.</p>
+            <a href="/?role=operator#apply" class="text-[#0051D5] font-semibold text-sm border-b border-dashed border-[#0051D5] pb-0.5 hover:text-[#003DA0] hover:border-[#003DA0] transition-colors">Apply as an Operator Partner &rarr;</a>
+          </article>
+
+          <article class="bg-white border border-[#E8DFD0] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 hover:shadow-[0_4px_24px_rgba(0,81,213,0.08)] transition-all">
+            <span class="text-[#0051D5] text-xs font-semibold tracking-[0.1em] uppercase mb-3 block">For AI-Native Builders</span>
+            <h3 class="text-[#1A1A2E] recruit-title mb-3">Earn Equity. Ship Real Work.</h3>
+            <p class="text-[#5A6378] text-sm lg:text-base leading-relaxed mb-5 lg:mb-6">You can build. You know AI. You want equity and to learn how a business actually runs. VG builders hold equity-on-delivery and work under operator mentorship from day one. This is not a junior dev role. This is a founding position.</p>
+            <a href="/?role=builder#apply" class="text-[#0051D5] font-semibold text-sm border-b border-dashed border-[#0051D5] pb-0.5 hover:text-[#003DA0] hover:border-[#003DA0] transition-colors">Apply as a Builder &rarr;</a>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#0A1628] border-t border-[#1E3050] py-12 lg:py-16">
+    <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+
+      <div class="grid grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 mb-10 lg:mb-12">
+
+        <div class="col-span-2 lg:col-span-4">
+          <a href="/" class="inline-flex items-center gap-2.5 mb-4 lg:mb-5" aria-label="Vision Genesis AI — home">
+            <img src="/assets/vg-logo-tree.png" alt="" class="h-10 lg:h-12 w-auto">
+            <span class="text-white font-extrabold tracking-tight text-lg">Vision Genesis AI</span>
+          </a>
+          <p class="text-[#C8D0DC] text-sm leading-relaxed mb-4 lg:mb-5 max-w-[320px]">Owner-operated AI implementation. Veteran operators paired with AI-native builders to solve your next bottleneck to growth.</p>
+          <p class="text-[#8891A0] text-xs font-semibold tracking-[0.1em] uppercase">Human-Authored &middot; AI-Delivered</p>
+        </div>
+
+        <div class="hidden lg:block lg:col-span-2"></div>
+
+        <div class="lg:col-span-2">
+          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-3 lg:mb-4">The Firm</p>
+          <ul class="space-y-2.5">
+            <li><a href="/stack/" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">The VG Stack</a></li>
+            <li><a href="/#ryan" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Ryan Dix</a></li>
+            <li><a href="/#principles" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Principles</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=VG%20Manifesto%20-%20send%20me%20a%20copy" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Manifesto</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-2">
+          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-3 lg:mb-4">Products</p>
+          <ul class="space-y-2.5">
+            <li><a href="/#products" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Pain-Point Pilots</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=Weekly%20Brief%20%E2%80%94%20add%20me%20to%20the%20waitlist" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Intelligence Brief</a></li>
+            <li><a href="/#products" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">5-Agent Blueprint <span class="text-[#FF8200]/70 text-[10px] uppercase tracking-wider ml-1">soon</span></a></li>
+            <li><a href="/#audit" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Free AI Audit</a></li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-2">
+          <p class="text-white font-semibold text-xs uppercase tracking-widest mb-3 lg:mb-4">Join</p>
+          <ul class="space-y-2.5">
+            <li><a href="/?role=operator#apply" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">For Operators</a></li>
+            <li><a href="/?role=builder#apply" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">For Builders</a></li>
+            <li><a href="mailto:vision@visiongenesisai.com?subject=VG%20Question" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Contact</a></li>
+            <li><a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">@VisionGenesisAI</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="border-t border-[#1E3050] pt-6 lg:pt-8 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
+        <p class="text-[#5A6378] text-xs lg:text-sm italic">&ldquo;We don&rsquo;t promise to 10x your business. We solve your next bottleneck to growth.&rdquo;</p>
+        <p class="text-[#5A6378] text-[10px] lg:text-xs">&copy; 2026 Vision Genesis LLC &middot; All rights reserved</p>
+      </div>
+
+    </div>
+  </footer>
+
+  <script>
+  (function () {
+    var btn = document.getElementById('menu-btn');
+    var panel = document.getElementById('menu-panel');
+    if (!btn || !panel) return;
+    btn.addEventListener('click', function () { panel.classList.toggle('open'); });
+    panel.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { panel.classList.remove('open'); });
+    });
+  })();
+  </script>
+
+</body>
+</html>
