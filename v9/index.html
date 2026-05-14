@@ -146,24 +146,38 @@
       from { opacity: 0; transform: translateY(4px); }
       to   { opacity: 0.5; transform: translateY(0); }
     }
-    /* Hero tree watermark */
-    .hero-watermark {
+    /* Hero tree — animated video watermark, bottom-right anchored */
+    .hero-video {
       position: absolute;
-      inset: 0;
-      background-image: url('/assets/hero-tree.png');
-      background-repeat: no-repeat;
-      background-position: 100% 100%;
-      background-size: clamp(430px, 52vw, 940px) auto;
+      bottom: 0;
+      right: 0;
+      width: clamp(430px, 52vw, 940px);
+      height: auto;
       opacity: 0.09;
       pointer-events: none;
       z-index: 0;
       mix-blend-mode: screen;
+      object-fit: contain;
     }
     @media (max-width: 1023px) {
-      .hero-watermark {
-        background-position: 100% 100%;
-        background-size: clamp(220px, 64vw, 350px) auto;
+      .hero-video {
+        width: clamp(220px, 64vw, 350px);
         opacity: 0.08;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-video { display: none; }
+      .hero-video-fallback {
+        position: absolute;
+        inset: 0;
+        background-image: url('/assets/hero-tree.png');
+        background-repeat: no-repeat;
+        background-position: 100% 100%;
+        background-size: clamp(430px, 52vw, 940px) auto;
+        opacity: 0.09;
+        pointer-events: none;
+        z-index: 0;
+        mix-blend-mode: screen;
       }
     }
     /* Brand wordmark in nav */
@@ -244,7 +258,11 @@
 
     <!-- HERO -->
     <section class="bg-[#0A1628] min-h-[640px] lg:min-h-[900px] relative overflow-hidden flex flex-col justify-center">
-      <div class="hero-watermark" aria-hidden="true"></div>
+      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/assets/hero-tree.png" aria-hidden="true">
+        <source src="/assets/hero-tree.webm" type="video/webm">
+        <source src="/assets/hero-tree.mp4" type="video/mp4">
+      </video>
+      <div class="hero-video-fallback" aria-hidden="true"></div>
       <div class="grid-bg absolute inset-0 pointer-events-none"></div>
       <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse 900px 700px at 70% 50%, rgba(0,81,213,0.06) 0%, transparent 70%);"></div>
 
