@@ -118,6 +118,31 @@
       font-weight: 700;
     }
     @media (min-width: 1024px) { .counter-num { font-size: 44px; } }
+    /* Live terminal — sequential fade-in */
+    .term-feed .term-line {
+      opacity: 0;
+      transform: translateY(4px);
+      animation: term-line-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+    }
+    .term-feed .term-line.term-line-active {
+      animation: term-line-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+    }
+    .term-feed .term-line:nth-child(1) { animation-delay: 0.4s; }
+    .term-feed .term-line:nth-child(2) { animation-delay: 1.0s; }
+    .term-feed .term-line:nth-child(3) { animation-delay: 1.6s; }
+    .term-feed .term-line:nth-child(4) { animation-delay: 2.2s; }
+    .term-feed .term-line:nth-child(5) { animation-delay: 2.9s; }
+    @keyframes term-line-in {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .term-feed .term-line.term-line-active {
+      animation: term-line-in-fade 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+    }
+    @keyframes term-line-in-fade {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 0.5; transform: translateY(0); }
+    }
     /* Hero tree watermark */
     .hero-watermark {
       position: absolute;
@@ -218,25 +243,25 @@
             <div class="flex items-center flex-wrap gap-2.5 mb-7 lg:mb-10">
               <div class="inline-flex items-center gap-2.5 bg-[#FF8200]/10 border border-[#FF8200]/30 rounded-full px-3 lg:px-4 py-1.5 lg:py-2">
                 <span class="pulse-dot w-2 h-2 rounded-full bg-[#FF8200] block flex-shrink-0"></span>
-                <span class="text-[#FF8200] text-[10px] lg:text-xs font-semibold tracking-[0.08em] uppercase font-mono">9 Agents &middot; Active</span>
+                <span class="text-[#FF8200] text-[10px] lg:text-xs font-semibold tracking-[0.08em] uppercase font-mono">Agent Network &middot; Active</span>
               </div>
               <div class="inline-flex items-center gap-2 bg-white/[0.04] border border-white/10 rounded-full px-3 lg:px-4 py-1.5 lg:py-2">
-                <span class="counter-live text-[#C8D0DC] text-[10px] lg:text-xs font-mono tracking-wide">PIPELINE: <span class="text-white font-semibold">47</span> TASKS</span>
+                <span class="counter-live text-[#C8D0DC] text-[10px] lg:text-xs font-mono tracking-wide">PIPELINE: <span class="text-white font-semibold">27</span> WORKSTREAMS</span>
               </div>
             </div>
 
             <!-- Headline -->
-            <h1 class="hero-display text-white mb-0 max-w-[700px]">
+            <h1 class="hero-display text-white mb-0 max-w-[760px]">
               Your best people<br>
               are buried in work<br>
-              <span class="text-[#0051D5]">that shouldn&rsquo;t exist.</span>
+              <span class="text-[#0051D5]">your competitors are using AI to automate.</span>
             </h1>
 
             <!-- Pain points -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 lg:gap-3 mt-7 mb-7 lg:mt-8 lg:mb-8 max-w-[680px]">
               <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
                 <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                <p class="text-[#C8D0DC] text-sm leading-relaxed">Your estimator spends 3 hours quoting what should take 20 minutes</p>
+                <p class="text-[#C8D0DC] text-sm leading-relaxed">Your consultation-to-quote is two weeks out. It could be going out same-day.</p>
               </div>
               <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
                 <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
@@ -249,8 +274,8 @@
             </div>
 
             <!-- Solution -->
-            <p class="text-[#C8D0DC] text-base lg:text-xl leading-relaxed mb-8 lg:mb-10 max-w-[580px]">
-              We find the three workflows bleeding your P&amp;L and fix them&nbsp;&mdash;&nbsp;<strong class="text-white">without replacing a single person.</strong>
+            <p class="text-[#C8D0DC] text-base lg:text-xl leading-relaxed mb-8 lg:mb-10 max-w-[620px]">
+              We find the three workflows bleeding your time and P&amp;L. The audit maps a path to fix them&nbsp;&mdash;&nbsp;<strong class="text-white">and we can lead the way from there.</strong>
             </p>
 
             <!-- CTAs -->
@@ -280,34 +305,34 @@
                   <span class="font-mono text-[#22C55E] text-[10px] lg:text-xs font-semibold">ACTIVE</span>
                 </div>
               </div>
-              <div class="p-4 lg:p-6 font-mono text-[11px] lg:text-sm leading-6 lg:leading-7 space-y-1 overflow-hidden">
-                <div>
+              <div class="term-feed p-4 lg:p-6 font-mono text-[11px] lg:text-sm leading-6 lg:leading-7 space-y-1 overflow-hidden">
+                <div class="term-line">
                   <span class="text-[#FF8200]">&rsaquo;</span>
                   <span class="text-[#8891A0] ml-2">[08:41:03]</span>
                   <span class="text-[#4D8FFF] ml-2">EstimateAgent</span>
                   <span class="text-[#C8D0DC] ml-1">&rarr; Parsed voice note &rarr; structured quote</span>
                   <span class="text-white font-semibold"> 18s</span>
                 </div>
-                <div>
+                <div class="term-line">
                   <span class="text-[#FF8200]">&rsaquo;</span>
                   <span class="text-[#8891A0] ml-2">[08:41:19]</span>
                   <span class="text-[#4D8FFF] ml-2">SchedulerAgent</span>
                   <span class="text-[#C8D0DC] ml-1">&rarr; Resolved 3 crew conflicts</span>
                 </div>
-                <div>
+                <div class="term-line">
                   <span class="text-[#FF8200]">&rsaquo;</span>
                   <span class="text-[#8891A0] ml-2">[08:41:47]</span>
                   <span class="text-[#4D8FFF] ml-2">IntelAgent</span>
                   <span class="text-[#C8D0DC] ml-1">&rarr; 14 sources &rarr; 3 actionable items</span>
                 </div>
-                <div>
+                <div class="term-line">
                   <span class="text-[#FF8200]">&rsaquo;</span>
                   <span class="text-[#8891A0] ml-2">[08:42:01]</span>
                   <span class="text-[#4D8FFF] ml-2">EstimateAgent</span>
                   <span class="text-white font-semibold ml-1">Approved by operator.</span>
                   <span class="text-[#22C55E] font-semibold"> 23 min total.</span>
                 </div>
-                <div class="opacity-50">
+                <div class="term-line term-line-active opacity-50">
                   <span class="text-[#FF8200]">&rsaquo;</span>
                   <span class="text-[#8891A0] ml-2">[08:42:18]</span>
                   <span class="text-[#4D8FFF] ml-2">OpsAgent</span>
