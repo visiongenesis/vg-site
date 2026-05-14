@@ -161,9 +161,9 @@
     }
     @media (max-width: 1023px) {
       .hero-watermark {
-        background-position: center 22%;
-        background-size: clamp(280px, 70vw, 480px) auto;
-        opacity: 0.05;
+        background-position: 100% 100%;
+        background-size: clamp(320px, 95vw, 520px) auto;
+        opacity: 0.08;
       }
     }
     /* Brand wordmark in nav */
@@ -172,9 +172,11 @@
       font-weight: 800;
       letter-spacing: -0.018em;
       color: #fff;
-      font-size: 1rem;
+      font-size: 0.875rem;
       line-height: 1;
+      white-space: nowrap;
     }
+    @media (min-width: 768px) { .brand-wordmark { font-size: 1rem; } }
     @media (min-width: 1024px) { .brand-wordmark { font-size: 1.0625rem; } }
     /* Hamburger menu */
     .menu-panel {
@@ -213,7 +215,7 @@
     <div class="max-w-[1280px] mx-auto px-5 lg:px-8 h-[58px] lg:h-[66px] flex items-center justify-between">
       <a href="/" class="flex items-center gap-2.5 flex-shrink-0" aria-label="Vision Genesis AI — home">
         <img src="assets/vg-logo-tree.png" alt="" class="h-8 lg:h-10 w-auto">
-        <span class="brand-wordmark hidden sm:inline">Vision Genesis AI</span>
+        <span class="brand-wordmark">Vision Genesis AI</span>
       </a>
       <div class="hidden lg:flex items-center gap-8">
         <a href="/stack/" class="text-[#8891A0] hover:text-white text-sm font-medium tracking-wide transition-colors">The Stack</a>
@@ -452,13 +454,13 @@
     </section>
 
     <!-- LIVING TREE — navy panel left / paper panel right -->
-    <section id="principles" class="tree-split py-14 lg:py-24 scroll-mt-20">
+    <section id="principles" class="tree-split py-10 lg:py-24 scroll-mt-20">
       <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-16 items-center">
 
-          <div class="flex items-center justify-center order-1 w-full bg-[#0A1628] lg:bg-transparent -mx-5 lg:mx-0 px-5 lg:px-0 py-10 lg:py-0">
+          <div class="flex items-center justify-center order-1 w-full bg-[#0A1628] lg:bg-transparent -mx-5 lg:mx-0 px-5 lg:px-0 py-6 lg:py-0">
             <div class="w-full">
-              <img src="/favicon.svg" alt="Vision Genesis · Human-First AI" class="w-full max-w-[320px] sm:max-w-[440px] lg:max-w-none h-auto mx-auto block">
+              <img src="/favicon.svg" alt="Vision Genesis · Human-First AI" class="w-full max-w-[200px] sm:max-w-[280px] lg:max-w-none h-auto mx-auto block">
             </div>
           </div>
 
