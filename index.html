@@ -291,7 +291,7 @@
         </h1>
 
         <!-- Below-headline 2-col content -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-start">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-stretch">
 
           <div class="lg:col-span-7">
 
@@ -330,7 +330,7 @@
 
           <!-- Terminal -->
           <div class="lg:col-span-5">
-            <div class="terminal-card border border-[#1E3050] rounded-xl overflow-hidden" style="box-shadow: 0 0 60px rgba(0,81,213,0.08);">
+            <div class="terminal-card border border-[#1E3050] rounded-xl overflow-hidden h-full flex flex-col" style="box-shadow: 0 0 60px rgba(0,81,213,0.08);">
               <div class="flex items-center justify-between px-4 lg:px-5 py-2.5 lg:py-3 bg-[#0A1628]/70 border-b border-[#1E3050]">
                 <div class="flex items-center gap-1.5 lg:gap-2">
                   <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#EF4444]/60"></span>
@@ -343,7 +343,7 @@
                   <span class="font-mono text-[#22C55E] text-[10px] lg:text-xs font-semibold">ACTIVE</span>
                 </div>
               </div>
-              <div id="term-feed" class="term-feed p-4 lg:p-6 font-mono text-[11px] lg:text-sm leading-6 lg:leading-7 space-y-1 overflow-hidden h-[176px] lg:h-[218px]"></div>
+              <div id="term-feed" class="term-feed p-4 lg:p-6 font-mono text-[11px] lg:text-sm leading-6 lg:leading-7 space-y-1 overflow-hidden flex-1 min-h-[176px] lg:min-h-[260px]"></div>
               <div class="px-4 lg:px-6 py-2.5 lg:py-3 bg-[#0A1628]/55 border-t border-[#1E3050] flex items-center gap-3 lg:gap-6 flex-wrap">
                 <div class="flex items-center gap-2">
                   <span class="counter-live font-mono text-[10px] lg:text-xs text-[#8891A0]">TASKS:</span>
@@ -905,7 +905,7 @@
       {ts:'08:48:14', agent:'OpsAgent',       body:'→ Daily checklist:',                    valOk:' 47 tasks · 9/9 agents up'}
     ];
 
-    var MAX_VISIBLE = 5;
+    var MAX_VISIBLE = 9;
     var MIN_DELAY = 1100;  // ms between lines
     var MAX_DELAY = 1900;
     var RESTART_PAUSE = 2400; // ms after last line before clearing + restarting
