@@ -23,8 +23,8 @@
     * { font-family: 'Inter', ui-sans-serif, system-ui, sans-serif; }
     .font-mono, .font-mono * { font-family: 'JetBrains Mono', 'Fira Code', monospace !important; }
     @keyframes pulse-dot {
-      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,130,0,0.45); }
-      50% { opacity: 0.8; box-shadow: 0 0 0 7px rgba(255,130,0,0); }
+      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(212,160,36,0.45); }
+      50% { opacity: 0.8; box-shadow: 0 0 0 7px rgba(212,160,36,0); }
     }
     @keyframes pulse-green {
       0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(34,197,94,0.45); }
@@ -217,7 +217,7 @@
     }
     @media (min-width: 1024px) {
       .tree-split {
-        background: linear-gradient(to right, #0A1628 0%, #0A1628 50%, #F2EBDD 50%, #F2EBDD 100%);
+        background: linear-gradient(to right, #0C1B2A 0%, #0C1B2A 50%, #F2EBDD 50%, #F2EBDD 100%);
       }
     }
     /* Apply tabs */
@@ -234,10 +234,10 @@
     }
   </style>
 </head>
-<body class="bg-[#0A1628]">
+<body class="bg-[#0C1B2A]">
 
   <!-- NAV -->
-  <nav class="bg-[#0A1628]/95 backdrop-blur-sm border-b border-[#1E3050] sticky top-0 z-50">
+  <nav class="bg-[#0C1B2A]/95 backdrop-blur-sm border-b border-[#1E3050] sticky top-0 z-50">
     <div class="max-w-[1280px] mx-auto px-5 lg:px-8 h-[58px] lg:h-[66px] flex items-center justify-between">
       <a href="/" class="flex items-center gap-2.5 flex-shrink-0" aria-label="Vision Genesis AI — home">
         <img src="assets/vg-logo-tree.png" alt="" class="h-8 lg:h-10 w-auto">
@@ -256,7 +256,7 @@
         </button>
       </div>
     </div>
-    <div id="menu-panel" class="menu-panel lg:hidden bg-[#0A1628] border-t border-[#1E3050]">
+    <div id="menu-panel" class="menu-panel lg:hidden bg-[#0C1B2A] border-t border-[#1E3050]">
       <div class="px-5 py-4 space-y-3">
         <a href="/stack/" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">The Stack</a>
         <a href="#products" class="block text-[#C8D0DC] hover:text-white text-sm font-medium py-1.5 transition-colors">Products</a>
@@ -269,7 +269,7 @@
   <main>
 
     <!-- HERO -->
-    <section class="bg-[#0A1628] min-h-[640px] lg:min-h-[900px] relative overflow-hidden flex flex-col justify-center">
+    <section class="bg-[#0C1B2A] min-h-[640px] lg:min-h-[900px] relative overflow-hidden flex flex-col justify-center">
       <video class="hero-video" autoplay muted playsinline preload="metadata" poster="/assets/hero-tree.png" aria-hidden="true">
         <source src="/assets/hero-tree.webm" type="video/webm">
         <source src="/assets/hero-tree.mp4" type="video/mp4">
@@ -282,9 +282,9 @@
 
         <!-- Live pills — full container width on desktop -->
         <div class="flex items-center flex-wrap gap-2.5 mb-7 lg:mb-10">
-          <div class="inline-flex items-center gap-2.5 bg-[#FF8200]/10 border border-[#FF8200]/30 rounded-full px-3 lg:px-4 py-1.5 lg:py-2">
-            <span class="pulse-dot w-2 h-2 rounded-full bg-[#FF8200] block flex-shrink-0"></span>
-            <span class="text-[#FF8200] text-[10px] lg:text-xs font-semibold tracking-[0.08em] uppercase font-mono">Agent Network &middot; Active</span>
+          <div class="inline-flex items-center gap-2.5 bg-[#D4A024]/10 border border-[#D4A024]/30 rounded-full px-3 lg:px-4 py-1.5 lg:py-2">
+            <span class="pulse-dot w-2 h-2 rounded-full bg-[#D4A024] block flex-shrink-0"></span>
+            <span class="text-[#D4A024] text-[10px] lg:text-xs font-semibold tracking-[0.08em] uppercase font-mono">Agent Network &middot; Active</span>
           </div>
           <div class="inline-flex items-center gap-2 bg-white/[0.04] border border-white/10 rounded-full px-3 lg:px-4 py-1.5 lg:py-2">
             <span class="counter-live text-[#C8D0DC] text-[10px] lg:text-xs font-mono tracking-wide">PIPELINE: <span class="text-white font-semibold">27</span> WORKSTREAMS</span>
@@ -306,15 +306,15 @@
             <!-- Pain points -->
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5 lg:gap-3 mt-7 mb-7 lg:mt-8 lg:mb-8 max-w-[680px]">
               <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
-                <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <svg class="text-[#D4A024] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 <p class="text-[#C8D0DC] text-sm leading-relaxed">Your consultation-to-quote is two weeks out. It could be going out same-day.</p>
               </div>
               <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
-                <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <svg class="text-[#D4A024] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 <p class="text-[#C8D0DC] text-sm leading-relaxed">You bought software your team works around instead of with</p>
               </div>
               <div class="flex items-start gap-2.5 bg-white/[0.03] border border-white/[0.06] rounded-lg p-3.5 lg:p-4">
-                <svg class="text-[#FF8200] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                <svg class="text-[#D4A024] mt-0.5 flex-shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
                 <p class="text-[#C8D0DC] text-sm leading-relaxed">Every vendor pitches tools. Nobody offers to fix what&rsquo;s actually broken.</p>
               </div>
             </div>
@@ -339,10 +339,10 @@
           <!-- Terminal -->
           <div class="lg:col-span-5">
             <div class="terminal-card border border-[#1E3050] rounded-xl overflow-hidden" style="box-shadow: 0 0 60px rgba(0,81,213,0.08);">
-              <div class="flex items-center justify-between px-4 lg:px-5 py-2.5 lg:py-3 bg-[#0A1628]/70 border-b border-[#1E3050]">
+              <div class="flex items-center justify-between px-4 lg:px-5 py-2.5 lg:py-3 bg-[#0C1B2A]/70 border-b border-[#1E3050]">
                 <div class="flex items-center gap-1.5 lg:gap-2">
                   <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#EF4444]/60"></span>
-                  <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#FF8200]/60"></span>
+                  <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#D4A024]/60"></span>
                   <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#22C55E]/60"></span>
                 </div>
                 <span class="font-mono text-[#8891A0] text-[10px] lg:text-xs tracking-[0.1em] uppercase truncate ml-2">VG Agent &mdash; Live</span>
@@ -352,10 +352,10 @@
                 </div>
               </div>
               <div id="term-feed" class="term-feed p-4 lg:p-6 font-mono text-[11px] lg:text-sm leading-6 lg:leading-7 space-y-1 overflow-y-auto overflow-x-hidden h-[200px] lg:h-[280px]"></div>
-              <div class="px-4 lg:px-6 py-2.5 lg:py-3 bg-[#0A1628]/55 border-t border-[#1E3050] flex items-center gap-3 lg:gap-6 flex-wrap">
+              <div class="px-4 lg:px-6 py-2.5 lg:py-3 bg-[#0C1B2A]/55 border-t border-[#1E3050] flex items-center gap-3 lg:gap-6 flex-wrap">
                 <div class="flex items-center gap-2">
                   <span class="counter-live font-mono text-[10px] lg:text-xs text-[#8891A0]">TASKS:</span>
-                  <span id="term-task-count" class="font-mono text-[10px] lg:text-xs font-semibold text-[#FF8200] counter-live">47</span>
+                  <span id="term-task-count" class="font-mono text-[10px] lg:text-xs font-semibold text-[#D4A024] counter-live">47</span>
                 </div>
                 <span class="font-mono text-[10px] lg:text-xs text-[#8891A0]">AGENTS: <span class="text-white">11/11</span></span>
                 <span class="font-mono text-[10px] lg:text-xs text-[#8891A0]">UPTIME: <span class="text-[#22C55E]">100%</span></span>
@@ -385,7 +385,7 @@
             <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Named agents 24/7</p>
           </div>
           <div>
-            <p class="text-[#0051D5] stat-num">170<span class="text-[#FF8200]">+</span></p>
+            <p class="text-[#0051D5] stat-num">170<span class="text-[#D4A024]">+</span></p>
             <p class="text-[#5A6378] text-[10px] font-semibold tracking-[0.08em] uppercase mt-1">Specs in pipeline</p>
           </div>
           <div>
@@ -420,7 +420,7 @@
           </div>
           <div class="w-px self-stretch bg-[#E8DFD0]"></div>
           <div class="text-center flex flex-col justify-center">
-            <p class="text-[#0051D5] stat-num mb-1">170<span class="text-[#FF8200]">+</span></p>
+            <p class="text-[#0051D5] stat-num mb-1">170<span class="text-[#D4A024]">+</span></p>
             <p class="text-[#5A6378] text-xs font-semibold tracking-[0.08em] uppercase">Agent Specs<br>In Pipeline</p>
           </div>
           <div class="w-px self-stretch bg-[#E8DFD0]"></div>
@@ -442,6 +442,71 @@
       </div>
     </section>
 
+    <!-- MEET RYAN PRIME -->
+    <section id="ryan-prime" class="bg-[#0C1B2A] py-14 lg:py-24 scroll-mt-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <!-- Video -->
+          <div class="lg:col-span-5 order-1">
+            <div class="relative bg-[#060F1C] border border-[#1E3050] rounded-xl overflow-hidden" style="aspect-ratio: 16/9;">
+              <video class="w-full h-full object-cover" controls playsinline preload="metadata" poster="/assets/ryan-prime-poster.jpg" aria-label="Ryan Prime — AI avatar of Vision Genesis founder Ryan Dix">
+                <source src="/assets/ryan-prime.webm" type="video/webm">
+                <source src="/assets/ryan-prime.mp4" type="video/mp4">
+              </video>
+              <div class="absolute top-3 right-3 bg-[#0C1B2A]/85 rounded-md px-2.5 py-1 flex items-center gap-1.5 pointer-events-none">
+                <span class="text-[#D4A024] font-bold text-xs font-mono">RP</span>
+                <span class="w-px h-3 bg-[#1E3050] inline-block"></span>
+                <span class="text-[#8891A0] text-[10px] font-semibold font-mono">AI</span>
+              </div>
+            </div>
+          </div>
+          <!-- Copy -->
+          <div class="lg:col-span-7 order-2">
+            <p class="text-[#D4A024] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">The Meta-Credibility Play</p>
+            <h2 class="text-white section-h2 mb-5 lg:mb-6">Meet Ryan Prime.</h2>
+            <p class="text-[#C8D0DC] text-base lg:text-xl leading-relaxed mb-4">Ryan Prime is the AI clone of Vision Genesis founder Ryan Dix. He&rsquo;s built with HeyGen, and he produces three episodes a week analyzing broken business workflows &mdash; so the real Ryan can spend his time in the field, solving actual problems.</p>
+            <p class="text-[#C8D0DC] text-base lg:text-xl leading-relaxed mb-4">This isn&rsquo;t a gimmick. It&rsquo;s the product demo.</p>
+            <p class="text-white text-base lg:text-xl font-semibold leading-relaxed mb-7 lg:mb-8">If we can clone the founder, imagine what we can build for your business.</p>
+            <a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="inline-block border border-[#D4A024]/40 text-[#D4A024] hover:border-[#D4A024] hover:bg-[#D4A024]/10 font-semibold text-sm lg:text-base px-6 py-3.5 rounded-lg transition-all">Watch the Channel &rarr;</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THREE FORMATS -->
+    <section class="bg-[#152238] py-14 lg:py-20">
+      <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
+        <div class="mb-8 lg:mb-12 max-w-[760px]">
+          <p class="text-[#4D8FFF] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">What We Cover</p>
+          <h2 class="text-white section-h2 mb-2 lg:mb-3">Three ways we break down what&rsquo;s costing you money.</h2>
+          <p class="text-[#8891A0] text-base">New episodes Monday, Wednesday, Friday.</p>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+          <article class="bg-[#0C1B2A] border border-[#1E3050] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 transition-all group">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#D4A024" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <p class="text-[#D4A024] text-xs font-semibold tracking-[0.1em] uppercase font-mono mb-3">Mondays</p>
+            <h3 class="text-white font-bold text-xl mb-3">AI Game Tape</h3>
+            <p class="text-[#C8D0DC] text-sm leading-relaxed mb-5">We break down broken business workflows like a coach reviews game film. Telestrator markups, play-by-play analysis, and the exact fix.</p>
+            <a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="text-[#4D8FFF] text-sm font-semibold group-hover:underline">Watch the latest &rarr;</a>
+          </article>
+          <article class="bg-[#0C1B2A] border border-[#1E3050] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 transition-all group">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+            <p class="text-[#D4A024] text-xs font-semibold tracking-[0.1em] uppercase font-mono mb-3">Wednesdays</p>
+            <h3 class="text-white font-bold text-xl mb-3">Workflow ER</h3>
+            <p class="text-[#C8D0DC] text-sm leading-relaxed mb-5">Your business has symptoms &mdash; late invoices, missed quotes, manual chaos. We diagnose the disease underneath and prescribe the treatment.</p>
+            <a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="text-[#4D8FFF] text-sm font-semibold group-hover:underline">Watch the latest &rarr;</a>
+          </article>
+          <article class="bg-[#0C1B2A] border border-[#1E3050] rounded-xl p-6 lg:p-8 hover:border-[#0051D5]/30 transition-all group">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-4"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <p class="text-[#D4A024] text-xs font-semibold tracking-[0.1em] uppercase font-mono mb-3">Fridays</p>
+            <h3 class="text-white font-bold text-xl mb-3">Business CSI</h3>
+            <p class="text-[#C8D0DC] text-sm leading-relaxed mb-5">Where did the money go? We trace leaked revenue through broken processes like a forensic investigation. Evidence boards, timelines, and the reveal.</p>
+            <a href="https://x.com/VisionGenesisAI" target="_blank" rel="noopener" class="text-[#4D8FFF] text-sm font-semibold group-hover:underline">Watch the latest &rarr;</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
     <!-- REFRAIN BAND -->
     <section class="bg-[#0051D5] py-14 lg:py-20">
       <div class="max-w-[1280px] mx-auto px-5 lg:px-8 text-center">
@@ -456,7 +521,7 @@
 
       <!-- Mobile-only navy panel: lives OUTSIDE the max-w container so it
            guarantees true edge-to-edge bleed regardless of viewport width. -->
-      <div class="lg:hidden bg-[#0A1628] py-16 px-5 w-full">
+      <div class="lg:hidden bg-[#0C1B2A] py-16 px-5 w-full">
         <video class="w-full max-w-[300px] sm:max-w-[360px] h-auto mx-auto block" data-play-on-view muted playsinline preload="metadata" poster="/assets/principles-tree.jpg" aria-label="Vision Genesis — Human-First AI">
           <source src="/assets/principles-tree.webm" type="video/webm">
           <source src="/assets/principles-tree.mp4" type="video/mp4">
@@ -508,7 +573,7 @@
             </div>
 
             <div class="bg-[#1A1A2E] rounded-xl p-5 lg:p-6">
-              <p class="text-[#FF8200] text-[10px] lg:text-xs font-semibold tracking-[0.1em] uppercase mb-2 lg:mb-3">The Vision</p>
+              <p class="text-[#D4A024] text-[10px] lg:text-xs font-semibold tracking-[0.1em] uppercase mb-2 lg:mb-3">The Vision</p>
               <p class="text-white text-sm lg:text-base leading-relaxed">&ldquo;We work with companies using AI to expand human capability and flourishing. AI multiplies what your team can do. It does not replace the human element.&rdquo;</p>
             </div>
           </div>
@@ -518,7 +583,7 @@
     </section>
 
     <!-- PRODUCTS -->
-    <section id="products" class="bg-[#0A1628] py-14 lg:py-24 scroll-mt-20">
+    <section id="products" class="bg-[#0C1B2A] py-14 lg:py-24 scroll-mt-20">
       <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
 
         <div class="mb-8 lg:mb-12">
@@ -564,7 +629,7 @@
                   <h3 class="text-white card-title-sm">Weekly Intelligence Brief</h3>
                 </div>
                 <div class="text-right flex-shrink-0">
-                  <span class="text-[#FF8200] font-extrabold text-2xl lg:text-[28px]" style="line-height:1;">$19</span>
+                  <span class="text-[#D4A024] font-extrabold text-2xl lg:text-[28px]" style="line-height:1;">$19</span>
                   <span class="text-[#8891A0] text-xs block">/month</span>
                 </div>
               </div>
@@ -575,7 +640,7 @@
             <article class="flex-1 bg-[#152238] border border-[#1E3050] rounded-2xl p-6 lg:p-7 transition-all opacity-90">
               <div class="flex items-start justify-between mb-4 gap-3">
                 <div>
-                  <span class="text-[#FF8200] text-xs font-semibold tracking-[0.1em] uppercase mb-2 block">Coming Soon</span>
+                  <span class="text-[#D4A024] text-xs font-semibold tracking-[0.1em] uppercase mb-2 block">Coming Soon</span>
                   <h3 class="text-white card-title-sm">5-Agent Business Blueprint</h3>
                 </div>
                 <div class="text-right flex-shrink-0">
@@ -624,12 +689,12 @@
     </section>
 
     <!-- AUDIT -->
-    <section id="audit" class="bg-[#0A1628] py-14 lg:py-24 scroll-mt-20">
+    <section id="audit" class="bg-[#0C1B2A] py-14 lg:py-24 scroll-mt-20">
       <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
 
         <!-- Section header -->
         <div class="mb-10 lg:mb-14 max-w-[820px]">
-          <p class="text-[#FF8200] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">Start Here. Free. No Pitch.</p>
+          <p class="text-[#D4A024] text-xs font-semibold tracking-[0.12em] uppercase mb-3 lg:mb-4">Start Here. Free. No Pitch.</p>
           <h2 class="text-white section-h2 mb-4 lg:mb-6">The Free AI<br>Operating Audit</h2>
           <p class="text-[#C8D0DC] text-base lg:text-xl leading-relaxed">10 substantive questions about how your business actually runs. Human-reviewed. You&rsquo;ll get back a personalized assessment of where AI fits and what&rsquo;s worth fixing first &mdash; before you spend a dollar with us.</p>
         </div>
@@ -678,17 +743,17 @@
             <div class="space-y-4">
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">Your name <span class="text-[#FF8200]">*</span></label>
-                  <input name="name" type="text" placeholder="First name" required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
+                  <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">Your name <span class="text-[#D4A024]">*</span></label>
+                  <input name="name" type="text" placeholder="First name" required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
                 </div>
                 <div>
-                  <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">Business email <span class="text-[#FF8200]">*</span></label>
-                  <input name="email" type="email" placeholder="you@yourbusiness.com" required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
+                  <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">Business email <span class="text-[#D4A024]">*</span></label>
+                  <input name="email" type="email" placeholder="you@yourbusiness.com" required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
                 </div>
               </div>
               <div>
-                <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">In one line, what does your business do? <span class="text-[#FF8200]">*</span></label>
-                <input name="business" type="text" placeholder="e.g. residential HVAC service in Knoxville · 12 trucks · 22 employees" required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
+                <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">In one line, what does your business do? <span class="text-[#D4A024]">*</span></label>
+                <input name="business" type="text" placeholder="e.g. residential HVAC service in Knoxville · 12 trucks · 22 employees" required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF]">
               </div>
             </div>
 
@@ -702,81 +767,81 @@
             <!-- Q1 -->
             <div>
               <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
-                <span class="text-[#FF8200] font-mono mr-2">01</span>Where in your business does work pile up faster than your team can clear it?
+                <span class="text-[#D4A024] font-mono mr-2">01</span>Where in your business does work pile up faster than your team can clear it?
               </label>
-              <textarea name="q1" rows="2" placeholder="The workflow or function that always has a backlog — even when nothing&rsquo;s technically broken." required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+              <textarea name="q1" rows="2" placeholder="The workflow or function that always has a backlog — even when nothing&rsquo;s technically broken." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
             </div>
 
             <!-- Q2 -->
             <div>
               <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
-                <span class="text-[#FF8200] font-mono mr-2">02</span>What&rsquo;s one task that eats more of your best people&rsquo;s time than it should?
+                <span class="text-[#D4A024] font-mono mr-2">02</span>What&rsquo;s one task that eats more of your best people&rsquo;s time than it should?
               </label>
-              <textarea name="q2" rows="2" placeholder="The thing your strongest operator does every week that you wish they didn&rsquo;t have to." required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+              <textarea name="q2" rows="2" placeholder="The thing your strongest operator does every week that you wish they didn&rsquo;t have to." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
             </div>
 
             <!-- Q3 -->
             <div>
               <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
-                <span class="text-[#FF8200] font-mono mr-2">03</span>What software did you buy in the last 24 months that nobody really uses? Why didn&rsquo;t it stick?
+                <span class="text-[#D4A024] font-mono mr-2">03</span>What software did you buy in the last 24 months that nobody really uses? Why didn&rsquo;t it stick?
               </label>
-              <textarea name="q3" rows="3" placeholder="The tool that sounded great in the demo. What you actually paid. Why your team works around it." required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+              <textarea name="q3" rows="3" placeholder="The tool that sounded great in the demo. What you actually paid. Why your team works around it." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
             </div>
 
             <!-- Q4 -->
             <div>
               <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
-                <span class="text-[#FF8200] font-mono mr-2">04</span>If you could give your operations team one hour back per day, what would they actually do with it?
+                <span class="text-[#D4A024] font-mono mr-2">04</span>If you could give your operations team one hour back per day, what would they actually do with it?
               </label>
-              <textarea name="q4" rows="2" placeholder="Not aspirational. What would actually happen with that hour, given who&rsquo;s on your team today." required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+              <textarea name="q4" rows="2" placeholder="Not aspirational. What would actually happen with that hour, given who&rsquo;s on your team today." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
             </div>
 
             <!-- Q5 -->
             <div>
               <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
-                <span class="text-[#FF8200] font-mono mr-2">05</span>What&rsquo;s the most expensive mistake you watched happen in the past year &mdash; and why did it happen?
+                <span class="text-[#D4A024] font-mono mr-2">05</span>What&rsquo;s the most expensive mistake you watched happen in the past year &mdash; and why did it happen?
               </label>
-              <textarea name="q5" rows="3" placeholder="Roughly what it cost. Where the breakdown happened. Whether you&rsquo;ve fixed the underlying cause." required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+              <textarea name="q5" rows="3" placeholder="Roughly what it cost. Where the breakdown happened. Whether you&rsquo;ve fixed the underlying cause." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
             </div>
 
             <!-- Q6 -->
             <div>
               <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
-                <span class="text-[#FF8200] font-mono mr-2">06</span>How do you find out when something&rsquo;s broken in operations &mdash; a number on a dashboard, a phone call, or a customer complaint?
+                <span class="text-[#D4A024] font-mono mr-2">06</span>How do you find out when something&rsquo;s broken in operations &mdash; a number on a dashboard, a phone call, or a customer complaint?
               </label>
-              <textarea name="q6" rows="2" placeholder="Be honest about which signal usually reaches you first." required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+              <textarea name="q6" rows="2" placeholder="Be honest about which signal usually reaches you first." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
             </div>
 
             <!-- Q7 -->
             <div>
               <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
-                <span class="text-[#FF8200] font-mono mr-2">07</span>What does your business do better than anyone else in your market &mdash; and what would break if that one operator left tomorrow?
+                <span class="text-[#D4A024] font-mono mr-2">07</span>What does your business do better than anyone else in your market &mdash; and what would break if that one operator left tomorrow?
               </label>
-              <textarea name="q7" rows="3" placeholder="The true moat. The key-person risk wrapped up inside it." required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+              <textarea name="q7" rows="3" placeholder="The true moat. The key-person risk wrapped up inside it." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
             </div>
 
             <!-- Q8 -->
             <div>
               <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
-                <span class="text-[#FF8200] font-mono mr-2">08</span>What&rsquo;s the biggest growth blocker right now &mdash; people, process, demand, or capital?
+                <span class="text-[#D4A024] font-mono mr-2">08</span>What&rsquo;s the biggest growth blocker right now &mdash; people, process, demand, or capital?
               </label>
-              <textarea name="q8" rows="2" placeholder="Pick the one that matters most. Briefly explain why it&rsquo;s that one and not the others." required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+              <textarea name="q8" rows="2" placeholder="Pick the one that matters most. Briefly explain why it&rsquo;s that one and not the others." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
             </div>
 
             <!-- Q9 -->
             <div>
               <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
-                <span class="text-[#FF8200] font-mono mr-2">09</span>Have you tried AI tools before? What worked, what didn&rsquo;t, and what did it cost you to find out?
+                <span class="text-[#D4A024] font-mono mr-2">09</span>Have you tried AI tools before? What worked, what didn&rsquo;t, and what did it cost you to find out?
               </label>
-              <textarea name="q9" rows="3" placeholder="Tools you&rsquo;ve actually used. What stuck, what got abandoned, what it taught you." required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+              <textarea name="q9" rows="3" placeholder="Tools you&rsquo;ve actually used. What stuck, what got abandoned, what it taught you." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
             </div>
 
             <!-- Q10 -->
             <div>
               <label class="text-[#C8D0DC] text-xs lg:text-sm font-medium block mb-1.5">
-                <span class="text-[#FF8200] font-mono mr-2">10</span>If we built one thing for you in the next 90 days that paid for itself within a year, what would you want it to be?
+                <span class="text-[#D4A024] font-mono mr-2">10</span>If we built one thing for you in the next 90 days that paid for itself within a year, what would you want it to be?
               </label>
-              <textarea name="q10" rows="3" placeholder="The single highest-leverage thing. Why that, not the others on your list." required class="w-full bg-[#0A1628] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
+              <textarea name="q10" rows="3" placeholder="The single highest-leverage thing. Why that, not the others on your list." required class="w-full bg-[#0C1B2A] border border-[#1E3050] text-[#C8D0DC] placeholder-[#8891A0]/50 rounded-lg px-4 py-3 text-sm outline-none transition-colors focus:border-[#4D8FFF] resize-y"></textarea>
             </div>
 
             <button type="submit" class="w-full bg-[#0051D5] hover:bg-[#003DA0] text-white font-bold tracking-wider py-4 rounded-lg transition-colors uppercase text-sm mt-2">
@@ -816,7 +881,7 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-[#0A1628] border-t border-[#1E3050] py-12 lg:py-16">
+  <footer class="bg-[#0C1B2A] border-t border-[#1E3050] py-12 lg:py-16">
     <div class="max-w-[1280px] mx-auto px-5 lg:px-8">
 
       <div class="grid grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-8 mb-10 lg:mb-12">
@@ -844,7 +909,7 @@
           <ul class="space-y-2.5">
             <li><a href="#products" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Pain-Point Pilots</a></li>
             <li><a href="mailto:vision@visiongenesisai.com?subject=Weekly%20Brief%20%E2%80%94%20add%20me%20to%20the%20waitlist" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Intelligence Brief</a></li>
-            <li><a href="#products" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">5-Agent Blueprint <span class="text-[#FF8200]/70 text-[10px] uppercase tracking-wider ml-1">soon</span></a></li>
+            <li><a href="#products" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">5-Agent Blueprint <span class="text-[#D4A024]/70 text-[10px] uppercase tracking-wider ml-1">soon</span></a></li>
             <li><a href="#audit" class="text-[#8891A0] hover:text-[#C8D0DC] text-sm transition-colors">Free AI Audit</a></li>
           </ul>
         </div>
@@ -947,7 +1012,7 @@
     function escape(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
     function renderLine(l, isActive) {
-      var html = '<span class="text-[#FF8200]">&rsaquo;</span>';
+      var html = '<span class="text-[#D4A024]">&rsaquo;</span>';
       html += '<span class="text-[#8891A0] ml-2">[' + escape(l.ts) + ']</span>';
       html += '<span class="text-[#4D8FFF] ml-2">' + escape(l.agent) + '</span>';
       if (l.body)  html += '<span class="text-[#C8D0DC] ml-1">' + escape(l.body) + '</span>';
@@ -1076,7 +1141,7 @@
       setTimeout(function () {
         var tip = document.createElement('div');
         tip.textContent = "Email opened. Send it — we'll reply with your personalized assessment within 24–48 hours.";
-        tip.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1A1A2E;color:#fff;padding:14px 20px;font-family:Inter,sans-serif;font-size:13px;z-index:200;border-left:3px solid #FF8200;max-width:360px;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:8px;';
+        tip.style.cssText = 'position:fixed;bottom:24px;right:24px;background:#1A1A2E;color:#fff;padding:14px 20px;font-family:Inter,sans-serif;font-size:13px;z-index:200;border-left:3px solid #D4A024;max-width:360px;box-shadow:0 6px 24px rgba(0,0,0,0.18);border-radius:8px;';
         document.body.appendChild(tip);
         setTimeout(function () { tip.remove(); }, 7000);
       }, 400);
