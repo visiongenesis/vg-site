@@ -121,30 +121,34 @@
       font-weight: 700;
     }
     @media (min-width: 1024px) { .counter-num { font-size: 44px; } }
-    /* Live terminal — sequential fade-in */
+    /* Live terminal — JS-driven looping feed */
+    .terminal-card {
+      background: rgba(6, 15, 28, 0.82);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
     .term-feed .term-line {
       opacity: 0;
       transform: translateY(4px);
-      animation: term-line-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+      animation: term-line-in 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
     }
     .term-feed .term-line.term-line-active {
-      animation: term-line-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+      animation: term-line-in-fade 0.4s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
     }
-    .term-feed .term-line:nth-child(1) { animation-delay: 0.4s; }
-    .term-feed .term-line:nth-child(2) { animation-delay: 1.0s; }
-    .term-feed .term-line:nth-child(3) { animation-delay: 1.6s; }
-    .term-feed .term-line:nth-child(4) { animation-delay: 2.2s; }
-    .term-feed .term-line:nth-child(5) { animation-delay: 2.9s; }
+    .term-feed .term-line.term-line-fadeout {
+      animation: term-line-out 0.3s ease-in forwards;
+    }
     @keyframes term-line-in {
       from { opacity: 0; transform: translateY(4px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .term-feed .term-line.term-line-active {
-      animation: term-line-in-fade 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
-    }
     @keyframes term-line-in-fade {
       from { opacity: 0; transform: translateY(4px); }
-      to   { opacity: 0.5; transform: translateY(0); }
+      to   { opacity: 0.55; transform: translateY(0); }
+    }
+    @keyframes term-line-out {
+      from { opacity: 1; transform: translateY(0); }
+      to   { opacity: 0; transform: translateY(-6px); }
     }
     /* Hero tree — animated video watermark, bottom-right anchored */
     .hero-video {
@@ -153,7 +157,7 @@
       right: 0;
       width: clamp(430px, 52vw, 940px);
       height: auto;
-      opacity: 0.09;
+      opacity: 0.20;
       pointer-events: none;
       z-index: 0;
       mix-blend-mode: screen;
@@ -162,7 +166,7 @@
     @media (max-width: 1023px) {
       .hero-video {
         width: clamp(220px, 64vw, 350px);
-        opacity: 0.08;
+        opacity: 0.16;
       }
     }
     @media (prefers-reduced-motion: reduce) {
@@ -258,7 +262,7 @@
 
     <!-- HERO -->
     <section class="bg-[#0A1628] min-h-[640px] lg:min-h-[900px] relative overflow-hidden flex flex-col justify-center">
-      <video class="hero-video" autoplay muted loop playsinline preload="metadata" poster="/assets/hero-tree.png" aria-hidden="true">
+      <video class="hero-video" autoplay muted playsinline preload="metadata" poster="/assets/hero-tree.png" aria-hidden="true">
         <source src="/assets/hero-tree.webm" type="video/webm">
         <source src="/assets/hero-tree.mp4" type="video/mp4">
       </video>
@@ -326,8 +330,8 @@
 
           <!-- Terminal -->
           <div class="lg:col-span-5">
-            <div class="bg-[#060F1C] border border-[#1E3050] rounded-xl overflow-hidden" style="box-shadow: 0 0 60px rgba(0,81,213,0.08);">
-              <div class="flex items-center justify-between px-4 lg:px-5 py-2.5 lg:py-3 bg-[#0A1628] border-b border-[#1E3050]">
+            <div class="terminal-card border border-[#1E3050] rounded-xl overflow-hidden" style="box-shadow: 0 0 60px rgba(0,81,213,0.08);">
+              <div class="flex items-center justify-between px-4 lg:px-5 py-2.5 lg:py-3 bg-[#0A1628]/70 border-b border-[#1E3050]">
                 <div class="flex items-center gap-1.5 lg:gap-2">
                   <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#EF4444]/60"></span>
                   <span class="w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-[#FF8200]/60"></span>
@@ -339,45 +343,11 @@
                   <span class="font-mono text-[#22C55E] text-[10px] lg:text-xs font-semibold">ACTIVE</span>
                 </div>
               </div>
-              <div class="term-feed p-4 lg:p-6 font-mono text-[11px] lg:text-sm leading-6 lg:leading-7 space-y-1 overflow-hidden">
-                <div class="term-line">
-                  <span class="text-[#FF8200]">&rsaquo;</span>
-                  <span class="text-[#8891A0] ml-2">[08:41:03]</span>
-                  <span class="text-[#4D8FFF] ml-2">EstimateAgent</span>
-                  <span class="text-[#C8D0DC] ml-1">&rarr; Parsed voice note &rarr; structured quote</span>
-                  <span class="text-white font-semibold"> 18s</span>
-                </div>
-                <div class="term-line">
-                  <span class="text-[#FF8200]">&rsaquo;</span>
-                  <span class="text-[#8891A0] ml-2">[08:41:19]</span>
-                  <span class="text-[#4D8FFF] ml-2">SchedulerAgent</span>
-                  <span class="text-[#C8D0DC] ml-1">&rarr; Resolved 3 crew conflicts</span>
-                </div>
-                <div class="term-line">
-                  <span class="text-[#FF8200]">&rsaquo;</span>
-                  <span class="text-[#8891A0] ml-2">[08:41:47]</span>
-                  <span class="text-[#4D8FFF] ml-2">IntelAgent</span>
-                  <span class="text-[#C8D0DC] ml-1">&rarr; 14 sources &rarr; 3 actionable items</span>
-                </div>
-                <div class="term-line">
-                  <span class="text-[#FF8200]">&rsaquo;</span>
-                  <span class="text-[#8891A0] ml-2">[08:42:01]</span>
-                  <span class="text-[#4D8FFF] ml-2">EstimateAgent</span>
-                  <span class="text-white font-semibold ml-1">Approved by operator.</span>
-                  <span class="text-[#22C55E] font-semibold"> 23 min total.</span>
-                </div>
-                <div class="term-line term-line-active opacity-50">
-                  <span class="text-[#FF8200]">&rsaquo;</span>
-                  <span class="text-[#8891A0] ml-2">[08:42:18]</span>
-                  <span class="text-[#4D8FFF] ml-2">OpsAgent</span>
-                  <span class="text-[#C8D0DC] ml-1">&rarr; Parsing supplier invoice</span>
-                  <span class="text-white animate-pulse">_</span>
-                </div>
-              </div>
-              <div class="px-4 lg:px-6 py-2.5 lg:py-3 bg-[#0A1628]/50 border-t border-[#1E3050] flex items-center gap-3 lg:gap-6 flex-wrap">
+              <div id="term-feed" class="term-feed p-4 lg:p-6 font-mono text-[11px] lg:text-sm leading-6 lg:leading-7 space-y-1 overflow-hidden" style="min-height: 218px;"></div>
+              <div class="px-4 lg:px-6 py-2.5 lg:py-3 bg-[#0A1628]/55 border-t border-[#1E3050] flex items-center gap-3 lg:gap-6 flex-wrap">
                 <div class="flex items-center gap-2">
                   <span class="counter-live font-mono text-[10px] lg:text-xs text-[#8891A0]">TASKS:</span>
-                  <span class="font-mono text-[10px] lg:text-xs font-semibold text-[#FF8200] counter-live">47</span>
+                  <span id="term-task-count" class="font-mono text-[10px] lg:text-xs font-semibold text-[#FF8200] counter-live">47</span>
                 </div>
                 <span class="font-mono text-[10px] lg:text-xs text-[#8891A0]">AGENTS: <span class="text-white">9/9</span></span>
                 <span class="font-mono text-[10px] lg:text-xs text-[#8891A0]">UPTIME: <span class="text-[#22C55E]">100%</span></span>
@@ -897,6 +867,127 @@
     panel.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function () { panel.classList.remove('open'); });
     });
+  })();
+
+  // Live terminal feed — looping sequence (~30s before restart)
+  (function () {
+    var feed = document.getElementById('term-feed');
+    var taskCount = document.getElementById('term-task-count');
+    if (!feed) return;
+
+    // Each entry: {ts, agent, body, val (white emphasis), valOk (green ok)}
+    var lines = [
+      {ts:'08:41:03', agent:'EstimateAgent',  body:'→ Parsed voice note → structured quote', val:' 18s'},
+      {ts:'08:41:19', agent:'SchedulerAgent', body:'→ Resolved 3 crew conflicts'},
+      {ts:'08:41:47', agent:'IntelAgent',     body:'→ 14 sources → 3 actionable items'},
+      {ts:'08:42:01', agent:'EstimateAgent',  emph:'Approved by operator.',  valOk:' 23 min total.'},
+      {ts:'08:42:18', agent:'OpsAgent',       body:'→ Parsing supplier invoice (12 line items)'},
+      {ts:'08:42:35', agent:'OpsAgent',       body:'→ Variance detected:',                 val:' +4.2% Supplier X'},
+      {ts:'08:43:02', agent:'OpsAgent',       body:'→ Flagged for owner review → Inbox'},
+      {ts:'08:43:18', agent:'QuoteAgent',     body:'→ Voice memo in: Knoxville Leaf & Lawn'},
+      {ts:'08:43:44', agent:'QuoteAgent',     body:'→ Crew 3 · Hours 4.5 · Mat $187'},
+      {ts:'08:44:01', agent:'QuoteAgent',     emph:'Quote sent.',                              valOk:' 14 min round-trip'},
+      {ts:'08:44:30', agent:'SchedulerAgent', body:'→ Crew B finished early · 90 min open'},
+      {ts:'08:44:52', agent:'SchedulerAgent', body:'→ Auto-rescheduled 2 follow-ups → tomorrow'},
+      {ts:'08:45:21', agent:'IntelAgent',     body:'→ Competitor funding signal: dermatology vertical'},
+      {ts:'08:45:48', agent:'IntelAgent',     body:'→ 3 of your suppliers raised quotes this week'},
+      {ts:'08:46:10', agent:'BriefAgent',     body:'→ Composing weekly intelligence brief'},
+      {ts:'08:46:42', agent:'BriefAgent',     body:'→ 3 actionable items identified'},
+      {ts:'08:47:05', agent:'AuditAgent',     body:'→ New audit submission: Knoxville HVAC'},
+      {ts:'08:47:31', agent:'AuditAgent',     body:'→ Pattern matched: Tier 2 / quote bottleneck'},
+      {ts:'08:47:55', agent:'AuditAgent',     emph:'Routed to Ryan for personal review.'},
+      {ts:'08:48:14', agent:'OpsAgent',       body:'→ Daily checklist:',                    valOk:' 47 tasks · 9/9 agents up'}
+    ];
+
+    var MAX_VISIBLE = 5;
+    var MIN_DELAY = 1100;  // ms between lines
+    var MAX_DELAY = 1900;
+    var RESTART_PAUSE = 2400; // ms after last line before clearing + restarting
+    var lineIdx = 0;
+    var timer = null;
+
+    function escape(s) { return (s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    function renderLine(l, isActive) {
+      var html = '<span class="text-[#FF8200]">&rsaquo;</span>';
+      html += '<span class="text-[#8891A0] ml-2">[' + escape(l.ts) + ']</span>';
+      html += '<span class="text-[#4D8FFF] ml-2">' + escape(l.agent) + '</span>';
+      if (l.body)  html += '<span class="text-[#C8D0DC] ml-1">' + escape(l.body) + '</span>';
+      if (l.emph)  html += '<span class="text-white font-semibold ml-1">' + escape(l.emph) + '</span>';
+      if (l.val)   html += '<span class="text-white font-semibold">' + escape(l.val) + '</span>';
+      if (l.valOk) html += '<span class="text-[#22C55E] font-semibold">' + escape(l.valOk) + '</span>';
+      if (isActive) html += '<span class="text-white animate-pulse"> _</span>';
+      return html;
+    }
+
+    function tick() {
+      // Mark previous "active" line (if any) as a normal completed line
+      var prevActive = feed.querySelector('.term-line.term-line-active');
+      if (prevActive) {
+        prevActive.classList.remove('term-line-active');
+      }
+
+      // Fade-out oldest if at capacity
+      while (feed.children.length >= MAX_VISIBLE) {
+        var oldest = feed.firstChild;
+        if (oldest && !oldest.classList.contains('term-line-fadeout')) {
+          oldest.classList.add('term-line-fadeout');
+          (function (el) {
+            setTimeout(function () { if (el && el.parentNode === feed) feed.removeChild(el); }, 320);
+          })(oldest);
+        } else {
+          if (oldest) feed.removeChild(oldest);
+        }
+        if (feed.children.length < MAX_VISIBLE) break;
+      }
+
+      var l = lines[lineIdx];
+      var div = document.createElement('div');
+      div.className = 'term-line term-line-active';
+      div.innerHTML = renderLine(l, true);
+      feed.appendChild(div);
+
+      // Bump the task-count to feel alive — increments slowly across the loop
+      if (taskCount) {
+        var base = 47;
+        taskCount.textContent = String(base + lineIdx);
+      }
+
+      lineIdx++;
+
+      if (lineIdx >= lines.length) {
+        // Sequence done — pause, then clear and restart
+        timer = setTimeout(function () {
+          // Soft clear: fade everything out
+          Array.prototype.forEach.call(feed.children, function (c) { c.classList.add('term-line-fadeout'); });
+          setTimeout(function () {
+            feed.innerHTML = '';
+            lineIdx = 0;
+            if (taskCount) taskCount.textContent = '47';
+            tick();
+          }, 340);
+        }, RESTART_PAUSE);
+      } else {
+        var delay = MIN_DELAY + Math.random() * (MAX_DELAY - MIN_DELAY);
+        timer = setTimeout(tick, delay);
+      }
+    }
+
+    // Honor reduced-motion: render the first 5 lines statically and stop
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      for (var i = 0; i < Math.min(5, lines.length); i++) {
+        var div = document.createElement('div');
+        div.className = 'term-line';
+        div.style.opacity = '1';
+        div.style.transform = 'none';
+        div.innerHTML = renderLine(lines[i], i === 4);
+        feed.appendChild(div);
+      }
+      return;
+    }
+
+    // Start the loop after a short initial delay so the page settles first
+    timer = setTimeout(tick, 600);
   })();
 
   // Audit form → mailto submission (fallback until server endpoint)
