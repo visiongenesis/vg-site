@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="10" fill="#0C1B2A"/>
-  <text x="32" y="47" text-anchor="middle"
-        font-family="-apple-system, BlinkMacSystemFont, 'Inter', Arial, sans-serif"
-        font-weight="900" font-size="38" letter-spacing="-2.5"
-        fill="#D4A024">VG</text>
-</svg>
