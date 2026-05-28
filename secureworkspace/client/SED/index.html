@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Event Package Ledger — Southeastern Dermatology</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #080e24;
+    --teal: #7b9fab;
+    --teal-dark: #5a7a88;
+    --bg: #f5f4f2;
+    --paper: #ffffff;
+    --text: #2a2a2a;
+    --text-soft: #555;
+    --text-muted: #888;
+    --border: #e0ddd8;
+    --r: 8px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Montserrat', -apple-system, system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  /* Header */
+  .header { background: var(--navy); color: white; padding: 20px 24px; }
+  .header-inner { max-width: 720px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .header .brand { font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.5; }
+  .header .practice { font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 5px 12px; border: 1px solid rgba(255,255,255,0.2); border-radius: 3px; }
+
+  /* Hero */
+  .hero { background: var(--navy); color: white; padding: 48px 24px 56px; text-align: center; }
+  .hero h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; line-height: 1.25; }
+  .hero h1 em { font-style: normal; color: var(--teal); }
+  .hero .sub { font-size: 15px; font-weight: 400; opacity: 0.7; max-width: 540px; margin: 0 auto 32px; line-height: 1.6; }
+  .hero .cta { display: inline-flex; align-items: center; gap: 8px; background: var(--teal); color: var(--navy); padding: 14px 32px; border-radius: 6px; font-size: 14px; font-weight: 700; text-decoration: none; letter-spacing: 0.02em; transition: background 0.15s, transform 0.15s; }
+  .hero .cta:hover { background: #8fb5c2; transform: translateY(-1px); }
+  .hero .cta svg { width: 16px; height: 16px; }
+
+  /* Content */
+  .content { max-width: 720px; margin: 0 auto; padding: 40px 24px 60px; }
+
+  /* Section */
+  .section { margin-bottom: 36px; }
+  .section h2 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 6px; letter-spacing: -0.01em; }
+  .section .eyebrow { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--teal-dark); margin-bottom: 8px; }
+  .section p { font-size: 14px; color: var(--text-soft); margin-bottom: 12px; }
+
+  /* Feature grid */
+  .features { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+  @media (max-width: 600px) { .features { grid-template-columns: 1fr; } }
+  .feature { background: var(--paper); border: 1px solid var(--border); border-radius: var(--r); padding: 20px; }
+  .feature .icon { width: 32px; height: 32px; background: rgba(123,159,171,0.12); border-radius: 6px; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
+  .feature .icon svg { width: 16px; height: 16px; stroke: var(--teal-dark); }
+  .feature h3 { font-size: 13.5px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .feature p { font-size: 12.5px; color: var(--text-muted); margin: 0; line-height: 1.5; }
+
+  /* Stats */
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 24px 0; }
+  @media (max-width: 600px) { .stats { grid-template-columns: 1fr; } }
+  .stat { background: var(--paper); border: 1px solid var(--border); border-radius: var(--r); padding: 18px 20px; text-align: center; }
+  .stat .num { font-size: 28px; font-weight: 800; color: var(--navy); letter-spacing: -0.02em; line-height: 1; }
+  .stat .label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; margin-top: 6px; }
+
+  /* How it works */
+  .steps { counter-reset: step; margin-top: 16px; }
+  .step { display: flex; gap: 16px; margin-bottom: 20px; align-items: flex-start; }
+  .step::before { counter-increment: step; content: counter(step); flex-shrink: 0; width: 28px; height: 28px; border-radius: 50%; background: var(--navy); color: white; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+  .step-body h3 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 2px; }
+  .step-body p { font-size: 13px; color: var(--text-soft); margin: 0; }
+
+  /* CTA box */
+  .cta-box { background: var(--navy); color: white; border-radius: var(--r); padding: 32px; text-align: center; margin-top: 36px; }
+  .cta-box h2 { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
+  .cta-box p { font-size: 14px; opacity: 0.7; margin-bottom: 20px; }
+  .cta-box .btn { display: inline-flex; align-items: center; gap: 8px; background: var(--teal); color: var(--navy); padding: 14px 32px; border-radius: 6px; font-size: 14px; font-weight: 700; text-decoration: none; transition: background 0.15s; }
+  .cta-box .btn:hover { background: #8fb5c2; }
+
+  /* Feedback section */
+  .feedback { background: var(--paper); border: 1px solid var(--border); border-radius: var(--r); padding: 28px; margin-top: 24px; }
+  .feedback h3 { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 6px; }
+  .feedback p { font-size: 13px; color: var(--text-soft); margin-bottom: 16px; }
+  .feedback ul { list-style: none; padding: 0; }
+  .feedback li { font-size: 13px; color: var(--text-soft); padding: 6px 0; padding-left: 20px; position: relative; }
+  .feedback li::before { content: '?'; position: absolute; left: 0; color: var(--teal-dark); font-weight: 700; }
+
+  /* Footer */
+  .footer { text-align: center; padding: 24px; font-size: 11px; color: var(--text-muted); letter-spacing: 0.04em; }
+  .footer a { color: var(--teal-dark); text-decoration: none; }
+
+  /* Note */
+  .note-bar { background: rgba(123,159,171,0.1); border-left: 3px solid var(--teal); padding: 12px 16px; border-radius: 0 var(--r) var(--r) 0; margin: 20px 0; font-size: 12.5px; color: var(--text-soft); line-height: 1.55; }
+  .note-bar strong { color: var(--navy); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner">
+    <span class="brand">Vision Genesis</span>
+    <span class="practice">Southeastern Dermatology</span>
+  </div>
+</div>
+
+<div class="hero">
+  <h1>Event Package <em>Ledger</em></h1>
+  <p class="sub">A purpose-built system for tracking prepaid event packages from sale through redemption — so nothing falls through the cracks between event night and the treatment chair.</p>
+  <a href="app.html?practice=doppelt-southeastern-dermatology" class="cta">
+    Open the live demo
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+  </a>
+</div>
+
+<div class="content">
+
+  <div class="section">
+    <div class="eyebrow">The problem</div>
+    <h2>Event packages are great for revenue. They're terrible for tracking.</h2>
+    <p>Your Glammiversary and Botox &amp; Bingo events move real volume — but between the night of the sale and the last treatment delivery months later, the tracking gap creates operational drag: spreadsheets get stale, staff can't answer "what do I have left?", unredeemed units sit in a blind spot, and provider bonuses take hours to reconcile.</p>
+    <p>This tool eliminates that gap. It tracks every package from point of sale through every redemption, computes provider bonuses automatically, and gives your office manager a print-ready daily ledger.</p>
+  </div>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="num">129</div>
+      <div class="label">SKUs configured</div>
+    </div>
+    <div class="stat">
+      <div class="num">3</div>
+      <div class="label">Providers tracked</div>
+    </div>
+    <div class="stat">
+      <div class="num">2</div>
+      <div class="label">Event types</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="eyebrow">What you'll see in the demo</div>
+    <h2>Two experiences — one for customers, one for your team</h2>
+    <div class="features">
+      <div class="feature" style="grid-column: 1 / -1; border-left: 3px solid var(--teal);">
+        <div class="icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M6 6h4M6 8h4M6 10h2"/></svg></div>
+        <h3>Order Entry — Customer-facing</h3>
+        <p>A self-contained, app-like ordering experience customers use on their own phone at the event. They browse your treatment catalog, build their package, and check out — no paper forms, no staff data entry. Downloads as a home-screen app.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="6" r="3"/><path d="M2 14c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg></div>
+        <h3>People — Provider view</h3>
+        <p>See every customer's outstanding balance, remaining units, and deadline status at a glance. Your team's dashboard for daily follow-up.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v12M4 6l4-4 4 4"/><path d="M3 14h10"/></svg></div>
+        <h3>Redemption Tracking — Provider view</h3>
+        <p>Log each treatment delivery against the original package. Tracks provider, date, and units — the audit trail your biller needs.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="12" height="10" rx="1"/><path d="M2 7h12"/><circle cx="5" cy="10" r="0.5" fill="currentColor"/></svg></div>
+        <h3>Bonus Transparency — Provider view</h3>
+        <p>Provider bonuses auto-computed from delivered redemptions per your rules. Click any provider to see the per-treatment breakdown.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 2v4h4"/><path d="M4 6V2h8v12H4v-4"/><circle cx="11" cy="8" r="0.5" fill="currentColor"/></svg></div>
+        <h3>Print-to-PDF Ledger</h3>
+        <p>Your office manager prints, signs, and files. Replaces the paper reconciliation workflow entirely.</p>
+      </div>
+      <div class="feature">
+        <div class="icon"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v8M5 7l3 3 3-3"/><path d="M3 13h10"/></svg></div>
+        <h3>CSV Export</h3>
+        <p>Export redemption and bonus data to CSV for downstream accounting, payroll, or QuickBooks.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="note-bar">
+    <strong>About the data:</strong> The demo is loaded with representative scenarios modeled on your practice structure — 15 customers across Glammiversary 2024 and Botox &amp; Bingo 2025 with a realistic mix of complete, active, and overdue packages. Your actual SKUs, pricing, providers, and bonus rules are configured. In production, this data comes directly from your EMR exports.
+  </div>
+
+  <div class="section">
+    <div class="eyebrow">How it works</div>
+    <h2>From event night to treatment chair</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-body">
+          <h3>Event night</h3>
+          <p>Customers open the app on their phone, browse your treatment catalog at event pricing, and build their own package. No paper forms, no staff data entry — the system starts tracking from the moment they check out.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <h3>Treatment delivery</h3>
+          <p>As patients come in for their treatments, staff logs each redemption — who delivered it, what was used, how many units. The outstanding balance updates in real time.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <h3>Ongoing visibility</h3>
+          <p>At any point, your office manager can see who has unredeemed units, who's approaching deadline, and what the total outstanding liability looks like. No spreadsheet required.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-body">
+          <h3>Bonus reconciliation</h3>
+          <p>Provider compensation is computed automatically from delivered treatments, per the rules you set. Print or export when it's time for payroll.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-box">
+    <h2>Explore the demo</h2>
+    <p>Click around — try the People view, check the Bonus tab, look at how the print ledger formats. Everything you see is configured specifically for Southeastern Dermatology.</p>
+    <a href="app.html?practice=doppelt-southeastern-dermatology" class="btn">
+      Open the live demo
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+    </a>
+  </div>
+
+  <div class="feedback">
+    <h3>I'd love your feedback</h3>
+    <p>This is an early build — your input shapes what comes next. As you click through, consider:</p>
+    <ul>
+      <li>Does the Order view capture how your customers enter event-night purchases?</li>
+      <li>Is the People view useful for the staff's daily workflow?</li>
+      <li>What are the bonus rules for how you actually compensate providers?</li>
+      <li>What's missing that would make this usable for your next event?</li>
+      <li>Any treatments, packages, or workflows not represented?</li>
+    </ul>
+    <p style="margin-top: 16px; margin-bottom: 0;">I'm happy to take your feedback in whatever form is most convenient for you. Video calls are easy, but I'm happy to schedule time with you and Jake when you're ready.</p>
+  </div>
+
+</div>
+
+<div class="footer">
+  <a href="https://visiongenesisai.com">Vision Genesis</a> &middot; Confidential preview &middot; Not for distribution
+</div>
+
+</body>
+</html>
