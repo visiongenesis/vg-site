@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<!--
+  PROTOTYPE — kenchertow.com redesign concept
+  Built by Vision Genesis as a capability demonstration. Front-end mock only.
+  Content, pricing, coaches & FAQ sourced from the live kenchertow.com (2026).
+  Photos hotlinked from kenchertow.com (swappable). Register buttons point to his live Webconnex links.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ken Chertow Gold Medal Training Camps | Olympic Wrestling Camps 2026</title>
+<meta name="description" content="Olympian Ken Chertow's Gold Medal Training Camp System — the nation's longest-running wrestling camp. 4-day to 2-week intensive camps for boys, girls & youth. Summer 2026 in PA & OH." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy:    '#002868',
+          navyDeep:'#04122e',
+          ink:     '#030b1c',
+          red:     '#bf0a30',
+          redBright:'#e11231',
+          gold:    '#f2b705',
+          goldSoft:'#ffd24a',
+          bone:    '#f5f3ec',
+        },
+        fontFamily: {
+          display: ['Oswald', 'sans-serif'],
+          sans: ['Montserrat', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<style>
+  :root { --navy:#002868; --navyDeep:#04122e; --ink:#030b1c; --red:#bf0a30; --gold:#f2b705; }
+  html { scroll-behavior: smooth; }
+  body { background:var(--ink); color:#e9eef6; font-family:'Montserrat',sans-serif; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  .font-display { font-family:'Oswald',sans-serif; }
+  .eyebrow { font-family:'Oswald',sans-serif; text-transform:uppercase; letter-spacing:.28em; font-weight:500; }
+  .headline { font-family:'Oswald',sans-serif; text-transform:uppercase; font-weight:700; line-height:.92; letter-spacing:.01em; }
+
+  /* Film-grain / texture overlay */
+  .grain::after {
+    content:""; position:absolute; inset:0; pointer-events:none; opacity:.05; z-index:1;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .gold-rule { height:3px; width:64px; background:linear-gradient(90deg,var(--gold),transparent); }
+  .text-gradient-gold { background:linear-gradient(92deg,#ffe79a,#f2b705 55%,#d99100); -webkit-background-clip:text; background-clip:text; color:transparent; }
+
+  /* Hero */
+  .hero-overlay { background:
+      linear-gradient(180deg, rgba(3,11,28,.55) 0%, rgba(3,11,28,.30) 35%, rgba(3,11,28,.86) 88%, var(--ink) 100%),
+      linear-gradient(90deg, rgba(0,40,104,.78) 0%, rgba(0,40,104,.18) 60%, transparent 100%); }
+  .diag-top { clip-path: polygon(0 3.5vw, 100% 0, 100% 100%, 0 100%); }
+
+  /* Reveal-on-scroll */
+  .reveal { opacity:0; transform:translateY(26px); transition:opacity .7s cubic-bezier(.2,.7,.2,1), transform .7s cubic-bezier(.2,.7,.2,1); }
+  .reveal.in { opacity:1; transform:none; }
+  @keyframes fadeUp { from{opacity:0; transform:translateY(28px);} to{opacity:1; transform:none;} }
+  .anim { opacity:0; animation:fadeUp .9s cubic-bezier(.2,.7,.2,1) forwards; }
+
+  /* Header */
+  #hdr { transition: background-color .35s ease, backdrop-filter .35s ease, padding .35s ease, border-color .35s; }
+  #hdr.scrolled { background:rgba(3,11,28,.92); backdrop-filter:blur(10px); border-bottom:1px solid rgba(242,183,5,.22); }
+
+  .btn-red { background:var(--red); box-shadow:0 10px 30px -10px rgba(191,10,48,.7); transition:.2s; }
+  .btn-red:hover { background:#d70d36; transform:translateY(-2px); }
+  .btn-gold { background:var(--gold); color:#1b1300; transition:.2s; box-shadow:0 10px 30px -12px rgba(242,183,5,.65); }
+  .btn-gold:hover { background:#ffd24a; transform:translateY(-2px); }
+  .btn-ghost { border:1.5px solid rgba(255,255,255,.5); transition:.2s; }
+  .btn-ghost:hover { border-color:var(--gold); color:var(--gold); }
+
+  .card { background:linear-gradient(165deg,#0a1c3f, #061533); border:1px solid rgba(255,255,255,.08); transition:.25s; }
+  .card:hover { transform:translateY(-6px); border-color:rgba(242,183,5,.45); box-shadow:0 24px 50px -24px rgba(0,0,0,.8); }
+  .flag-strip { background:repeating-linear-gradient(90deg,var(--red) 0 33.33%, #fff 33.33% 66.66%, var(--navy) 66.66% 100%); }
+
+  /* Camp finder & tabs */
+  .tab.active { background:var(--gold); color:#1b1300; }
+  .pill.active { background:var(--red); color:#fff; border-color:var(--red); }
+  .loc.active { background:var(--gold); color:#1b1300; border-color:var(--gold); }
+  .finder-opt { transition:.18s; }
+  .finder-opt:hover { border-color:var(--gold); transform:translateY(-2px); }
+
+  /* FAQ accordion */
+  .acc-body { max-height:0; overflow:hidden; transition:max-height .4s ease; }
+
+  /* ===== Ask Coach assistant ===== */
+  #coachBtn { box-shadow:0 14px 34px -10px rgba(191,10,48,.75); transition:transform .2s, box-shadow .2s; }
+  #coachBtn:hover { transform:translateY(-3px) scale(1.03); }
+  #coachBtn .ping { animation:pingDot 2.4s ease-in-out infinite; }
+  @keyframes pingDot { 0%,100%{opacity:.5; transform:scale(1);} 50%{opacity:1; transform:scale(1.25);} }
+  #coachPanel { transform:translateY(24px) scale(.96); opacity:0; pointer-events:none; transition:.28s cubic-bezier(.2,.8,.2,1); transform-origin:bottom right; }
+  #coachPanel.open { transform:none; opacity:1; pointer-events:auto; }
+  #finderBtn { box-shadow:0 14px 34px -10px rgba(242,183,5,.6); transition:transform .2s, box-shadow .2s; }
+  #finderBtn:hover { transform:translateY(-3px) scale(1.03); }
+  #finderPanel { transform:translateY(24px) scale(.96); opacity:0; pointer-events:none; transition:.28s cubic-bezier(.2,.8,.2,1); transform-origin:bottom left; }
+  #finderPanel.open { transform:none; opacity:1; pointer-events:auto; }
+  .msg { animation:fadeUp .35s ease forwards; }
+  .typing span { width:7px; height:7px; background:var(--gold); border-radius:50%; display:inline-block; animation:typing 1.1s infinite; }
+  .typing span:nth-child(2){ animation-delay:.18s; } .typing span:nth-child(3){ animation-delay:.36s; }
+  @keyframes typing { 0%,60%,100%{opacity:.25; transform:translateY(0);} 30%{opacity:1; transform:translateY(-4px);} }
+  ::-webkit-scrollbar{width:10px;height:10px;} ::-webkit-scrollbar-thumb{background:#143; border-radius:8px;} ::-webkit-scrollbar-track{background:transparent;}
+  .chip { transition:.16s; } .chip:hover{ background:var(--gold); color:#1b1300; border-color:var(--gold); }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ================= HEADER ================= -->
+<header id="hdr" class="fixed top-0 inset-x-0 z-50 py-4">
+  <div class="max-w-7xl mx-auto px-5 flex items-center justify-between gap-4">
+    <a href="#top" class="flex items-center gap-3 shrink-0">
+      <img src="https://kenchertow.com/hs-fs/hubfs/Ken%20Chertow%20Logo%20Transparent%20PNG.png" alt="Ken Chertow Wrestling" class="h-11 w-11 object-contain" />
+      <span class="font-display uppercase leading-none">
+        <span class="block text-[12px] tracking-[.22em] text-gold font-medium">Ken Chertow</span>
+        <span class="block text-[15px] tracking-[.12em] font-semibold">Gold Medal Camps</span>
+      </span>
+    </a>
+    <nav class="hidden lg:flex items-center gap-7 text-[13px] eyebrow text-white/80">
+      <a href="#camps" class="hover:text-gold transition">Camps</a>
+      <a href="#" onclick="openFinder();return false;" class="hover:text-gold transition">Find Your Camp</a>
+      <a href="#coaches" class="hover:text-gold transition">Coaches</a>
+      <a href="#system" class="hover:text-gold transition">The System</a>
+      <a href="#proof" class="hover:text-gold transition">Results</a>
+      <a href="#faq" class="hover:text-gold transition">FAQ</a>
+    </nav>
+    <div class="flex items-center gap-3">
+      <a href="tel:18141234567" class="hidden sm:block text-[13px] eyebrow text-white/70 hover:text-gold transition">Call Camp HQ</a>
+      <a href="#camps" class="btn-red text-white font-display uppercase tracking-[.12em] text-[13px] px-5 py-2.5 rounded-sm">Register</a>
+      <button id="navToggle" class="lg:hidden text-white p-1" aria-label="Menu">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+  <!-- mobile menu -->
+  <div id="mobileMenu" class="lg:hidden hidden bg-ink/97 border-t border-gold/20 px-5 py-4 space-y-3 text-[15px] eyebrow">
+    <a href="#camps" class="block py-1.5 text-white/85">Camps &amp; Pricing</a>
+    <a href="#" onclick="openFinder();return false;" class="block py-1.5 text-white/85">Find Your Camp</a>
+    <a href="#coaches" class="block py-1.5 text-white/85">Coaches</a>
+    <a href="#system" class="block py-1.5 text-white/85">The System</a>
+    <a href="#proof" class="block py-1.5 text-white/85">Results</a>
+    <a href="#faq" class="block py-1.5 text-white/85">FAQ</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO ================= -->
+<section class="relative min-h-[100svh] flex items-center grain overflow-hidden">
+  <img src="https://kenchertow.com/hubfs/IMG_6458.jpg" alt="" class="absolute inset-0 w-full h-full object-cover object-center" />
+  <div class="absolute inset-0 hero-overlay z-[2]"></div>
+  <div class="relative z-10 max-w-7xl mx-auto px-5 w-full pt-28 pb-16">
+    <p class="eyebrow text-gold text-[12px] sm:text-[13px] mb-5 anim" style="animation-delay:.05s">U.S. Olympian Ken Chertow · Est. 1989</p>
+    <h1 class="headline text-white text-[15vw] sm:text-7xl lg:text-[6.6rem] max-w-5xl anim" style="animation-delay:.15s">
+      Champions Aren't Born.<br><span class="text-gradient-gold">They're Built.</span>
+    </h1>
+    <p class="mt-6 max-w-xl text-white/85 text-base sm:text-lg leading-relaxed anim" style="animation-delay:.3s">
+      The nation's longest-running wrestling camp system. Four days to two weeks of Olympic-level technique, relentless drilling, and the discipline that turns serious wrestlers into champions.
+    </p>
+    <div class="mt-9 flex flex-wrap items-center gap-4 anim" style="animation-delay:.45s">
+      <a href="#camps" class="btn-gold font-display uppercase tracking-[.12em] px-8 py-4 rounded-sm text-[15px]">See Camps &amp; Pricing</a>
+      <a href="#" onclick="openFinder();return false;" class="btn-ghost text-white font-display uppercase tracking-[.12em] px-8 py-4 rounded-sm text-[15px]">Find Your Camp →</a>
+    </div>
+    <div class="mt-12 flex flex-wrap gap-x-8 gap-y-3 text-white/75 anim" style="animation-delay:.6s">
+      <span class="eyebrow text-[11.5px] flex items-center gap-2"><span class="text-gold text-lg leading-none">★</span> 3× NCAA All-American</span>
+      <span class="eyebrow text-[11.5px] flex items-center gap-2"><span class="text-gold text-lg leading-none">★</span> 1,000+ State Champions Coached</span>
+      <span class="eyebrow text-[11.5px] flex items-center gap-2"><span class="text-gold text-lg leading-none">★</span> 10+ Olympians Developed</span>
+    </div>
+  </div>
+  <div class="absolute bottom-0 inset-x-0 flag-strip h-1.5 z-10 opacity-90"></div>
+</section>
+
+<!-- ================= POSITIONING / MANIFESTO ================= -->
+<section class="relative bg-ink py-24 grain overflow-hidden">
+  <div class="max-w-7xl mx-auto px-5 grid lg:grid-cols-12 gap-12 items-center">
+    <div class="lg:col-span-7 reveal">
+      <p class="eyebrow text-red text-[13px] mb-4">The Two-Week Intensive</p>
+      <h2 class="headline text-white text-4xl sm:text-5xl lg:text-6xl mb-6">The camp that<br>transforms a wrestler.</h2>
+      <p class="text-white/75 text-lg leading-relaxed mb-5">
+        The legendary 28-day grind that defined a generation is gone. What it stood for isn't. Our <span class="text-gold font-600">Super Gold</span> and <span class="text-gold font-600">SuperGirl</span> two-week intensives are built on the same truth: real transformation takes more than a weekend.
+      </p>
+      <p class="text-white/70 leading-relaxed mb-8">
+        Two sessions a day. Live wrestling. Film. Discipline, accountability, and the kind of mental toughness that follows a kid off the mat and into the rest of their life. This isn't a camp you attend. It's a camp you survive — and come back from a different competitor.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <span class="eyebrow text-[11px] text-white/70 border border-white/15 rounded-full px-4 py-2">Discipline</span>
+        <span class="eyebrow text-[11px] text-white/70 border border-white/15 rounded-full px-4 py-2">Dedication</span>
+        <span class="eyebrow text-[11px] text-white/70 border border-white/15 rounded-full px-4 py-2">Accountability</span>
+        <span class="eyebrow text-[11px] text-white/70 border border-white/15 rounded-full px-4 py-2">Mental Toughness</span>
+        <span class="eyebrow text-[11px] text-white/70 border border-white/15 rounded-full px-4 py-2">Life Skills</span>
+      </div>
+    </div>
+    <div class="lg:col-span-5 reveal">
+      <div class="relative">
+        <div class="absolute -inset-3 border border-gold/30 rounded-sm rotate-2"></div>
+        <img src="https://kenchertow.com/hs-fs/hubfs/Pat%26Zain.jpg" alt="Coaches working with campers" class="relative rounded-sm w-full object-cover aspect-[4/5]" />
+        <div class="absolute -bottom-5 -left-5 bg-red text-white px-6 py-4 rounded-sm shadow-2xl">
+          <div class="font-display text-4xl leading-none">13</div>
+          <div class="eyebrow text-[10px] mt-1">Days that change everything</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAMPS & TRANSPARENT PRICING ================= -->
+<section id="camps" class="relative bg-navyDeep py-24 grain overflow-hidden scroll-mt-20">
+  <div class="max-w-7xl mx-auto px-5">
+    <div class="text-center max-w-2xl mx-auto mb-12 reveal">
+      <p class="eyebrow text-gold text-[13px] mb-3">Summer 2026 · Spooky Nook Sports, PA &amp; OH</p>
+      <h2 class="headline text-white text-4xl sm:text-5xl lg:text-6xl">Camps &amp; Pricing</h2>
+      <p class="text-white/65 mt-4">No clicking around. Every camp, every length, every price — right here. Pick your track.</p>
+    </div>
+
+    <!-- calendar summary: the two 2026 sessions -->
+    <div class="grid sm:grid-cols-2 gap-4 max-w-3xl mx-auto mb-9 reveal">
+      <div class="card rounded-sm p-5 flex items-center gap-4">
+        <div class="font-display text-gold text-3xl leading-none">PA</div>
+        <div>
+          <div class="font-display uppercase tracking-wide text-white text-lg leading-tight">Manheim, Pennsylvania</div>
+          <div class="text-white/60 text-sm mt-0.5">June 28 – July 10 · <span class="text-white/85">full lineup, 4-day to 2-week</span></div>
+        </div>
+      </div>
+      <div class="card rounded-sm p-5 flex items-center gap-4">
+        <div class="font-display text-gold text-3xl leading-none">OH</div>
+        <div>
+          <div class="font-display uppercase tracking-wide text-white text-lg leading-tight">Hamilton, Ohio</div>
+          <div class="text-white/60 text-sm mt-0.5">July 18 – 23 · <span class="text-white/85">6-day Gold Medal camp</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- track tabs + location + stay toggles -->
+    <div class="flex flex-col lg:flex-row items-center justify-between gap-5 mb-10 reveal">
+      <div class="flex gap-2 bg-black/30 p-1.5 rounded-sm" role="tablist">
+        <button class="tab active font-display uppercase tracking-[.1em] text-[13px] px-6 py-3 rounded-sm" data-track="boys">Teen Boys</button>
+        <button class="tab font-display uppercase tracking-[.1em] text-[13px] px-6 py-3 rounded-sm text-white/80" data-track="girls">Teen Girls</button>
+        <button class="tab font-display uppercase tracking-[.1em] text-[13px] px-6 py-3 rounded-sm text-white/80" data-track="youth">Youth</button>
+      </div>
+      <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+        <div class="flex items-center gap-2">
+          <span class="eyebrow text-[11px] text-white/55">Location:</span>
+          <div class="flex gap-2">
+            <button class="loc active eyebrow text-[11px] border border-white/20 rounded-full px-4 py-2" data-loc="pa">PA</button>
+            <button class="loc eyebrow text-[11px] border border-white/20 rounded-full px-4 py-2 text-white/70" data-loc="oh">OH</button>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="eyebrow text-[11px] text-white/55">Stay:</span>
+          <div class="flex gap-2">
+            <button class="pill active eyebrow text-[11px] border border-white/20 rounded-full px-4 py-2" data-stay="res">Resident</button>
+            <button class="pill eyebrow text-[11px] border border-white/20 rounded-full px-4 py-2 text-white/70" data-stay="comm">Commuter</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="campGrid" class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5"></div>
+
+    <div class="mt-10 grid md:grid-cols-2 gap-5">
+      <div class="card rounded-sm p-6 flex items-start gap-4">
+        <div class="text-gold text-3xl font-display leading-none">✓</div>
+        <div>
+          <h4 class="font-display uppercase tracking-wide text-white text-lg">What's Included</h4>
+          <p class="text-white/65 text-sm mt-1">Expert instruction and <span class="text-white">all daily meals</span> for every wrestler. Resident price includes the on-site Spooky Nook hotel.</p>
+        </div>
+      </div>
+      <div class="card rounded-sm p-6 flex items-start gap-4">
+        <div class="text-gold text-3xl font-display leading-none">$</div>
+        <div>
+          <h4 class="font-display uppercase tracking-wide text-white text-lg">Flexible Payment</h4>
+          <p class="text-white/65 text-sm mt-1">Reserve a spot with <span class="text-white">25% down</span>; balance auto-charged May 1. Team discounts up to <span class="text-white">$75/wrestler</span>. Just ask Coach (bottom-right).</p>
+        </div>
+      </div>
+    </div>
+    <p class="text-center text-white/40 text-xs mt-8 eyebrow tracking-[.08em]">All camps include expert instruction + daily meals · Resident price includes the on-site hotel</p>
+  </div>
+</section>
+
+<!-- ================= FIND YOUR CAMP (promo -> opens finder bubble) ================= -->
+<section class="relative bg-ink py-16 grain overflow-hidden">
+  <div class="max-w-3xl mx-auto px-5 text-center reveal">
+    <p class="eyebrow text-red text-[13px] mb-3">60-Second Camp Finder</p>
+    <h2 class="headline text-white text-3xl sm:text-4xl mb-4">Not sure which camp fits?</h2>
+    <p class="text-white/60 mb-7 max-w-lg mx-auto">Answer three quick questions and we'll match the camp — with the price — instantly. Look for the gold button in the bottom-left corner, on any page.</p>
+    <button onclick="openFinder()" class="btn-gold font-display uppercase tracking-[.12em] px-8 py-4 rounded-sm">Find Your Camp &rarr;</button>
+  </div>
+</section>
+
+<!-- ================= COACHES ================= -->
+<section id="coaches" class="relative bg-navyDeep py-24 grain overflow-hidden scroll-mt-20">
+  <div class="max-w-7xl mx-auto px-5">
+    <div class="max-w-2xl mb-12 reveal">
+      <p class="eyebrow text-gold text-[13px] mb-3">Champions Coaching Champions</p>
+      <h2 class="headline text-white text-4xl sm:text-5xl lg:text-6xl">Train with Olympians<br>&amp; National Champions</h2>
+      <p class="text-white/65 mt-4">Not graduate assistants. Your wrestler learns hands-on from a staff of 25+ Olympians, World medalists and NCAA champions — led by Ken himself.</p>
+    </div>
+
+    <!-- headliners -->
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-6">
+      <!-- Ken -->
+      <div class="card rounded-sm overflow-hidden reveal">
+        <div class="aspect-square overflow-hidden bg-navy">
+          <img src="https://kenchertow.com/hs-fs/hubfs/SQUARE%20-%20KEN%20(1)-1.png" alt="Ken Chertow" class="w-full h-full object-cover" onerror="this.src='https://kenchertow.com/hs-fs/hubfs/Ken%20Chertow%20Logo%20Transparent%20PNG.png';this.classList.add('p-8','object-contain')" />
+        </div>
+        <div class="p-5">
+          <div class="font-display uppercase text-white text-xl leading-tight">Ken Chertow</div>
+          <div class="text-gold text-[12px] eyebrow mt-1">Olympian · 3× NCAA All-American</div>
+          <p class="text-white/55 text-sm mt-2">Founder. Seoul Olympian, 2× Junior World Champion, Penn State legend.</p>
+        </div>
+      </div>
+      <!-- Zain -->
+      <div class="card rounded-sm overflow-hidden reveal">
+        <div class="aspect-square overflow-hidden bg-navy">
+          <img src="https://kenchertow.com/hs-fs/hubfs/SQUARE%20-%20KEN%20(7).png" alt="Zain Retherford" class="w-full h-full object-cover" />
+        </div>
+        <div class="p-5">
+          <div class="font-display uppercase text-white text-xl leading-tight">Zain Retherford</div>
+          <div class="text-gold text-[12px] eyebrow mt-1">U.S. Olympian · 3× NCAA Champ</div>
+          <p class="text-white/55 text-sm mt-2">Started with Coach Chertow at age 9. Now an Olympian.</p>
+        </div>
+      </div>
+      <!-- Wade -->
+      <div class="card rounded-sm overflow-hidden reveal">
+        <div class="aspect-square overflow-hidden bg-navy">
+          <img src="https://kenchertow.com/hs-fs/hubfs/SQUARE%20-%20KEN%20(12).png" alt="Wade Schalles" class="w-full h-full object-cover" />
+        </div>
+        <div class="p-5">
+          <div class="font-display uppercase text-white text-xl leading-tight">Wade Schalles</div>
+          <div class="text-gold text-[12px] eyebrow mt-1">2× NCAA Champ · World Record</div>
+          <p class="text-white/55 text-sm mt-2">Guinness world-record holder for career pins.</p>
+        </div>
+      </div>
+      <!-- Sanshiro Abe -->
+      <div class="card rounded-sm overflow-hidden reveal">
+        <div class="aspect-square overflow-hidden bg-navy">
+          <img src="https://kenchertow.com/hs-fs/hubfs/SQUARE%20-%20KEN%20(10).png" alt="Sanshiro Abe" class="w-full h-full object-cover" />
+        </div>
+        <div class="p-5">
+          <div class="font-display uppercase text-white text-xl leading-tight">Sanshiro Abe</div>
+          <div class="text-gold text-[12px] eyebrow mt-1">Japanese Olympian · NCAA Champion</div>
+          <p class="text-white/55 text-sm mt-2">4× NCAA All-American, 1996 NCAA Champion — coached by Ken at Penn State.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- roster strip -->
+    <div class="card rounded-sm p-6 reveal">
+      <div class="flex flex-wrap gap-x-6 gap-y-2 text-white/70 text-sm">
+        <span><span class="text-gold">Pat Glory</span> — NCAA Champ, Princeton</span>
+        <span><span class="text-gold">Ricky Bonomo</span> — 3× NCAA Champ</span>
+        <span><span class="text-gold">Bekzod Abdurakhmonov</span> — Olympic Bronze, Tokyo</span>
+        <span><span class="text-gold">Braxton Amos</span> — Olympic Trials</span>
+        <span><span class="text-gold">John Stutzman</span> — Team USA Coach</span>
+        <span><span class="text-gold">Chelsea Dionosio</span> — Women's Head Coach</span>
+        <span class="text-white/40">+ 18 more Olympians, All-Americans &amp; champions</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= THE GOLD MEDAL SYSTEM ================= -->
+<section id="system" class="relative bg-ink py-24 grain overflow-hidden scroll-mt-20">
+  <div class="max-w-7xl mx-auto px-5 grid lg:grid-cols-2 gap-14 items-center">
+    <div class="reveal order-2 lg:order-1">
+      <div class="relative">
+        <img src="https://kenchertow.com/hubfs/ZainCoaching.jpg" alt="Coaching detail" class="rounded-sm w-full object-cover aspect-[5/4]" />
+        <div class="absolute -inset-2 border border-white/10 rounded-sm -z-0"></div>
+      </div>
+    </div>
+    <div class="reveal order-1 lg:order-2">
+      <p class="eyebrow text-gold text-[13px] mb-3">The Gold Medal System</p>
+      <h2 class="headline text-white text-4xl sm:text-5xl mb-5">Built so wrestlers actually <span class="text-gradient-gold">keep</span> what they learn.</h2>
+      <p class="text-white/70 leading-relaxed mb-8">Most college-sponsored camps are thrown together. Ours is a system — engineered over 35+ years so every drill, every review session, every live match compounds into lasting skill.</p>
+      <div class="space-y-5">
+        <div class="flex gap-4"><div class="font-display text-gold text-3xl leading-none w-10">01</div><div><div class="font-display uppercase text-white text-lg">Learn</div><p class="text-white/60 text-sm">Olympic-level technique, broken down by position — takedowns, top, bottom.</p></div></div>
+        <div class="flex gap-4"><div class="font-display text-gold text-3xl leading-none w-10">02</div><div><div class="font-display uppercase text-white text-lg">Drill</div><p class="text-white/60 text-sm">Unique, high-rep drilling that builds muscle memory the right way.</p></div></div>
+        <div class="flex gap-4"><div class="font-display text-gold text-3xl leading-none w-10">03</div><div><div class="font-display uppercase text-white text-lg">Live</div><p class="text-white/60 text-sm">Daily live wrestling to test it under real pressure.</p></div></div>
+        <div class="flex gap-4"><div class="font-display text-gold text-3xl leading-none w-10">04</div><div><div class="font-display uppercase text-white text-lg">Retain</div><p class="text-white/60 text-sm">Structured review so it sticks long after camp ends.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RESULTS / PROOF ================= -->
+<section id="proof" class="relative bg-navy py-20 grain overflow-hidden scroll-mt-20">
+  <div class="max-w-7xl mx-auto px-5">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center mb-16">
+      <div class="reveal"><div class="font-display text-5xl sm:text-6xl text-gradient-gold">1,000+</div><div class="eyebrow text-[11px] text-white/70 mt-2">HS State Champions Coached</div></div>
+      <div class="reveal"><div class="font-display text-5xl sm:text-6xl text-gradient-gold">200+</div><div class="eyebrow text-[11px] text-white/70 mt-2">National Champions / Decade</div></div>
+      <div class="reveal"><div class="font-display text-5xl sm:text-6xl text-gradient-gold">10+</div><div class="eyebrow text-[11px] text-white/70 mt-2">Olympians Developed</div></div>
+      <div class="reveal"><div class="font-display text-5xl sm:text-6xl text-gradient-gold">1989</div><div class="eyebrow text-[11px] text-white/70 mt-2">Longest-Running in the Nation</div></div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-5">
+      <blockquote class="card rounded-sm p-6 reveal"><div class="text-gold text-3xl leading-none mb-2">"</div><p class="text-white/80 text-sm leading-relaxed">Two weeks at Super Gold did more for my son's confidence than a whole season. He came home a different competitor.</p><footer class="eyebrow text-[11px] text-white/45 mt-4">— Wrestling Parent, Ohio</footer></blockquote>
+      <blockquote class="card rounded-sm p-6 reveal"><div class="text-gold text-3xl leading-none mb-2">"</div><p class="text-white/80 text-sm leading-relaxed">The coaching is unreal. Where else does a kid drill with Olympians every single day for two weeks?</p><footer class="eyebrow text-[11px] text-white/45 mt-4">— Club Coach, Pennsylvania</footer></blockquote>
+      <blockquote class="card rounded-sm p-6 reveal"><div class="text-gold text-3xl leading-none mb-2">"</div><p class="text-white/80 text-sm leading-relaxed">It's not just technique. It's discipline and accountability. That's what keeps us coming back every summer.</p><footer class="eyebrow text-[11px] text-white/45 mt-4">— Returning Family</footer></blockquote>
+    </div>
+    <p class="text-center text-white/30 text-[11px] mt-6 eyebrow">Testimonials shown are representative samples for this concept.</p>
+  </div>
+</section>
+
+<!-- ================= VENUE ================= -->
+<section class="relative py-24 grain overflow-hidden bg-ink">
+  <div class="max-w-7xl mx-auto px-5 grid lg:grid-cols-2 gap-12 items-center">
+    <div class="reveal">
+      <p class="eyebrow text-gold text-[13px] mb-3">Home Base</p>
+      <h2 class="headline text-white text-4xl sm:text-5xl mb-5">Spooky Nook Sports — the biggest indoor complex in North America.</h2>
+      <p class="text-white/70 leading-relaxed mb-6">World-class mats, an attached hotel, and everything under one roof. Residents eat, sleep, and train on-site with 24/7 supervision and an on-staff camp nurse.</p>
+      <div class="grid grid-cols-2 gap-4">
+        <div class="card rounded-sm p-5"><div class="font-display uppercase text-white">📍 Manheim, PA</div><div class="text-white/55 text-sm mt-1">June 28 – July 10, 2026</div></div>
+        <div class="card rounded-sm p-5"><div class="font-display uppercase text-white">📍 Hamilton, OH</div><div class="text-white/55 text-sm mt-1">July 18 – 23, 2026</div></div>
+        <div class="card rounded-sm p-5"><div class="font-display uppercase text-white">🛏️ On-Site Hotel</div><div class="text-white/55 text-sm mt-1">4/room · private buyouts avail.</div></div>
+        <div class="card rounded-sm p-5"><div class="font-display uppercase text-white">✈️ Airport Pickup</div><div class="text-white/55 text-sm mt-1">Harrisburg &amp; Cincinnati</div></div>
+      </div>
+    </div>
+    <div class="reveal">
+      <img src="https://kenchertow.com/hubfs/GirlsCamp.jpg" alt="Camp training" class="rounded-sm w-full object-cover aspect-square" />
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA / LEAD CAPTURE ================= -->
+<section class="relative py-24 grain overflow-hidden bg-navyDeep">
+  <div class="max-w-3xl mx-auto px-5 text-center reveal">
+    <p class="eyebrow text-gold text-[13px] mb-3">Make Plans for Summer 2026</p>
+    <h2 class="headline text-white text-4xl sm:text-6xl mb-5">Spots fill fast.<br>Lock yours in.</h2>
+    <p class="text-white/70 mb-8 max-w-xl mx-auto">Reserve a camp with 25% down, or get exclusive training tips and camp updates from Coach Chertow straight to your inbox.</p>
+    <form onsubmit="return false" class="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto mb-5">
+      <input type="email" placeholder="Parent email address" class="flex-1 bg-black/30 border border-white/15 rounded-sm px-5 py-4 text-white placeholder-white/40 focus:border-gold outline-none" />
+      <button class="btn-gold font-display uppercase tracking-[.12em] px-7 py-4 rounded-sm">Keep Me Posted</button>
+    </form>
+    <a href="#camps" class="btn-red inline-block text-white font-display uppercase tracking-[.12em] px-10 py-4 rounded-sm">Register for Camp →</a>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" class="relative py-24 grain overflow-hidden bg-ink scroll-mt-20">
+  <div class="max-w-3xl mx-auto px-5">
+    <div class="text-center mb-10 reveal">
+      <p class="eyebrow text-red text-[13px] mb-3">Before You Ask</p>
+      <h2 class="headline text-white text-4xl sm:text-5xl">Common Questions</h2>
+      <p class="text-white/60 mt-3">Can't find it? Hit <span class="text-gold font-600">Ask Coach</span> in the corner — it answers instantly, any page.</p>
+    </div>
+    <div id="faqAccordion" class="space-y-3"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER ================= -->
+<footer class="bg-black/60 border-t border-white/10 py-14">
+  <div class="max-w-7xl mx-auto px-5 grid md:grid-cols-4 gap-10">
+    <div class="md:col-span-2">
+      <img src="https://kenchertow.com/hs-fs/hubfs/Ken%20Chertow%20Logo%20Transparent%20PNG.png" alt="Ken Chertow Wrestling" class="h-14 w-14 object-contain mb-4" />
+      <p class="text-white/55 text-sm max-w-sm">Olympian Ken Chertow's Gold Medal Training Camp System — building champions through discipline, technique, and hard work since 1989.</p>
+      <div class="flex gap-4 mt-5 text-white/50">
+        <a href="https://www.facebook.com/kenchertowwrestling" class="hover:text-gold eyebrow text-[12px]">Facebook</a>
+        <a href="https://www.youtube.com/user/chertowcamps" class="hover:text-gold eyebrow text-[12px]">YouTube</a>
+        <a href="https://www.instagram.com/kenchertowwrestling" class="hover:text-gold eyebrow text-[12px]">Instagram</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="eyebrow text-gold text-[12px] mb-4">Camps</h4>
+      <ul class="space-y-2 text-white/60 text-sm">
+        <li><a href="#camps" class="hover:text-white">Teen Boys Camps</a></li>
+        <li><a href="#camps" class="hover:text-white">Teen Girls Camps</a></li>
+        <li><a href="#camps" class="hover:text-white">Youth Camps</a></li>
+        <li><a href="#" onclick="openFinder();return false;" class="hover:text-white">Find Your Camp</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="eyebrow text-gold text-[12px] mb-4">Contact</h4>
+      <ul class="space-y-2 text-white/60 text-sm">
+        <li><a href="mailto:camps@kenchertow.com" class="hover:text-white">camps@kenchertow.com</a></li>
+        <li><a href="#coaches" class="hover:text-white">Coaches</a></li>
+        <li><a href="#faq" class="hover:text-white">FAQs</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="max-w-7xl mx-auto px-5 mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-2">
+    <p class="text-white/35 text-xs">© 2026 Ken Chertow Wrestling. All Rights Reserved.</p>
+    <p class="text-white/25 text-xs eyebrow">Concept prototype · Vision Genesis</p>
+  </div>
+</footer>
+
+<!-- ================= FIND YOUR CAMP ASSISTANT (bottom-left) ================= -->
+<button id="finderBtn" class="fixed bottom-5 left-5 z-[60] btn-gold rounded-full pl-4 pr-5 py-3.5 flex items-center gap-3 font-display uppercase tracking-[.1em] text-[14px]">
+  <span class="relative flex items-center justify-center">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <span class="ping absolute -top-1 -right-1 w-2.5 h-2.5 bg-red rounded-full"></span>
+  </span>
+  Find Your Camp
+</button>
+
+<div id="finderPanel" class="fixed bottom-5 left-5 z-[61] w-[min(420px,calc(100vw-2.5rem))] flex flex-col rounded-xl overflow-hidden border border-gold/30 shadow-2xl" style="background:#061226; max-height:min(620px,calc(100vh - 2.5rem));">
+  <div class="flex items-center gap-3 px-4 py-3.5 border-b border-white/10" style="background:linear-gradient(120deg,#002868,#04122e);">
+    <div class="w-9 h-9 rounded-full bg-gold/15 flex items-center justify-center text-gold text-lg">&#9733;</div>
+    <div class="flex-1">
+      <div class="font-display uppercase tracking-wide text-white text-[15px] leading-none">Find Your Camp</div>
+      <div class="text-[11px] text-gold/90 mt-1">3 questions &middot; instant price</div>
+    </div>
+    <button id="finderClose" class="text-white/50 hover:text-white p-1" aria-label="Close">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="p-5 overflow-y-auto">
+    <div class="flex items-center gap-2 mb-6" id="finderDots"></div>
+    <div id="finderSteps">
+      <div class="finder-step" data-step="0">
+        <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">Who's wrestling?</h3>
+        <div class="grid grid-cols-1 gap-3">
+          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="who" data-val="boy"><div class="font-display text-lg text-white">Teen Boy</div><div class="text-white/55 text-sm">Ages 13&ndash;18</div></button>
+          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="who" data-val="girl"><div class="font-display text-lg text-white">Teen Girl</div><div class="text-white/55 text-sm">Ages 13&ndash;18</div></button>
+          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="who" data-val="youth"><div class="font-display text-lg text-white">Youth</div><div class="text-white/55 text-sm">Ages 6&ndash;12</div></button>
+        </div>
+      </div>
+      <div class="finder-step hidden" data-step="1">
+        <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">How deep do they want to go?</h3>
+        <div class="grid grid-cols-1 gap-3">
+          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="level" data-val="intro"><div class="font-display text-lg text-white">Get a Taste</div><div class="text-white/55 text-sm">Shorter, focused camp</div></button>
+          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="level" data-val="serious"><div class="font-display text-lg text-white">Get Serious</div><div class="text-white/55 text-sm">Full week+ of training</div></button>
+          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="level" data-val="elite"><div class="font-display text-lg text-white">Go All-In</div><div class="text-white/55 text-sm">The 2-week intensive</div></button>
+        </div>
+      </div>
+      <div class="finder-step hidden" data-step="2">
+        <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">Staying over, or commuting?</h3>
+        <div class="grid grid-cols-1 gap-3">
+          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="stay" data-val="res"><div class="font-display text-lg text-white">Resident</div><div class="text-white/55 text-sm">On-site hotel + all meals</div></button>
+          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="stay" data-val="comm"><div class="font-display text-lg text-white">Commuter</div><div class="text-white/55 text-sm">Train by day, home by night</div></button>
+        </div>
+      </div>
+    </div>
+    <div id="finderResult" class="hidden text-center">
+      <p class="eyebrow text-gold text-[12px] mb-2">Your Match</p>
+      <h3 id="frName" class="font-display uppercase text-white text-2xl"></h3>
+      <p id="frMeta" class="text-white/60 text-sm mt-2"></p>
+      <div class="my-5 flex items-end justify-center gap-2">
+        <span id="frPrice" class="font-display text-5xl text-gradient-gold"></span>
+        <span id="frStay" class="eyebrow text-white/50 text-[12px] mb-1"></span>
+      </div>
+      <p id="frPitch" class="text-white/70 text-sm max-w-xs mx-auto mb-6"></p>
+      <div class="flex flex-col gap-2">
+        <a id="frRegister" href="#" target="_blank" rel="noopener" class="btn-red text-white font-display uppercase tracking-[.12em] px-6 py-3.5 rounded-sm">Register Now</a>
+        <button id="frRestart" class="btn-ghost text-white font-display uppercase tracking-[.12em] px-6 py-3 rounded-sm">Start Over</button>
+      </div>
+    </div>
+    <button id="finderBack" class="hidden mt-5 eyebrow text-[12px] text-white/50 hover:text-gold transition">&larr; Back</button>
+  </div>
+</div>
+
+<!-- ================= ASK COACH ASSISTANT ================= -->
+<button id="coachBtn" class="fixed bottom-5 right-5 z-[60] btn-red text-white rounded-full pl-4 pr-5 py-3.5 flex items-center gap-3 font-display uppercase tracking-[.1em] text-[14px]">
+  <span class="relative flex items-center justify-center">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>
+    <span class="ping absolute -top-1 -right-1 w-2.5 h-2.5 bg-gold rounded-full"></span>
+  </span>
+  Ask Coach
+</button>
+
+<div id="coachPanel" class="fixed bottom-5 right-5 z-[61] w-[min(380px,calc(100vw-2.5rem))] h-[min(560px,calc(100vh-2.5rem))] flex flex-col rounded-xl overflow-hidden border border-gold/30 shadow-2xl" style="background:#061226;">
+  <!-- header -->
+  <div class="flex items-center gap-3 px-4 py-3.5 border-b border-white/10" style="background:linear-gradient(120deg,#002868,#04122e);">
+    <div class="w-9 h-9 rounded-full bg-gold/15 flex items-center justify-center text-gold font-display text-lg">KC</div>
+    <div class="flex-1">
+      <div class="font-display uppercase tracking-wide text-white text-[15px] leading-none">Ask Coach</div>
+      <div class="text-[11px] text-emerald-400 flex items-center gap-1.5 mt-1"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span> Camp assistant · instant answers</div>
+    </div>
+    <button id="coachClose" class="text-white/50 hover:text-white p-1" aria-label="Close">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <!-- messages -->
+  <div id="coachLog" class="flex-1 overflow-y-auto px-4 py-4 space-y-3 text-[14px]"></div>
+  <!-- suggested chips -->
+  <div id="coachChips" class="px-3 pb-2 flex flex-wrap gap-2"></div>
+  <!-- input -->
+  <form id="coachForm" class="p-3 border-t border-white/10 flex gap-2" style="background:#04102a;">
+    <input id="coachInput" autocomplete="off" placeholder="Ask about cost, lodging, what to bring…" class="flex-1 bg-black/30 border border-white/15 rounded-full px-4 py-2.5 text-white text-[14px] placeholder-white/40 focus:border-gold outline-none" />
+    <button class="btn-gold rounded-full w-11 h-11 flex items-center justify-center shrink-0" aria-label="Send">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+    </button>
+  </form>
+</div>
+
+<script>
+/* ============ DATA: CAMPS ============ */
+const REG = {
+  boys:  'https://register.kenchertow.com/gold-medal-training-camps-for-boys-2026',
+  girls: 'https://register.kenchertow.com/gold-medal-training-camps-for-girls-2026',
+  youth: 'https://register.kenchertow.com/gold-medal-training-camps-for-youth-2026',
+};
+const CAMPS = {
+  boys: [
+    {name:'Super Gold Medal Camp', tag:'FLAGSHIP', days:'13-Day', ages:'Ages 13–18', res:2150, comm:1900, pitch:'The two-week intensive. Maximum transformation.'},
+    {name:'Gold Medal Training Camp', tag:'', days:'11-Day', ages:'Ages 13–18', res:1950, comm:1750, pitch:'Serious training, full immersion.'},
+    {name:'Gold Medal Training Camp', tag:'', days:'6-Day', ages:'Ages 13–18', res:950, comm:850, pitch:'A full week of championship technique.'},
+    {name:'Personalized Technique Camp', tag:'', days:'4-Day', ages:'Ages 13–18', res:700, comm:625, pitch:'Focused, individualized skill work.'},
+  ],
+  girls: [
+    {name:'SuperGirl Training Camp', tag:'FLAGSHIP', days:'13-Day', ages:'Ages 13–18', res:2150, comm:1900, pitch:'The two-week intensive, built for female wrestlers.'},
+    {name:'Gold Medal Training Camp', tag:'', days:'8-Day', ages:'Ages 13–18', res:1950, comm:1750, pitch:'High-level coaching, all-girls room.'},
+    {name:'Gold Medal Training Camp', tag:'', days:'6-Day', ages:'Ages 13–18', res:950, comm:850, pitch:'A full week of championship technique.'},
+    {name:'Personalized Technique Camp', tag:'', days:'4-Day', ages:'Ages 13–18', res:700, comm:625, pitch:'Focused, individualized skill work.'},
+  ],
+  youth: [
+    {name:'SuperKid Training Camp', tag:'FLAGSHIP', days:'11-Day', ages:'Grades 4–7', res:1950, comm:1750, pitch:'For serious young wrestlers ready to level up.'},
+    {name:'Kids Training Camp', tag:'', days:'6-Day', ages:'Ages 9–12', res:950, comm:850, pitch:'Take training to the next level.'},
+    {name:'Future Champions Camp', tag:'PARENT + CHILD', days:'4-Day', ages:'Grades 1–3', res:1000, comm:575, pitch:'Fundamentals + fun. A parent attends with the wrestler.'},
+  ],
+};
+
+const CAMPS_OH = {
+  boys:  [{name:'Gold Medal Training Camp', tag:'OHIO · JUL 18–23', days:'6-Day', ages:'Ages 13–18', res:950, comm:850, pitch:'A full week of championship technique at Spooky Nook, Hamilton OH.'}],
+  girls: [{name:'Gold Medal Training Camp', tag:'OHIO · JUL 18–23', days:'6-Day', ages:'Ages 13–18', res:950, comm:850, pitch:'High-level coaching for female wrestlers — the Ohio session.'}],
+  youth: [{name:'Kids Training Camp', tag:'OHIO · JUL 18–23', days:'6-Day', ages:'Ages 9–12', res:950, comm:850, pitch:'Take training to the next level — the Ohio session.'}],
+};
+let track = 'boys', stay = 'res', loc = 'pa';
+const grid = document.getElementById('campGrid');
+function money(n){ return '$' + n.toLocaleString(); }
+function currentList(){ return loc==='oh' ? CAMPS_OH[track] : CAMPS[track]; }
+function renderCamps(){
+  grid.innerHTML = currentList().map(c => `
+    <div class="card rounded-sm p-6 flex flex-col">
+      <div class="flex items-start justify-between gap-2 mb-3">
+        <span class="font-display text-gold text-3xl leading-none">${c.days}</span>
+        ${c.tag ? `<span class="eyebrow text-[9px] bg-red text-white px-2 py-1 rounded-sm">${c.tag}</span>` : ''}
+      </div>
+      <h3 class="font-display uppercase text-white text-lg leading-tight">${c.name}</h3>
+      <div class="eyebrow text-[11px] text-white/45 mt-1">${c.ages}</div>
+      <p class="text-white/55 text-sm mt-3 flex-1">${c.pitch}</p>
+      <div class="mt-5 pt-4 border-t border-white/10">
+        <div class="flex items-end justify-between">
+          <div>
+            <div class="font-display text-3xl text-white leading-none">${money(stay==='res'?c.res:c.comm)}</div>
+            <div class="eyebrow text-[10px] text-white/45 mt-1">${stay==='res'?'Resident · hotel + meals':'Commuter · meals incl.'}</div>
+          </div>
+          <a href="${REG[track]}" target="_blank" rel="noopener" class="btn-gold font-display uppercase text-[12px] tracking-wide px-4 py-2.5 rounded-sm">Register</a>
+        </div>
+      </div>
+    </div>`).join('');
+}
+renderCamps();
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>{x.classList.remove('active');x.classList.add('text-white/80');});
+  b.classList.add('active');b.classList.remove('text-white/80'); track=b.dataset.track; renderCamps();
+}));
+document.querySelectorAll('.pill').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.pill').forEach(x=>{x.classList.remove('active');x.classList.add('text-white/70');});
+  b.classList.add('active');b.classList.remove('text-white/70'); stay=b.dataset.stay; renderCamps();
+}));
+document.querySelectorAll('.loc').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.loc').forEach(x=>{x.classList.remove('active');x.classList.add('text-white/70');});
+  b.classList.add('active');b.classList.remove('text-white/70'); loc=b.dataset.loc; renderCamps();
+}));
+
+/* ============ FIND YOUR CAMP ============ */
+const fAns = {}; let fStep = 0;
+const steps = document.querySelectorAll('.finder-step');
+const dotsWrap = document.getElementById('finderDots');
+const backBtn = document.getElementById('finderBack');
+function renderDots(){
+  dotsWrap.innerHTML = [0,1,2].map(i=>`<div class="h-1.5 flex-1 rounded-full ${i<=fStep?'bg-gold':'bg-white/15'}"></div>`).join('');
+}
+function showStep(n){
+  fStep=n; renderDots();
+  steps.forEach(s=>s.classList.toggle('hidden', +s.dataset.step!==n));
+  document.getElementById('finderResult').classList.add('hidden');
+  document.getElementById('finderSteps').classList.remove('hidden');
+  backBtn.classList.toggle('hidden', n===0);
+}
+function recommend(){
+  const t = fAns.who; // boy | girl | youth
+  const regKey = t==='youth'?'youth':(t==='girl'?'girls':'boys');
+  const list = CAMPS[regKey];
+  let camp;
+  if(t==='youth'){
+    if(fAns.level==='elite') camp=list[0];
+    else if(fAns.level==='serious') camp=list[1];
+    else camp=list[2];
+  } else {
+    if(fAns.level==='elite') camp=list[0];
+    else if(fAns.level==='serious') camp=list[1];
+    else camp=list[3];
+  }
+  const price = fAns.stay==='res'?camp.res:camp.comm;
+  document.getElementById('finderSteps').classList.add('hidden');
+  backBtn.classList.add('hidden');
+  const r = document.getElementById('finderResult'); r.classList.remove('hidden');
+  document.getElementById('frName').textContent = camp.name;
+  document.getElementById('frMeta').textContent = `${camp.days} · ${camp.ages} · Spooky Nook, PA`;
+  document.getElementById('frPrice').textContent = money(price);
+  document.getElementById('frStay').textContent = fAns.stay==='res'?'Resident':'Commuter';
+  document.getElementById('frPitch').textContent = camp.pitch;
+  document.getElementById('frRegister').href = REG[regKey];
+  renderDots();
+}
+document.querySelectorAll('.finder-opt').forEach(o=>o.addEventListener('click',()=>{
+  fAns[o.dataset.key]=o.dataset.val;
+  if(fStep<2) showStep(fStep+1); else recommend();
+}));
+backBtn.addEventListener('click',()=>{ if(fStep>0) showStep(fStep-1); });
+document.getElementById('frRestart').addEventListener('click',()=>{ showStep(0); });
+showStep(0);
+const finderPanel=document.getElementById('finderPanel');
+function openFinder(){ finderPanel.classList.add('open'); document.getElementById('finderBtn').style.display='none'; showStep(0); }
+function closeFinder(){ finderPanel.classList.remove('open'); document.getElementById('finderBtn').style.display='flex'; }
+document.getElementById('finderBtn').addEventListener('click',openFinder);
+document.getElementById('finderClose').addEventListener('click',closeFinder);
+
+/* ============ FAQ DATA (real, from kenchertow.com) ============ */
+const FAQS = [
+  {q:"Do you offer discounts for teams?", a:"Yes! Groups of 4 get $25 off per wrestler, groups of 8 get $50 off each, and groups of 12 get $75 off per wrestler — plus one coach or parent attends free with housing and meals.", tags:["team","teams","group","discount","coach","bulk","club","cheaper"]},
+  {q:"I paid a deposit — how do I make additional payments?", a:"Log in or create an account at kenchertow.account.webconnex.com to make additional payments anytime.", tags:["deposit","payment","additional","balance","pay","account","webconnex","installment"]},
+  {q:"How are campers supervised?", a:"Every resident camper is assigned a roll-call/bed-check counselor who makes sure they are in bed at curfew and up for the first session. Staff strictly enforce curfew and no-leaving policies.", tags:["supervised","supervision","safe","safety","counselor","watch","monitor","secure"]},
+  {q:"What should I bring, and what should I expect?", a:"A detailed camp newsletter is emailed in early spring and posted on the website — it covers exactly what to bring and what to expect.", tags:["bring","pack","packing","what to bring","gear","expect","prepare","newsletter","supplies"]},
+  {q:"What is included in the cost of camp?", a:"High-quality wrestling instruction and all meals are included for every wrestler. Residents also get hotel accommodations. Parent meals are not included, but discounted hotel rates and meal plans are available.", tags:["include","included","cost","price","meals","food","hotel","fee","whats included"]},
+  {q:"What is the camper-to-staff ratio?", a:"Teen camps run 10:1 and youth camps run 6:1.", tags:["ratio","staff","counselor","supervision"]},
+  {q:"Where is the girls camp located?", a:"The girls camp is at Spooky Nook Sports Center and the attached hotel.", tags:["girls","girl","female","women","womens","location","where"]},
+  {q:"What if I cannot afford the full cost right now?", a:"Register with just 25% down as a deposit, then pay toward the balance anytime. Any remaining balance is automatically charged on May 1st.", tags:["afford","payment","plan","deposit","installment","later","finance","budget"]},
+  {q:"Do Future Champions campers have the same schedule as older campers?", a:"Yes.", tags:["future champions","schedule","young","little","beginner"]},
+  {q:"Does the second week of Super Gold repeat the first week?", a:"No — the second week is continued, increasingly personalized instruction that builds on week one.", tags:["super gold","supergirl","second week","repeat","two week","13 day","intensive"]},
+  {q:"What are the dates for team camps?", a:"Teams are welcome to attend any of our camps.", tags:["team","teams","dates","when","group"]},
+  {q:"What time is curfew?", a:"Resident campers must be in their rooms by 10 p.m.", tags:["curfew","bed","night","bedtime","sleep"]},
+  {q:"How many days can my child stay at camp?", a:"Teens choose 4, 6, 11, or 13-day options; youth choose 4, 6, or 11-day camps. The 4-day Future Champions camp (ages 6-9) requires a parent.", tags:["days","how long","length","duration","weeks","options","stay"]},
+  {q:"Do you provide airport transportation?", a:"Yes — pickups from Harrisburg and Cincinnati airports for $50 per person per trip, with payment due by June 10.", tags:["airport","transportation","transport","ride","pickup","pick up","fly","flight","harrisburg","cincinnati","travel","bus"]},
+  {q:"How do I arrange airport transportation?", a:"Email Beth@kenchertow.com with the wrestler's name, cell phone number, and flight itinerary.", tags:["transportation","arrange","airport","beth","contact","flight","book","pickup"]},
+  {q:"Do you have medical staff on site?", a:"Yes — a highly trained camp nurse is on staff for the entire duration of camp.", tags:["medical","nurse","doctor","hurt","injury","health","sick","emergency"]},
+  {q:"When is check-in?", a:"Check-in is June 28th, July 5th, or July 18th (depending on your camp) from 1:00-2:30 p.m. at Spooky Nook Sports Center.", tags:["check-in","check in","checkin","arrive","drop off","start","when","arrival"]},
+  {q:"When is check-out?", a:"Camps ending July 10th and July 23rd check out at 11:00 a.m.; all other camps end at 11:30 a.m.", tags:["check-out","check out","checkout","end","leave","done","departure"]},
+  {q:"Can I take my child out for dinner during camp?", a:"Commuters do not need to notify anyone. Resident campers must be signed out at the camp store.", tags:["dinner","out","leave","sign out","food","eat","family","visit"]},
+  {q:"My child takes daily medication — what should we do?", a:"If your child can self-administer, just list the medication on the application. Otherwise, present it to the nurse at check-in.", tags:["medication","medicine","pills","prescription","nurse","daily","meds"]},
+  {q:"Is room and board included in the fee?", a:"Yes — for those enrolled as residents.", tags:["room","board","lodging","hotel","stay","sleep","resident","included"]},
+  {q:"How many campers per room?", a:"Four campers per room is standard. A bed-buyout option is available for $50/night for more private bedding.", tags:["room","roommate","per room","bed","share","sleep"]},
+  {q:"What is a bed-buyout?", a:"For $50/night your child gets their own bed (still with roommates). Camp tries to house with one roommate; uneven numbers may mean two.", tags:["bed","buyout","bed-buyout","private bed","upgrade"]},
+  {q:"What is the private room option?", a:"Parents only can purchase a private hotel room at $150/night through partner hotels. Wrestlers cannot stay in a room alone.", tags:["private","room","parent","alone","upgrade","own room"]},
+  {q:"What if we live close, or have family nearby?", a:"Sign up as a commuter and attend camp each day — meals are still included.", tags:["commuter","commute","local","daily","drive","day","close","nearby"]},
+  {q:"What is the Parent/Child camp option?", a:"Future Champions (ages 6-9) require a parent to attend; the fee includes a hotel room and parent meals. Older campers' parents may also attend — rooms are $150/night and meals $45/day.", tags:["parent","child","future champions","young","little","beginner","family"]},
+  {q:"Do we have to book the private room through you?", a:"No — you are free to make your own arrangements. The discounted rate is just an optional service we offer.", tags:["private","room","own","book","arrange","hotel","optional"]},
+  {q:"Can my child request a roommate?", a:"Yes — request it on the camp application or email Beth@kenchertow.com before June 1st.", tags:["roommate","request","friend","room","pair","share","beth"]},
+  {q:"How are roommates determined if I do not request one?", a:"Roommates are paired by camp type first, then grade and weight.", tags:["roommate","determined","assigned","pair","who","room","share"]},
+  {q:"Can I cancel my registration?", a:"Two options: (1) camp credit — full before June 1st, 50% after, none after June 25th or for a no-show — with a doctor's note; or (2) buy registration protection for a 100% refund for qualifying unforeseen circumstances.", tags:["cancel","refund","cancellation","money back","credit","change","protection"]},
+];
+
+/* ============ ASK COACH ASSISTANT ============ */
+const panel = document.getElementById('coachPanel');
+const logEl = document.getElementById('coachLog');
+const chipsEl = document.getElementById('coachChips');
+const STOP = new Set(["the","a","an","is","are","am","do","does","did","i","my","me","we","our","us","to","of","for","and","or","you","your","it","its","this","that","what","whats","what's","how","can","could","should","would","when","will","there","please","with","on","in","at","as","be","have","has","had","get","got","about","into","if","so","just","need","want","camp","camps","option","options","wrestler","wrestlers"]);
+function tok(s){ return s.toLowerCase().replace(/[^a-z0-9'\s]/g,' ').split(/\s+/).filter(w=>w && w.length>1 && !STOP.has(w)); }
+const FN = FAQS.length, DF = {};
+FAQS.forEach(f=>{
+  f._tagset = new Set(f.tags.map(t=>t.toLowerCase()));
+  f._words = new Set([...tok(f.q), ...f.tags.flatMap(t=>tok(t))]);
+  f._hay = (f.q+' '+f.tags.join(' ')).toLowerCase();
+  f._phrases = f.tags.filter(t=>t.indexOf(' ')>=0).map(t=>t.toLowerCase());
+  f._words.forEach(w=> DF[w]=(DF[w]||0)+1);
+});
+function idf(t){ return Math.log(1 + FN/(DF[t]||0.5)); }
+function scoreFaq(qw, raw, f){
+  let s=0;
+  qw.forEach(t=>{
+    if(f._tagset.has(t)) s += 3*idf(t);
+    else if(f._words.has(t)) s += 2*idf(t);
+    else if(t.length>3 && f._hay.includes(t)) s += idf(t);
+  });
+  f._phrases.forEach(ph=>{ if(raw.indexOf(ph)>=0) s += 5; });
+  return s;
+}
+function bestMatches(q){
+  const raw=q.toLowerCase(), w=tok(q); if(!w.length) return [];
+  return FAQS.map(f=>({f,s:scoreFaq(w,raw,f)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
+}
+function addMsg(html, who='bot'){
+  const wrap=document.createElement('div');
+  wrap.className='msg flex '+(who==='user'?'justify-end':'justify-start');
+  wrap.innerHTML = who==='user'
+    ? `<div class="bg-red/90 text-white rounded-2xl rounded-br-sm px-4 py-2.5 max-w-[82%]">${html}</div>`
+    : `<div class="rounded-2xl rounded-bl-sm px-4 py-2.5 max-w-[88%] text-white/90" style="background:#0c2244;">${html}</div>`;
+  logEl.appendChild(wrap); logEl.scrollTop=logEl.scrollHeight;
+}
+function typing(){
+  const t=document.createElement('div'); t.className='msg flex justify-start'; t.id='typing';
+  t.innerHTML=`<div class="typing rounded-2xl px-4 py-3" style="background:#0c2244;"><span></span><span></span><span></span></div>`;
+  logEl.appendChild(t); logEl.scrollTop=logEl.scrollHeight;
+}
+function answer(q){
+  addMsg(q,'user');
+  typing();
+  setTimeout(()=>{
+    document.getElementById('typing')?.remove();
+    const m = bestMatches(q);
+    if(!m.length || m[0].s < 3.5){
+      addMsg(`I'm not totally sure on that one — Coach's team can help directly at <a href="mailto:camps@kenchertow.com" class="text-gold underline">camps@kenchertow.com</a>. Meanwhile, try asking about <em>cost, lodging, what to bring, airport pickup,</em> or <em>cancellation</em>.`);
+      return;
+    }
+    const top = m[0].f;
+    addMsg(`<div class="text-gold eyebrow text-[10px] mb-1">${top.q}</div>${top.a}`);
+    const related = m.slice(1,3).filter(x=>x.s>=3.5).map(x=>x.f.q);
+    if(related.length){
+      chipsEl.innerHTML = related.map(q=>`<button class="chip eyebrow text-[10px] text-white/70 border border-white/20 rounded-full px-3 py-1.5">${q}</button>`).join('');
+      bindChips();
+    }
+  }, 480);
+}
+const DEFAULT_CHIPS = ["What is included in the price?","What should I bring?","Do you pick up from the airport?","What's the cancellation policy?","How are campers supervised?"];
+function renderDefaultChips(){
+  chipsEl.innerHTML = DEFAULT_CHIPS.map(q=>`<button class="chip eyebrow text-[10px] text-white/70 border border-white/20 rounded-full px-3 py-1.5">${q}</button>`).join('');
+  bindChips();
+}
+function bindChips(){
+  chipsEl.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{ answer(c.textContent); }));
+}
+let coachOpened=false;
+function openCoach(){
+  panel.classList.add('open');
+  document.getElementById('coachBtn').style.display='none';
+  if(!coachOpened){
+    coachOpened=true;
+    addMsg(`Hey! I'm Coach Chertow's camp assistant 🤼 Ask me anything about the 2026 camps — pricing, lodging, what to pack, travel, you name it. I answer instantly.`);
+    renderDefaultChips();
+  }
+  setTimeout(()=>document.getElementById('coachInput').focus(),250);
+}
+function closeCoach(){ panel.classList.remove('open'); document.getElementById('coachBtn').style.display='flex'; }
+document.getElementById('coachBtn').addEventListener('click',openCoach);
+document.getElementById('coachClose').addEventListener('click',closeCoach);
+document.getElementById('coachForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  const inp=document.getElementById('coachInput'); const v=inp.value.trim();
+  if(!v) return; inp.value=''; answer(v);
+});
+
+/* ============ FAQ ACCORDION (top 6) ============ */
+const accWrap=document.getElementById('faqAccordion');
+[4,7,3,13,16,29].map(i=>FAQS[i]).forEach((f,idx)=>{
+  const el=document.createElement('div'); el.className='card rounded-sm overflow-hidden';
+  el.innerHTML=`
+    <button class="acc-toggle w-full flex items-center justify-between gap-4 text-left px-6 py-5">
+      <span class="font-display uppercase tracking-wide text-white text-[15px]">${f.q}</span>
+      <span class="acc-icon text-gold text-2xl leading-none shrink-0">+</span>
+    </button>
+    <div class="acc-body"><p class="px-6 pb-6 text-white/65 text-sm leading-relaxed">${f.a}</p></div>`;
+  accWrap.appendChild(el);
+});
+document.querySelectorAll('.acc-toggle').forEach(btn=>btn.addEventListener('click',()=>{
+  const body=btn.nextElementSibling, icon=btn.querySelector('.acc-icon');
+  const open=body.style.maxHeight && body.style.maxHeight!=='0px';
+  document.querySelectorAll('.acc-body').forEach(b=>b.style.maxHeight='0px');
+  document.querySelectorAll('.acc-icon').forEach(i=>i.textContent='+');
+  if(!open){ body.style.maxHeight=body.scrollHeight+'px'; icon.textContent='–'; }
+}));
+
+/* ============ HEADER + NAV + REVEAL ============ */
+const hdr=document.getElementById('hdr');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled', scrollY>40));
+const mm=document.getElementById('mobileMenu');
+document.getElementById('navToggle').addEventListener('click',()=>mm.classList.toggle('hidden'));
+mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mm.classList.add('hidden')));
+const io=new IntersectionObserver((es)=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
