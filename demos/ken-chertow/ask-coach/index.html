@@ -120,6 +120,7 @@ function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g
 function render(text){
   let t = esc(text);
   t = t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  t = t.replace(/\*(\S[^*\n]*?)\*/g,'<em>$1</em>');
   // bullet lists: lines starting with - or •
   t = t.replace(/(?:^|\n)[\-•] (.+)/g, (m,c)=>`\n<li>${c}</li>`);
   t = t.replace(/(<li>[\s\S]*<\/li>)/g, m=>`<ul>${m.replace(/\n/g,'')}</ul>`);
