@@ -1,0 +1,8 @@
+{
+  "_README": "Beth edits these numbers. They show parents a gentle 'spots left' nudge and gray out a camp when it hits 0. It's a room-block count for resident spots — set to a high number (e.g. 99) to effectively hide the nudge. Commit/save and it updates within a minute. Nothing here charges or holds a real spot — RegFox is still the system of record.",
+  "updated": "2026-06-05",
+  "pennsylvania": {
+    "residentSpotsLeft": 22,
+    "showNudgeUnder": 25
+  }
+}
