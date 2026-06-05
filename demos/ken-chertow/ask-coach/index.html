@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#071426">
+<title>Coach Ken's Camp Assistant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#071426; --navy-2:#0c1f3a; --gold:#ECB838; --gold-d:#C88C1E;
+    --ink:#1d2430; --muted:#6b7280; --line:#e7e9ee; --bg:#f4f6f9;
+    --user:#0c1f3a; --coach:#ffffff;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;color:var(--ink);display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+
+  /* Header */
+  header{background:var(--navy);color:#fff;padding:14px 18px;display:flex;align-items:center;gap:13px;flex-shrink:0;box-shadow:0 2px 14px rgba(7,20,38,.18);z-index:5}
+  .badge{width:46px;height:46px;border-radius:12px;background:linear-gradient(150deg,var(--gold),var(--gold-d));display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+  .badge svg{width:26px;height:26px}
+  .h-txt h1{margin:0;font-size:17px;font-weight:700;letter-spacing:-.01em;line-height:1.15}
+  .h-txt p{margin:2px 0 0;font-size:11.5px;color:#aab6c8;font-weight:500}
+  .pill{margin-left:auto;font-size:9px;font-weight:700;letter-spacing:.13em;color:var(--navy);background:var(--gold);padding:4px 9px;border-radius:20px;text-transform:uppercase;white-space:nowrap}
+
+  /* Chat scroll */
+  #chat{flex:1;overflow-y:auto;padding:20px 16px 8px;-webkit-overflow-scrolling:touch}
+  .wrap{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+  .row{display:flex;gap:9px;align-items:flex-end}
+  .row.me{justify-content:flex-end}
+  .av{width:30px;height:30px;border-radius:50%;background:linear-gradient(150deg,var(--gold),var(--gold-d));flex-shrink:0;display:flex;align-items:center;justify-content:center;font-weight:800;color:var(--navy);font-size:12px;box-shadow:0 1px 4px rgba(0,0,0,.15)}
+  .bubble{max-width:80%;padding:11px 14px;border-radius:16px;font-size:14.5px;line-height:1.5;box-shadow:0 1px 2px rgba(16,24,40,.06)}
+  .coach .bubble{background:var(--coach);border:1px solid var(--line);border-bottom-left-radius:5px}
+  .me .bubble{background:var(--user);color:#fff;border-bottom-right-radius:5px}
+  .bubble strong{font-weight:700}
+  .bubble a{color:var(--gold-d);font-weight:600}
+  .me .bubble a{color:var(--gold)}
+  .bubble ul{margin:7px 0 2px;padding-left:18px}
+  .bubble li{margin:2px 0}
+
+  /* typing */
+  .dots{display:inline-flex;gap:4px;padding:3px 0}
+  .dots span{width:7px;height:7px;border-radius:50%;background:#c2c8d2;animation:b 1.2s infinite ease-in-out}
+  .dots span:nth-child(2){animation-delay:.18s}.dots span:nth-child(3){animation-delay:.36s}
+  @keyframes b{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-3px)}}
+
+  /* starter chips */
+  #chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+  .chip{background:#fff;border:1px solid var(--line);color:var(--navy-2);font:inherit;font-size:13px;font-weight:500;padding:9px 13px;border-radius:20px;cursor:pointer;transition:.15s}
+  .chip:hover{border-color:var(--gold);background:#fffdf6}
+
+  /* composer */
+  footer{flex-shrink:0;background:#fff;border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+  .composer{max-width:680px;margin:0 auto;display:flex;align-items:flex-end;gap:9px;background:var(--bg);border:1px solid var(--line);border-radius:24px;padding:5px 5px 5px 16px}
+  .composer:focus-within{border-color:var(--gold);background:#fff}
+  textarea{flex:1;border:0;background:transparent;resize:none;font:inherit;font-size:15px;line-height:1.4;max-height:120px;padding:8px 0;outline:none;color:var(--ink)}
+  #send{width:40px;height:40px;border-radius:50%;border:0;background:var(--navy);color:var(--gold);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:.15s}
+  #send:disabled{opacity:.4;cursor:default}
+  #send:not(:disabled):hover{background:var(--navy-2)}
+  #send svg{width:19px;height:19px}
+  .foot-note{max-width:680px;margin:7px auto 0;text-align:center;font-size:11px;color:var(--muted)}
+  .foot-note a{color:var(--gold-d);text-decoration:none;font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <div class="badge" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.4 4.9 5.4.8-3.9 3.8.9 5.4L12 15.4 7.2 17l.9-5.4L4.2 7.7l5.4-.8L12 2z" fill="#071426"/></svg>
+  </div>
+  <div class="h-txt">
+    <h1>Coach Ken's Camp Assistant</h1>
+    <p>Gold Medal Training Camps · registration &amp; logistics help</p>
+  </div>
+  <span class="pill">Private preview</span>
+</header>
+
+<div id="chat">
+  <div class="wrap" id="wrap">
+    <div class="row coach">
+      <div class="av">K</div>
+      <div class="bubble">
+        Hey, I'm Coach Ken's camp assistant. 👋 Ask me anything about camp — cost, check-in, what to pack, housing, or how to register. What can I help you with?
+        <div id="chips">
+          <button class="chip">How much does camp cost?</button>
+          <button class="chip">What time is check-in?</button>
+          <button class="chip">Resident vs. commuter — what's the difference?</button>
+          <button class="chip">What should my wrestler pack?</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="composer">
+    <textarea id="input" rows="1" placeholder="Ask Coach a question…" autocomplete="off"></textarea>
+    <button id="send" aria-label="Send" disabled>
+      <svg viewBox="0 0 24 24" fill="none"><path d="M4 12l16-8-5 16-3.5-6L4 12z" fill="currentColor"/></svg>
+    </button>
+  </div>
+  <div class="foot-note">Always double-check with <a href="mailto:camps@kenchertow.com">camps@kenchertow.com</a> · <span style="opacity:.7">Powered by Vision Genesis</span></div>
+</footer>
+
+<script>
+const ENDPOINT = "https://vg-worker.visiongenesis.workers.dev/ask-coach";
+const wrap  = document.getElementById('wrap');
+const chat  = document.getElementById('chat');
+const input = document.getElementById('input');
+const send  = document.getElementById('send');
+const history = [];   // {role, content}
+let busy = false;
+
+/* ---- safe-ish renderer: escape, then bold / bullets / links ---- */
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function render(text){
+  let t = esc(text);
+  t = t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
+  // bullet lists: lines starting with - or •
+  t = t.replace(/(?:^|\n)[\-•] (.+)/g, (m,c)=>`\n<li>${c}</li>`);
+  t = t.replace(/(<li>[\s\S]*<\/li>)/g, m=>`<ul>${m.replace(/\n/g,'')}</ul>`);
+  t = t.replace(/([\w.+-]+@[\w-]+\.[\w.-]+)/g,'<a href="mailto:$1">$1</a>');
+  t = t.replace(/\bhttps?:\/\/[^\s<]+/g, u=>`<a href="${u}" target="_blank" rel="noopener">${u}</a>`);
+  t = t.replace(/\n/g,'<br>');
+  return t;
+}
+function bubble(role, html, av){
+  const row = document.createElement('div');
+  row.className = 'row ' + (role==='user'?'me':'coach');
+  row.innerHTML = (role==='user'?'':`<div class="av">${av||'K'}</div>`) + `<div class="bubble">${html}</div>`;
+  wrap.appendChild(row);
+  chat.scrollTop = chat.scrollHeight;
+  return row;
+}
+function typing(){
+  const row = document.createElement('div');
+  row.className='row coach'; row.id='typing';
+  row.innerHTML = `<div class="av">K</div><div class="bubble"><span class="dots"><span></span><span></span><span></span></span></div>`;
+  wrap.appendChild(row); chat.scrollTop = chat.scrollHeight;
+}
+function stopTyping(){const t=document.getElementById('typing'); if(t) t.remove();}
+
+async function ask(text){
+  if(busy || !text.trim()) return;
+  busy = true; send.disabled = true;
+  const chips = document.getElementById('chips'); if(chips) chips.remove();
+  bubble('user', esc(text));
+  history.push({role:'user', content:text});
+  input.value=''; autosize();
+  typing();
+  try{
+    const r = await fetch(ENDPOINT,{
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({messages: history.slice(-12)})
+    });
+    const data = await r.json();
+    stopTyping();
+    const reply = (data && data.reply) || "Sorry — I had trouble there. Email camps@kenchertow.com and they'll help you out.";
+    bubble('coach', render(reply));
+    history.push({role:'assistant', content:reply});
+  }catch(e){
+    stopTyping();
+    bubble('coach', render("Sorry — I couldn't reach the camp office just now. Please email camps@kenchertow.com and they'll take care of you."));
+  }finally{
+    busy=false; send.disabled = !input.value.trim(); input.focus();
+  }
+}
+
+/* ---- input wiring ---- */
+function autosize(){input.style.height='auto'; input.style.height=Math.min(input.scrollHeight,120)+'px';}
+input.addEventListener('input', ()=>{autosize(); send.disabled = busy || !input.value.trim();});
+input.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){e.preventDefault(); ask(input.value);} });
+send.addEventListener('click', ()=>ask(input.value));
+document.addEventListener('click', e=>{ if(e.target.classList.contains('chip')) ask(e.target.textContent); });
+</script>
+</body>
+</html>
