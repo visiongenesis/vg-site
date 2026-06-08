@@ -316,8 +316,9 @@ function wireReserve(c, isRes, base){
     document.getElementById('capture').innerHTML = `
       <div class="reserved">
         <div class="rh">You're on your way${name?', '+name.split(' ')[0]:''}.</div>
-        <p>Your spot for <b>${who().t} · ${c.name}</b> is held. Next is <b>secure checkout</b> — the wrestler details and full payment (about 5 minutes).</p>
-        <p id="cdline">Opening secure checkout in a new tab in <b><span id="cd">5</span></b>… <a id="opennow" href="${url}" target="_blank" rel="noopener">open it now →</a></p>
+        <p>Your spot for <b>${who().t} · ${c.name}</b> is held. Next is <b>secure checkout</b> — wrestler details and full payment (about 5 minutes).</p>
+        <a class="cta" id="gocheckout" href="${url}" target="_blank" rel="noopener" style="margin-top:14px;">Open Secure Checkout <span class="arr">→</span></a>
+        <p id="cdline" class="dim" style="text-align:center;margin-top:9px;">Opening it for you in <b><span id="cd">5</span></b>…</p>
         <p class="dim">You can come back to this page anytime for the camp you picked.</p>
       </div>`;
     let n=5;
@@ -326,12 +327,11 @@ function wireReserve(c, isRes, base){
       if(n<=0){
         clearInterval(t);
         window.open(url, '_blank', 'noopener');
-        const line=document.getElementById('cdline');
-        if(line) line.innerHTML = `Secure checkout should be open in a new tab. <a href="${url}" target="_blank" rel="noopener">Didn't open? Tap here →</a>`;
+        const line=document.getElementById('cdline'); if(line) line.textContent = "If it didn't open, tap the gold button above.";
       }
     }, 1000);
-    const on=document.getElementById('opennow');
-    if(on) on.addEventListener('click', ()=>clearInterval(t)); // their tap opens it; cancel the auto-open
+    const go=document.getElementById('gocheckout');
+    if(go) go.addEventListener('click', ()=>{ clearInterval(t); const l=document.getElementById('cdline'); if(l) l.remove(); }); // their tap opens it reliably
   };
 }
 function go(step){ S.step=step; render(); }
