@@ -40,8 +40,13 @@
   .bubble strong{font-weight:700}
   .bubble a{color:var(--gold-d);font-weight:600}
   .me .bubble a{color:var(--gold)}
-  .bubble ul{margin:7px 0 2px;padding-left:18px}
-  .bubble li{margin:2px 0}
+  .bubble p{margin:0 0 9px}
+  .bubble p:last-child{margin:0}
+  .bubble p.sub{font-weight:700;color:var(--navy-2);margin:12px 0 5px}
+  .bubble p.sub:first-child{margin-top:0}
+  .bubble ul,.bubble ol{margin:5px 0 10px;padding-left:20px}
+  .bubble ul:last-child,.bubble ol:last-child{margin-bottom:0}
+  .bubble li{margin:3px 0;padding-left:3px}
 
   /* typing */
   .dots{display:inline-flex;gap:4px;padding:3px 0}
@@ -115,19 +120,39 @@ const send  = document.getElementById('send');
 const history = [];   // {role, content}
 let busy = false;
 
-/* ---- safe-ish renderer: escape, then bold / bullets / links ---- */
+/* ---- line-based markdown renderer (bold/italic, bullets, numbers, links) ---- */
 function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function inline(s){
+  return esc(s)
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/(^|[^*])\*(?!\s)([^*\n]+?)\*(?!\*)/g,'$1<em>$2</em>')
+    .replace(/\b([\w.+-]+@[\w-]+\.[\w.-]+)\b/g,'<a href="mailto:$1">$1</a>')
+    .replace(/\bhttps?:\/\/[^\s<]+/g, u=>`<a href="${u}" target="_blank" rel="noopener">${u}</a>`);
+}
 function render(text){
-  let t = esc(text);
-  t = t.replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>');
-  t = t.replace(/\*(\S[^*\n]*?)\*/g,'<em>$1</em>');
-  // bullet lists: lines starting with - or •
-  t = t.replace(/(?:^|\n)[\-•] (.+)/g, (m,c)=>`\n<li>${c}</li>`);
-  t = t.replace(/(<li>[\s\S]*<\/li>)/g, m=>`<ul>${m.replace(/\n/g,'')}</ul>`);
-  t = t.replace(/([\w.+-]+@[\w-]+\.[\w.-]+)/g,'<a href="mailto:$1">$1</a>');
-  t = t.replace(/\bhttps?:\/\/[^\s<]+/g, u=>`<a href="${u}" target="_blank" rel="noopener">${u}</a>`);
-  t = t.replace(/\n/g,'<br>');
-  return t;
+  const lines = String(text).replace(/\r/g,'').split('\n');
+  let html='', listType=null;
+  const closeList=()=>{ if(listType){ html+= listType==='ol'?'</ol>':'</ul>'; listType=null; } };
+  for (const raw of lines){
+    const line = raw.trim();
+    if (!line){ closeList(); continue; }
+    const ul = line.match(/^[-•*]\s+(.*)/);
+    const ol = line.match(/^\d+[.)]\s+(.*)/);
+    if (ul){
+      if(listType!=='ul'){ closeList(); html+='<ul>'; listType='ul'; }
+      html += `<li>${inline(ul[1])}</li>`;
+    } else if (ol){
+      if(listType!=='ol'){ closeList(); html+='<ol>'; listType='ol'; }
+      html += `<li>${inline(ol[1])}</li>`;
+    } else {
+      closeList();
+      // a short "Header:" line gets a touch more weight/space
+      const head = /^.{1,32}:$/.test(line.replace(/\*\*/g,''));
+      html += `<p${head?' class="sub"':''}>${inline(line)}</p>`;
+    }
+  }
+  closeList();
+  return html;
 }
 function bubble(role, html, av){
   const row = document.createElement('div');
