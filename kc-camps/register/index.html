@@ -136,6 +136,7 @@
     padding:13px 14px;font-family:'Montserrat';font-size:16px;color:#fff;outline:none}
   .fld input:focus{border-color:var(--gold);background:rgba(255,255,255,.08)}
   .fld input::placeholder{color:#6f7d97}
+  .intro{font-size:14.5px;color:#cfd9e8;line-height:1.55;margin:2px 0 0}
   .reserved{margin-top:16px;border:1px solid rgba(54,210,122,.45);background:rgba(54,210,122,.09);border-radius:8px;padding:17px 18px}
   .reserved .rh{font-family:'Oswald';text-transform:uppercase;letter-spacing:.03em;font-weight:600;font-size:18px;color:#fff;margin-bottom:7px}
   .reserved p{margin:7px 0 0;font-size:13.5px;line-height:1.5;color:#cfd9e8}
@@ -151,7 +152,7 @@
     <span class="pill-reg">2026</span>
   </header>
 
-  <div class="prog" id="prog"><i></i><i></i><i></i><i></i></div>
+  <div class="prog" id="prog"><i></i><i></i><i></i><i></i><i></i></div>
 
   <main>
     <div class="lead"><div class="kc">KC</div><div class="say" id="say">Let's get your wrestler signed up. I'll walk you through it — takes about a minute.</div></div>
@@ -182,10 +183,10 @@ const WHO = [
   {id:'youth', t:'Youth · 6–13', d:'Future Champions, Kids &amp; SuperKid'},
 ];
 const TEEN = [
-  {id:'tech4',  name:'Gold Medal Technique Camp', dur:'4-Day', dates:'Jun 28 – Jul 1 or Jul 5 – 8', comm:625, res:700, nights:3, blurb:'Sharpen fundamentals. A strong first camp.'},
-  {id:'train6', name:'Gold Medal Training Camp',  dur:'6-Day', dates:'Jun 28 – Jul 3 or Jul 5 – 10', comm:850, res:950, nights:5, blurb:'The classic — technique plus live wrestling.'},
-  {id:'train11',name:'Gold Medal Training Camp',  dur:'11-Day',dates:'Jun 28 – Jul 8', comm:1750, res:1950, nights:10, blurb:'Go deeper. Eleven days on the mat.'},
-  {id:'super13',name:'Super Gold Medal Training Camp', dur:'13-Day', dates:'Jun 28 – Jul 10', comm:1900, res:2150, nights:12, tag:'Most Intensive', blurb:'Two weeks. Built for college aspirations.'},
+  {id:'tech4',  name:'Gold Medal Technique Camp', dur:'4-Day', dates:'Jun 28 – Jul 1 or Jul 5 – 8', comm:625, res:700, blurb:'Sharpen fundamentals. A strong first camp.'},
+  {id:'train6', name:'Gold Medal Training Camp',  dur:'6-Day', dates:'Jun 28 – Jul 3 or Jul 5 – 10', comm:850, res:950, blurb:'The classic — technique plus live wrestling.'},
+  {id:'train11',name:'Gold Medal Training Camp',  dur:'11-Day',dates:'Jun 28 – Jul 8', comm:1750, res:1950, blurb:'Go deeper. Eleven days on the mat.'},
+  {id:'super13',name:'Super Gold Medal Training Camp', dur:'13-Day', dates:'Jun 28 – Jul 10', comm:1900, res:2150, tag:'Most Intensive', blurb:'Two weeks. Built for college aspirations.'},
 ];
 const CATALOG = {
   boys: TEEN,
@@ -193,31 +194,39 @@ const CATALOG = {
     ? {...c, name:'SuperGirl Training Camp', blurb:'Two weeks. Our most intensive girls camp.'}
     : c),
   youth: [
-    {id:'fc4',       name:'Future Champions Parent/Child', dur:'4-Day', dates:'Grades 1–3 · a parent attends', comm:575, res:1000, nights:3, blurb:'A parent trains alongside their young wrestler.'},
-    {id:'kids6',     name:'Kids Training Camp', dur:'6-Day', dates:'Grades 3–7', comm:850, res:950, nights:5, blurb:'Six days built for younger wrestlers.'},
-    {id:'superkid11',name:'SuperKid Technique &amp; Training', dur:'11-Day', dates:'Grades 4–7 · Jun 28 – Jul 8', comm:1750, res:1950, nights:10, tag:'Most Intensive', blurb:'Our deepest youth camp — eleven days.'},
+    {id:'fc4',       name:'Future Champions Parent/Child', dur:'4-Day', dates:'Grades 1–3 · a parent attends', comm:575, res:1000, blurb:'A parent trains alongside their young wrestler.'},
+    {id:'kids6',     name:'Kids Training Camp', dur:'6-Day', dates:'Grades 3–7', comm:850, res:950, blurb:'Six days built for younger wrestlers.'},
+    {id:'superkid11',name:'SuperKid Technique &amp; Training', dur:'11-Day', dates:'Grades 4–7 · Jun 28 – Jul 8', comm:1750, res:1950, tag:'Most Intensive', blurb:'Our deepest youth camp — eleven days.'},
   ],
 };
-const NIGHT_RATE = 50;
 const usd = n => '$' + n.toLocaleString('en-US');
 const LEAD_ENDPOINT = 'https://vg-worker.visiongenesis.workers.dev/lead';
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+// AskCoach passes camp by friendly slug; map to our internal ids.
 const CAMP_SLUGS = { technique:'tech4', training6:'train6', training11:'train11', supergold:'super13', supergirl:'super13',
                      futurechamps:'fc4', kids:'kids6', superkid:'superkid11' };
 
-const S = { who:null, housing:null, campId:null, step:0 };
+// steps: 0=email · 1=who · 2=housing · 3=camp · 4=reserve
+const S = { email:'', name:'', who:null, housing:null, campId:null, step:0 };
 
-// Deep-link from AskCoach / email: ?who=boys&housing=resident&camp=supergold
-(function initFromParams(){
+(function boot(){
+  // Email handed over from AskCoach (same-origin localStorage); read once, then clear.
+  try { const e = localStorage.getItem('kcRegEmail'); if(e && EMAIL_RE.test(e)){ S.email=e; localStorage.removeItem('kcRegEmail'); } } catch(_){}
+  // Deep-link from AskCoach: ?who=girls&housing=resident&camp=supergold (no email in URL).
   const p = new URLSearchParams(location.search);
   const who = (p.get('who')||'').toLowerCase();
-  if(!['boys','girls','youth'].includes(who)) return;
-  S.who = who;
-  const h = (p.get('housing')||'').toLowerCase();
-  if(h==='resident'||h==='res') S.housing='res';
-  else if(h==='commuter'||h==='comm') S.housing='comm';
-  const cid = CAMP_SLUGS[(p.get('camp')||'').toLowerCase()];
-  if(cid && (CATALOG[who]||[]).some(c=>c.id===cid)) S.campId=cid;
-  S.step = (S.who && S.housing && S.campId) ? 3 : (S.who && S.housing) ? 2 : 1;
+  if(['boys','girls','youth'].includes(who)){
+    S.who = who;
+    const h=(p.get('housing')||'').toLowerCase();
+    if(h==='resident'||h==='res') S.housing='res'; else if(h==='commuter'||h==='comm') S.housing='comm';
+    const cid = CAMP_SLUGS[(p.get('camp')||'').toLowerCase()];
+    if(cid && (CATALOG[who]||[]).some(c=>c.id===cid)) S.campId=cid;
+  }
+  if(S.who && S.housing && S.campId) S.step=4;        // AskCoach handed off a full pick -> reserve
+  else if(S.who && S.housing) S.step=3;
+  else if(S.who) S.step=2;
+  else if(S.email) S.step=1;                          // email already in hand -> skip the email step
+  else S.step=0;
 })();
 
 let AVAIL = null;
@@ -233,26 +242,52 @@ const paResident=()=>AVAIL?.pennsylvania?.residentSpotsLeft ?? 99;
 function nudge(){ const n=paResident(), u=AVAIL?.pennsylvania?.showNudgeUnder ?? 0;
   return (n>0&&n<=u) ? `<div class="nudge">Only ${n} resident spots left</div>` : ''; }
 
+// Fire a lead the moment we have an email (winback insurance), and again with the name at reserve.
+function fireLead(source){
+  if(!EMAIL_RE.test(S.email||'')) return;
+  const c=camp();
+  fetch(LEAD_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({ email:S.email, name:S.name||'', who:S.who||'',
+      housing: S.housing==='res'?'resident':S.housing==='comm'?'commuter':'',
+      camp: c?`${c.name} · ${c.dur}`:'', price: c?(S.housing==='res'?c.res:c.comm):null, source })}).catch(()=>{});
+}
+
 function render(){
   setProg();
-  if (S.step===0) return stepWho();
-  if (S.step===1) return stepHousing();
-  if (S.step===2) return stepCamp();
-  return stepSummary();
+  if (S.step===0) return stepEmail();
+  if (S.step===1) return stepWho();
+  if (S.step===2) return stepHousing();
+  if (S.step===3) return stepCamp();
+  return stepReserve();
 }
+
+function stepEmail(){
+  say.textContent = "Let's get you set up — what's the best email for you?";
+  main.innerHTML = `<div class="step-h">Step 1 · Your email</div>
+    <p class="intro">Drop your email and Coach Ken's team will walk you the rest of the way. We'll use it to hold your spot and send your confirmation — nothing else.</p>
+    <label class="fld"><span>Parent / guardian email</span><input id="e0" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" value="${S.email||''}"></label>
+    <button class="cta" id="e0next" disabled>Continue <span class="arr">→</span></button>`;
+  const el=document.getElementById('e0'), btn=document.getElementById('e0next');
+  const upd=()=>btn.disabled=!EMAIL_RE.test(el.value.trim());
+  el.addEventListener('input', upd);
+  el.addEventListener('keydown', e=>{ if(e.key==='Enter' && EMAIL_RE.test(el.value.trim())) btn.click(); });
+  btn.onclick=()=>{ S.email=el.value.trim(); fireLead('funnel-email'); S.step=1; render(); };
+  upd();
+}
+
 function stepWho(){
-  say.textContent = "First — who are we getting on the mat?";
-  let h = `<div class="step-h">Step 1 · Who's signing up</div><div class="cards">`;
+  say.textContent = "Who are we getting on the mat?";
+  let h = `<button class="back" onclick="go(0)">‹ Email</button><div class="step-h">Step 2 · Who's signing up</div><div class="cards">`;
   WHO.forEach(w=>{ h+=`<button class="card ${S.who===w.id?'sel':''}" onclick="pickWho('${w.id}')">
     <div class="body"><div class="t">${w.t}</div><div class="d">${w.d}</div></div><div class="chev">›</div></button>`; });
   main.innerHTML = h+`</div>`;
 }
-function pickWho(id){ S.who=id; S.campId=null; S.step=1; render(); }
+function pickWho(id){ S.who=id; S.campId=null; S.step=2; render(); }
 
 function stepHousing(){
   say.textContent = `Got it — ${who().t}. Staying with us, or driving in each day?`;
-  main.innerHTML = `<button class="back" onclick="go(0)">‹ Who</button>
-    <div class="step-h">Step 2 · How they'll attend</div>
+  main.innerHTML = `<button class="back" onclick="go(1)">‹ Who</button>
+    <div class="step-h">Step 3 · How they'll attend</div>
     <div class="cards">
       <button class="card ${S.housing==='res'?'sel':''}" onclick="pickHousing('res')">
         <div class="body"><div class="t">Resident</div><div class="d">Stays in the camp hotel — room and all meals included. The full experience.</div>${nudge()}</div><div class="chev">›</div></button>
@@ -260,12 +295,12 @@ function stepHousing(){
         <div class="body"><div class="t">Commuter</div><div class="d">Attends each day, heads home at night. Lower price; camp-day meals included.</div></div><div class="chev">›</div></button>
     </div>`;
 }
-function pickHousing(h){ S.housing=h; S.step=2; render(); }
+function pickHousing(h){ S.housing=h; S.step=3; render(); }
 
 function stepCamp(){
   const isRes = S.housing==='res';
   say.textContent = `Here are the 2026 ${who().t} ${isRes?'resident':'commuter'} camps. Pick the one that fits.`;
-  let h = `<button class="back" onclick="go(1)">‹ Resident or Commuter</button><div class="step-h">Step 3 · Choose your camp</div><div class="cards">`;
+  let h = `<button class="back" onclick="go(2)">‹ Resident or Commuter</button><div class="step-h">Step 4 · Choose your camp</div><div class="cards">`;
   (CATALOG[S.who]||[]).forEach(c=>{
     const price = isRes ? c.res : c.comm;
     const sub = isRes ? 'hotel + meals included' : 'meals included';
@@ -275,13 +310,13 @@ function stepCamp(){
   });
   main.innerHTML = h+`</div>`;
 }
-function pickCamp(id){ S.campId=id; S.step=3; render(); }
+function pickCamp(id){ S.campId=id; S.step=4; render(); }
 
-function stepSummary(){
+function stepReserve(){
   const c = camp(), isRes = S.housing==='res', base = isRes?c.res:c.comm;
-  say.textContent = "Last step — reserve your spot, then finish at secure checkout.";
-  main.innerHTML = `<button class="back" onclick="go(2)">‹ Choose camp</button>
-    <div class="step-h">Step 4 · Reserve your spot</div>
+  say.textContent = S.email ? "Last step — add your name and reserve your spot." : "Last step — reserve your spot, then finish at secure checkout.";
+  main.innerHTML = `<button class="back" onclick="go(3)">‹ Choose camp</button>
+    <div class="step-h">Step 5 · Reserve your spot</div>
     <div class="receipt">
       <div class="top"><span class="gpill g-${S.who}">${who().t}</span><div class="nm">${c.name}</div><div class="dt">${c.dur} · ${c.dates.split('·')[0].trim()} · Spooky Nook, PA</div></div>
       <div class="rrow"><span class="k">Wrestler</span><span class="v">${who().t}</span></div>
@@ -290,9 +325,9 @@ function stepSummary(){
     </div>
     <div id="capture">
       <label class="fld"><span>Parent / guardian name</span><input id="rname" type="text" autocomplete="name" placeholder="Your name"></label>
-      <label class="fld"><span>Email</span><input id="remail" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com"></label>
+      <label class="fld"><span>Email${S.email?' · edit if needed':''}</span><input id="remail" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com" value="${S.email||''}"></label>
       <button class="cta" id="reserveBtn" disabled>Reserve This Spot <span class="arr">→</span></button>
-      <div class="cta-sub">Opens secure checkout in a new tab — you can always come back here for the camp you picked. About 5 minutes to finish.</div>
+      <div class="cta-sub">Opens secure checkout in a new tab — about 5 minutes to finish.</div>
     </div>
     <div class="ohio"><div class="eb">Also Headed to Ohio?</div><div class="tx">The Ohio camp runs <b>Jul 18–23</b>. There's a <b>$100 multi-camp discount</b> — tap Ask Coach and we'll set it up.</div></div>
     <div class="fineprint">Prices are the real 2026 registration rates — resident is all-in (hotel and meals included). Optional add-ons (apparel, airport shuttle, PURE) and full payment are completed on Coach Ken's secure RegFox checkout.</div>`;
@@ -301,18 +336,14 @@ function stepSummary(){
 
 function wireReserve(c, isRes, base){
   const nameEl=document.getElementById('rname'), emailEl=document.getElementById('remail'), btn=document.getElementById('reserveBtn');
-  const valid=()=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailEl.value.trim());
-  const upd=()=>{ btn.disabled=!valid(); };
-  emailEl.addEventListener('input', upd); nameEl.addEventListener('input', upd);
+  const ok=()=> nameEl.value.trim() && EMAIL_RE.test(emailEl.value.trim());
+  const upd=()=>{ btn.disabled=!ok(); };
+  nameEl.addEventListener('input', upd); emailEl.addEventListener('input', upd); upd();
   btn.onclick=()=>{
-    if(!valid()) return;
-    const name=nameEl.value.trim(), email=emailEl.value.trim();
-    const url=FORMS[S.who];
-    // Capture the lead first (best-effort — never block the family on it).
-    fetch(LEAD_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ name, email, who:S.who, housing:isRes?'resident':'commuter',
-        camp:`${c.name} · ${c.dur}`, price:base, source:'register-funnel' })}).catch(()=>{});
-    // Show the confirmation, let them READ it, then open checkout after a 5s pause.
+    if(!ok()) return;
+    S.name=nameEl.value.trim(); S.email=emailEl.value.trim();
+    const name=S.name, url=FORMS[S.who];
+    fireLead('register-funnel');                 // full record now carries the name
     document.getElementById('capture').innerHTML = `
       <div class="reserved">
         <div class="rh">You're on your way${name?', '+name.split(' ')[0]:''}.</div>
@@ -324,14 +355,11 @@ function wireReserve(c, isRes, base){
     let n=5;
     const t=setInterval(()=>{
       n--; const el=document.getElementById('cd'); if(el) el.textContent=n;
-      if(n<=0){
-        clearInterval(t);
-        window.open(url, '_blank', 'noopener');
-        const line=document.getElementById('cdline'); if(line) line.textContent = "If it didn't open, tap the gold button above.";
-      }
+      if(n<=0){ clearInterval(t); window.open(url, '_blank', 'noopener');
+        const line=document.getElementById('cdline'); if(line) line.textContent = "If it didn't open, tap the gold button above."; }
     }, 1000);
     const go=document.getElementById('gocheckout');
-    if(go) go.addEventListener('click', ()=>{ clearInterval(t); const l=document.getElementById('cdline'); if(l) l.remove(); }); // their tap opens it reliably
+    if(go) go.addEventListener('click', ()=>{ clearInterval(t); const l=document.getElementById('cdline'); if(l) l.remove(); });
   };
 }
 function go(step){ S.step=step; render(); }

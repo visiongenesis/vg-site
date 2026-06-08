@@ -123,6 +123,21 @@
 
 <script>
 const ENDPOINT = "https://vg-worker.visiongenesis.workers.dev/ask-coach";
+const LEAD_ENDPOINT = "https://vg-worker.visiongenesis.workers.dev/lead";
+const EMAIL_RE = /[^@\s]+@[^@\s]+\.[^@\s]+/;
+let emailCaptured = false;
+// When a parent gives their email in chat, stash it (same-origin) so the funnel
+// can prefill it, and log a lead so we can win them back even if they wander off.
+function captureEmail(text){
+  if(emailCaptured) return;
+  const m = String(text).match(EMAIL_RE); if(!m) return;
+  const email = m[0].replace(/[.,;:>)\]]+$/,'');
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) return;
+  emailCaptured = true;
+  try{ localStorage.setItem('kcRegEmail', email); }catch(_){}
+  fetch(LEAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({email, source:'askcoach'})}).catch(()=>{});
+}
 const wrap=document.getElementById('wrap'), chat=document.getElementById('chat'),
       input=document.getElementById('input'), send=document.getElementById('send');
 const history=[]; let busy=false;
@@ -173,7 +188,7 @@ async function ask(text){
   if(busy||!text.trim()) return;
   busy=true; send.disabled=true;
   const chips=document.getElementById('chips'); if(chips) chips.remove();
-  bubble('user', esc(text)); history.push({role:'user',content:text});
+  bubble('user', esc(text)); history.push({role:'user',content:text}); captureEmail(text);
   input.value=''; autosize(); typing();
   try{
     const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history.slice(-12)})});
