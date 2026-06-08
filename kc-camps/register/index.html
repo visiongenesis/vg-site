@@ -120,6 +120,13 @@
   .sheet iframe{flex:1;border:0;width:100%}
   @media(min-width:600px){.ov{align-items:center}.sheet{border-radius:12px;height:82dvh;border-bottom:1px solid rgba(242,183,5,.3)}}
 
+  /* gender badge — strong boys/girls separation */
+  .gpill{display:inline-block;font-family:'Oswald';text-transform:uppercase;letter-spacing:.14em;font-size:10px;font-weight:600;
+    padding:3px 10px;border-radius:3px;margin-bottom:10px;color:#fff}
+  .gpill.g-boys{background:#2b6fd1}
+  .gpill.g-girls{background:#d14d8f}
+  .gpill.g-youth{background:var(--red)}
+
   /* reserve / email capture */
   .cta:disabled{opacity:.4;cursor:default;box-shadow:none}
   .cta:disabled:hover{background:var(--gold);transform:none}
@@ -181,7 +188,10 @@ const TEEN = [
   {id:'super13',name:'Super Gold Medal Training Camp', dur:'13-Day', dates:'Jun 28 – Jul 10', comm:1900, res:2150, nights:12, tag:'Most Intensive', blurb:'Two weeks. Built for college aspirations.'},
 ];
 const CATALOG = {
-  boys: TEEN, girls: TEEN,
+  boys: TEEN,
+  girls: TEEN.map(c => c.id==='super13'
+    ? {...c, name:'SuperGirl Training Camp', blurb:'Two weeks. Our most intensive girls camp.'}
+    : c),
   youth: [
     {id:'fc4',       name:'Future Champions Parent/Child', dur:'4-Day', dates:'Grades 1–3 · a parent attends', comm:575, res:1000, nights:3, blurb:'A parent trains alongside their young wrestler.'},
     {id:'kids6',     name:'Kids Training Camp', dur:'6-Day', dates:'Grades 3–7', comm:850, res:950, nights:5, blurb:'Six days built for younger wrestlers.'},
@@ -191,7 +201,7 @@ const CATALOG = {
 const NIGHT_RATE = 50;
 const usd = n => '$' + n.toLocaleString('en-US');
 const LEAD_ENDPOINT = 'https://vg-worker.visiongenesis.workers.dev/lead';
-const CAMP_SLUGS = { technique:'tech4', training6:'train6', training11:'train11', supergold:'super13',
+const CAMP_SLUGS = { technique:'tech4', training6:'train6', training11:'train11', supergold:'super13', supergirl:'super13',
                      futurechamps:'fc4', kids:'kids6', superkid:'superkid11' };
 
 const S = { who:null, housing:null, campId:null, step:0 };
@@ -254,7 +264,7 @@ function pickHousing(h){ S.housing=h; S.step=2; render(); }
 
 function stepCamp(){
   const isRes = S.housing==='res';
-  say.textContent = `Here are the real 2026 ${isRes?'resident':'commuter'} camps. Pick the one that fits.`;
+  say.textContent = `Here are the 2026 ${who().t} ${isRes?'resident':'commuter'} camps. Pick the one that fits.`;
   let h = `<button class="back" onclick="go(1)">‹ Resident or Commuter</button><div class="step-h">Step 3 · Choose your camp</div><div class="cards">`;
   (CATALOG[S.who]||[]).forEach(c=>{
     const price = isRes ? c.res : c.comm;
@@ -273,7 +283,7 @@ function stepSummary(){
   main.innerHTML = `<button class="back" onclick="go(2)">‹ Choose camp</button>
     <div class="step-h">Step 4 · Reserve your spot</div>
     <div class="receipt">
-      <div class="top"><div class="nm">${c.name}</div><div class="dt">${c.dur} · ${c.dates.split('·')[0].trim()} · Spooky Nook, PA</div></div>
+      <div class="top"><span class="gpill g-${S.who}">${who().t}</span><div class="nm">${c.name}</div><div class="dt">${c.dur} · ${c.dates.split('·')[0].trim()} · Spooky Nook, PA</div></div>
       <div class="rrow"><span class="k">Wrestler</span><span class="v">${who().t}</span></div>
       <div class="rrow"><span class="k">Attending as</span><span class="v">${isRes?'Resident — hotel + meals included':'Commuter — drives in, meals included'}</span></div>
       <div class="rtot"><span class="k">Camp tuition</span><span class="v">${usd(base)}<small>${isRes?'bed buy-out available — $50/night':'all-in, meals included'}</small></span></div>
@@ -297,19 +307,31 @@ function wireReserve(c, isRes, base){
   btn.onclick=()=>{
     if(!valid()) return;
     const name=nameEl.value.trim(), email=emailEl.value.trim();
-    // Open secure checkout in a new tab WITHIN the click gesture (avoids popup blockers).
-    window.open(FORMS[S.who], '_blank', 'noopener');
-    // Capture the lead (best-effort — never block the family on it).
+    const url=FORMS[S.who];
+    // Capture the lead first (best-effort — never block the family on it).
     fetch(LEAD_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ name, email, who:S.who, housing:isRes?'resident':'commuter',
         camp:`${c.name} · ${c.dur}`, price:base, source:'register-funnel' })}).catch(()=>{});
+    // Show the confirmation, let them READ it, then open checkout after a 5s pause.
     document.getElementById('capture').innerHTML = `
       <div class="reserved">
         <div class="rh">You're on your way${name?', '+name.split(' ')[0]:''}.</div>
-        <p>We opened <b>secure checkout</b> in a new tab — finish the wrestler details and full payment there (about 5 minutes).</p>
-        <p class="dim">Didn't open? <a href="${FORMS[S.who]}" target="_blank" rel="noopener">Tap here to open checkout</a>.</p>
+        <p>Your spot for <b>${who().t} · ${c.name}</b> is held. Next is <b>secure checkout</b> — the wrestler details and full payment (about 5 minutes).</p>
+        <p id="cdline">Opening secure checkout in a new tab in <b><span id="cd">5</span></b>… <a id="opennow" href="${url}" target="_blank" rel="noopener">open it now →</a></p>
         <p class="dim">You can come back to this page anytime for the camp you picked.</p>
       </div>`;
+    let n=5;
+    const t=setInterval(()=>{
+      n--; const el=document.getElementById('cd'); if(el) el.textContent=n;
+      if(n<=0){
+        clearInterval(t);
+        window.open(url, '_blank', 'noopener');
+        const line=document.getElementById('cdline');
+        if(line) line.innerHTML = `Secure checkout should be open in a new tab. <a href="${url}" target="_blank" rel="noopener">Didn't open? Tap here →</a>`;
+      }
+    }, 1000);
+    const on=document.getElementById('opennow');
+    if(on) on.addEventListener('click', ()=>clearInterval(t)); // their tap opens it; cancel the auto-open
   };
 }
 function go(step){ S.step=step; render(); }
