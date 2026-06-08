@@ -185,12 +185,12 @@ async function ask(text){
     });
     const data = await r.json();
     stopTyping();
-    const reply = (data && data.reply) || "Sorry — I had trouble there. Email camps@kenchertow.com and they'll help you out.";
+    const reply = (data && data.reply) || "Sorry — I had trouble there. Email camps@kenchertow.com and Ken, Beth and the team will take great care of you.";
     bubble('coach', render(reply));
     history.push({role:'assistant', content:reply});
   }catch(e){
     stopTyping();
-    bubble('coach', render("Sorry — I couldn't reach the camp office just now. Please email camps@kenchertow.com and they'll take care of you."));
+    bubble('coach', render("Sorry — I couldn't reach the camp office just now. Please email camps@kenchertow.com and Ken, Beth and the team will take great care of you."));
   }finally{
     busy=false; send.disabled = !input.value.trim(); input.focus();
   }
