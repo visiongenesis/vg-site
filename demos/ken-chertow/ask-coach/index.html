@@ -50,6 +50,9 @@
   .bubble ul:last-child,.bubble ol:last-child{margin-bottom:0}
   .bubble li{margin:3px 0;padding-left:3px}
   .bubble li::marker{color:var(--gold)}
+  .bubble table{width:100%;border-collapse:collapse;margin:6px 0 10px;font-size:12.5px}
+  .bubble td{border:1px solid rgba(255,255,255,.12);padding:5px 8px;text-align:left}
+  .bubble tr:first-child td{font-family:'Oswald';text-transform:uppercase;letter-spacing:.03em;font-size:10.5px;color:var(--gold)}
   .bubble a.cta-link{display:inline-block;background:var(--gold);color:#1b1300;font-family:'Oswald';text-transform:uppercase;
     letter-spacing:.05em;font-weight:600;font-size:13px;padding:9px 15px;border-radius:4px;text-decoration:none;margin:7px 0 2px;
     box-shadow:0 10px 26px -14px rgba(242,183,5,.7)}
@@ -135,14 +138,20 @@ function inline(s){
 }
 function render(text){
   const lines=String(text).replace(/\r/g,'').split('\n');
-  let html='', listType=null;
-  const close=()=>{ if(listType){ html+=listType==='ol'?'</ol>':'</ul>'; listType=null; } };
+  let html='', mode=null;
+  const close=()=>{ if(!mode) return; html+= mode==='table'?'</table>':(mode==='ol'?'</ol>':'</ul>'); mode=null; };
   for(const raw of lines){
     const line=raw.trim();
     if(!line){ close(); continue; }
+    if(/^\|(.+)\|$/.test(line)){                       // markdown table row
+      if(/^\|[\s:|-]+\|$/.test(line)) continue;          // skip |---|---| separator
+      if(mode!=='table'){ close(); html+='<table>'; mode='table'; }
+      const cells=line.slice(1,-1).split('|').map(c=>`<td>${inline(c.trim())}</td>`).join('');
+      html+=`<tr>${cells}</tr>`; continue;
+    }
     const ul=line.match(/^[-•*]\s+(.*)/), ol=line.match(/^\d+[.)]\s+(.*)/);
-    if(ul){ if(listType!=='ul'){close();html+='<ul>';listType='ul';} html+=`<li>${inline(ul[1])}</li>`; }
-    else if(ol){ if(listType!=='ol'){close();html+='<ol>';listType='ol';} html+=`<li>${inline(ol[1])}</li>`; }
+    if(ul){ if(mode!=='ul'){close();html+='<ul>';mode='ul';} html+=`<li>${inline(ul[1])}</li>`; }
+    else if(ol){ if(mode!=='ol'){close();html+='<ol>';mode='ol';} html+=`<li>${inline(ol[1])}</li>`; }
     else { close(); const head=/^.{1,32}:$/.test(line.replace(/\*\*/g,'')); html+=`<p${head?' class="sub"':''}>${inline(line)}</p>`; }
   }
   close(); return html;
