@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="theme-color" content="#030b1c">
+<title>Register · Ken Chertow Gold Medal Training Camps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#030b1c; --navy:#002868; --navyDeep:#04122e; --red:#bf0a30; --redBright:#e11231;
+    --gold:#f2b705; --goldSoft:#ffd24a; --bone:#f5f3ec; --tx:#e9eef6; --mut:#aebcd0;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html,body{margin:0;min-height:100%}
+  body{background:var(--ink);color:var(--tx);font-family:'Montserrat',sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+  .app{max-width:600px;margin:0 auto;min-height:100dvh;display:flex;flex-direction:column;position:relative;
+    background:radial-gradient(120% 60% at 50% -10%, rgba(0,40,104,.55), transparent 60%), var(--ink)}
+  .grain::after{content:"";position:fixed;inset:0;pointer-events:none;opacity:.045;z-index:0;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+  .font-d{font-family:'Oswald',sans-serif}
+  .eyebrow{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.26em;font-weight:500}
+  .headline{font-family:'Oswald',sans-serif;text-transform:uppercase;font-weight:700;line-height:.95;letter-spacing:.01em}
+
+  /* header */
+  header{position:relative;z-index:2;padding:15px 18px;display:flex;align-items:center;gap:12px;
+    background:linear-gradient(120deg,#04122e,#020912);border-bottom:1px solid rgba(242,183,5,.22)}
+  header img{height:38px;width:38px;object-fit:contain;flex-shrink:0}
+  .wm{line-height:1.05;min-width:0;flex:1}
+  .wm .a{display:block;font-family:'Oswald';text-transform:uppercase;font-size:11px;letter-spacing:.22em;color:var(--gold);font-weight:500}
+  .wm .b{display:block;font-family:'Oswald';text-transform:uppercase;font-size:15px;letter-spacing:.1em;color:#fff;font-weight:600}
+  .pill-reg{flex-shrink:0;font-family:'Oswald';text-transform:uppercase;font-size:10px;letter-spacing:.18em;font-weight:600;
+    color:var(--ink);background:var(--gold);padding:5px 11px;border-radius:3px}
+
+  /* progress */
+  .prog{display:flex;gap:5px;padding:16px 20px 4px;position:relative;z-index:2}
+  .prog i{height:3px;border-radius:2px;flex:1;background:rgba(255,255,255,.12);transition:.35s}
+  .prog i.on{background:linear-gradient(90deg,var(--gold),var(--goldSoft))}
+
+  main{flex:1;padding:8px 18px 26px;position:relative;z-index:2}
+
+  /* coach lead line */
+  .lead{display:flex;align-items:flex-start;gap:11px;padding:14px 2px 4px}
+  .kc{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:rgba(242,183,5,.14);border:1px solid rgba(242,183,5,.4);
+    display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:600;color:var(--gold);font-size:13px;letter-spacing:.04em}
+  .say{font-size:15.5px;color:#e3e9f3;padding-top:6px;line-height:1.45}
+  .step-h{font-family:'Oswald';text-transform:uppercase;letter-spacing:.22em;font-size:13px;color:var(--gold);font-weight:600;margin:18px 2px 12px}
+
+  .cards{display:flex;flex-direction:column;gap:11px}
+  .card{position:relative;background:linear-gradient(165deg,#0a1c3f,#061533);border:1px solid rgba(255,255,255,.09);
+    border-radius:6px;padding:16px 17px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:14px;
+    text-align:left;width:100%;color:inherit;font:inherit;overflow:hidden}
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);transform:scaleY(0);transform-origin:bottom;transition:.2s}
+  .card:hover{border-color:rgba(242,183,5,.5);transform:translateY(-3px);box-shadow:0 22px 44px -26px rgba(0,0,0,.9)}
+  .card:hover::before{transform:scaleY(1)}
+  .card.sel{border-color:var(--gold);background:linear-gradient(165deg,#102a55,#08183a)}
+  .card.sel::before{transform:scaleY(1)}
+  .card .body{flex:1;min-width:0}
+  .card .t{font-family:'Oswald';text-transform:uppercase;letter-spacing:.04em;font-weight:600;font-size:18.5px;color:#fff;line-height:1.12}
+  .card .d{font-size:14px;color:#cfd9e8;margin-top:6px;line-height:1.5}
+  .chev{flex-shrink:0;color:var(--gold);font-size:22px;font-family:'Oswald';opacity:.8}
+  .price{flex-shrink:0;text-align:right}
+  .price .big{font-family:'Oswald';font-weight:700;font-size:25px;color:var(--gold);line-height:1}
+  .price .lab{font-family:'Oswald';text-transform:uppercase;letter-spacing:.12em;font-size:10.5px;color:#bccada;margin-top:4px}
+  .price .sub{font-size:11px;color:#9fb0c8;margin-top:3px}
+  .tag{display:inline-block;font-family:'Oswald';text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:600;
+    color:#fff;background:var(--red);padding:3px 9px;border-radius:2px;margin-bottom:8px}
+  .nudge{display:inline-block;font-family:'Oswald';text-transform:uppercase;letter-spacing:.1em;font-size:10.5px;font-weight:600;
+    color:#ffd9dd;background:rgba(191,10,48,.22);border:1px solid rgba(225,18,49,.5);padding:4px 10px;border-radius:3px;margin-top:10px}
+
+  /* summary */
+  .receipt{border:1px solid rgba(255,255,255,.1);border-radius:8px;overflow:hidden;background:#06142e}
+  .receipt .top{padding:17px 18px;background:linear-gradient(120deg,#002868,#04122e);border-bottom:1px solid rgba(242,183,5,.25)}
+  .receipt .top .nm{font-family:'Oswald';text-transform:uppercase;font-weight:700;font-size:21px;color:#fff;letter-spacing:.02em;line-height:1.05}
+  .receipt .top .dt{font-size:12.5px;color:var(--goldSoft);margin-top:4px}
+  .rrow{display:flex;justify-content:space-between;gap:12px;padding:13px 18px;font-size:14.5px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .rrow .k{color:#b3c0d4}
+  .rrow .v{font-weight:600;color:#f1f5fa;text-align:right}
+  .rtot{display:flex;justify-content:space-between;align-items:baseline;padding:15px 18px;background:rgba(242,183,5,.07)}
+  .rtot .k{font-family:'Oswald';text-transform:uppercase;letter-spacing:.1em;font-size:13px;color:#fff;font-weight:500}
+  .rtot .v{font-family:'Oswald';font-weight:700;font-size:27px;color:var(--gold)}
+  .rtot .v small{display:block;text-align:right;font-family:'Montserrat';font-size:10.5px;color:var(--mut);font-weight:500;letter-spacing:0}
+  .fineprint{font-size:11.5px;color:#73809a;padding:14px 2px 0;line-height:1.55}
+  .ohio{margin-top:14px;border:1px solid rgba(242,183,5,.28);border-radius:6px;padding:13px 15px;background:rgba(0,40,104,.32)}
+  .ohio .eb{font-family:'Oswald';text-transform:uppercase;letter-spacing:.16em;font-size:10px;color:var(--gold);font-weight:600;margin-bottom:4px}
+  .ohio .tx{font-size:12.5px;color:#cdd7e6}
+  .ohio b{color:#fff}
+
+  .cta{display:block;width:100%;margin-top:18px;background:var(--gold);color:#1b1300;border:0;border-radius:5px;
+    padding:16px;font-family:'Oswald';font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:16px;
+    cursor:pointer;text-align:center;text-decoration:none;box-shadow:0 14px 34px -14px rgba(242,183,5,.6);transition:.18s}
+  .cta:hover{background:var(--goldSoft);transform:translateY(-2px)}
+  .cta .arr{display:inline-block;transition:.18s}.cta:hover .arr{transform:translateX(4px)}
+  .cta-sub{text-align:center;font-size:11.5px;color:var(--mut);margin-top:10px}
+  .back{background:none;border:0;color:var(--mut);font-family:'Oswald';text-transform:uppercase;letter-spacing:.14em;font-size:11px;
+    font-weight:500;cursor:pointer;padding:6px 2px;margin-top:2px}
+  .back:hover{color:var(--gold)}
+
+  footer{text-align:center;font-size:11px;color:#67748e;padding:12px 18px 20px;position:relative;z-index:2;font-family:'Oswald';text-transform:uppercase;letter-spacing:.08em}
+  footer a{color:var(--gold);text-decoration:none}
+
+  /* Ask Coach launcher + overlay */
+  #askBtn{position:fixed;bottom:18px;right:18px;z-index:40;background:var(--red);color:#fff;border:0;border-radius:5px;
+    padding:12px 16px;font-family:'Oswald';font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:13px;
+    cursor:pointer;box-shadow:0 14px 34px -12px rgba(191,10,48,.75);display:flex;align-items:center;gap:8px}
+  #askBtn:hover{background:var(--redBright);transform:translateY(-2px)}
+  #askBtn .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);animation:ping 2.4s ease-in-out infinite}
+  @keyframes ping{0%,100%{opacity:.5;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+  .ov{position:fixed;inset:0;z-index:50;background:rgba(3,8,18,.7);display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+  .ov.show{display:flex}
+  .sheet{background:var(--ink);width:100%;max-width:600px;height:88dvh;border-radius:14px 14px 0 0;overflow:hidden;
+    display:flex;flex-direction:column;border:1px solid rgba(242,183,5,.3);border-bottom:0}
+  .sheet .bar{display:flex;align-items:center;justify-content:space-between;padding:11px 15px;
+    background:linear-gradient(120deg,#002868,#04122e);border-bottom:1px solid rgba(255,255,255,.1);flex-shrink:0}
+  .sheet .bar span{font-family:'Oswald';text-transform:uppercase;letter-spacing:.1em;font-weight:600;font-size:13px;color:#fff}
+  .sheet .bar button{background:rgba(255,255,255,.12);border:0;color:#fff;width:30px;height:30px;border-radius:50%;font-size:18px;cursor:pointer;line-height:1}
+  .sheet iframe{flex:1;border:0;width:100%}
+  @media(min-width:600px){.ov{align-items:center}.sheet{border-radius:12px;height:82dvh;border-bottom:1px solid rgba(242,183,5,.3)}}
+
+  /* reserve / email capture */
+  .cta:disabled{opacity:.4;cursor:default;box-shadow:none}
+  .cta:disabled:hover{background:var(--gold);transform:none}
+  .fld{display:block;margin-top:13px}
+  .fld span{display:block;font-family:'Oswald';text-transform:uppercase;letter-spacing:.12em;font-size:10.5px;color:var(--gold);font-weight:500;margin-bottom:5px}
+  .fld input{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.18);border-radius:6px;
+    padding:13px 14px;font-family:'Montserrat';font-size:16px;color:#fff;outline:none}
+  .fld input:focus{border-color:var(--gold);background:rgba(255,255,255,.08)}
+  .fld input::placeholder{color:#6f7d97}
+  .reserved{margin-top:16px;border:1px solid rgba(54,210,122,.45);background:rgba(54,210,122,.09);border-radius:8px;padding:17px 18px}
+  .reserved .rh{font-family:'Oswald';text-transform:uppercase;letter-spacing:.03em;font-weight:600;font-size:18px;color:#fff;margin-bottom:7px}
+  .reserved p{margin:7px 0 0;font-size:13.5px;line-height:1.5;color:#cfd9e8}
+  .reserved p.dim{font-size:12px;color:var(--mut)}
+  .reserved a{color:var(--gold);font-weight:600}
+</style>
+</head>
+<body class="grain">
+<div class="app">
+  <header>
+    <img src="https://kenchertow.com/hs-fs/hubfs/Ken%20Chertow%20Logo%20Transparent%20PNG.png" alt="Ken Chertow Wrestling">
+    <div class="wm"><span class="a">Register With Coach Ken</span><span class="b">Gold Medal Training Camps</span></div>
+    <span class="pill-reg">2026</span>
+  </header>
+
+  <div class="prog" id="prog"><i></i><i></i><i></i><i></i></div>
+
+  <main>
+    <div class="lead"><div class="kc">KC</div><div class="say" id="say">Let's get your wrestler signed up. I'll walk you through it — takes about a minute.</div></div>
+    <div id="main"></div>
+  </main>
+
+  <footer>Real 2026 camp options · secure checkout by RegFox · <a href="mailto:camps@kenchertow.com">camps@kenchertow.com</a></footer>
+</div>
+
+<button id="askBtn" aria-label="Ask Coach a question"><span class="dot"></span>Ask Coach</button>
+<div class="ov" id="ov">
+  <div class="sheet">
+    <div class="bar"><span>AskCoach · Coach Ken's Assistant</span><button id="ovClose" aria-label="Close">×</button></div>
+    <iframe id="ovFrame" title="AskCoach" loading="lazy"></iframe>
+  </div>
+</div>
+
+<script>
+/* ---------- EXACT 2026 catalog (verified from the live RegFox forms) ---------- */
+const FORMS = {
+  boys:  'https://register.kenchertow.com/gold-medal-training-camps-for-boys-2026',
+  girls: 'https://register.kenchertow.com/gold-medal-training-camps-for-girls-2026',
+  youth: 'https://register.kenchertow.com/gold-medal-training-camps-for-youth-2026',
+};
+const WHO = [
+  {id:'boys',  t:'Teen Boys',  d:'Middle &amp; high school · ages 13–18'},
+  {id:'girls', t:'Teen Girls', d:'Middle &amp; high school · ages 13–18'},
+  {id:'youth', t:'Youth · 6–13', d:'Future Champions, Kids &amp; SuperKid'},
+];
+const TEEN = [
+  {id:'tech4',  name:'Gold Medal Technique Camp', dur:'4-Day', dates:'Jun 28 – Jul 1 or Jul 5 – 8', comm:625, res:700, nights:3, blurb:'Sharpen fundamentals. A strong first camp.'},
+  {id:'train6', name:'Gold Medal Training Camp',  dur:'6-Day', dates:'Jun 28 – Jul 3 or Jul 5 – 10', comm:850, res:950, nights:5, blurb:'The classic — technique plus live wrestling.'},
+  {id:'train11',name:'Gold Medal Training Camp',  dur:'11-Day',dates:'Jun 28 – Jul 8', comm:1750, res:1950, nights:10, blurb:'Go deeper. Eleven days on the mat.'},
+  {id:'super13',name:'Super Gold Medal Training Camp', dur:'13-Day', dates:'Jun 28 – Jul 10', comm:1900, res:2150, nights:12, tag:'Most Intensive', blurb:'Two weeks. Built for college aspirations.'},
+];
+const CATALOG = {
+  boys: TEEN, girls: TEEN,
+  youth: [
+    {id:'fc4',       name:'Future Champions Parent/Child', dur:'4-Day', dates:'Grades 1–3 · a parent attends', comm:575, res:1000, nights:3, blurb:'A parent trains alongside their young wrestler.'},
+    {id:'kids6',     name:'Kids Training Camp', dur:'6-Day', dates:'Grades 3–7', comm:850, res:950, nights:5, blurb:'Six days built for younger wrestlers.'},
+    {id:'superkid11',name:'SuperKid Technique &amp; Training', dur:'11-Day', dates:'Grades 4–7 · Jun 28 – Jul 8', comm:1750, res:1950, nights:10, tag:'Most Intensive', blurb:'Our deepest youth camp — eleven days.'},
+  ],
+};
+const NIGHT_RATE = 50;
+const usd = n => '$' + n.toLocaleString('en-US');
+const LEAD_ENDPOINT = 'https://vg-worker.visiongenesis.workers.dev/lead';
+const CAMP_SLUGS = { technique:'tech4', training6:'train6', training11:'train11', supergold:'super13',
+                     futurechamps:'fc4', kids:'kids6', superkid:'superkid11' };
+
+const S = { who:null, housing:null, campId:null, step:0 };
+
+// Deep-link from AskCoach / email: ?who=boys&housing=resident&camp=supergold
+(function initFromParams(){
+  const p = new URLSearchParams(location.search);
+  const who = (p.get('who')||'').toLowerCase();
+  if(!['boys','girls','youth'].includes(who)) return;
+  S.who = who;
+  const h = (p.get('housing')||'').toLowerCase();
+  if(h==='resident'||h==='res') S.housing='res';
+  else if(h==='commuter'||h==='comm') S.housing='comm';
+  const cid = CAMP_SLUGS[(p.get('camp')||'').toLowerCase()];
+  if(cid && (CATALOG[who]||[]).some(c=>c.id===cid)) S.campId=cid;
+  S.step = (S.who && S.housing && S.campId) ? 3 : (S.who && S.housing) ? 2 : 1;
+})();
+
+let AVAIL = null;
+fetch('availability.json?v='+Date.now()).then(r=>r.json()).then(d=>{AVAIL=d;render();}).catch(()=>{});
+
+const main = document.getElementById('main');
+const say  = document.getElementById('say');
+const prog = document.getElementById('prog');
+const setProg=()=>[...prog.children].forEach((i,ix)=>i.classList.toggle('on',ix<=S.step));
+const who = ()=>WHO.find(w=>w.id===S.who);
+const camp= ()=>(CATALOG[S.who]||[]).find(c=>c.id===S.campId);
+const paResident=()=>AVAIL?.pennsylvania?.residentSpotsLeft ?? 99;
+function nudge(){ const n=paResident(), u=AVAIL?.pennsylvania?.showNudgeUnder ?? 0;
+  return (n>0&&n<=u) ? `<div class="nudge">Only ${n} resident spots left</div>` : ''; }
+
+function render(){
+  setProg();
+  if (S.step===0) return stepWho();
+  if (S.step===1) return stepHousing();
+  if (S.step===2) return stepCamp();
+  return stepSummary();
+}
+function stepWho(){
+  say.textContent = "First — who are we getting on the mat?";
+  let h = `<div class="step-h">Step 1 · Who's signing up</div><div class="cards">`;
+  WHO.forEach(w=>{ h+=`<button class="card ${S.who===w.id?'sel':''}" onclick="pickWho('${w.id}')">
+    <div class="body"><div class="t">${w.t}</div><div class="d">${w.d}</div></div><div class="chev">›</div></button>`; });
+  main.innerHTML = h+`</div>`;
+}
+function pickWho(id){ S.who=id; S.campId=null; S.step=1; render(); }
+
+function stepHousing(){
+  say.textContent = `Got it — ${who().t}. Staying with us, or driving in each day?`;
+  main.innerHTML = `<button class="back" onclick="go(0)">‹ Who</button>
+    <div class="step-h">Step 2 · How they'll attend</div>
+    <div class="cards">
+      <button class="card ${S.housing==='res'?'sel':''}" onclick="pickHousing('res')">
+        <div class="body"><div class="t">Resident</div><div class="d">Stays in the camp hotel — room and all meals included. The full experience.</div>${nudge()}</div><div class="chev">›</div></button>
+      <button class="card ${S.housing==='comm'?'sel':''}" onclick="pickHousing('comm')">
+        <div class="body"><div class="t">Commuter</div><div class="d">Attends each day, heads home at night. Lower price; camp-day meals included.</div></div><div class="chev">›</div></button>
+    </div>`;
+}
+function pickHousing(h){ S.housing=h; S.step=2; render(); }
+
+function stepCamp(){
+  const isRes = S.housing==='res';
+  say.textContent = `Here are the real 2026 ${isRes?'resident':'commuter'} camps. Pick the one that fits.`;
+  let h = `<button class="back" onclick="go(1)">‹ Resident or Commuter</button><div class="step-h">Step 3 · Choose your camp</div><div class="cards">`;
+  (CATALOG[S.who]||[]).forEach(c=>{
+    const price = isRes ? c.res : c.comm;
+    const sub = isRes ? 'hotel + meals included' : 'meals included';
+    h += `<button class="card ${S.campId===c.id?'sel':''}" onclick="pickCamp('${c.id}')">
+      <div class="body">${c.tag?`<span class="tag">${c.tag}</span>`:''}<div class="t">${c.name}</div><div class="d">${c.dur} · ${c.dates} — ${c.blurb}</div></div>
+      <div class="price"><div class="big">${usd(price)}</div><div class="lab">${isRes?'Resident':'Commuter'}</div><div class="sub">${sub}</div></div></button>`;
+  });
+  main.innerHTML = h+`</div>`;
+}
+function pickCamp(id){ S.campId=id; S.step=3; render(); }
+
+function stepSummary(){
+  const c = camp(), isRes = S.housing==='res', base = isRes?c.res:c.comm;
+  say.textContent = "Last step — reserve your spot, then finish at secure checkout.";
+  main.innerHTML = `<button class="back" onclick="go(2)">‹ Choose camp</button>
+    <div class="step-h">Step 4 · Reserve your spot</div>
+    <div class="receipt">
+      <div class="top"><div class="nm">${c.name}</div><div class="dt">${c.dur} · ${c.dates.split('·')[0].trim()} · Spooky Nook, PA</div></div>
+      <div class="rrow"><span class="k">Wrestler</span><span class="v">${who().t}</span></div>
+      <div class="rrow"><span class="k">Attending as</span><span class="v">${isRes?'Resident — hotel + meals included':'Commuter — drives in, meals included'}</span></div>
+      <div class="rtot"><span class="k">Camp tuition</span><span class="v">${usd(base)}<small>${isRes?'bed buy-out available — $50/night':'all-in, meals included'}</small></span></div>
+    </div>
+    <div id="capture">
+      <label class="fld"><span>Parent / guardian name</span><input id="rname" type="text" autocomplete="name" placeholder="Your name"></label>
+      <label class="fld"><span>Email</span><input id="remail" type="email" inputmode="email" autocomplete="email" placeholder="you@email.com"></label>
+      <button class="cta" id="reserveBtn" disabled>Reserve This Spot <span class="arr">→</span></button>
+      <div class="cta-sub">Opens secure checkout in a new tab — you can always come back here for the camp you picked. About 5 minutes to finish.</div>
+    </div>
+    <div class="ohio"><div class="eb">Also Headed to Ohio?</div><div class="tx">The Ohio camp runs <b>Jul 18–23</b>. There's a <b>$100 multi-camp discount</b> — tap Ask Coach and we'll set it up.</div></div>
+    <div class="fineprint">Prices are the real 2026 registration rates — resident is all-in (hotel and meals included). Optional add-ons (apparel, airport shuttle, PURE) and full payment are completed on Coach Ken's secure RegFox checkout.</div>`;
+  wireReserve(c, isRes, base);
+}
+
+function wireReserve(c, isRes, base){
+  const nameEl=document.getElementById('rname'), emailEl=document.getElementById('remail'), btn=document.getElementById('reserveBtn');
+  const valid=()=>/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailEl.value.trim());
+  const upd=()=>{ btn.disabled=!valid(); };
+  emailEl.addEventListener('input', upd); nameEl.addEventListener('input', upd);
+  btn.onclick=()=>{
+    if(!valid()) return;
+    const name=nameEl.value.trim(), email=emailEl.value.trim();
+    // Open secure checkout in a new tab WITHIN the click gesture (avoids popup blockers).
+    window.open(FORMS[S.who], '_blank', 'noopener');
+    // Capture the lead (best-effort — never block the family on it).
+    fetch(LEAD_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ name, email, who:S.who, housing:isRes?'resident':'commuter',
+        camp:`${c.name} · ${c.dur}`, price:base, source:'register-funnel' })}).catch(()=>{});
+    document.getElementById('capture').innerHTML = `
+      <div class="reserved">
+        <div class="rh">You're on your way${name?', '+name.split(' ')[0]:''}.</div>
+        <p>We opened <b>secure checkout</b> in a new tab — finish the wrestler details and full payment there (about 5 minutes).</p>
+        <p class="dim">Didn't open? <a href="${FORMS[S.who]}" target="_blank" rel="noopener">Tap here to open checkout</a>.</p>
+        <p class="dim">You can come back to this page anytime for the camp you picked.</p>
+      </div>`;
+  };
+}
+function go(step){ S.step=step; render(); }
+
+/* Ask Coach overlay */
+const ov=document.getElementById('ov'), ovFrame=document.getElementById('ovFrame');
+document.getElementById('askBtn').onclick=()=>{ if(!ovFrame.src) ovFrame.src='../ask-coach/'; ov.classList.add('show'); };
+document.getElementById('ovClose').onclick=()=>ov.classList.remove('show');
+ov.onclick=e=>{ if(e.target===ov) ov.classList.remove('show'); };
+
+render();
+</script>
+</body>
+</html>
