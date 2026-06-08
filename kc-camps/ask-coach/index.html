@@ -130,6 +130,8 @@ const EMAIL_RE = /[^@\s]+@[^@\s]+\.[^@\s]+/;
 // stays in the same recording/context AND the same storage partition (email carries).
 // Standalone full page -> new tab, so a parent keeps their chat.
 const EMBEDDED = (() => { try { return window.self !== window.top; } catch { return true; } })();
+// Campaign tag (FB ad vs control), set by the lander — carried via ?src or localStorage. No PII.
+const KC_SRC = (()=>{ try{ return (new URLSearchParams(location.search).get('src') || localStorage.getItem('kcSrc') || '').slice(0,40); }catch(_){ return ''; } })();
 let emailCaptured = false;
 // When a parent gives their email in chat, stash it (same-origin) so the funnel
 // can prefill it, and log a lead so we can win them back even if they wander off.
@@ -141,7 +143,7 @@ function captureEmail(text){
   emailCaptured = true;
   try{ localStorage.setItem('kcRegEmail', email); }catch(_){}
   fetch(LEAD_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},
-    body:JSON.stringify({email, source:'askcoach'})}).catch(()=>{});
+    body:JSON.stringify({email, source:'askcoach', campaign:KC_SRC})}).catch(()=>{});
 }
 const wrap=document.getElementById('wrap'), chat=document.getElementById('chat'),
       input=document.getElementById('input'), send=document.getElementById('send');

@@ -201,6 +201,8 @@ const CATALOG = {
 };
 const usd = n => '$' + n.toLocaleString('en-US');
 const LEAD_ENDPOINT = 'https://vg-worker.visiongenesis.workers.dev/lead';
+// Campaign tag (FB ad vs control), set by the lander — carried via ?src or localStorage. No PII.
+const KC_SRC = (()=>{ try{ return (new URLSearchParams(location.search).get('src') || localStorage.getItem('kcSrc') || '').slice(0,40); }catch(_){ return ''; } })();
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 // AskCoach passes camp by friendly slug; map to our internal ids.
 const CAMP_SLUGS = { technique:'tech4', training6:'train6', training11:'train11', supergold:'super13', supergirl:'super13',
@@ -249,7 +251,7 @@ function fireLead(source){
   fetch(LEAD_ENDPOINT, {method:'POST', headers:{'Content-Type':'application/json'},
     body: JSON.stringify({ email:S.email, name:S.name||'', who:S.who||'',
       housing: S.housing==='res'?'resident':S.housing==='comm'?'commuter':'',
-      camp: c?`${c.name} · ${c.dur}`:'', price: c?(S.housing==='res'?c.res:c.comm):null, source })}).catch(()=>{});
+      camp: c?`${c.name} · ${c.dur}`:'', price: c?(S.housing==='res'?c.res:c.comm):null, source, campaign:KC_SRC })}).catch(()=>{});
 }
 
 function render(){
