@@ -36,7 +36,10 @@
   header a.reg:hover{border-color:var(--gold);color:var(--gold)}
 
   /* hero */
-  .hero{position:relative;text-align:center;padding:54px 0 40px;background:radial-gradient(120% 80% at 50% -10%,rgba(0,40,104,.6),transparent 60%)}
+  .hero{position:relative;text-align:center;padding:62px 0 46px;overflow:hidden;min-height:clamp(540px,82vh,760px);display:flex;align-items:center;justify-content:center}
+  .hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 26%}
+  .hero-ov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,11,28,.58) 0%,rgba(3,11,28,.4) 38%,rgba(3,11,28,.9) 90%,var(--ink) 100%),linear-gradient(90deg,rgba(0,40,104,.5),transparent 72%)}
+  .hero .wrap{position:relative;z-index:2;width:100%}
   .hero h1{font-size:clamp(38px,7vw,76px);margin:18px 0 0;color:#fff}
   .hero h1 .g{color:transparent;background:linear-gradient(92deg,#ffe79a,#f2b705 55%,#d99100);-webkit-background-clip:text;background-clip:text}
   .hero p.sub{max-width:680px;margin:20px auto 0;color:#cdd7e6;font-size:17px}
@@ -100,7 +103,10 @@
 </header>
 
 <!-- HERO -->
-<div class="hero"><div class="wrap">
+<div class="hero">
+  <img class="hero-bg" src="https://kenchertow.com/hubfs/IMG_6458.jpg" alt="Ken Chertow Gold Medal Training Camp" loading="eager">
+  <div class="hero-ov"></div>
+  <div class="wrap">
   <div class="eyebrow">U.S. Olympian Ken Chertow · Est. 1989</div>
   <h1>Champions Aren't Born.<br><span class="g">They're Built.</span></h1>
   <p class="sub">The nation's longest-running wrestling camp system. Four days to two weeks of Olympic-level technique, relentless drilling, and the discipline that turns serious wrestlers into champions. Summer 2026 — Pennsylvania &amp; Ohio.</p>
