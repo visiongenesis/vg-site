@@ -12,7 +12,7 @@
 <style>
   :root{
     --ink:#030b1c; --navy:#002868; --navyDeep:#04122e; --red:#bf0a30; --redBright:#e11231;
-    --gold:#f2b705; --goldSoft:#ffd24a; --bone:#f5f3ec; --tx:#e9eef6; --mut:#8ea0bb;
+    --gold:#f2b705; --goldSoft:#ffd24a; --bone:#f5f3ec; --tx:#e9eef6; --mut:#aebcd0;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;min-height:100%}
@@ -46,8 +46,8 @@
   .lead{display:flex;align-items:flex-start;gap:11px;padding:14px 2px 4px}
   .kc{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:rgba(242,183,5,.14);border:1px solid rgba(242,183,5,.4);
     display:flex;align-items:center;justify-content:center;font-family:'Oswald';font-weight:600;color:var(--gold);font-size:13px;letter-spacing:.04em}
-  .say{font-size:14.5px;color:#cdd7e6;padding-top:6px}
-  .step-h{font-family:'Oswald';text-transform:uppercase;letter-spacing:.24em;font-size:12px;color:var(--gold);font-weight:500;margin:18px 2px 12px}
+  .say{font-size:15.5px;color:#e3e9f3;padding-top:6px;line-height:1.45}
+  .step-h{font-family:'Oswald';text-transform:uppercase;letter-spacing:.22em;font-size:13px;color:var(--gold);font-weight:600;margin:18px 2px 12px}
 
   .cards{display:flex;flex-direction:column;gap:11px}
   .card{position:relative;background:linear-gradient(165deg,#0a1c3f,#061533);border:1px solid rgba(255,255,255,.09);
@@ -59,15 +59,15 @@
   .card.sel{border-color:var(--gold);background:linear-gradient(165deg,#102a55,#08183a)}
   .card.sel::before{transform:scaleY(1)}
   .card .body{flex:1;min-width:0}
-  .card .t{font-family:'Oswald';text-transform:uppercase;letter-spacing:.04em;font-weight:600;font-size:17px;color:#fff;line-height:1.1}
-  .card .d{font-size:12.5px;color:var(--mut);margin-top:4px;line-height:1.45}
+  .card .t{font-family:'Oswald';text-transform:uppercase;letter-spacing:.04em;font-weight:600;font-size:18.5px;color:#fff;line-height:1.12}
+  .card .d{font-size:14px;color:#cfd9e8;margin-top:6px;line-height:1.5}
   .chev{flex-shrink:0;color:var(--gold);font-size:22px;font-family:'Oswald';opacity:.8}
   .price{flex-shrink:0;text-align:right}
-  .price .big{font-family:'Oswald';font-weight:700;font-size:23px;color:var(--gold);line-height:1}
-  .price .lab{font-family:'Oswald';text-transform:uppercase;letter-spacing:.12em;font-size:9.5px;color:var(--mut);margin-top:3px}
-  .price .sub{font-size:10px;color:#7f8ca6;margin-top:3px}
-  .tag{position:absolute;top:10px;right:14px;font-family:'Oswald';text-transform:uppercase;letter-spacing:.12em;font-size:9px;font-weight:600;
-    color:#fff;background:var(--red);padding:3px 8px;border-radius:2px}
+  .price .big{font-family:'Oswald';font-weight:700;font-size:25px;color:var(--gold);line-height:1}
+  .price .lab{font-family:'Oswald';text-transform:uppercase;letter-spacing:.12em;font-size:10.5px;color:#bccada;margin-top:4px}
+  .price .sub{font-size:11px;color:#9fb0c8;margin-top:3px}
+  .tag{display:inline-block;font-family:'Oswald';text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:600;
+    color:#fff;background:var(--red);padding:3px 9px;border-radius:2px;margin-bottom:8px}
   .nudge{display:inline-block;font-family:'Oswald';text-transform:uppercase;letter-spacing:.1em;font-size:10.5px;font-weight:600;
     color:#ffd9dd;background:rgba(191,10,48,.22);border:1px solid rgba(225,18,49,.5);padding:4px 10px;border-radius:3px;margin-top:10px}
 
@@ -76,9 +76,9 @@
   .receipt .top{padding:17px 18px;background:linear-gradient(120deg,#002868,#04122e);border-bottom:1px solid rgba(242,183,5,.25)}
   .receipt .top .nm{font-family:'Oswald';text-transform:uppercase;font-weight:700;font-size:21px;color:#fff;letter-spacing:.02em;line-height:1.05}
   .receipt .top .dt{font-size:12.5px;color:var(--goldSoft);margin-top:4px}
-  .rrow{display:flex;justify-content:space-between;gap:12px;padding:12px 18px;font-size:13.5px;border-bottom:1px solid rgba(255,255,255,.07)}
-  .rrow .k{color:var(--mut)}
-  .rrow .v{font-weight:600;color:#eaf0f8;text-align:right}
+  .rrow{display:flex;justify-content:space-between;gap:12px;padding:13px 18px;font-size:14.5px;border-bottom:1px solid rgba(255,255,255,.08)}
+  .rrow .k{color:#b3c0d4}
+  .rrow .v{font-weight:600;color:#f1f5fa;text-align:right}
   .rtot{display:flex;justify-content:space-between;align-items:baseline;padding:15px 18px;background:rgba(242,183,5,.07)}
   .rtot .k{font-family:'Oswald';text-transform:uppercase;letter-spacing:.1em;font-size:13px;color:#fff;font-weight:500}
   .rtot .v{font-family:'Oswald';font-weight:700;font-size:27px;color:var(--gold)}
@@ -225,10 +225,9 @@ function stepCamp(){
   let h = `<button class="back" onclick="go(1)">‹ Resident or Commuter</button><div class="step-h">Step 3 · Choose your camp</div><div class="cards">`;
   (CATALOG[S.who]||[]).forEach(c=>{
     const price = isRes ? c.res : c.comm;
-    const sub = isRes ? `+ room ~${usd(c.nights*NIGHT_RATE)} at checkout` : 'meals on camp days incl.';
+    const sub = isRes ? 'hotel + meals included' : 'meals included';
     h += `<button class="card ${S.campId===c.id?'sel':''}" onclick="pickCamp('${c.id}')">
-      ${c.tag?`<span class="tag">${c.tag}</span>`:''}
-      <div class="body"><div class="t">${c.name}</div><div class="d">${c.dur} · ${c.dates} — ${c.blurb}</div></div>
+      <div class="body">${c.tag?`<span class="tag">${c.tag}</span>`:''}<div class="t">${c.name}</div><div class="d">${c.dur} · ${c.dates} — ${c.blurb}</div></div>
       <div class="price"><div class="big">${usd(price)}</div><div class="lab">${isRes?'Resident':'Commuter'}</div><div class="sub">${sub}</div></div></button>`;
   });
   main.innerHTML = h+`</div>`;
@@ -243,12 +242,11 @@ function stepSummary(){
     <div class="receipt">
       <div class="top"><div class="nm">${c.name}</div><div class="dt">${c.dur} · ${c.dates.split('·')[0].trim()} · Spooky Nook, PA</div></div>
       <div class="rrow"><span class="k">Wrestler</span><span class="v">${who().t}</span></div>
-      <div class="rrow"><span class="k">Attending as</span><span class="v">${isRes?'Resident — hotel + meals':'Commuter — drives in'}</span></div>
-      ${isRes?`<div class="rrow"><span class="k">Hotel room</span><span class="v">~${usd(c.nights*NIGHT_RATE)} · ${c.nights} nights @ $50</span></div>`:''}
-      <div class="rtot"><span class="k">Camp tuition</span><span class="v">${usd(base)}<small>${isRes?'+ room &amp; extras at checkout':'+ extras at checkout'}</small></span></div>
+      <div class="rrow"><span class="k">Attending as</span><span class="v">${isRes?'Resident — hotel + meals included':'Commuter — drives in, meals included'}</span></div>
+      <div class="rtot"><span class="k">Camp tuition</span><span class="v">${usd(base)}<small>${isRes?'bed buy-out available — $50/night':'all-in, meals included'}</small></span></div>
     </div>
     <a class="cta" href="${FORMS[S.who]}" target="_blank" rel="noopener">Reserve This Spot <span class="arr">→</span></a>
-    <div class="cta-sub">Next: secure checkout — a few wrestler details + payment. About two minutes.</div>
+    <div class="cta-sub">Next: secure checkout — wrestler details and full payment. About two minutes.</div>
     <div class="ohio"><div class="eb">Also Headed to Ohio?</div><div class="tx">The Ohio camp runs <b>Jul 18–23</b>. There's a <b>$100 multi-camp discount</b> — tap Ask Coach and we'll set it up.</div></div>
     <div class="fineprint">Prices are the real 2026 registration rates. Final lodging, add-ons (apparel, airport shuttle, PURE) and payment are completed on Coach Ken's secure RegFox checkout.</div>`;
 }
