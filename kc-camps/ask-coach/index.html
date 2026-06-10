@@ -231,10 +231,22 @@ function copyPlain(btn){
   const clone=bubble.cloneNode(true);
   clone.querySelectorAll('.copy-btn').forEach(b=>b.remove());
   const plain=clone.textContent.trim();
-  navigator.clipboard.writeText(plain).then(()=>{
+  try{
+    navigator.clipboard.writeText(plain).then(()=>{
+      btn.textContent='Copied!';btn.classList.add('copied');
+      setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);
+    }).catch(()=>{
+      const ta=document.createElement('textarea');ta.value=plain;ta.style.cssText='position:fixed;left:-9999px';
+      document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
+      btn.textContent='Copied!';btn.classList.add('copied');
+      setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);
+    });
+  }catch(e){
+    const ta=document.createElement('textarea');ta.value=plain;ta.style.cssText='position:fixed;left:-9999px';
+    document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
     btn.textContent='Copied!';btn.classList.add('copied');
-    setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},1500);
-  });
+    setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);
+  }
 }
   row.innerHTML=`<div class="av">KC</div><div class="bubble"><span class="dots"><span></span><span></span><span></span></span></div>`;
   wrap.appendChild(row); chat.scrollTop=chat.scrollHeight;
