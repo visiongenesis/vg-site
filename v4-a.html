@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vision Genesis — We find the workflow costing you the most, and fix it in 4–8 weeks</title>
+<meta name="description" content="Talk for ten minutes, get your unlock plan. A human-written read of your top three fixes in 24–48 hours — no automated pitch. Published pricing: $8K–$25K.">
+<meta name="theme-color" content="#071426">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script>document.documentElement.className+=" js";</script>
+<style>
+:root{
+  --field:#071426; --field-deep:#030E1A; --field-lift:#0B1E36;
+  --surface:#0A1A2E; --well:#040D19;
+  --paper:#F7F2E7; --paper-ink:#0A1626; --paper-dim:rgba(10,22,38,.64);
+  --ink:#F2EDE2; --dim:rgba(242,237,226,.66); --faint:rgba(242,237,226,.40);
+  --gold:#ECB838; --gold-hi:#FCD04A;
+  --line:rgba(242,237,226,.10); --goldline:rgba(236,184,56,.30);
+  --vu-wave-dim:rgba(236,184,56,.25);
+  --body:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --wrap:1200px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--field);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+a{color:inherit}
+[id]{scroll-margin-top:84px}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.gold{color:var(--gold)}
+.sect{padding:clamp(72px,9vw,120px) 0}
+h1,h2,h3{font-weight:800;line-height:1.08;letter-spacing:-.025em}
+.lede{color:var(--dim);max-width:62ch;font-size:1.03rem}
+.eyebrow{font-family:var(--mono);font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:12px}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--gold);flex:none}
+.eyebrow.quiet{color:var(--faint)}.eyebrow.quiet::before{background:var(--faint)}
+.sect-head{margin-bottom:clamp(38px,5vw,58px)}
+.sect-head h2{font-size:clamp(1.9rem,4.4vw,3rem);margin:20px 0 14px;max-width:24ch}
+.btn{display:inline-block;text-decoration:none;font-weight:600;font-size:.96rem;padding:.9rem 1.6rem;border-radius:6px;border:none;cursor:pointer;font-family:var(--body);transition:transform .15s,background .15s}
+.btn-gold{background:var(--gold);color:var(--field)}
+.btn-gold:hover{background:var(--gold-hi);transform:translateY(-1px)}
+.see{display:inline-block;color:var(--gold);text-decoration:none;font-weight:600;font-size:.93rem;border-bottom:1px solid var(--goldline);padding-bottom:2px}
+.see:hover{border-color:var(--gold)}
+
+/* nav */
+.nav{position:sticky;top:0;z-index:50;background:rgba(7,20,38,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-in{max-width:var(--wrap);margin:0 auto;padding:0 24px;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand img{height:26px;width:auto}
+.brand b{font-weight:800;font-size:1.05rem;letter-spacing:-.01em;white-space:nowrap}
+.nav-links{display:flex;align-items:center;gap:24px;font-size:.92rem;font-weight:600}
+.nav-links a{text-decoration:none;color:var(--dim)}
+.nav-links a:hover{color:var(--ink)}
+.nav-cta{background:var(--gold);color:var(--field)!important;padding:.55rem 1rem;border-radius:6px;white-space:nowrap}
+@media(max-width:880px){.nav-links a:not(.nav-cta){display:none}}
+@media(max-width:380px){.brand b{display:none}}
+
+/* hero — recorder as the working object */
+.hero{padding:clamp(56px,7vw,96px) 0 clamp(48px,6vw,72px)}
+.hero-grid{display:grid;gap:48px}
+@media(min-width:1020px){.hero-grid{grid-template-columns:1.05fr .95fr;gap:64px;align-items:start}}
+.hero h1{font-size:clamp(2.3rem,5.6vw,4rem);margin:24px 0 22px;max-width:17ch}
+.hero .sub{color:var(--dim);max-width:54ch;font-size:1.05rem;margin-bottom:28px}
+.hero .sub strong{color:var(--ink);font-weight:600}
+.proofline{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;color:var(--faint);margin-top:26px}
+.js .hero .fade{opacity:0;transform:translateY(.3em);transition:opacity .7s ease,transform .7s ease}
+.js .go .hero .fade{opacity:1;transform:none}
+.js .go .hero .fade:nth-child(2){transition-delay:.1s}
+.js .go .hero .fade:nth-child(3){transition-delay:.22s}
+.js .go .hero .fade:nth-child(4){transition-delay:.34s}
+
+/* the recorder */
+.vu-shell{border:1px solid var(--goldline);background:var(--surface);border-radius:12px;overflow:hidden;box-shadow:0 24px 70px rgba(0,0,0,.45)}
+.vu-head{padding:18px 24px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.vu-head .l{font-family:var(--mono);font-size:.66rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.vu-head .r{font-family:var(--mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint)}
+.vu-card{padding:26px 24px}
+.vu-card.vu-drag{outline:2px dashed var(--gold);outline-offset:-8px}
+.vu-title{font-size:1.35rem;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.vu-sub{color:var(--dim);font-size:.92rem;margin-bottom:22px;max-width:44ch}
+.vu-recrow{display:flex;align-items:center;gap:18px;margin-bottom:18px}
+.vu-recbtn{width:74px;height:74px;border-radius:50%;border:2px solid var(--gold);background:rgba(236,184,56,.10);cursor:pointer;display:grid;place-items:center;flex:none;transition:background .2s}
+.vu-recbtn:hover{background:rgba(236,184,56,.2)}
+.vu-recbtn svg{width:28px;height:28px;fill:var(--gold)}
+.vu-recbtn.vu-live{background:var(--gold);animation:vupulse 2s ease-in-out infinite}
+.vu-recbtn.vu-live svg{fill:var(--field)}
+@keyframes vupulse{0%,100%{box-shadow:0 0 0 0 rgba(236,184,56,.4)}55%{box-shadow:0 0 0 14px rgba(236,184,56,0)}}
+.vu-meta{min-width:0}
+#vu-rec-label{font-weight:600;font-size:.98rem;display:block}
+.vu-status{display:flex;gap:12px;align-items:baseline;margin-top:4px}
+#vu-time{font-family:var(--mono);font-size:1.05rem;font-weight:600;color:var(--dim)}
+#vu-time.vu-gold{color:var(--gold)}
+#vu-guide{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+#vu-wave{width:100%;height:56px;display:block;background:var(--well);border:1px solid var(--line);border-radius:6px;margin-bottom:16px}
+.vu-controls{display:flex;flex-wrap:wrap;gap:9px;margin-bottom:14px}
+.vu-chip{font-family:var(--mono);font-size:.7rem;letter-spacing:.06em;color:var(--dim);background:transparent;border:1px solid var(--line);border-radius:99px;padding:.45rem .9rem;cursor:pointer}
+.vu-chip:hover{border-color:var(--goldline);color:var(--ink)}
+.vu-drop{font-family:var(--mono);font-size:.64rem;letter-spacing:.08em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+.vu-takes{display:grid;gap:9px;margin-bottom:6px}
+.vu-take{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:6px;padding:8px 12px;flex-wrap:wrap}
+.vu-take-n{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;color:var(--gold);white-space:nowrap}
+.vu-take audio{height:32px;flex:1;min-width:140px}
+.vu-take-rm{background:none;border:none;color:var(--faint);font-size:.78rem;cursor:pointer;font-family:var(--body)}
+.vu-take-rm:hover{color:var(--ink)}
+.vu-send{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.vu-send input{flex:1;min-width:180px;background:var(--well);border:1px solid var(--line);border-radius:6px;color:var(--ink);font-family:var(--body);font-size:.93rem;padding:.75rem .9rem}
+.vu-send input:focus{outline:none;border-color:var(--gold)}
+.vu-err{color:#E89A9A;font-size:.86rem;margin-top:12px}
+.vu-err a{color:var(--gold)}
+.vu-done{padding:10px 0}
+.vu-done h3{font-size:1.5rem;margin-bottom:10px}
+.vu-done p{color:var(--dim);font-size:.95rem;max-width:40ch}
+.vu-rail{border-top:1px solid var(--line);padding:20px 24px 24px}
+.vu-rail-cap{font-family:var(--mono);font-size:.64rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--faint);margin-bottom:12px}
+#vu-prompts{list-style:none;display:grid;gap:7px;counter-reset:vp}
+#vu-prompts li{counter-increment:vp}
+#vu-prompts button{width:100%;text-align:left;display:flex;gap:12px;align-items:baseline;background:transparent;border:1px solid var(--line);border-radius:6px;padding:.6rem .85rem;color:var(--dim);font-family:var(--body);font-size:.88rem;cursor:pointer;transition:border-color .15s,color .15s}
+#vu-prompts button::before{content:counter(vp,decimal-leading-zero);font-family:var(--mono);font-size:.66rem;color:var(--gold);flex:none}
+#vu-prompts button:hover{border-color:var(--goldline);color:var(--ink)}
+#vu-prompts button.hit{border-color:var(--gold);color:var(--ink);background:rgba(236,184,56,.08)}
+.vu-assure{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);padding:14px 24px;border-top:1px solid var(--line)}
+.vu-assure b{color:var(--gold);font-weight:600}
+.vu-fallnote{margin-top:14px;font-size:.9rem;color:var(--dim);text-align:center}
+#vu-unsupported{border:1px solid var(--line);border-radius:12px;padding:26px;color:var(--dim);font-size:.95rem}
+
+/* stat strip — dollar-stamped */
+.stats{background:var(--field-deep);border-top:1px solid var(--goldline);border-bottom:1px solid var(--goldline)}
+.stats-in{display:grid;gap:0;grid-template-columns:1fr 1fr}
+@media(min-width:880px){.stats-in{grid-template-columns:repeat(4,1fr)}}
+.stat{padding:clamp(26px,3.4vw,44px) clamp(18px,2.4vw,34px);border-left:1px solid var(--line)}
+.stat:first-child{border-left:none}
+@media(max-width:879px){.stat:nth-child(3){border-left:none}.stat:nth-child(n+3){border-top:1px solid var(--line)}}
+.stat b{display:block;font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:800;letter-spacing:-.03em;color:var(--gold);line-height:1.1;margin-bottom:8px}
+.stat span{font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);line-height:1.7;display:block}
+
+/* evidence wall — real product screenshots */
+.ev-grid{display:grid;gap:20px}
+@media(min-width:920px){.ev-grid{grid-template-columns:340px 1fr}}
+.ev{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--surface);transition:border-color .2s}
+.ev:hover{border-color:var(--goldline)}
+.ev-cap{padding:20px 22px;display:grid;gap:6px}
+.ev-cap .tag{font-family:var(--mono);font-size:.64rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:9px}
+.ev-cap .tag .no{color:var(--gold)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--gold);flex:none;animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(236,184,56,.45)}55%{box-shadow:0 0 0 7px rgba(236,184,56,0)}}
+.ev-cap .delta{font-size:1.06rem;font-weight:600;letter-spacing:-.01em;line-height:1.4}
+.ev-cap .delta q{font-style:italic;font-weight:400}
+.ev-cap .who{color:var(--faint);font-size:.86rem}
+.ev-cap .who a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--goldline)}
+.shot{position:relative;background:var(--well);flex:1;display:flex;align-items:flex-start;justify-content:center;overflow:hidden}
+.frame-b .bar{display:flex;align-items:center;gap:8px;padding:10px 16px;background:rgba(255,255,255,.05);border-bottom:1px solid var(--line);width:100%}
+.frame-b .bar i{width:9px;height:9px;border-radius:50%;background:var(--faint);opacity:.5}
+.frame-b .bar .url{font-family:var(--mono);font-size:.62rem;color:var(--faint);background:var(--well);border-radius:99px;padding:3px 12px;margin-left:8px}
+.frame-b img{width:100%}
+.frame-b .shot{flex-direction:column}
+.frame-p .shot{padding:22px 22px 0}
+.frame-p .shot img{width:min(290px,100%);border-radius:24px 24px 0 0;border:6px solid #1A2C44;border-bottom:none}
+.ev-col{display:grid;gap:20px;grid-template-rows:1fr 1fr}
+
+/* identity */
+.identity p{font-size:clamp(1.35rem,3.2vw,2.1rem);font-weight:600;letter-spacing:-.02em;line-height:1.35;max-width:34ch}
+.identity em{font-style:normal;color:var(--gold)}
+
+/* before/after cards */
+.ba-grid{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:880px){.ba-grid{grid-template-columns:repeat(3,1fr)}}
+.ba{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(24px,3vw,32px);display:flex;flex-direction:column}
+.ba:hover{border-color:var(--goldline)}
+.ba .tag{font-family:var(--mono);font-size:.62rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);display:flex;align-items:center;gap:9px;margin-bottom:18px}
+.ba .tag .no{color:var(--gold)}
+.ba h3{font-size:1.2rem;margin-bottom:16px;letter-spacing:-.015em}
+.ba dl{display:grid;gap:13px;flex:1}
+.ba dt{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);margin-bottom:3px}
+.ba dt.aft{color:var(--gold)}
+.ba dd{color:var(--dim);font-size:.92rem;line-height:1.55}
+.ba dd.after{color:var(--ink)}
+.ba .act{margin-top:20px;padding-top:16px;border-top:1px solid var(--line)}
+
+/* verticals */
+.verts{border-top:1px solid var(--line)}
+.vert{display:grid;grid-template-columns:1fr;gap:6px 48px;padding:24px 0;border-bottom:1px solid var(--line)}
+@media(min-width:760px){.vert{grid-template-columns:220px 1fr}}
+.vert dt{font-family:var(--mono);font-size:.68rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);padding-top:6px}
+.vert .dream{font-size:1.18rem;font-weight:600;letter-spacing:-.015em;line-height:1.3;margin-bottom:6px}
+.vert dd{color:var(--dim);font-size:.94rem;max-width:64ch}
+.vert .flag{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-top:8px}
+.vert .flag a{color:var(--gold);text-decoration:none}
+.vert-out{margin-top:30px;color:var(--dim);font-size:.97rem}
+.vert-out a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--goldline)}
+
+/* how it works */
+.model{background:var(--field-lift);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.team-line{color:var(--dim);max-width:66ch;font-size:1rem;margin-bottom:clamp(36px,5vw,54px)}
+.team-line strong{color:var(--ink);font-weight:600}
+.phases{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:860px){.phases{grid-template-columns:repeat(2,1fr)}}
+.phase{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(24px,3vw,34px)}
+.phase .pno{display:flex;align-items:baseline;justify-content:space-between;gap:14px;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);margin-bottom:14px}
+.phase .pno b{color:var(--gold);font-weight:600;font-size:.9rem}
+.phase h3{font-size:1.4rem;margin-bottom:10px}
+.phase p{color:var(--dim);font-size:.93rem;margin-bottom:16px}
+.phase .meta{border-top:1px solid var(--line);padding-top:14px;display:grid;gap:7px;font-size:.87rem}
+.phase .meta span{color:var(--dim)}
+.phase .meta b{font-family:var(--mono);font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);font-weight:600;display:block;margin-bottom:1px}
+.stack-line{margin-top:32px;color:var(--faint);font-size:.9rem;max-width:70ch}
+
+/* sample diagnostic — paper band */
+.paper-band{background:var(--paper);color:var(--paper-ink)}
+.paper-band .eyebrow{color:#9A7A1E}.paper-band .eyebrow::before{background:#9A7A1E}
+.paper-band .lede{color:var(--paper-dim)}
+.sample-card{border:1px solid rgba(10,22,38,.18);background:#FFFDF8;border-radius:12px;box-shadow:0 18px 50px rgba(10,22,38,.10)}
+.sample-cap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:16px clamp(20px,3vw,32px);border-bottom:1px solid rgba(10,22,38,.12);font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase}
+.sample-cap .l{color:var(--paper-ink);font-weight:600}
+.sample-cap .r{color:#9A7A1E}
+.opp{display:grid;grid-template-columns:auto 1fr;gap:4px 18px;padding:clamp(18px,2.4vw,26px) clamp(20px,3vw,32px);border-bottom:1px solid rgba(10,22,38,.12)}
+.opp .n{font-family:var(--mono);font-size:.84rem;font-weight:600;color:#9A7A1E;padding-top:3px}
+.opp h3{font-size:1.06rem;line-height:1.4;margin-bottom:6px;letter-spacing:-.01em}
+.opp p{grid-column:2;color:var(--paper-dim);font-size:.91rem;line-height:1.6}
+.opp .sev{font-family:var(--mono);font-size:.58rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(10,22,38,.45);grid-column:2;margin-bottom:4px}
+.sample-close{padding:clamp(18px,2.4vw,26px) clamp(20px,3vw,32px);color:var(--paper-dim);font-size:.91rem}
+.sample-close b{color:var(--paper-ink);font-weight:600}
+.sample-foot{margin-top:28px;font-size:1.1rem;font-weight:600;color:var(--paper-ink);border-left:3px solid var(--gold);padding-left:16px;max-width:48ch}
+.paper-band .see{color:#9A7A1E;border-color:rgba(154,122,30,.4)}
+
+/* pricing */
+.tiers{display:grid;gap:16px;grid-template-columns:1fr}
+@media(min-width:920px){.tiers{grid-template-columns:repeat(3,1fr)}}
+.tier{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:clamp(26px,3.2vw,36px);display:flex;flex-direction:column}
+.tier.lead{border-color:var(--goldline)}
+.tier .tag{font-family:var(--mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.tier h3{font-size:1.35rem;margin-bottom:6px}
+.tier .price{font-size:1.6rem;font-weight:800;letter-spacing:-.02em;color:var(--ink)}
+.tier .terms{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-bottom:16px}
+.tier p{color:var(--dim);font-size:.91rem;margin-bottom:16px}
+.tier ul{list-style:none;display:grid;gap:9px;margin-bottom:20px}
+.tier li{padding-left:20px;position:relative;color:var(--dim);font-size:.88rem}
+.tier li::before{content:"";position:absolute;left:0;top:.6em;width:10px;height:1px;background:var(--gold)}
+.tier .act{margin-top:auto}
+.tier .hire{font-size:.97rem;font-weight:600;color:var(--ink);border-left:2px solid var(--goldline);padding-left:14px;margin-bottom:16px}
+.route{margin-top:30px;color:var(--dim);font-size:.98rem}
+.route a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--goldline)}
+
+/* FAQ teaser */
+.faq-teaser{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:clamp(26px,4vw,44px);display:grid;gap:18px}
+@media(min-width:900px){.faq-teaser{grid-template-columns:1fr 1.2fr;gap:48px;align-items:center}}
+.faq-teaser .q{font-size:clamp(1.3rem,2.8vw,1.7rem);font-weight:800;letter-spacing:-.02em;line-height:1.3;max-width:26ch}
+.faq-teaser .a{color:var(--dim);max-width:62ch;font-size:.96rem}
+
+/* the typed fallback */
+.audit-band{background:var(--field-deep);border-top:1px solid var(--goldline);border-bottom:1px solid var(--goldline)}
+.audit-grid{display:grid;gap:48px}
+@media(min-width:980px){.audit-grid{grid-template-columns:1fr 360px;gap:72px;align-items:start}}
+.aside-card{border:1px solid var(--goldline);border-radius:12px;padding:30px 28px;position:sticky;top:96px}
+.aside-card h3{font-size:1.25rem;margin-bottom:16px}
+.aside-card ul{list-style:none;display:grid;gap:11px;margin-bottom:18px}
+.aside-card li{padding-left:20px;position:relative;color:var(--dim);font-size:.88rem}
+.aside-card li::before{content:"";position:absolute;left:0;top:.6em;width:10px;height:1px;background:var(--gold)}
+.aside-card p{color:var(--dim);font-size:.91rem;margin-bottom:14px}
+.aside-card .fine{font-family:var(--mono);font-size:.66rem;color:var(--faint);letter-spacing:.06em;margin:0}
+.form-card{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:clamp(24px,4vw,40px)}
+.prog{display:flex;align-items:center;justify-content:space-between;gap:18px;margin-bottom:28px}
+.prog .step-label{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);white-space:nowrap}
+.prog .bar{flex:1;height:2px;background:var(--line);position:relative;border-radius:2px}
+.prog .bar i{position:absolute;left:0;top:0;height:2px;background:var(--gold);transition:width .3s;border-radius:2px}
+.qq{margin-bottom:26px}
+.qq label,.qq .qlabel{display:block;font-weight:600;font-size:1rem;margin-bottom:4px}
+.qq .hint{font-size:.84rem;color:var(--faint);margin-bottom:12px}
+.chips{display:flex;flex-wrap:wrap;gap:9px}
+.chip{font-family:var(--body);font-size:.88rem;font-weight:600;color:var(--dim);background:transparent;border:1px solid var(--line);border-radius:99px;padding:.55rem 1rem;cursor:pointer;transition:border-color .15s,color .15s,background .15s}
+.chip:hover{border-color:var(--goldline);color:var(--ink)}
+.chip[aria-pressed="true"]{background:rgba(236,184,56,.12);border-color:var(--gold);color:var(--gold)}
+.otherbox,.qq input[type=text],.qq input[type=email],.qq textarea{width:100%;background:var(--well);border:1px solid var(--line);border-radius:6px;color:var(--ink);font-family:var(--body);font-size:.93rem;padding:.8rem .9rem;margin-top:10px}
+.qq textarea{min-height:120px;resize:vertical}
+.qq input:focus,.qq textarea:focus{outline:none;border-color:var(--gold)}
+.otherbox{display:none}
+.otherbox.show{display:block}
+.form-nav{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:30px}
+.btn-back{background:none;border:none;color:var(--faint);font-family:var(--body);font-size:.9rem;font-weight:600;cursor:pointer;padding:.6rem 0}
+.btn-back:hover{color:var(--ink)}
+.form-err{color:#E89A9A;font-size:.86rem;margin-top:14px;display:none}
+.form-err.show{display:block}
+.form-fine{font-family:var(--mono);font-size:.64rem;color:var(--faint);margin-top:20px;letter-spacing:.08em}
+.done h3{font-size:1.7rem;margin-bottom:12px}
+.done p{color:var(--dim);max-width:48ch;margin-bottom:14px}
+[hidden]{display:none!important}
+.hp{position:absolute;left:-9999px;height:1px;width:1px;overflow:hidden}
+
+/* ryan prime */
+.rp{display:grid;gap:40px;align-items:center}
+@media(min-width:900px){.rp{grid-template-columns:1.1fr 1fr;gap:64px}}
+.rp h2{font-size:clamp(1.7rem,4vw,2.6rem);margin:20px 0 16px}
+.rp p{color:var(--dim);max-width:54ch;margin-bottom:20px}
+.rp .poster{border:1px solid var(--goldline);border-radius:12px;width:100%}
+.rp .pcap{font-family:var(--mono);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);margin-top:10px}
+
+/* brief */
+.brief{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:clamp(28px,4vw,44px);display:grid;gap:24px}
+@media(min-width:900px){.brief{grid-template-columns:1.2fr 1fr;gap:56px;align-items:center}}
+.brief h2{font-size:clamp(1.4rem,3vw,2rem);margin:16px 0 12px}
+.brief p{color:var(--dim);font-size:.93rem}
+.brief form{display:flex;gap:10px;flex-wrap:wrap}
+.brief input[type=email]{flex:1;min-width:200px;background:var(--well);border:1px solid var(--line);border-radius:6px;color:var(--ink);font-family:var(--body);font-size:.93rem;padding:.8rem .9rem}
+.brief input:focus{outline:none;border-color:var(--gold)}
+.brief .fine{font-family:var(--mono);font-size:.6rem;color:var(--faint);letter-spacing:.06em;margin-top:12px}
+.brief .ok{color:var(--gold);font-weight:600;display:none}
+.brief .ok.show{display:block}
+
+/* footer */
+footer{border-top:1px solid var(--goldline);padding:clamp(64px,8vw,96px) 0 44px;background:var(--field-deep)}
+.colophon{font-size:clamp(1.5rem,3.4vw,2.3rem);font-weight:800;letter-spacing:-.02em;line-height:1.2;max-width:24ch;margin-bottom:clamp(44px,6vw,72px)}
+.colophon::after{content:"";display:block;width:56px;height:3px;background:var(--gold);margin-top:24px}
+.foot-grid{display:grid;gap:40px;margin-bottom:50px}
+@media(min-width:880px){.foot-grid{grid-template-columns:1.4fr 1fr 1fr 1fr}}
+.foot-brand img{height:30px;margin-bottom:16px}
+.foot-brand p{color:var(--faint);font-size:.88rem;max-width:34ch}
+.foot-col h4{font-family:var(--mono);font-size:.64rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.foot-col ul{list-style:none;display:grid;gap:10px}
+.foot-col a{color:var(--dim);text-decoration:none;font-size:.91rem}
+.foot-col a:hover{color:var(--ink)}
+.legal{border-top:1px solid var(--line);padding-top:26px;font-family:var(--mono);font-size:.64rem;color:var(--faint);letter-spacing:.06em;display:flex;flex-wrap:wrap;gap:10px 28px;justify-content:space-between}
+
+/* reveal */
+.js .fx{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.js .fx.on{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .fx,.js .hero .fade{opacity:1;transform:none;transition:none}
+  .dot,.vu-recbtn.vu-live{animation:none}
+}
+</style>
+</head>
+<body data-variant="v4-a">
+
+<nav class="nav" aria-label="Main">
+  <div class="nav-in">
+    <a class="brand" href="/" aria-label="Vision Genesis — home">
+      <img src="/assets/vg-monogram-240.png" alt="" width="37" height="26"><b>Vision Genesis</b>
+    </a>
+    <div class="nav-links">
+      <a href="#evidence">Proof</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#how-it-works">How it works</a>
+      <a href="/faq/">FAQ</a>
+      <a class="nav-cta" href="#unlock">Find my bottleneck &rarr;</a>
+    </div>
+  </div>
+</nav>
+
+<main id="main">
+
+<!-- ============ HERO — headline left, the working recorder right ============ -->
+<header class="hero" id="unlock">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow quiet fade">You built something real. Now the business runs you.</p>
+        <h1 class="fade">We find the <span class="gold">one workflow</span> costing you the most &mdash; and fix it in 4 to 8 weeks.</h1>
+        <p class="sub fade">Free diagnostic &mdash; talk it through right here, or type it in 90 seconds. A human-written read of your top three fixes in 24&ndash;48 hours &mdash; <strong>no automated pitch</strong>. Owners who acted on the #1 fix made the engagement back inside six months.</p>
+        <p class="fade"><a class="see" href="#sample">See a real diagnostic &rarr;</a></p>
+        <p class="proofline fade">IN PRODUCTION: HOME SERVICES &middot; SPORTS CAMPS &middot; CHURCHES</p>
+      </div>
+
+      <div class="vu-shell fx">
+        <div class="vu-head"><span class="l">The Bottleneck Unlock</span><span class="r">Free &middot; human-reviewed</span></div>
+        <div class="vu-card" id="vu-card">
+          <div class="vu-main">
+            <p class="vu-title">Talk for <span class="gold">ten minutes</span>. Get your unlock plan.</p>
+            <p class="vu-sub">You talk through the questions below. We come back in 24&ndash;48 hours with where the bottleneck is and what we&rsquo;d install against it.</p>
+            <div class="vu-recrow">
+              <button type="button" class="vu-recbtn" id="vu-rec" aria-label="Start recording">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg>
+              </button>
+              <div class="vu-meta">
+                <span id="vu-rec-label">Tap to record</span>
+                <div class="vu-status"><span id="vu-time">00:00</span><span id="vu-guide">guide: 5&ndash;15 minutes</span></div>
+              </div>
+            </div>
+            <canvas id="vu-wave" width="560" height="56" aria-hidden="true"></canvas>
+            <div class="vu-controls">
+              <button type="button" class="vu-chip" id="vu-mictest">Test your mic &middot; 5s</button>
+              <button type="button" class="vu-chip" id="vu-pause" hidden>Pause</button>
+              <button type="button" class="vu-chip" id="vu-stop" hidden>Finish take</button>
+            </div>
+            <p class="vu-drop">Or drag a file in &mdash; price list, sample quote, a voice memo you already made</p>
+            <div class="vu-takes" id="vu-takes"></div>
+            <div class="vu-send" id="vu-send" hidden>
+              <input type="email" id="vu-email" placeholder="you@yourbusiness.com" autocomplete="email" aria-label="Email for your unlock plan">
+              <button type="button" class="btn btn-gold" id="vu-submit">Send my recording &rarr;</button>
+            </div>
+            <p class="vu-err" id="vu-err" hidden></p>
+          </div>
+          <div class="vu-done" id="vu-done" hidden>
+            <h3>Got it<span class="gold">.</span></h3>
+            <p>A human listens first. Your unlock plan lands in your inbox within 48 hours.</p>
+          </div>
+        </div>
+        <div class="vu-rail">
+          <p class="vu-rail-cap">Talk through these &mdash; any order, tap as you go</p>
+          <ol id="vu-prompts">
+            <li><button type="button">What does your business do, and who buys?</button></li>
+            <li><button type="button">Walk me through the job that ate last week.</button></li>
+            <li><button type="button">Where does time die?</button></li>
+            <li><button type="button">What does a lost job cost?</button></li>
+            <li><button type="button">What have you already tried?</button></li>
+            <li><button type="button">If one thing ran itself, which one?</button></li>
+          </ol>
+        </div>
+        <p class="vu-assure">Goes to a human &middot; <b>reviewed by Ryan</b> &middot; nothing auto-sent &middot; <a href="#audit" style="color:var(--gold);text-decoration:none">rather type? &darr;</a></p>
+      </div>
+      <div id="vu-unsupported" hidden>
+        <p>This browser can&rsquo;t record audio &mdash; no dead end. <a class="see" href="#audit">The 90-second typed version works the same &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ STAT STRIP — dollar-stamped, beside the hero ============ -->
+<section class="stats" aria-label="The numbers">
+  <div class="wrap">
+    <div class="stats-in">
+      <div class="stat fx"><b>Same-day</b><span>Quote turnaround &mdash; was 7+ days &middot; landscaping, Knoxville TN</span></div>
+      <div class="stat fx"><b>$8K&ndash;$25K</b><span>Published pricing &middot; one workflow, fixed in 4&ndash;8 weeks</span></div>
+      <div class="stat fx"><b>6 mo</b><span>Typical payback on the #1 ranked fix &middot; pattern to date</span></div>
+      <div class="stat fx"><b>24&ndash;48 hrs</b><span>Human-written read &middot; no automated pitch</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVIDENCE WALL — the actual products, running ============ -->
+<section class="sect" id="evidence" aria-label="Live work">
+  <div class="wrap">
+    <div class="sect-head fx">
+      <p class="eyebrow">Real owners &middot; real screens</p>
+      <h2>Not mockups. These are the systems running right now.</h2>
+      <p class="lede">Every screenshot below is the live product &mdash; taken this week, from the real install.</p>
+    </div>
+
+    <div class="ev-grid">
+      <div class="ev-col">
+        <article class="ev frame-p fx">
+          <div class="shot"><img src="/assets/v4/vtq-phone.png" alt="Voice to Quote — record a voice memo, get a priced estimate" loading="lazy"></div>
+          <div class="ev-cap">
+            <p class="tag"><span class="no">001</span><span class="dot" aria-hidden="true"></span>In production</p>
+            <p class="delta">Quotes went from 7+ days to same-day. Priced before he leaves the property.</p>
+            <p class="who">Voice-to-Quote &middot; landscaping &middot; Knoxville, TN &middot; <a href="/results/">case study &rarr;</a></p>
+          </div>
+        </article>
+        <article class="ev frame-p fx">
+          <div class="shot"><img src="/assets/v4/askcoach-phone.png" alt="AskCoach — Ken Chertow's camp questions answered any hour" loading="lazy"></div>
+          <div class="ev-cap">
+            <p class="tag"><span class="no">002</span><span class="dot" aria-hidden="true"></span>Live</p>
+            <p class="delta"><q>The first wrestling camp in the country</q> &mdash; Ken Chertow, to his own audience.</p>
+            <p class="who">AskCoach &middot; wrestling camps &middot; <a href="/kc-camps/ask-coach/">ask it something &rarr;</a></p>
+          </div>
+        </article>
+      </div>
+      <div class="ev-col">
+        <article class="ev frame-b fx">
+          <div class="shot">
+            <div class="bar"><i></i><i></i><i></i><span class="url">ask-church/cedar-springs/chat</span></div>
+            <img src="/assets/v4/askchurch-desktop.png" alt="Ask Church — visitor questions answered from the church's own content" loading="lazy">
+          </div>
+          <div class="ev-cap">
+            <p class="tag"><span class="no">003</span><span class="dot" aria-hidden="true"></span>Live</p>
+            <p class="delta">Visitor questions answered from the church&rsquo;s own content &mdash; with citations and an honest &ldquo;I don&rsquo;t know.&rdquo;</p>
+            <p class="who">Ask Church &middot; Knoxville, TN &middot; <a href="https://vg-worker.visiongenesis.workers.dev/ask-church/cedar-springs/chat">open the live instance &rarr;</a></p>
+          </div>
+        </article>
+        <article class="ev frame-b fx">
+          <div class="shot">
+            <div class="bar"><i></i><i></i><i></i><span class="url">recovery-desk &middot; demo</span></div>
+            <img src="/assets/v4/recovery-desktop.png" alt="Recovery Desk — missed calls turned into priced, recoverable jobs" loading="lazy">
+          </div>
+          <div class="ev-cap">
+            <p class="tag"><span class="no">004</span><span class="dot" aria-hidden="true"></span>In build</p>
+            <p class="delta">Missed calls and stalled quotes turned into a ranked recovery list with dollar figures attached.</p>
+            <p class="who">Recovery Desk &middot; roofing &middot; demo shown with simulated data</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IDENTITY ============ -->
+<section class="sect identity" aria-label="Who this is for" style="padding-top:0">
+  <div class="wrap">
+    <p class="fx">If you built something real &mdash; a service business, a brick-and-mortar operation, a multi-location franchise &mdash; and every decision still routes back through you, <em>this is for you.</em></p>
+  </div>
+</section>
+
+<!-- ============ BEFORE / AFTER ============ -->
+<section class="sect" id="before-after" aria-label="Before and after" style="padding-top:0">
+  <div class="wrap">
+    <div class="sect-head fx">
+      <p class="eyebrow">Before / after</p>
+      <h2>The same business. One workflow fixed.</h2>
+      <p class="lede">These are not composites. Each one is a real client&rsquo;s before, and the system that&rsquo;s running now.</p>
+    </div>
+    <div class="ba-grid">
+      <article class="ba fx">
+        <p class="tag"><span class="no">LANDSCAPING</span><span class="dot" aria-hidden="true"></span>Knoxville, TN</p>
+        <h3>The quote that took a week</h3>
+        <dl>
+          <div><dt>Before</dt><dd>Quotes took 3 to 5 days after the site walk. The customer hired whoever answered first.</dd></div>
+          <div><dt class="aft">After</dt><dd class="after">The owner records a voice memo walking the property and a branded, priced estimate goes out before he leaves the site.</dd></div>
+        </dl>
+        <p class="act"><a class="see" href="/results/">Voice-to-Quote case study &rarr;</a></p>
+      </article>
+      <article class="ba fx">
+        <p class="tag"><span class="no">SPORTS CAMPS</span><span class="dot" aria-hidden="true"></span>Ken Chertow Wrestling</p>
+        <h3>The questions that waited on one inbox</h3>
+        <dl>
+          <div><dt>Before</dt><dd>Every family&rsquo;s question &mdash; fit, cost, day-one prep &mdash; waited on the coach. Registrations stalled while emails sat.</dd></div>
+          <div><dt class="aft">After</dt><dd class="after">AskCoach answers from the camp&rsquo;s real information, any hour. Twice-daily lead reports go to the owner.</dd></div>
+        </dl>
+        <p class="act"><a class="see" href="/kc-camps/ask-coach/">Ask it something &rarr;</a></p>
+      </article>
+      <article class="ba fx">
+        <p class="tag"><span class="no">CHURCHES</span><span class="dot" aria-hidden="true"></span>Knoxville, TN</p>
+        <h3>The visitor who never got an answer</h3>
+        <dl>
+          <div><dt>Before</dt><dd>Visitor questions sat unanswered on a website built years ago. Nobody&rsquo;s job to reply.</dd></div>
+          <div><dt class="aft">After</dt><dd class="after">Answers from the church&rsquo;s own content, with citations &mdash; built from public material before first contact.</dd></div>
+        </dl>
+        <p class="act"><a class="see" href="https://vg-worker.visiongenesis.workers.dev/ask-church/cedar-springs/chat">Open the live instance &rarr;</a></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VERTICALS ============ -->
+<section class="sect" id="verticals" aria-label="Verticals" style="padding-top:0">
+  <div class="wrap">
+    <div class="sect-head fx">
+      <p class="eyebrow">Where we work</p>
+      <h2>We lead where we have operating experience and active client work.</h2>
+    </div>
+    <dl class="verts fx">
+      <div class="vert">
+        <dt>Service businesses</dt>
+        <dd>
+          <p class="dream">Stop losing jobs to whoever sends the quote first.</p>
+          Landscaping, HVAC, plumbing, trades, field ops. Voice-to-Quote, dispatch, lead intake and follow-up.
+          <p class="flag">Flagship &mdash; in production, Knoxville &middot; <a href="/results/">case study &rarr;</a></p>
+        </dd>
+      </div>
+      <div class="vert">
+        <dt>Hospitality</dt>
+        <dd>
+          <p class="dream">Keep the dining room full without keeping you at a desk.</p>
+          Restaurants, hotels, venues. Anchored by Partner Dan Goss &mdash; 30 years in restaurant and hospitality operations. Ryan owned a restaurant for two years.
+          <p class="flag">Taking first engagements</p>
+        </dd>
+      </div>
+      <div class="vert">
+        <dt>Multi-unit operators</dt>
+        <dd>
+          <p class="dream">Run your 5th location like your 1st &mdash; without adding headcount.</p>
+          Franchise, multi-location retail, senior care, property management. Every repetitive workflow multiplied across every location you run.
+          <p class="flag">Taking first engagements</p>
+        </dd>
+      </div>
+      <div class="vert">
+        <dt>Digital content</dt>
+        <dd>
+          <p class="dream">Produce at the pace of a team. Stay a founder.</p>
+          Content production and distribution for founder-led brands. Ryan Prime is the proof &mdash; three episodes a week.
+          <p class="flag">Our own install &middot; <a href="/ryan-prime/">self-case-study &rarr;</a></p>
+        </dd>
+      </div>
+    </dl>
+    <p class="vert-out fx">Don&rsquo;t see your business? The diagnostic works for any operation with repetitive workflows bleeding time or money &mdash; <a href="#unlock">start there</a>.</p>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="sect model" id="how-it-works" aria-label="How it works">
+  <div class="wrap">
+    <div class="sect-head fx">
+      <p class="eyebrow">How it works</p>
+      <h2>Four phases. Named deliverables. No mystery about what you&rsquo;re buying.</h2>
+    </div>
+    <p class="team-line fx">Who shows up: an <strong>Operator</strong> &mdash; a veteran who has run businesses and knows where they bleed &mdash; and a <strong>Builder</strong> &mdash; an AI-native technologist who ships working software fast &mdash; with an agent layer underneath handling the coordination. Two people on your problem, with leverage. Never a hands-off engagement.</p>
+    <div class="phases">
+      <article class="phase fx">
+        <p class="pno"><b>01</b><span>Week 1 &middot; Free</span></p>
+        <h3>Diagnose</h3>
+        <p>Start with the free Bottleneck Unlock and a 45-minute discovery call. We map your operation, surface where time and money are bleeding, and rank your AI opportunities.</p>
+        <div class="meta">
+          <span><b>You get</b>A ranked list of your top three opportunities &mdash; and a go / no-go recommendation.</span>
+          <span><b>Your time</b>~30 min total (diagnostic + discovery call)</span>
+        </div>
+      </article>
+      <article class="phase fx">
+        <p class="pno"><b>02</b><span>Week 2 &middot; 1-week sprint</span></p>
+        <h3>Scope</h3>
+        <p>We build the implementation plan against the highest-leverage opportunity. You choose: Advisory (you run the build, we coach) or Managed Implementation (we run it end-to-end).</p>
+        <div class="meta">
+          <span><b>You get</b>Build plan, timeline, ROI model, and investment range. Engagement model chosen.</span>
+          <span><b>Your time</b>~1 hour (scope review session)</span>
+        </div>
+      </article>
+      <article class="phase fx">
+        <p class="pno"><b>03</b><span>Weeks 3&ndash;8 &middot; 2&ndash;6 weeks</span></p>
+        <h3>Install</h3>
+        <p>We deploy the system inside your stack, trained on your data, integrated with the tools your team already uses. Built by the Operator and Builder on your engagement.</p>
+        <div class="meta">
+          <span><b>You get</b>A working system, deployed, tested, and ready to run.</span>
+          <span><b>Your time</b>~2 hrs / week (clarification access + one midpoint demo)</span>
+        </div>
+      </article>
+      <article class="phase fx">
+        <p class="pno"><b>04</b><span>Weeks 7+ &middot; Ongoing</span></p>
+        <h3>Teach</h3>
+        <p>We hand off a documented playbook, train your team, and monitor for the first 30 days. Most engagements step down to a monthly check-in by week 12 &mdash; but the door does not close.</p>
+        <div class="meta">
+          <span><b>You get</b>Playbook in your hands, team trained, 30 days of monitoring.</span>
+          <span><b>Your time</b>~1 hour for playbook handoff; optional after</span>
+        </div>
+      </article>
+    </div>
+    <p class="stack-line fx">We build on your existing stack &mdash; HubSpot, Salesforce, Slack, Google Workspace, QuickBooks, Notion, Airtable, n8n, Zapier, and the platforms your team already uses.</p>
+  </div>
+</section>
+
+<!-- ============ SAMPLE DIAGNOSTIC — paper band ============ -->
+<section class="sect paper-band" id="sample" aria-label="Sample diagnostic">
+  <div class="wrap">
+    <div class="sect-head fx">
+      <p class="eyebrow">What you get back</p>
+      <h2>The read you&rsquo;ll get, written by a human, in 24&ndash;48 hours.</h2>
+      <p class="lede">A real, opinionated diagnosis of where AI fits your specific operation &mdash; with rough scope and investment for each opportunity. Not a template. This is a composite, anonymized example:</p>
+    </div>
+    <div class="sample-card fx" id="sample-audit">
+      <div class="sample-cap"><span class="l">Bottleneck Unlock &middot; Sample diagnostic</span><span class="r">Top 3 &middot; ranked by recoverable cost, year one</span></div>
+      <div class="opp">
+        <span class="n">01</span>
+        <div><p class="sev">Critical</p><h3>Quoting workflow &mdash; 7+ day turnaround vs. customer expectation of same-day</h3></div>
+        <p>Three of your last twelve lost jobs traced to a competitor delivering a quote inside four hours. A voice-to-quote pattern would compress your cycle to under two hours &mdash; recoverable in the first two months at current win rates.</p>
+      </div>
+      <div class="opp">
+        <span class="n">02</span>
+        <div><p class="sev">High</p><h3>Reporting cycle &mdash; 14 hours of controller time a month on manual aggregation</h3></div>
+        <p>Pulling category P&amp;L for ownership review eats the first three days of every month. The data is already in QuickBooks, Toast, and your CRM &mdash; an agent that aggregates and flags variance against budget is a 3-week build, ~$12K, and replaces the recurring 14 hours.</p>
+      </div>
+      <div class="opp">
+        <span class="n">03</span>
+        <div><p class="sev">Medium</p><h3>New-customer intake &mdash; 28% drop-off between inquiry and booked call</h3></div>
+        <p>Inquiries arriving outside business hours go cold inside the first 90 minutes. Instant acknowledgement plus self-serve calendar booking closes the gap; pair it with the quoting fix above for a single intake layer.</p>
+      </div>
+      <p class="sample-close">Closes with: <b>the recommended next move, a go / no-go on whether we&rsquo;re the right fit, and which of the three to start with.</b></p>
+    </div>
+    <p class="sample-foot fx">The read is yours to keep, whether you engage us or not. That&rsquo;s the point.</p>
+  </div>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section class="sect" id="pricing" aria-label="Pricing">
+  <div class="wrap">
+    <div class="sect-head fx">
+      <p class="eyebrow">Pricing &mdash; published</p>
+      <h2>Three ways in. One outcome: your problem solved.</h2>
+    </div>
+    <div class="tiers">
+      <article class="tier lead fx">
+        <p class="tag">Start here</p>
+        <h3>Pain-Point Pilot</h3>
+        <p class="price">$8K&ndash;$25K</p>
+        <p class="terms">4&ndash;8 weeks &middot; one workflow</p>
+        <p>Find the one thing bleeding your business &mdash; fix it in 4 to 8 weeks. Ryan and a Builder embed with your team, install the system inside your actual operation, and hand back a playbook your team can run from. Most clients make it back inside six months.</p>
+        <p class="hire">Most clients were planning to hire someone to solve this problem &mdash; they hired us instead.</p>
+        <ul>
+          <li>Voice-to-Quote flagship: 7+ day turnaround &rarr; same-day</li>
+          <li>Onsite, remote, or hybrid</li>
+          <li>Yours to own on-prem, or we host it for you</li>
+        </ul>
+        <p class="act"><a class="see" href="#unlock">Start with the Bottleneck Unlock &rarr;</a></p>
+      </article>
+      <article class="tier fx">
+        <p class="tag">Ongoing</p>
+        <h3>Advisory</h3>
+        <p class="price">Scoped</p>
+        <p class="terms">Per engagement</p>
+        <p>You run the build &mdash; we coach you through it. Weekly working sessions, real-time judgment when you hit a tradeoff, a second set of eyes when you&rsquo;re picking tools. For teams who already have the talent but need experience to point it the right direction.</p>
+        <ul>
+          <li>Weekly 1:1 with a senior operator</li>
+          <li>A second set of eyes on every key decision</li>
+          <li>Priority queue for async questions</li>
+        </ul>
+        <p class="act"><a class="see" href="mailto:vision@visiongenesisai.com?subject=Discovery%20call%20%E2%80%94%20Advisory">Book a discovery call &rarr;</a></p>
+      </article>
+      <article class="tier fx">
+        <p class="tag">Full service</p>
+        <h3>Managed Implementation</h3>
+        <p class="price">Scoped</p>
+        <p class="terms">Per engagement</p>
+        <p>We run the whole thing and hand it back running. Ryan and a Builder diagnose where work is bleeding, integrate the system with your stack, train your team, and stay on it for 30 days after handoff. We don&rsquo;t disappear after launch.</p>
+        <ul>
+          <li>Operator + Builder lead project, system, and training</li>
+          <li>Integration with your existing stack and data</li>
+          <li>30 days monitored after handoff &mdash; we stay on it</li>
+        </ul>
+        <p class="act"><a class="see" href="mailto:vision@visiongenesisai.com?subject=Discovery%20call%20%E2%80%94%20Managed%20Implementation">Book a discovery call &rarr;</a></p>
+      </article>
+    </div>
+    <p class="route fx">Not sure which fits your operation? <a href="#unlock">The Unlock tells you</a> &mdash; free, ten minutes of talking or 90 seconds of typing.</p>
+  </div>
+</section>
+
+<!-- ============ FAQ TEASER ============ -->
+<section class="sect" aria-label="Top objection" style="padding-top:0">
+  <div class="wrap">
+    <div class="faq-teaser fx">
+      <p class="q">&ldquo;We already tried AI. Nothing stuck.&rdquo;</p>
+      <div>
+        <p class="a">Most owners we talk to have. The tools sat unused because nobody installed them against one specific workflow with a number attached. That&rsquo;s the difference between buying software and fixing a bleed &mdash; and the diagnostic will tell you, honestly, which one you actually need. If AI can&rsquo;t help you yet, the read says so.</p>
+        <p style="margin-top:14px"><a class="see" href="/faq/">More straight answers &rarr;</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE TYPED FALLBACK ============ -->
+<section class="sect audit-band" id="audit" aria-label="Bottleneck Unlock — typed">
+  <div class="wrap">
+    <div class="sect-head fx">
+      <p class="eyebrow">Rather type than talk?</p>
+      <h2>The same diagnostic. Four questions, 90 seconds.</h2>
+      <p class="lede">Same read, same human review. Ryan personally reviews every submission &mdash; a human-written read lands in your inbox within 24&ndash;48 hours. Prefer to talk it through? <a class="see" href="#unlock">The recorder is at the top &uarr;</a></p>
+    </div>
+    <div class="audit-grid">
+      <div class="form-card fx">
+        <form id="bu-form" novalidate>
+          <div class="prog" aria-hidden="true">
+            <span class="step-label" id="bu-step-label">Step 1 of 3 &mdash; Your business</span>
+            <span class="bar"><i id="bu-bar" style="width:33%"></i></span>
+          </div>
+          <input class="hp" type="text" name="_gotcha" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <div id="bu-steps"></div>
+          <p class="form-err" id="bu-err" role="alert"></p>
+          <div class="form-nav">
+            <button type="button" class="btn-back" id="bu-back" hidden>&larr; Back</button>
+            <button type="button" class="btn btn-gold btn-next" id="bu-next">Continue &rarr;</button>
+          </div>
+          <p class="form-fine">FREE &middot; HUMAN-REVIEWED &middot; NO AUTOMATED PITCH AFTERWARD</p>
+        </form>
+        <div class="done" id="bu-done" hidden>
+          <h3>On its way<span class="gold">.</span></h3>
+          <p id="bu-done-p">Your answers are with us. A human-written read &mdash; your top opportunities, ranked, with rough scope for each &mdash; lands in your inbox within 24&ndash;48 hours.</p>
+          <a class="see" id="bu-done-link" href="#sample">While you wait: see a real diagnostic &rarr;</a>
+        </div>
+      </div>
+      <aside class="aside-card fx">
+        <h3>What comes back</h3>
+        <ul>
+          <li>Your situation reflected back &mdash; proof we listened</li>
+          <li>Three ranked opportunities with rough scope and investment</li>
+          <li>One quick win you can implement this week, free</li>
+          <li>A go / no-go on whether we&rsquo;re the right fit</li>
+        </ul>
+        <p>Ryan personally reviews every full submission within 24&ndash;48 hours. The response is written, not generated.</p>
+        <p class="fine">PREFER EMAIL? <a class="gold" href="mailto:vision@visiongenesisai.com?subject=Bottleneck%20Unlock" style="text-decoration:none">vision@visiongenesisai.com</a></p>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<!-- ============ RYAN PRIME ============ -->
+<section class="sect" id="ryan-prime" aria-label="Ryan Prime">
+  <div class="wrap">
+    <div class="rp">
+      <div class="fx">
+        <p class="eyebrow">Self-case-study</p>
+        <h2>The first workflow we installed was our own.</h2>
+        <p>Ryan Prime is an AI avatar of the founder &mdash; it produces three episodes a week while Ryan stays in client work. We wouldn&rsquo;t put a system in your business that we weren&rsquo;t willing to run in ours; this is the one we ran first.</p>
+        <p><a class="see" href="/ryan-prime/">See how it was built &rarr;</a></p>
+      </div>
+      <div class="fx">
+        <img class="poster" src="/ryan-prime-poster.jpg" alt="Ryan Prime — the founder's AI avatar, on set" loading="lazy">
+        <p class="pcap">Ryan Prime &middot; the founder&rsquo;s AI avatar &middot; 3 episodes / week</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INTELLIGENCE BRIEF ============ -->
+<section class="sect" aria-label="Intelligence Brief" style="padding-top:0">
+  <div class="wrap">
+    <div class="brief fx">
+      <div>
+        <p class="eyebrow quiet">Intelligence Brief &middot; weekly</p>
+        <h2>The read for owners who don&rsquo;t have time to follow AI.</h2>
+        <p>One short brief a week: what changed in AI that actually matters to an owner running a real business, one pattern we&rsquo;re seeing across engagements, and one tool worth your time &mdash; or worth ignoring. Written by Ryan in the same voice as the diagnostic.</p>
+      </div>
+      <div>
+        <form id="brief-form" novalidate>
+          <input type="email" id="brief-email" placeholder="you@yourbusiness.com" autocomplete="email" required aria-label="Email for the Intelligence Brief">
+          <button type="submit" class="btn btn-gold">Join the waitlist &rarr;</button>
+        </form>
+        <p class="ok" id="brief-ok">You&rsquo;re on the list. First issue lands the week we launch.</p>
+        <p class="fine">FREE &middot; FIRST THREE BACK-ISSUES AT LAUNCH &middot; UNSUBSCRIBE ANYTIME</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <p class="colophon">Build first. Prove first. Then ask.</p>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <img src="/assets/vg-monogram-240.png" alt="Vision Genesis" width="43" height="30">
+        <p>Owner-operated AI implementation. An Operator and a Builder on your problem, with an agent layer underneath.</p>
+      </div>
+      <div class="foot-col">
+        <h4>The firm</h4>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/ryan-prime/">Ryan Prime</a></li>
+          <li><a href="/model/">Business model</a></li>
+          <li><a href="/faq/">FAQ</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Work with us</h4>
+        <ul>
+          <li><a href="#unlock">Bottleneck Unlock</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="/apply/">Join &mdash; Operators &amp; Builders</a></li>
+          <li><a href="mailto:vision@visiongenesisai.com?subject=VG%20Question">vision@visiongenesisai.com</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h4>Live work</h4>
+        <ul>
+          <li><a href="/results/">Voice-to-Quote case study</a></li>
+          <li><a href="/kc-camps/ask-coach/">AskCoach</a></li>
+          <li><a href="https://vg-worker.visiongenesis.workers.dev/ask-church/cedar-springs/chat">Ask Church</a></li>
+          <li><a href="https://x.com/VisionGenesisAI">@VisionGenesisAI</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>&copy; 2026 Vision Genesis LLC &middot; All rights reserved</span>
+      <span>visiongenesisai.com</span>
+    </div>
+  </div>
+</footer>
+
+<script src="/assets/v4/v4-shared.js"></script>
+</body>
+</html>
