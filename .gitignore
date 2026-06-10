@@ -1,0 +1,5 @@
+
+# Internal briefs must never be tracked in this PUBLIC repo (estate 2026-06-10)
+# gh-pages = the deployed site: anything tracked here is served on visiongenesisai.com
+docs/
+_incoming/
