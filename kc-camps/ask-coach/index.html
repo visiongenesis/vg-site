@@ -45,11 +45,14 @@
   @keyframes livePulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(62,224,127,.65)}50%{opacity:.28;box-shadow:0 0 0 6px rgba(62,224,127,0)}}
   .pv{flex-shrink:0;font-family:'Oswald';text-transform:uppercase;letter-spacing:.16em;font-size:9px;font-weight:600;
     color:var(--gold);border:1px solid rgba(242,183,5,.5);padding:4px 8px;border-radius:3px}
-  .findcamp{flex-shrink:0;font-family:'Oswald';text-transform:uppercase;letter-spacing:.04em;font-size:11px;font-weight:600;
-    color:#1b1300;background:var(--gold);padding:8px 12px;border-radius:5px;text-decoration:none;line-height:1.05;white-space:nowrap;
-    box-shadow:0 8px 20px -12px rgba(242,183,5,.7);transition:.15s}
+  .hdr-cta{flex-shrink:0;display:flex;flex-direction:column;gap:5px;align-items:stretch}
+  .hdr-cta a{font-family:'Oswald';text-transform:uppercase;letter-spacing:.04em;font-size:11px;font-weight:600;
+    text-decoration:none;text-align:center;padding:6px 11px;border-radius:5px;line-height:1.05;white-space:nowrap;transition:.15s}
+  .overview{color:var(--gold);background:transparent;border:1px solid rgba(242,183,5,.55)}
+  .overview:hover{background:rgba(242,183,5,.12)}
+  .findcamp{color:#1b1300;background:var(--gold);box-shadow:0 8px 20px -12px rgba(242,183,5,.7)}
   .findcamp:hover{background:var(--goldSoft)}
-  @media (max-width:390px){ .findcamp{font-size:10px;padding:7px 9px} .h-txt p{font-size:11px} }
+  @media (max-width:390px){ .hdr-cta a{font-size:10px;padding:5px 8px} .h-txt p{font-size:11px} }
 
   #chat{flex:1;overflow-y:auto;overflow-x:hidden;padding:20px 15px 8px;position:relative;z-index:1;-webkit-overflow-scrolling:touch}
   .wrap{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:13px}
@@ -111,7 +114,10 @@
     <h1>AskCoach</h1>
     <p><span class="live"></span> Ken Chertow Gold Medal Training Camps · instant answers</p>
   </div>
-  <a class="findcamp" id="findcamp" href="https://visiongenesisai.com/kc-camps/register/">Find your camp →</a>
+  <div class="hdr-cta">
+    <a class="overview" id="overview" href="https://visiongenesisai.com/kc-camps/">Camp overview</a>
+    <a class="findcamp" id="findcamp" href="https://visiongenesisai.com/kc-camps/register/">Find your camp →</a>
+  </div>
 </header>
 
 <div id="chat">
@@ -156,10 +162,11 @@ const EVENT_ENDPOINT = "https://vg-worker.visiongenesis.workers.dev/event";
 const SID = (()=>{ try{ let s=localStorage.getItem('kcSid'); if(!s){ s=Math.random().toString(36).slice(2,10)+Date.now().toString(36); localStorage.setItem('kcSid',s);} return s; }catch(_){ return 'anon'+Math.random().toString(36).slice(2,8); } })();
 function track(type){ try{ fetch(EVENT_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type,sid:SID,src:KC_SRC})}).catch(()=>{}); }catch(_){} }
 track('view');
-// "Find your camp" button -> straight to the funnel for folks who'd rather skip the chat.
-(function(){ var fc=document.getElementById('findcamp'); if(!fc) return;
-  fc.href='https://visiongenesisai.com/kc-camps/register/'+(KC_SRC?('?src='+encodeURIComponent(KC_SRC)):'');
-  fc.addEventListener('click',function(){ track('skip'); });
+// Header pills: "Camp overview" -> the lander (learn first); "Find your camp" -> the funnel (skip the chat). Both carry the campaign src.
+(function(){
+  var q = KC_SRC ? ('?src='+encodeURIComponent(KC_SRC)) : '';
+  var ov=document.getElementById('overview'); if(ov){ ov.href='https://visiongenesisai.com/kc-camps/'+q; ov.addEventListener('click',function(){ track('overview'); }); }
+  var fc=document.getElementById('findcamp'); if(fc){ fc.href='https://visiongenesisai.com/kc-camps/register/'+q; fc.addEventListener('click',function(){ track('skip'); }); }
 })();
 let emailCaptured = false;
 // When a parent gives their email in chat, stash it (same-origin) so the funnel
