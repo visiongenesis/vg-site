@@ -28,6 +28,19 @@
   var GOLD=css("--gold")||"#ECB838";
   var WAVE_DIM=css("--vu-wave-dim")||"rgba(236,184,56,.28)";
 
+  /* idle waveform baseline — so the canvas reads as a live instrument, not a dead black bar */
+  function drawIdle(){
+    if(!wave||recording)return;
+    var ctx2=wave.getContext("2d"),W=wave.width,H=wave.height,bars=48;
+    ctx2.clearRect(0,0,W,H);
+    ctx2.fillStyle=WAVE_DIM;
+    for(var i=0;i<bars;i++){
+      var seed=Math.sin(i*1.7)*0.5+0.5, h=Math.max(2,seed*H*0.34);
+      ctx2.fillRect(i*(W/bars)+1,(H-h)/2,(W/bars)-3,h);
+    }
+  }
+  drawIdle();
+
   function fmt(s){var m=Math.floor(s/60),x=s%60;return (m<10?"0":"")+m+":"+(x<10?"0":"")+x}
   function err(m,html){if(!errEl)return;if(html){errEl.innerHTML=m}else{errEl.textContent=m}errEl.hidden=false}
   function clearErr(){if(errEl)errEl.hidden=true}
@@ -50,7 +63,7 @@
     frame();
   }
   function stopWave(){if(raf){cancelAnimationFrame(raf);raf=null}
-    if(wave){var c=wave.getContext("2d");c.clearRect(0,0,wave.width,wave.height)}}
+    if(wave){var c=wave.getContext("2d");c.clearRect(0,0,wave.width,wave.height);drawIdle()}}
 
   function attachAnalyser(s){
     try{
