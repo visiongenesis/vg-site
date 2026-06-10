@@ -90,11 +90,11 @@ h1,h2,h3{font-family:var(--disp);font-weight:600;line-height:1.12;letter-spacing
 
 /* ---------- manifesto ---------- */
 .manifesto{background:var(--navy-2);border-top:1px solid var(--goldline);border-bottom:1px solid var(--goldline)}
-.manifesto .in{display:grid;gap:36px;grid-template-columns:1fr;padding:clamp(72px,9vw,120px) 0}
+.mani{display:grid;gap:36px;grid-template-columns:1fr;padding:clamp(72px,9vw,120px) 0}
 .manifesto blockquote{font-family:var(--disp);font-style:italic;font-weight:500;font-size:clamp(1.9rem,4.6vw,3.3rem);line-height:1.22;max-width:21ch}
 .manifesto blockquote::before{content:"";display:block;width:56px;height:2px;background:var(--gold);margin-bottom:28px}
 .manifesto p{color:var(--dim);max-width:54ch;align-self:end}
-@media(min-width:880px){.manifesto .in{grid-template-columns:1.25fr .9fr;gap:64px}}
+@media(min-width:880px){.mani{grid-template-columns:1.25fr .9fr;gap:64px}}
 
 /* ---------- receipts ---------- */
 .sect-head{margin-bottom:clamp(44px,6vw,72px)}
@@ -189,7 +189,7 @@ footer{border-top:1px solid var(--goldline);padding:64px 0 48px;background:var(-
 
 /* ---------- reveal ---------- */
 .rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
-.rv.in{opacity:1;transform:none}
+.rv.on{opacity:1;transform:none}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .rv{opacity:1;transform:none;transition:none}
@@ -236,7 +236,7 @@ footer{border-top:1px solid var(--goldline);padding:64px 0 48px;background:var(-
 <!-- ======================= MANIFESTO ======================= -->
 <section class="manifesto" aria-label="Our worldview">
   <div class="wrap">
-    <div class="in">
+    <div class="mani">
       <blockquote class="rv">You are not behind. You have been lied&nbsp;to.</blockquote>
       <p class="rv">The AI market has failed working owners from two directions: consultancies priced for someone else, and hype-sellers who have never walked a shop floor. We are building the category in between &mdash; serious AI help for the businesses priced out of it.</p>
     </div>
@@ -592,11 +592,11 @@ footer{border-top:1px solid var(--goldline);padding:64px 0 48px;background:var(-
   /* reveal on scroll */
   if("IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches){
     var io=new IntersectionObserver(function(es){
-      es.forEach(function(en){if(en.isIntersecting){en.target.classList.add("in");io.unobserve(en.target)}});
+      es.forEach(function(en){if(en.isIntersecting){en.target.classList.add("on");io.unobserve(en.target)}});
     },{rootMargin:"-60px"});
     document.querySelectorAll(".rv").forEach(function(el){io.observe(el)});
   }else{
-    document.querySelectorAll(".rv").forEach(function(el){el.classList.add("in")});
+    document.querySelectorAll(".rv").forEach(function(el){el.classList.add("on")});
   }
 })();
 </script>
