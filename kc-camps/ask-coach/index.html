@@ -226,30 +226,40 @@ function bubble(role, html){
 }
 function typing(){
   const row=document.createElement('div'); row.className='row coach'; row.id='typing';
-function copyPlain(btn){
-  const bubble=btn.closest('.bubble');
-  const clone=bubble.cloneNode(true);
-  clone.querySelectorAll('.copy-btn').forEach(b=>b.remove());
-  const plain=clone.textContent.trim();
-  try{
-    navigator.clipboard.writeText(plain).then(()=>{
-      btn.textContent='Copied!';btn.classList.add('copied');
-      setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);
-    }).catch(()=>{
-      const ta=document.createElement('textarea');ta.value=plain;ta.style.cssText='position:fixed;left:-9999px';
-      document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-      btn.textContent='Copied!';btn.classList.add('copied');
-      setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);
-    });
-  }catch(e){
-    const ta=document.createElement('textarea');ta.value=plain;ta.style.cssText='position:fixed;left:-9999px';
-    document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-    btn.textContent='Copied!';btn.classList.add('copied');
-    setTimeout(()=>{btn.textContent='Copy';btn.classList.remove('copied');},2000);
-  }
-}
   row.innerHTML=`<div class="av">KC</div><div class="bubble"><span class="dots"><span></span><span></span><span></span></span></div>`;
   wrap.appendChild(row); chat.scrollTop=chat.scrollHeight;
+}
+// Copy a reply back out as clean plain text: one line per paragraph/bullet/row,
+// with link URLs appended (so the registration link survives a paste into email).
+function copyPlain(btn){
+  const src=btn.closest('.bubble');
+  const parts=[];
+  src.querySelectorAll('p, li, tr').forEach(el=>{
+    let text;
+    if(el.tagName==='TR'){
+      text=Array.from(el.children).map(c=>c.textContent.trim()).join(' | ');
+    }else{
+      text=el.textContent.trim();
+      el.querySelectorAll('a[href]').forEach(a=>{
+        const href=a.getAttribute('href')||'';
+        if(href && href.slice(0,7)!=='mailto:' && text.indexOf(href)===-1){
+          const label=a.textContent.trim();
+          if(label) text=text.replace(label, label+' '+href);
+        }
+      });
+      if(el.tagName==='LI') text='- '+text;
+    }
+    if(text) parts.push(text);
+  });
+  let plain=parts.join('\n').replace(/\n{3,}/g,'\n\n').trim();
+  if(!plain){ const c=src.cloneNode(true); c.querySelectorAll('.copy-btn').forEach(b=>b.remove()); plain=c.textContent.trim(); }
+  const done=()=>{ btn.textContent='Copied!'; btn.classList.add('copied'); setTimeout(()=>{btn.textContent='Copy'; btn.classList.remove('copied');},2000); };
+  const fallback=()=>{ const ta=document.createElement('textarea'); ta.value=plain; ta.style.cssText='position:fixed;left:-9999px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done(); };
+  try{
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(plain).then(done).catch(fallback);
+    }else{ fallback(); }
+  }catch(e){ fallback(); }
 }
 function stopTyping(){ const t=document.getElementById('typing'); if(t) t.remove(); }
 
