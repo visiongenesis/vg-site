@@ -76,6 +76,12 @@
   .copy-btn{display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:5px 10px;border:1px solid rgba(255,255,255,.15);border-radius:6px;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);font-size:12px;font-family:'Montserrat',sans-serif;cursor:pointer;transition:.15s;opacity:0.7}
   .copy-btn:hover{opacity:1;background:rgba(255,255,255,.12);color:#fff}
   .copy-btn.copied{color:var(--gold);border-color:var(--gold)}
+  .flyer-card{margin-top:12px;border:1px solid rgba(255,255,255,.12);border-radius:10px;overflow:hidden;background:rgba(255,255,255,.04);max-width:340px}
+  .flyer-card img{display:block;width:100%;height:auto}
+  .flyer-meta{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:9px 11px}
+  .flyer-title{font-size:11.5px;color:var(--mut);line-height:1.3}
+  .flyer-dl{flex:0 0 auto;display:inline-flex;align-items:center;gap:5px;text-decoration:none;background:var(--gold);color:#1b1300;font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.03em;font-size:11px;font-weight:600;padding:7px 12px;border-radius:6px;white-space:nowrap}
+  .flyer-dl:hover{background:var(--goldSoft)}
   .bubble table{width:100%;border-collapse:collapse;margin:6px 0 10px;font-size:12.5px}
   .bubble td{border:1px solid rgba(255,255,255,.12);padding:5px 8px;text-align:left}
   .bubble tr:first-child td{font-family:'Oswald';text-transform:uppercase;letter-spacing:.03em;font-size:10.5px;color:var(--gold)}
@@ -217,6 +223,31 @@ function render(text){
   }
   close(); return html;
 }
+// ── Inline flyers ──────────────────────────────────────────────────────────
+// Ken's real promo flyers, hosted on the site. The bot never emits a URL; code
+// decides which flyer fits (maybeFlyer) so there's nothing to hallucinate.
+const FLYERS = {
+  'girls-ohio': {
+    src: '/kc-camps/flyers/girls-ohio.jpg',
+    title: 'Ohio Girls Gold Medal Camps — July 18–23 (4 / 6 / 11 / 13-day)',
+    file: 'Ken-Chertow-Ohio-Girls-Camps.jpg'
+  }
+};
+function flyerCard(slug){
+  const f = FLYERS[slug]; if(!f) return '';
+  return '<div class="flyer-card" data-flyer="'+slug+'">'
+    + '<a href="'+f.src+'" target="_blank" rel="noopener"><img src="'+f.src+'" alt="'+f.title+'" loading="lazy"></a>'
+    + '<div class="flyer-meta"><span class="flyer-title">'+f.title+'</span>'
+    + '<a class="flyer-dl" href="'+f.src+'" download="'+f.file+'">Download</a></div>'
+    + '</div>';
+}
+// Conservative trigger: only when the exchange is clearly about GIRLS camps in OHIO.
+function maybeFlyer(userText, replyText){
+  const t = ((userText||'')+' '+(replyText||'')).toLowerCase();
+  const girls = /\b(girls?|daughter|supergirl|super\s?girl)\b/.test(t);
+  const ohio  = /\bohio\b|\bhamilton\b/.test(t);
+  return (girls && ohio) ? 'girls-ohio' : null;
+}
 function bubble(role, html, raw){
   const row=document.createElement('div');
   row.className='row '+(role==='user'?'me':'coach');
@@ -244,12 +275,17 @@ function copyPlain(btn){
       .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'$1 ($2)')
       .replace(/\n{3,}/g,'\n\n').trim();
   }else{
-    const c=src.cloneNode(true); c.querySelectorAll('.copy-btn').forEach(b=>b.remove());
+    const c=src.cloneNode(true); c.querySelectorAll('.copy-btn, .flyer-meta').forEach(b=>b.remove());
     plain=c.textContent.trim();
   }
+  // If the reply carries a flyer, name it + its link in the plain version.
+  const fcard=src.querySelector('.flyer-card');
+  if(fcard){ const f=FLYERS[fcard.getAttribute('data-flyer')]; if(f) plain=(plain+'\n\n'+f.title+'\n'+location.origin+f.src).trim(); }
   // ---- Rich HTML: inline EMAIL-legible styling (on-screen gold is unreadable on white) ----
   const h=src.cloneNode(true);
-  h.querySelectorAll('.copy-btn').forEach(b=>b.remove());
+  h.querySelectorAll('.copy-btn, .flyer-meta').forEach(b=>b.remove());
+  h.querySelectorAll('img').forEach(el=>{ const s=el.getAttribute('src')||''; if(s && s.charAt(0)==='/') el.setAttribute('src', location.origin+s); el.style.cssText='display:block;max-width:340px;width:100%;height:auto;border-radius:8px;margin:10px 0;'; });
+  h.querySelectorAll('.flyer-card').forEach(el=>{ el.removeAttribute('class'); el.style.margin='10px 0'; });
   h.querySelectorAll('p').forEach(el=>{ el.style.margin='0 0 10px'; });
   h.querySelectorAll('strong').forEach(el=>{ el.style.color='#0a2540'; el.style.fontWeight='700'; });
   h.querySelectorAll('p.sub').forEach(el=>{ el.style.color='#8a6d00'; el.style.fontWeight='700'; el.style.textTransform='uppercase'; el.style.letterSpacing='.04em'; el.style.fontSize='13px'; el.style.margin='14px 0 4px'; });
@@ -297,7 +333,10 @@ async function ask(text){
     const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history.slice(-12),sid:SID,src:KC_SRC})});
     const data=await r.json(); stopTyping();
     const reply=(data&&data.reply)||"Sorry — I had trouble there. Email camps@kenchertow.com and Ken, Beth and the team will take great care of you.";
-    bubble('coach', render(reply), reply); history.push({role:'assistant',content:reply});
+    let coachHtml=render(reply);
+    const slug=maybeFlyer(text, reply);
+    if(slug) coachHtml+=flyerCard(slug);
+    bubble('coach', coachHtml, reply); history.push({role:'assistant',content:reply});
   }catch(e){
     stopTyping();
     const msg="Sorry — I couldn't reach the camp office just now. Please email camps@kenchertow.com and Ken, Beth and the team will take great care of you.";
