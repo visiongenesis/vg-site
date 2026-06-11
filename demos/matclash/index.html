@@ -1066,6 +1066,7 @@ async function vsScreen(p,a){
   vp.onerror=()=>{vp.onerror=null;vp.src=p.img;};
   va.onerror=()=>{va.onerror=null;va.src=a.img;};
   vp.src=ps; va.src=as;
+  vsCine("l",p); vsCine("r",a);
   $("vsPnm").innerHTML=p.nm+'<span class="vstag">'+p.tag+"</span>";
   $("vsAnm").innerHTML=a.nm+'<span class="vstag">'+a.tag+" · WRESTLES "+persOf(a).style+"</span>";
   $("vsstakes").textContent=DUAL?("DUAL MEET · BOUT "+(DUAL.bout+1)+" OF 5 · TEAM "+DUAL.teamP+"–"+DUAL.teamA):"QUICK SCRAP · PIN ENDS IT · TECH AT +15";
@@ -1191,6 +1192,17 @@ function renderHeader(){
 }
 function stageImg(ch){
   return ch.img.replace("assets/character-","assets/cutouts/character-").replace(/\.jpg$/,".png");
+}
+function cineFor(ch){
+  return ch.img.replace("assets/character-","assets/cine/hero-").replace(/\.jpg$/,".mp4");
+}
+function vsCine(side,ch){
+  const port=document.querySelector("#vs .vsport."+side); if(!port)return;
+  let v=port.querySelector("video");
+  if(!v){ v=document.createElement("video"); v.muted=true;v.loop=true;v.autoplay=true;v.playsInline=true;v.setAttribute("playsinline","");
+    v.style.cssText="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;z-index:1;";
+    v.onerror=()=>{v.remove();}; port.appendChild(v); }
+  v.poster=stageImg(ch); v.src=cineFor(ch); const pr=v.play(); if(pr)pr.catch(()=>{});
 }
 function renderOpp(){
   const _o=S[other(VIEW)]; $("oppinfo").textContent=_o.ch.nm+" holds "+_o.hand.length+" cards · "+_o.draws+" draws left";
@@ -1807,7 +1819,11 @@ async function endMatch(winner,how,sub){
   const w=S[winner], l=S[other(winner)];
   const o=el("div","overlay");
   const wrap=el("div"); wrap.id="qsc";
-  const port=el("div"); port.id="qport"; const pi=el("img"); pi.src=w.ch.img; port.appendChild(pi);
+  const port=el("div"); port.id="qport";
+  const wv=document.createElement("video"); wv.muted=true;wv.loop=true;wv.autoplay=true;wv.playsInline=true;wv.setAttribute("playsinline","");
+  wv.poster=w.ch.img; wv.src=cineFor(w.ch); wv.style.cssText="width:100%;height:100%;object-fit:cover;object-position:center top;";
+  wv.onerror=()=>{wv.remove();const pi=el("img");pi.src=w.ch.img;port.appendChild(pi);};
+  port.appendChild(wv);
   const ko=el("div","qko"); const ki=el("img"); ki.src=stageImg(S[other(winner)].ch); ko.appendChild(ki); o.appendChild(ko);
   const side=el("div"); side.id="qside";
   side.appendChild(el("div","qresult",how));
@@ -2490,8 +2506,9 @@ function startScreen(){
   o.style.cssText="background:#0a0909;justify-content:center;overflow:hidden;";
   const vid=document.createElement("video");
   vid.id="cinebg"; vid.muted=true; vid.loop=true; vid.autoplay=true; vid.playsInline=true; vid.setAttribute("playsinline","");
-  vid.poster="assets/cine-title-poster.jpg"; vid.src="assets/cine-title.mp4";
-  vid.onerror=()=>{vid.remove();};
+  const heroCh=shuffle(CHARS.slice())[0];
+  vid.poster=stageImg(heroCh); vid.src=cineFor(heroCh);
+  vid.onerror=()=>{ if(vid.src.indexOf("cine-title.mp4")<0){vid.onerror=()=>vid.remove(); vid.src="assets/cine-title.mp4";} else vid.remove(); };
   o.appendChild(vid);
   const pv=vid.play(); if(pv)pv.catch(()=>{});
   o.appendChild(el("div","","")).id="cinescrim";
