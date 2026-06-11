@@ -270,6 +270,11 @@
   .vsbark .who{display:block;font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--gold2);margin-bottom:4px;text-shadow:none;}
   .vsbark.l{left:4%;top:30%;transform:skewX(-5deg) rotate(-2deg);border-left:8px solid var(--red);animation:barkslam .42s cubic-bezier(.2,2,.4,1) forwards;}
   .vsbark.r{right:4%;top:52%;text-align:right;transform:skewX(-5deg) rotate(2deg);border-right:8px solid var(--red);animation:barkslam .42s cubic-bezier(.2,2,.4,1) forwards;}
+  .ipnote{margin:18px auto 4px;max-width:340px;font-size:10.5px;line-height:1.5;color:var(--dim);
+    border-top:1px solid var(--line);padding-top:12px;letter-spacing:.01em;}
+  .ipnote b{color:var(--gold2);font-weight:700;}
+  #ipcorner{position:absolute;left:0;right:0;bottom:calc(2px + env(safe-area-inset-bottom));z-index:74;text-align:center;
+    font-size:8.5px;letter-spacing:.04em;color:#7a6f5e;pointer-events:none;padding:0 8px;}
   @keyframes barkslam{0%{transform:skewX(-5deg) scale(2.6);opacity:0}60%{opacity:1;transform:skewX(-5deg) scale(.93)}100%{opacity:1}}
   #vsskip{position:absolute;bottom:2.5%;left:0;right:0;z-index:8;text-align:center;font-size:10px;letter-spacing:.2em;color:#a3937d;animation:pulse 1.3s infinite;}
   /* ===== CARD INSPECTOR ===== */
@@ -430,7 +435,8 @@
   <div style="font-size:13px;letter-spacing:.2em;color:#a3937d;margin-bottom:10px;">PRIVATE DEMO — MAT CLASH WRESTLING CORP. / LANGFORDESIGN REVIEW</div>
   <input id="mcgcode" placeholder="ENTER CODE" autocapitalize="characters" style="font-size:20px;letter-spacing:.25em;text-align:center;text-transform:uppercase;padding:12px;width:240px;background:#140d0c;color:#f5c542;border:2px solid #352b23;outline:none;">
   <button id="mcgo" style="margin-top:14px;font-size:15px;font-weight:700;letter-spacing:.1em;padding:12px 34px;background:#e41c26;color:#fff;border:none;cursor:pointer;">ENTER</button>
-  <div style="margin-top:14px;font-size:11px;color:#6a5;letter-spacing:.06em;">Sound ON. Long-press a card to read it. Best in a tall window.</div>
+  <div style="margin-top:16px;font-size:10.5px;color:#7a6f5e;max-width:300px;line-height:1.5;">MAT CLASH&trade; and all artwork are the property of MAT CLASH Wrestling Corp., created by Langfordesign. Private technology demo by Vision Genesis.</div>
+  <div style="margin-top:10px;font-size:11px;color:#6a5;letter-spacing:.06em;">Sound ON. Long-press a card to read it.</div>
 </div>
 <script>(function(){var g=document.getElementById("mcgate");
   try{if(sessionStorage.getItem("mcGate")==="1"){g.remove();return;}}catch(e){}
@@ -498,6 +504,7 @@
   <div id="flash"></div>
   <div id="toast"></div>
   <div id="ovl"></div>
+  <div id="ipcorner">MAT CLASH&trade; &amp; all art &copy; MAT CLASH Wrestling Corp. &middot; created by Langfordesign &middot; demo by Vision Genesis</div>
   <div id="vs">
     <div id="vslogo"></div>
     <div class="vsport l"><img id="vsPimg" alt=""></div>
@@ -2552,6 +2559,11 @@ function startScreen(){
   };
   brow.appendChild(lk); brow.appendChild(ht); brow.appendChild(pd); brow.appendChild(sp);
   menu.appendChild(brow);
+  const ip=el("div","ipnote",
+    "MAT CLASH\u2122, all characters, and all card &amp; character artwork are the intellectual property of "
+    +"<b>MAT CLASH Wrestling Corp.</b>, created by <b>Langfordesign</b>. "
+    +"Digital-game technology demonstration by Vision Genesis \u2014 private review build, not for distribution.");
+  menu.appendChild(ip);
   o.onclick=()=>{o.onclick=null;sfx.big();select();};
   function select(){
     o.innerHTML="";
