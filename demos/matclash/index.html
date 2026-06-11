@@ -371,7 +371,11 @@
   #vslogo{position:absolute;left:50%;top:5%;transform:translateX(-50%);width:120px;height:46px;z-index:5;
     background:url("assets/logo-matclash.png") center/contain no-repeat;filter:drop-shadow(0 2px 6px #000);}
   /* ===== TITLE & SELECT ===== */
-  #titlelogo{width:min(94%,370px);height:172px;margin:0 auto;
+  #cinebg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.55;}
+  #cinescrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:radial-gradient(120% 80% at 50% 38%,transparent 0%,#0a0909cc 64%,#0a0909 100%),linear-gradient(180deg,#0a090988 0%,transparent 22%,transparent 64%,#0a0909 100%);}
+  .titlemenu{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;width:100%;}
+    #titlelogo{width:min(94%,370px);height:172px;margin:0 auto;
     background:radial-gradient(closest-side,#e41c2630 0%,transparent 72%),url("assets/logo-matclash.png") center/contain no-repeat;
     filter:drop-shadow(0 8px 22px #000) drop-shadow(0 0 44px #e41c2640);
     animation:titlepulse 2.6s ease-in-out infinite;}
@@ -2483,36 +2487,36 @@ function startScreen(){
   DUAL=null; TUTOR=false; GAUNT=null; DEMO_MODE=false;
   music("title");
   const o=el("div","overlay");
-  o.style.background="rgba(8,4,4,.97)";
-  const par=el("div"); par.id="parade";
-  const pin=el("div"); pin.id="paradein";
-  const lineup=shuffle(CHARS.slice()).slice(0,7);
-  lineup.concat(lineup).forEach(ch=>{
-    const im=el("img"); im.src=stageImg(ch);
-    im.onerror=()=>{im.onerror=null;im.remove();};
-    pin.appendChild(im);
-  });
-  par.appendChild(pin); o.appendChild(par);
-  const logo=el("div"); logo.id="titlelogo"; o.appendChild(logo);
-  o.appendChild(el("div","sub","FOLKSTYLE CARD WRESTLING<br>PIN ENDS IT · TECH FALL AT +15"));
+  o.style.cssText="background:#0a0909;justify-content:center;overflow:hidden;";
+  const vid=document.createElement("video");
+  vid.id="cinebg"; vid.muted=true; vid.loop=true; vid.autoplay=true; vid.playsInline=true; vid.setAttribute("playsinline","");
+  vid.poster="assets/cine-title-poster.jpg"; vid.src="assets/cine-title.mp4";
+  vid.onerror=()=>{vid.remove();};
+  o.appendChild(vid);
+  const pv=vid.play(); if(pv)pv.catch(()=>{});
+  o.appendChild(el("div","","")).id="cinescrim";
+  const menu=el("div","titlemenu"); o.appendChild(menu);
+  const _ap=menu.appendChild.bind(menu);
+  const logo=el("div"); logo.id="titlelogo"; menu.appendChild(logo);
+  menu.appendChild(el("div","sub","FOLKSTYLE CARD WRESTLING<br>PIN ENDS IT · TECH FALL AT +15"));
   const tap=el("div","sub blink","TAP TO WRESTLE");
   tap.style.cssText="margin-top:26px;color:var(--gold2);letter-spacing:.3em;font-size:13px;font-weight:700;";
-  o.appendChild(tap);
+  menu.appendChild(tap);
   const today=dailyChar();
   const dg=el("button","minibtn","TODAY'S GAUNTLET — BEAT "+today.nm.toUpperCase()+(dailyDone()?" ✓":""));
   dg.style.cssText="margin-top:14px;border-color:var(--gold);color:var(--gold2);";
   dg.onclick=e=>{e.stopPropagation();sfx.tap();GAUNT=today;o.onclick=null;select();};
-  o.appendChild(dg);
+  menu.appendChild(dg);
   const deck=el("button","bigbtn");
   deck.textContent="📖  THE DECK — READ THE CARDS";
   deck.style.cssText="margin-top:10px;background:#1c1412;color:var(--ink);border:1.5px solid var(--line);font-size:13px;padding:11px 22px;";
   deck.onclick=e=>{e.stopPropagation();sfx.tap();o.remove();cardGallery(false);};
-  o.appendChild(deck);
+  menu.appendChild(deck);
   const claim=el("button","bigbtn");
   claim.textContent="🃏  CLAIM A CARD";
   claim.style.cssText="margin-top:10px;background:#1c1412;color:var(--gold2);border:1.5px solid var(--gold);font-size:13px;padding:11px 24px;";
   claim.onclick=e=>{e.stopPropagation();sfx.tap();o.remove();claimScreen();};
-  o.appendChild(claim);
+  menu.appendChild(claim);
   const brow=el("div");
   brow.style.cssText="margin-top:30px;display:flex;gap:10px;";
   const lk=el("button","minibtn","LOCKER ROOM");
@@ -2530,7 +2534,7 @@ function startScreen(){
     sfx.tap();
   };
   brow.appendChild(lk); brow.appendChild(ht); brow.appendChild(pd); brow.appendChild(sp);
-  o.appendChild(brow);
+  menu.appendChild(brow);
   o.onclick=()=>{o.onclick=null;sfx.big();select();};
   function select(){
     o.innerHTML="";
