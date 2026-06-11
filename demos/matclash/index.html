@@ -1247,9 +1247,15 @@ function inspectCard(k,opts){
   if(def)meta.appendChild(el("div","ides",def.d));
   else if(opts.sub)meta.appendChild(el("div","ides","Unlocked from a physical MAT CLASH card. Yours forever — play it in any match."));
   ins.appendChild(meta);
-  const close=el("button","bigbtn ghost","CLOSE");
-  close.style.marginTop="14px";
   const dismiss=ev=>{ if(ev)ev.stopPropagation(); ins.classList.remove("show"); };
+  if(opts.onPlay){
+    const play=el("button","bigbtn gold",opts.playLabel||"PLAY IT");
+    play.style.cssText="margin-top:14px;font-size:16px;padding:14px 40px;";
+    play.onclick=ev=>{ ev.stopPropagation(); dismiss(); opts.onPlay(); };
+    ins.appendChild(play);
+  }
+  const close=el("button","bigbtn ghost","CLOSE");
+  close.style.marginTop=opts.onPlay?"9px":"14px";
   close.onclick=dismiss;
   ins.appendChild(close);
   ins.onclick=ev=>{ if(ev.target===ins)dismiss(ev); };
@@ -1366,7 +1372,14 @@ function renderHand(mode,resolver){
     if(live&&leg.ok){e.classList.add("playable"); if(!firstLegal)firstLegal=k;}
     else e.classList.add("dead");
     let __lp=null,__lpFired=false;
-    const lpStart=()=>{__lpFired=false;__lp=setTimeout(()=>{__lpFired=true;inspectCard(k);},420);};
+    const lpStart=()=>{__lpFired=false;__lp=setTimeout(()=>{
+      __lpFired=true;
+      const playable=live&&leg.ok;
+      inspectCard(k,playable?{onPlay:()=>{
+        if(k==="BEAST"){ beastSheet(mode,resolver,i,VIEW); return; }
+        resolver({type:"play",idx:i,k});
+      }}:{});
+    },420);};
     const lpEnd=()=>{if(__lp){clearTimeout(__lp);__lp=null;}};
     e.addEventListener("pointerdown",lpStart);
     ["pointerup","pointerleave","pointercancel"].forEach(ev=>e.addEventListener(ev,lpEnd));
