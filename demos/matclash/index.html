@@ -259,6 +259,11 @@
   .shelfcard::after{content:"";position:absolute;inset:0;mix-blend-mode:overlay;pointer-events:none;
     background:linear-gradient(115deg,transparent 38%,#fff8 50%,transparent 62%);background-size:300% 300%;animation:foilsweep 3s linear infinite;}
   .shelfhint{font-size:11px;color:var(--dim);letter-spacing:.04em;line-height:1.5;max-width:330px;}
+  #qrscan{position:absolute;inset:0;z-index:90;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+  #qrscan video{width:100%;max-height:70%;object-fit:cover;}
+  #qrscan .qhint{color:var(--gold2);font-size:12px;font-weight:700;letter-spacing:.14em;margin:14px 0;}
+  #qrscan .qframe{position:absolute;left:50%;top:42%;width:210px;height:210px;transform:translate(-50%,-50%);
+    border:3px solid var(--gold2);border-radius:14px;box-shadow:0 0 0 2000px rgba(0,0,0,.45);pointer-events:none;}
   .barkplate{position:absolute;top:9%;z-index:7;max-width:46%;padding:7px 11px;background:#0c0606f2;border:2px solid var(--gold);
     color:var(--ink);font-size:12px;font-weight:700;line-height:1.35;letter-spacing:.02em;pointer-events:none;
     animation:barkin .28s cubic-bezier(.2,1.8,.4,1);}
@@ -435,8 +440,7 @@
   <div style="font-size:13px;letter-spacing:.2em;color:#a3937d;margin-bottom:10px;">PRIVATE DEMO — MAT CLASH WRESTLING CORP. / LANGFORDESIGN REVIEW</div>
   <input id="mcgcode" placeholder="ENTER CODE" autocapitalize="characters" style="font-size:20px;letter-spacing:.25em;text-align:center;text-transform:uppercase;padding:12px;width:240px;background:#140d0c;color:#f5c542;border:2px solid #352b23;outline:none;">
   <button id="mcgo" style="margin-top:14px;font-size:15px;font-weight:700;letter-spacing:.1em;padding:12px 34px;background:#e41c26;color:#fff;border:none;cursor:pointer;">ENTER</button>
-  <div style="margin-top:16px;font-size:10.5px;color:#7a6f5e;max-width:300px;line-height:1.5;">MAT CLASH&trade; and all artwork are the property of MAT CLASH Wrestling Corp., created by Langfordesign. Private technology demo by Vision Genesis.</div>
-  <div style="margin-top:10px;font-size:11px;color:#6a5;letter-spacing:.06em;">Sound ON. Long-press a card to read it.</div>
+  <div style="margin-top:14px;font-size:11px;color:#6a5;letter-spacing:.06em;">Turn your sound ON. Long-press any card to read it.</div>
 </div>
 <script>(function(){var g=document.getElementById("mcgate");
   try{if(sessionStorage.getItem("mcGate")==="1"){g.remove();return;}}catch(e){}
@@ -2268,6 +2272,68 @@ function nextMilestone(){
 }
 function ownedLoad(){try{return JSON.parse(localStorage.getItem("mcOwned"))||[]}catch(e){return []}}
 function ownedAdd(code){try{const o=ownedLoad();if(!o.includes(code)){o.push(code);localStorage.setItem("mcOwned",JSON.stringify(o));}}catch(e){}}
+function scanPayloadToCode(text){
+  if(!text)return null;
+  const U=String(text).toUpperCase();
+  for(const code in CLAIM_CODES){ if(U.includes(code)) return code; }
+  if(U.includes("MATCLASH"))return "MATCLASH";
+  return null;
+}
+let __jsqrLoading=null;
+function loadJsQR(){
+  if(window.jsQR)return Promise.resolve();
+  if(__jsqrLoading)return __jsqrLoading;
+  __jsqrLoading=new Promise((res,rej)=>{
+    const s=document.createElement("script");
+    s.src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.min.js";
+    s.onload=res;
+    s.onerror=()=>{const s2=document.createElement("script");s2.src="https://unpkg.com/jsqr@1.4.0/dist/jsQR.js";s2.onload=res;s2.onerror=rej;document.head.appendChild(s2);};
+    document.head.appendChild(s);
+  });
+  return __jsqrLoading;
+}
+function canScan(){
+  return !!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&(location.protocol==="https:"||location.hostname==="localhost"));
+}
+async function scanQR(onCode){
+  let stream=null,stop=false;
+  const ov=el("div"); ov.id="qrscan";
+  const vid=document.createElement("video"); vid.setAttribute("playsinline",""); vid.muted=true;
+  ov.appendChild(vid);
+  ov.appendChild(el("div","qframe"));
+  ov.appendChild(el("div","qhint","POINT AT THE QR ON ANY MAT CLASH CARD"));
+  const cancel=el("button","bigbtn ghost","CANCEL");
+  cancel.onclick=()=>{stop=true;cleanup();};
+  ov.appendChild(cancel);
+  const cleanup=()=>{try{if(stream)stream.getTracks().forEach(t=>t.stop());}catch(e){} ov.remove();};
+  $("app").appendChild(ov);
+  try{
+    await loadJsQR();
+    stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:"environment"}});
+    vid.srcObject=stream; await vid.play();
+    const cv=document.createElement("canvas"), cx=cv.getContext("2d",{willReadFrequently:true});
+    const tick=()=>{
+      if(stop)return;
+      if(vid.readyState===vid.HAVE_ENOUGH_DATA){
+        cv.width=vid.videoWidth; cv.height=vid.videoHeight;
+        cx.drawImage(vid,0,0);
+        try{
+          const d=cx.getImageData(0,0,cv.width,cv.height);
+          const q=window.jsQR(d.data,d.width,d.height,{inversionAttempts:"dontInvert"});
+          if(q&&q.data){
+            const code=scanPayloadToCode(q.data);
+            if(code){stop=true;cleanup();sfx.score();onCode(code);return;}
+          }
+        }catch(e){}
+      }
+      requestAnimationFrame(tick);
+    };
+    tick();
+  }catch(e){
+    cleanup();
+    toast("Camera unavailable — type the code instead.");
+  }
+}
 function claimScreen(){
   const o=el("div","overlay"); o.style.background="rgba(7,4,4,.98)";
   o.appendChild(el("h2","","CLAIM A CARD"));
@@ -2277,6 +2343,12 @@ function claimScreen(){
   o.appendChild(inp);
   o.appendChild(el("div","sub","<span style='font-size:10px;letter-spacing:.1em;opacity:.7'>TRY A SAMPLE: <b style='color:var(--gold2)'>MATCLASH</b> · <b style='color:var(--gold2)'>CAMP2026</b></span>"));
   const go=el("button","bigbtn gold","UNLOCK");
+  if(canScan()){
+    const sc=el("button","bigbtn ghost","📷  SCAN THE QR");
+    sc.style.marginTop="12px";
+    sc.onclick=ev=>{ev.stopPropagation();scanQR(code=>{inp.value=code;submit();});};
+    o.appendChild(sc);
+  }
   const submit=()=>{
     const code=(inp.value||"").trim().toUpperCase();
     const hit=CLAIM_CODES[code];
