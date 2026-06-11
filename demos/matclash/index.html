@@ -264,9 +264,37 @@
     animation:barkin .28s cubic-bezier(.2,1.8,.4,1);}
   .barkplate.l{left:4%;border-left:4px solid var(--red);} .barkplate.r{right:4%;text-align:right;border-right:4px solid var(--red);}
   @keyframes barkin{0%{transform:scale(.4);opacity:0}100%{transform:scale(1);opacity:1}}
-  .vsbark{position:absolute;z-index:6;max-width:58%;padding:7px 11px;background:#0c0606f2;border:2px solid var(--gold);
-    color:var(--ink);font-size:12.5px;font-weight:700;line-height:1.35;opacity:0;animation:barkin .3s forwards;}
-  .vsbark.l{left:5%;top:40%;border-left:4px solid var(--red);} .vsbark.r{right:5%;top:55%;text-align:right;border-right:4px solid var(--gold2);}
+  .vsbark{position:absolute;z-index:7;max-width:74%;padding:11px 15px;background:#0c0606f5;border:3px solid var(--gold2);
+    color:#fff;font-family:var(--disp);font-weight:400;font-size:23px;line-height:1.02;letter-spacing:.01em;text-transform:uppercase;
+    text-shadow:0 3px 0 #000;box-shadow:0 7px 0 #000a,0 0 30px -3px var(--gold2);opacity:0;}
+  .vsbark .who{display:block;font-family:var(--ui);font-size:10px;font-weight:700;letter-spacing:.2em;color:var(--gold2);margin-bottom:4px;text-shadow:none;}
+  .vsbark.l{left:4%;top:30%;transform:skewX(-5deg) rotate(-2deg);border-left:8px solid var(--red);animation:barkslam .42s cubic-bezier(.2,2,.4,1) forwards;}
+  .vsbark.r{right:4%;top:52%;text-align:right;transform:skewX(-5deg) rotate(2deg);border-right:8px solid var(--red);animation:barkslam .42s cubic-bezier(.2,2,.4,1) forwards;}
+  @keyframes barkslam{0%{transform:skewX(-5deg) scale(2.6);opacity:0}60%{opacity:1;transform:skewX(-5deg) scale(.93)}100%{opacity:1}}
+  #vsskip{position:absolute;bottom:2.5%;left:0;right:0;z-index:8;text-align:center;font-size:10px;letter-spacing:.2em;color:#a3937d;animation:pulse 1.3s infinite;}
+  /* ===== CARD INSPECTOR ===== */
+  #inspect{position:absolute;inset:0;z-index:92;display:none;flex-direction:column;align-items:center;justify-content:center;
+    background:rgba(5,3,3,.95);backdrop-filter:blur(5px);padding:16px;}
+  #inspect.show{display:flex;animation:fadein .16s;}
+  .inspcard{width:min(84vw,320px);aspect-ratio:585/788;border-radius:13px;overflow:hidden;flex:none;
+    background:#1c1412 center/cover no-repeat;border:3px solid var(--gold2);
+    box-shadow:0 20px 64px #000e,0 0 44px -6px var(--gold2);animation:cardreveal .5s cubic-bezier(.2,1.3,.4,1);}
+  .inspcard.foil::after{content:"";position:absolute;inset:0;mix-blend-mode:overlay;
+    background:linear-gradient(115deg,transparent 34%,#fff 48%,#9be7ff 52%,#ffd86b 56%,transparent 70%);
+    background-size:300% 300%;animation:foilsweep 2.8s linear infinite;}
+  .inspmeta{margin-top:13px;max-width:330px;text-align:center;}
+  .inspmeta .in{font-family:var(--disp);font-size:24px;color:var(--ink);text-transform:uppercase;text-shadow:0 2px 0 #000;line-height:1;}
+  .inspmeta .ik{display:inline-block;margin-top:6px;font-size:10.5px;letter-spacing:.18em;color:var(--gold2);border:1px solid var(--gold);padding:3px 11px;text-transform:uppercase;}
+  .inspmeta .ides{margin-top:11px;font-size:14px;line-height:1.55;color:var(--ink);font-weight:500;}
+  /* ===== CARD GALLERY ===== */
+  .galgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;width:100%;max-width:360px;margin:8px auto 2px;
+    max-height:60vh;overflow-y:auto;padding:3px;}
+  .galcard{aspect-ratio:585/788;border-radius:7px;overflow:hidden;border:1.5px solid var(--line);position:relative;cursor:pointer;
+    background:#1c1412 center/cover no-repeat;transition:transform .12s,border-color .12s;}
+  .galcard:active{transform:scale(.95);} .galcard.foil{border-color:var(--gold2);box-shadow:0 0 10px -2px var(--gold2);}
+  .galcard .gpv{position:absolute;top:2px;left:2px;min-width:20px;padding:1px 3px;text-align:center;font-family:var(--disp);
+    font-size:12px;color:#fff;background:#000000e0;border:1.5px solid var(--cc,#555);border-radius:4px;}
+  .galcard .gx{position:absolute;bottom:2px;right:3px;font-family:var(--ui);font-size:9px;font-weight:700;color:#fff;background:#000a;padding:0 4px;}
   /* ANNOUNCER LETTERS (SF2) */
   #banner{position:absolute;left:0;right:0;top:32%;z-index:60;text-align:center;pointer-events:none;}
   .bann{display:inline-block;font-family:var(--disp);font-weight:400;letter-spacing:.02em;text-transform:uppercase;line-height:.95;
@@ -398,10 +426,9 @@
   <div style="font-size:13px;letter-spacing:.2em;color:#a3937d;margin-bottom:10px;">PRIVATE DEMO — MAT CLASH WRESTLING CORP. / LANGFORDESIGN REVIEW</div>
   <input id="mcgcode" placeholder="ENTER CODE" autocapitalize="characters" style="font-size:20px;letter-spacing:.25em;text-align:center;text-transform:uppercase;padding:12px;width:240px;background:#140d0c;color:#f5c542;border:2px solid #352b23;outline:none;">
   <button id="mcgo" style="margin-top:14px;font-size:15px;font-weight:700;letter-spacing:.1em;padding:12px 34px;background:#e41c26;color:#fff;border:none;cursor:pointer;">ENTER</button>
-  <div style="margin-top:14px;font-size:11px;color:#6a5;letter-spacing:.06em;">Turn your sound ON.</div>
+  <div style="margin-top:14px;font-size:11px;color:#6a5;letter-spacing:.06em;">Turn your sound ON. Long-press any card to read it.</div>
 </div>
-<script>
-(function(){var g=document.getElementById("mcgate");
+<script>(function(){var g=document.getElementById("mcgate");
   try{if(sessionStorage.getItem("mcGate")==="1"){g.remove();return;}}catch(e){}
   function go(){var v=(document.getElementById("mcgcode").value||"").toUpperCase().replace(/[^A-Z0-9]/g,"");
     if(v==="LETSRUMBLE"||v==="RUMBLE"){try{sessionStorage.setItem("mcGate","1");}catch(e){};g.remove();}
@@ -1012,13 +1039,15 @@ async function vsScreen(p,a){
   $("vsstakes").textContent=DUAL?("DUAL MEET · BOUT "+(DUAL.bout+1)+" OF 5 · TEAM "+DUAL.teamP+"–"+DUAL.teamA):"QUICK SCRAP · PIN ENDS IT · TECH AT +15";
   const v=$("vs"); v.classList.add("show"); void v.offsetWidth; v.classList.add("go");
   sfx.slam(); setTimeout(()=>sfx.slam(),140); setTimeout(()=>{sfx.big();shake(true);},620);
-  const b1=el("div","vsbark l",'“'+(INTRO_BARK[p.id]||p.quote)+'”');
-  const b2=el("div","vsbark r",'“'+(INTRO_BARK[a.id]||a.quote)+'”');
-  b1.style.animationDelay=".95s"; b2.style.animationDelay="1.75s";
-  v.appendChild(b1); v.appendChild(b2);
-  v.dataset.barks="1";
-  await sleep(3150);
-  v.querySelectorAll(".vsbark").forEach(x=>x.remove());
+  let skip=false;
+  const hint=el("div"); hint.id="vsskip"; hint.textContent="TAP TO SKIP"; v.appendChild(hint);
+  const wait=ms=>new Promise(r=>{ if(skip){r();return;} let d=false; const f=()=>{if(d)return;d=true;r();};
+    const t=setTimeout(f,ms/SPEED); v.addEventListener("pointerdown",()=>{skip=true;clearTimeout(t);f();},{once:true}); });
+  const mkbark=(side,ch)=>{ const b=el("div","vsbark "+side,'<span class="who">'+ch.nm.toUpperCase()+'</span>'+(INTRO_BARK[ch.id]||ch.quote)); v.appendChild(b); sfx.slam(); shake(false); };
+  await wait(950); if(!skip)mkbark("l",p);
+  await wait(1550); if(!skip)mkbark("r",a);
+  await wait(1750);
+  v.querySelectorAll(".vsbark").forEach(x=>x.remove()); hint.remove();
   v.classList.remove("show","go");
 }
 /* ---------- coach tips (first match teaching) ---------- */
@@ -1171,6 +1200,58 @@ function renderChain(animate){
   if(animate&&!UI_FAST){tot.style.transform="scale("+(sc+.35)+")";setTimeout(()=>tot.style.transform="scale("+sc+")",170);}
   else tot.style.transform="scale("+sc+")";
 }
+const KIND_LABEL={base:"Base card",spec:"Specialty card",short:"Short-print rare",wild:"Wild card",ender:"Match finisher"};
+function inspectCard(k,opts){
+  opts=opts||{};
+  const def=k?C[k]:null;
+  let ins=$("inspect");
+  if(!ins){ ins=el("div"); ins.id="inspect"; $("app").appendChild(ins); }
+  ins.innerHTML="";
+  const card=el("div","inspcard"+(opts.foil?" foil":""));
+  const art=opts.art||(k?CARD_IMG[k]:null);
+  if(art)card.style.setProperty("background-image","url('"+art+"')");
+  ins.appendChild(card);
+  const meta=el("div","inspmeta");
+  let valtxt="";
+  if(def){ valtxt=(k==="BEAST")?"WILD":(k==="PIN")?"PIN — INSTANT WIN":(k==="MB")?"MAT BEAST — INSTANT WIN":(def.pts>0)?("+"+def.pts+" POINTS"):(def.pts<0)?(def.pts+" POINT"):"NO POINTS"; }
+  meta.appendChild(el("div","in",def?(def.nm+(opts.as&&opts.as!==k?" — AS "+C[opts.as].nm.toUpperCase():"")):(opts.rawName||"CARD")));
+  meta.appendChild(el("div","ik",(opts.foil?"FOIL":"")+(def?(opts.foil?" · ":"")+(KIND_LABEL[def.kind]||"Card")+" · "+valtxt:(opts.sub?" · "+opts.sub:""))));
+  if(def)meta.appendChild(el("div","ides",def.d));
+  else if(opts.sub)meta.appendChild(el("div","ides","Unlocked from a physical MAT CLASH card. Yours forever — play it in any match."));
+  ins.appendChild(meta);
+  const close=el("button","bigbtn ghost","CLOSE");
+  close.style.marginTop="14px";
+  const dismiss=ev=>{ if(ev)ev.stopPropagation(); ins.classList.remove("show"); };
+  close.onclick=dismiss;
+  ins.appendChild(close);
+  ins.onclick=ev=>{ if(ev.target===ins)dismiss(ev); };
+  ins.classList.add("show");
+  sfx.play();
+}
+function def_imgFallback(k){ return CARD_IMG[k]||null; }
+function cardGallery(fromLocker){
+  const o=el("div","overlay"); o.style.background="rgba(7,4,4,.98)";
+  o.appendChild(el("h2","","THE DECK"));
+  o.appendChild(el("div","sub","Every card in a 63-card deck. Tap any to read it full-size."));
+  const owned=ownedLoad().map(c=>(cardForCode(c)||{}).art).filter(Boolean);
+  const grid=el("div","galgrid");
+  DECK_LIST.forEach(([k,n])=>{
+    const def=C[k];
+    const g=el("div","galcard"); g.style.setProperty("--cc",def.col);
+    if(CARD_IMG[k])g.style.setProperty("background-image","url('"+CARD_IMG[k]+"')");
+    const pv=(k==="BEAST")?"★":(k==="PIN"?"PIN":(k==="MB"?"WIN":(def.pts>0?"+"+def.pts:(def.pts<0?String(def.pts):"·"))));
+    g.appendChild(el("div","gpv",pv));
+    g.appendChild(el("div","gx","x"+n));
+    g.onclick=ev=>{ev.stopPropagation();sfx.tap();inspectCard(k);};
+    grid.appendChild(g);
+  });
+  o.appendChild(grid);
+  const back=el("button","bigbtn ghost","BACK");
+  back.style.marginTop="12px";
+  back.onclick=ev=>{ev.stopPropagation();o.remove();fromLocker?lockerRoom():startScreen();};
+  o.appendChild(back);
+  $("ovl").innerHTML=""; $("ovl").appendChild(o);
+}
 function cardEl(k,big,as){
   const def=C[k];
   const e=el("div","card"+(big?" bigcard":""));
@@ -1256,7 +1337,13 @@ function renderHand(mode,resolver){
     e.style.setProperty("--ty",Math.abs(i-(n-1)/2)*1.5+"px");
     if(live&&leg.ok){e.classList.add("playable"); if(!firstLegal)firstLegal=k;}
     else e.classList.add("dead");
+    let __lp=null,__lpFired=false;
+    const lpStart=()=>{__lpFired=false;__lp=setTimeout(()=>{__lpFired=true;inspectCard(k);},420);};
+    const lpEnd=()=>{if(__lp){clearTimeout(__lp);__lp=null;}};
+    e.addEventListener("pointerdown",lpStart);
+    ["pointerup","pointerleave","pointercancel"].forEach(ev=>e.addEventListener(ev,lpEnd));
     e.onclick=()=>{
+      if(__lpFired){__lpFired=false;return;}
       sfx.tap();
       if(!e.classList.contains("raised")){
         hand.querySelectorAll(".raised").forEach(c=>c.classList.remove("raised"));
@@ -2175,7 +2262,7 @@ function ownedShelf(){
     box.appendChild(el("div","shelfhint","No special cards yet. Tap <b style='color:var(--gold2)'>CLAIM A CARD</b> on the home screen and enter a code from any physical MAT CLASH card."));
   }else{
     const shelf=el("div","shelf");
-    owned.forEach(code=>{const h=cardForCode(code);if(!h)return;const c=el("div","shelfcard");c.style.setProperty("--cimg","url('"+h.art+"')");c.title=h.nm;shelf.appendChild(c);});
+    owned.forEach(code=>{const h=cardForCode(code);if(!h)return;const c=el("div","shelfcard");c.style.setProperty("--cimg","url('"+h.art+"')");c.title=h.nm;c.style.cursor="pointer";c.onclick=ev=>{ev.stopPropagation();sfx.tap();inspectCard(h.k||null,{art:h.art,rawName:h.nm,sub:h.sub,foil:true});};shelf.appendChild(c);});
     box.appendChild(shelf);
   }
   const nm=nextMilestone();
@@ -2188,18 +2275,23 @@ function lockerRoom(){
   o.style.background="rgba(8,4,4,.97)";
   o.appendChild(el("h2","","LOCKER ROOM"));
   let dstr=0; try{dstr=+localStorage.getItem("mcDailyStreak")||0;}catch(e){}
-  o.appendChild(el("div","sub","CAREER "+c.w+"–"+c.l+" · "+c.pins+" PINS · "+c.techs+" TECHS · BEST STREAK W"+c.best+(dstr?" · DAILY "+dstr:"")));
+  const career=el("div","sub","CAREER "+c.w+"–"+c.l+" · "+c.pins+" PINS · "+c.techs+" TECHS · BEST W"+c.best+(dstr?" · DAILY "+dstr:""));
+  career.style.fontSize="13px"; o.appendChild(career);
   o.appendChild(ownedShelf());
+  const deckBtn=el("button","bigbtn gold","BROWSE THE DECK — READ EVERY CARD");
+  deckBtn.style.cssText="margin-top:10px;font-size:13px;padding:11px 20px;";
+  deckBtn.onclick=ev=>{ev.stopPropagation();sfx.tap();o.remove();cardGallery(true);};
+  o.appendChild(deckBtn);
   const list=el("div");
   list.style.cssText="margin-top:12px;width:100%;max-width:340px;max-height:56vh;overflow-y:auto;text-align:left;";
   CHARS.forEach(ch=>{
     const r=c.chars[ch.id]||{w:0,l:0};
     const row=el("div");
-    row.style.cssText="display:flex;align-items:center;gap:10px;padding:7px 6px;border-bottom:1px solid var(--line);";
+    row.style.cssText="display:flex;align-items:center;gap:11px;padding:9px 6px;border-bottom:1px solid var(--line);";
     const im=el("img"); im.src=thumb(ch); im.onerror=()=>{im.onerror=null;im.src=ch.img;};
-    im.style.cssText="width:42px;height:42px;object-fit:cover;object-position:50% 12%;border:1.5px solid "+ch.col+";flex:none;";
+    im.style.cssText="width:52px;height:52px;object-fit:cover;object-position:50% 8%;border:2px solid "+ch.col+";flex:none;";
     row.appendChild(im);
-    const tx=el("div","",'<div style="font-family:var(--ui);font-weight:700;font-size:13px;letter-spacing:.05em;">'+ch.nm.toUpperCase()+' <span style="color:var(--gold2);font-size:11px;">'+(r.w||r.l?r.w+"–"+r.l:"")+'</span></div><div style="font-size:10px;color:var(--dim);letter-spacing:.1em;">'+ch.tag+'</div>');
+    const tx=el("div","",'<div style="font-family:var(--disp);font-size:18px;letter-spacing:.02em;line-height:1;">'+ch.nm.toUpperCase()+' <span style="color:var(--gold2);font-size:13px;font-family:var(--ui);">'+(r.w||r.l?r.w+"–"+r.l:"")+'</span></div><div style="font-size:11px;color:var(--dim);letter-spacing:.12em;margin-top:3px;">'+ch.tag+'</div>');
     row.appendChild(tx);
     list.appendChild(row);
   });
@@ -2370,6 +2462,11 @@ function startScreen(){
   dg.style.cssText="margin-top:14px;border-color:var(--gold);color:var(--gold2);";
   dg.onclick=e=>{e.stopPropagation();sfx.tap();GAUNT=today;o.onclick=null;select();};
   o.appendChild(dg);
+  const deck=el("button","bigbtn");
+  deck.textContent="📖  THE DECK — READ THE CARDS";
+  deck.style.cssText="margin-top:10px;background:#1c1412;color:var(--ink);border:1.5px solid var(--line);font-size:13px;padding:11px 22px;";
+  deck.onclick=e=>{e.stopPropagation();sfx.tap();o.remove();cardGallery(false);};
+  o.appendChild(deck);
   const claim=el("button","bigbtn");
   claim.textContent="🃏  CLAIM A CARD";
   claim.style.cssText="margin-top:10px;background:#1c1412;color:var(--gold2);border:1.5px solid var(--gold);font-size:13px;padding:11px 24px;";
