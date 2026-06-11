@@ -217,11 +217,12 @@ function render(text){
   }
   close(); return html;
 }
-function bubble(role, html){
+function bubble(role, html, raw){
   const row=document.createElement('div');
   row.className='row '+(role==='user'?'me':'coach');
   const copyHtml = role==='user' ? '' : '<button class="copy-btn" onclick="copyPlain(this)">Copy</button>';
   row.innerHTML=(role==='user'?'':`<div class="av">KC</div>`)+`<div class="bubble">${html}${copyHtml}</div>`;
+  if(raw){ const b=row.querySelector('.copy-btn'); if(b) b.dataset.raw=raw; }
   wrap.appendChild(row); chat.scrollTop=chat.scrollHeight; return row;
 }
 function typing(){
@@ -229,37 +230,60 @@ function typing(){
   row.innerHTML=`<div class="av">KC</div><div class="bubble"><span class="dots"><span></span><span></span><span></span></span></div>`;
   wrap.appendChild(row); chat.scrollTop=chat.scrollHeight;
 }
-// Copy a reply back out as clean plain text: one line per paragraph/bullet/row,
-// with link URLs appended (so the registration link survives a paste into email).
+// Copy a reply for pasting into an email: write BOTH a rich text/html version
+// (keeps bold, accent colour, links, paragraph spacing in Gmail/Outlook/Apple Mail)
+// and a clean text/plain fallback that preserves the reply's own line breaks.
 function copyPlain(btn){
   const src=btn.closest('.bubble');
-  const parts=[];
-  src.querySelectorAll('p, li, tr').forEach(el=>{
-    let text;
-    if(el.tagName==='TR'){
-      text=Array.from(el.children).map(c=>c.textContent.trim()).join(' | ');
-    }else{
-      text=el.textContent.trim();
-      el.querySelectorAll('a[href]').forEach(a=>{
-        const href=a.getAttribute('href')||'';
-        if(href && href.slice(0,7)!=='mailto:' && text.indexOf(href)===-1){
-          const label=a.textContent.trim();
-          if(label) text=text.replace(label, label+' '+href);
-        }
-      });
-      if(el.tagName==='LI') text='- '+text;
-    }
-    if(text) parts.push(text);
+  const raw=btn.dataset.raw||'';
+  // ---- Plain text: keep the model's own line + paragraph breaks; de-markdown ----
+  let plain;
+  if(raw){
+    plain=raw.replace(/\r/g,'')
+      .replace(/\*\*(.+?)\*\*/g,'$1')
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g,'$1 ($2)')
+      .replace(/\n{3,}/g,'\n\n').trim();
+  }else{
+    const c=src.cloneNode(true); c.querySelectorAll('.copy-btn').forEach(b=>b.remove());
+    plain=c.textContent.trim();
+  }
+  // ---- Rich HTML: inline EMAIL-legible styling (on-screen gold is unreadable on white) ----
+  const h=src.cloneNode(true);
+  h.querySelectorAll('.copy-btn').forEach(b=>b.remove());
+  h.querySelectorAll('p').forEach(el=>{ el.style.margin='0 0 10px'; });
+  h.querySelectorAll('strong').forEach(el=>{ el.style.color='#0a2540'; el.style.fontWeight='700'; });
+  h.querySelectorAll('p.sub').forEach(el=>{ el.style.color='#8a6d00'; el.style.fontWeight='700'; el.style.textTransform='uppercase'; el.style.letterSpacing='.04em'; el.style.fontSize='13px'; el.style.margin='14px 0 4px'; });
+  h.querySelectorAll('ul,ol').forEach(el=>{ el.style.margin='6px 0 10px'; el.style.paddingLeft='20px'; });
+  h.querySelectorAll('a').forEach(el=>{
+    const cta=el.classList.contains('cta-link');
+    const href=el.getAttribute('href')||'';
+    el.removeAttribute('class'); el.removeAttribute('target'); el.removeAttribute('rel');
+    if(href && href.charAt(0)==='/') el.setAttribute('href', location.origin+href);
+    if(cta){ el.style.cssText='display:inline-block;background:#f2b705;color:#1b1300;font-weight:700;text-decoration:none;padding:9px 15px;border-radius:7px;margin:6px 0;'; }
+    else{ el.style.color='#0a3a82'; el.style.fontWeight='600'; }
   });
-  let plain=parts.join('\n').replace(/\n{3,}/g,'\n\n').trim();
-  if(!plain){ const c=src.cloneNode(true); c.querySelectorAll('.copy-btn').forEach(b=>b.remove()); plain=c.textContent.trim(); }
+  h.querySelectorAll('table').forEach(el=>{ el.style.borderCollapse='collapse'; el.style.margin='6px 0 10px'; });
+  h.querySelectorAll('td').forEach(el=>{ el.style.border='1px solid #ccc'; el.style.padding='4px 8px'; });
+  const html='<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;line-height:1.5;color:#1a1a1a;">'+h.innerHTML+'</div>';
+  // ---- Write rich + plain together; degrade gracefully on older browsers ----
   const done=()=>{ btn.textContent='Copied!'; btn.classList.add('copied'); setTimeout(()=>{btn.textContent='Copy'; btn.classList.remove('copied');},2000); };
-  const fallback=()=>{ const ta=document.createElement('textarea'); ta.value=plain; ta.style.cssText='position:fixed;left:-9999px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done(); };
+  const richFallback=()=>{
+    try{
+      const holder=document.createElement('div'); holder.style.cssText='position:fixed;left:-9999px;top:0;'; holder.innerHTML=html;
+      document.body.appendChild(holder);
+      const sel=window.getSelection(); const range=document.createRange();
+      range.selectNodeContents(holder); sel.removeAllRanges(); sel.addRange(range);
+      document.execCommand('copy'); sel.removeAllRanges(); document.body.removeChild(holder); done();
+    }catch(_){
+      const ta=document.createElement('textarea'); ta.value=plain; ta.style.cssText='position:fixed;left:-9999px'; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); done();
+    }
+  };
   try{
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(plain).then(done).catch(fallback);
-    }else{ fallback(); }
-  }catch(e){ fallback(); }
+    if(navigator.clipboard && window.ClipboardItem){
+      const item=new ClipboardItem({'text/html':new Blob([html],{type:'text/html'}),'text/plain':new Blob([plain],{type:'text/plain'})});
+      navigator.clipboard.write([item]).then(done).catch(richFallback);
+    }else{ richFallback(); }
+  }catch(e){ richFallback(); }
 }
 function stopTyping(){ const t=document.getElementById('typing'); if(t) t.remove(); }
 
@@ -273,10 +297,11 @@ async function ask(text){
     const r=await fetch(ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history.slice(-12),sid:SID,src:KC_SRC})});
     const data=await r.json(); stopTyping();
     const reply=(data&&data.reply)||"Sorry — I had trouble there. Email camps@kenchertow.com and Ken, Beth and the team will take great care of you.";
-    bubble('coach', render(reply)); history.push({role:'assistant',content:reply});
+    bubble('coach', render(reply), reply); history.push({role:'assistant',content:reply});
   }catch(e){
     stopTyping();
-    bubble('coach', render("Sorry — I couldn't reach the camp office just now. Please email camps@kenchertow.com and Ken, Beth and the team will take great care of you."));
+    const msg="Sorry — I couldn't reach the camp office just now. Please email camps@kenchertow.com and Ken, Beth and the team will take great care of you.";
+    bubble('coach', render(msg), msg);
   }finally{ busy=false; send.disabled=!input.value.trim(); input.focus(); }
 }
 function autosize(){ input.style.height='auto'; input.style.height=Math.min(input.scrollHeight,120)+'px'; }
