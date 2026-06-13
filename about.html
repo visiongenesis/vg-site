@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Vision Genesis AI</title>
+<meta name="description" content="Vision Genesis is human-first by design. Founded by Ryan Dix — two decades operating real businesses, now building AI that makes people more capable, not obsolete.">
+<meta name="theme-color" content="#071426">
+<link rel="icon" type="image/png" href="assets/favicon-96x96.png" sizes="96x96">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..800&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/site.css">
+<style>
+/* ---- About-page specifics ---- */
+.about-hero{ padding-block:calc(var(--nav-h) + 72px) clamp(40px,7vw,72px); background:radial-gradient(900px 600px at 78% -10%, rgba(252,208,74,.07), transparent 60%), var(--navy-deep); }
+.manifesto{ background:var(--navy-deep); }
+.manifesto-body{ max-width:30ch; }
+.manifesto .line{ font-family:var(--disp); font-size:clamp(1.7rem,4.4vw,3rem); font-weight:400; line-height:1.18; letter-spacing:-.01em; color:var(--ink); margin-top:.5em; }
+.manifesto .line.dim{ color:var(--ink-faint); }
+.manifesto .line em{ font-style:italic; color:var(--gold-hi); }
+.manifesto .line b{ font-weight:600; color:var(--gold-hi); }
+.manifesto-wrap{ max-width:48rem; }
+.manifesto-rule{ width:48px; height:2px; background:var(--gold); margin-bottom:clamp(28px,4vw,40px); }
+.manifesto-sig{ font-family:var(--mono); font-size:.74rem; letter-spacing:.1em; color:var(--ink-faint); margin-top:clamp(36px,5vw,52px); }
+
+/* founder */
+.founder-grid{ display:grid; gap:clamp(36px,5vw,60px); margin-top:clamp(40px,6vw,56px); align-items:start; }
+@media (min-width:900px){ .founder-grid{ grid-template-columns:300px 1fr; } }
+.founder-portrait{ position:relative; border-radius:18px; overflow:hidden; border:1px solid var(--line); box-shadow:0 26px 70px rgba(0,0,0,.5); background:var(--navy-card); }
+.founder-portrait img{ width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 20%; }
+.founder-portrait .fp-tag{ position:absolute; left:14px; bottom:14px; font-family:var(--mono); font-size:.62rem; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-hi); background:rgba(3,13,26,.7); border:1px solid var(--line); border-radius:999px; padding:.4em .9em; -webkit-backdrop-filter:blur(6px); backdrop-filter:blur(6px); }
+.founder-portrait .stats{ display:flex; gap:0; border-top:1px solid var(--line-soft); }
+.founder-portrait .stat-cell{ flex:1; padding:14px 12px; text-align:center; border-right:1px solid var(--line-soft); }
+.founder-portrait .stat-cell:last-child{ border-right:0; }
+.founder-portrait .stat-cell .n{ font-family:var(--disp); font-size:1.3rem; font-weight:600; color:var(--gold-hi); }
+.founder-portrait .stat-cell .l{ font-family:var(--mono); font-size:.54rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); margin-top:.3em; }
+.founder-copy p{ color:var(--ink-soft); font-size:1.04rem; margin-top:1.1em; max-width:40em; }
+.founder-copy p:first-child{ margin-top:0; }
+.founder-copy p strong{ color:var(--gold-hi); font-weight:600; }
+.founder-copy .conviction{ font-family:var(--disp); font-size:clamp(1.3rem,2.6vw,1.7rem); font-weight:500; color:var(--ink); line-height:1.35; margin-top:1.4em; }
+
+/* the model line */
+.model-band{ background:var(--navy-lift); }
+.model-line{ font-family:var(--disp); font-size:clamp(1.6rem,3.6vw,2.4rem); font-weight:500; line-height:1.3; max-width:24ch; }
+.model-line b{ color:var(--gold-hi); font-weight:600; }
+
+/* five questions */
+.qa{ margin-top:clamp(40px,6vw,56px); border-top:1px solid var(--line-soft); }
+.qa-item{ padding:clamp(22px,3vw,30px) 0; border-bottom:1px solid var(--line-soft); display:grid; gap:.5em 1.6em; }
+@media (min-width:760px){ .qa-item{ grid-template-columns:1.1fr 1.4fr; } }
+.qa-q{ font-family:var(--disp); font-size:clamp(1.2rem,2.2vw,1.5rem); font-weight:500; color:var(--ink); }
+.qa-q .num{ font-family:var(--mono); font-size:.7rem; color:var(--gold); letter-spacing:.1em; display:block; margin-bottom:.5em; }
+.qa-a{ color:var(--ink-soft); font-size:1rem; }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav scrolled" id="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html" aria-label="Vision Genesis AI — home">
+      <img class="mono" src="assets/vg-monogram.png" alt="" aria-hidden="true">
+      <b>Vision <em>Genesis</em></b>
+    </a>
+    <nav aria-label="Primary">
+      <ul class="nav-links">
+        <li><a href="index.html#norris">Norris</a></li>
+        <li><a href="index.html#live">See it live</a></li>
+        <li><a href="index.html#work">Products &amp; Services</a></li>
+        <li><a href="about.html" style="color:var(--gold-hi)">About</a></li>
+      </ul>
+    </nav>
+    <a class="nav-cta" href="index.html#intake">Power it up</a>
+    <button class="burger" id="burger" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <nav aria-label="Mobile">
+    <ul>
+      <li><a href="index.html#norris">Norris</a></li>
+      <li><a href="index.html#live">See it live</a></li>
+      <li><a href="index.html#work">Products &amp; Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="index.html#intake">Power it up →</a></li>
+    </ul>
+  </nav>
+  <a class="menu-mail" href="mailto:vision@visiongenesisai.com">vision@visiongenesisai.com</a>
+</div>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="about-hero" aria-label="About Vision Genesis">
+    <div class="wrap">
+      <div class="reveal sec-head">
+        <p class="eyebrow">About</p>
+        <h1 class="h-section" style="margin-top:.3em">Human-first, <span class="gold">on purpose.</span></h1>
+        <p class="lede">We build AI that makes people more capable — never obsolete. Here's what we believe, and the operator behind it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ MANIFESTO ============ -->
+  <section class="manifesto section-pad band-top" aria-label="Manifesto">
+    <div class="wrap manifesto-wrap reveal">
+      <div class="manifesto-rule"></div>
+      <p class="eyebrow nodash">The Manifesto</p>
+      <p class="line">For years, capability kept getting cheaper for the companies that needed it <em>least</em>.</p>
+      <p class="line dim">A Fortune 500 can buy any system on earth. The bakery, the machine shop, the med spa, the roofing crew — the businesses that hold every town together — got the leftovers. Templates. Subscriptions. A chatbot that couldn't answer the phone.</p>
+      <p class="line">That's the part that bothered me. So we're fixing it.</p>
+      <p class="line dim">For the first time, a small team with the right tools can build what only giants could afford two years ago. Most owners just haven't been told yet.</p>
+      <p class="line">Vision Genesis is a <b>firm</b> — not an app, not a course, not a guru funnel. Veteran operators who've owned a P&amp;L, run a floor, and made payroll, paired with builders who are AI-native the way I'm spreadsheet-native.</p>
+      <p class="line dim">The operator finds the truth. The builder ships the fix. The agents keep it running overnight.</p>
+      <p class="line">When we build for you, <b>you own what we build.</b> Your data stays yours. Truth first, then action — in that order.</p>
+      <p class="manifesto-sig">— Ryan Dix · Vision Genesis AI · Knoxville, Tennessee</p>
+    </div>
+  </section>
+
+  <!-- ============ FOUNDER ============ -->
+  <section class="section-pad band-top tint-raise" id="founder" aria-label="The founder">
+    <div class="wrap">
+      <div class="reveal sec-head">
+        <p class="eyebrow">The Operator</p>
+        <h2 class="h-section">Ryan <span class="gold">Dix.</span></h2>
+      </div>
+
+      <div class="founder-grid">
+        <div class="founder-portrait reveal">
+          <img src="assets/ryan-prime-poster.jpg" alt="Ryan Dix, founder of Vision Genesis AI">
+          <span class="fp-tag">Founder</span>
+          <div class="stats">
+            <div class="stat-cell"><div class="n">20 yrs</div><div class="l">Operating</div></div>
+            <div class="stat-cell"><div class="n">2× F-50</div><div class="l">Exxon · Iron Mtn</div></div>
+            <div class="stat-cell"><div class="n">3</div><div class="l">Ventures built</div></div>
+          </div>
+        </div>
+
+        <div class="founder-copy reveal" data-delay="1">
+          <p>I've spent two decades watching good businesses bleed time and margin in places their owners couldn't quite see — not because they missed it, but because they were too close to the work to step back and look. That gap is the whole reason this firm exists.</p>
+          <p>I spent nearly 20 years running large-scale finance and operations at two best-in-class companies — <strong>ExxonMobil</strong> and <strong>Iron Mountain</strong> — building teams, leading transformations, and managing through crises across four continents. Before the Fortune-50 work, I built my own things: an e-commerce company I ran for four years, and a Knoxville restaurant I owned for two. One's a credential. The other folded, like restaurants do. I keep them both — the pattern recognition you build watching a business actually live or die is different from anything you learn inside an enterprise.</p>
+          <p>In early 2025 I started building Vision Genesis: a fully autonomous AI agent system, grounded in human-first ethics, running 24/7 on local infrastructure. Not a demo. Not a prototype. The live operating system that lets one small firm do the work of a large one — and the same thing we now install in our clients' businesses.</p>
+          <p>I came to this from an unusual bench. I studied Religion at Carson-Newman, was a youth minister at Russellville Baptist, and was admitted to Wake Forest's divinity school on the Samuel and Sarah Wait Fellowship — before the calling pointed somewhere different. Over the years I've worshipped across six traditions — Baptist, Methodist, Lutheran, Presbyterian, Episcopal, and nondenominational — and today my family is at Cedar Springs Presbyterian here in Knoxville. The owners I'm building for aren't an avatar in a pitch deck. They're the people I see at church and at the supply house.</p>
+          <p class="conviction">I didn't build it for fun. I built it on a conviction: <span class="gold">AI should make people more capable, not obsolete</span> — and the AI that assists us should be trained on human-first ethics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE MODEL ============ -->
+  <section class="model-band section-pad band-top" aria-label="How the firm is built">
+    <div class="wrap reveal">
+      <p class="eyebrow">How the firm is built</p>
+      <p class="model-line">Veteran business operators, paired with <b>technology-native builders</b> — and an agent team that does the rest.</p>
+      <p class="lede" style="margin-top:1.4em">That's the whole model. The operator holds the judgment. The builder ships. The agents carry the load that doesn't need a human in the loop. It's how we deliver firm-grade work without firm-grade overhead.</p>
+    </div>
+  </section>
+
+  <!-- ============ FIVE QUESTIONS ============ -->
+  <section class="section-pad band-top tint-deep" aria-label="Top five questions">
+    <div class="wrap">
+      <div class="reveal sec-head">
+        <p class="eyebrow">Straight answers</p>
+        <h2 class="h-section">My top <span class="gold">five questions.</span></h2>
+        <p class="lede">The things owners actually ask me, answered the way I'd answer them across the table.</p>
+      </div>
+
+      <div class="qa">
+        <div class="qa-item reveal">
+          <p class="qa-q"><span class="num">01</span>Is this going to replace my people?</p>
+          <p class="qa-a">No — and if a vendor's pitch is "fire half your team," walk away. We build AI that takes the work nobody wanted: the after-hours questions, the quote math, the follow-ups that slip. Your people get to do the part that needs a human.</p>
+        </div>
+        <div class="qa-item reveal">
+          <p class="qa-q"><span class="num">02</span>How is this different from the chatbot everyone's selling?</p>
+          <p class="qa-a">A chatbot recites a script and hits a wall. Norris learns your business, does real work, and gets sharper every day. The difference shows up in month two, when it's answering things you never thought to program.</p>
+        </div>
+        <div class="qa-item reveal">
+          <p class="qa-q"><span class="num">03</span>Will it touch my private data?</p>
+          <p class="qa-a">Not unless you deliberately open that door. The customer-facing brain works off your public information only — never your internal docs, email, or books. Public brain, private business, cleanly separated.</p>
+        </div>
+        <div class="qa-item reveal">
+          <p class="qa-q"><span class="num">04</span>I'm not technical. Can I actually run this?</p>
+          <p class="qa-a">Yes. It's built for owners, not engineers — teach it, correct it, and steer it in plain language. And for the heavier lifts, an operator and a builder are in it with you. You're never handed a login and left alone.</p>
+        </div>
+        <div class="qa-item reveal">
+          <p class="qa-q"><span class="num">05</span>Why should I trust a firm this young?</p>
+          <p class="qa-a">Because the operating judgment isn't young — it's twenty years across two Fortune-50 companies and three businesses I built myself. We run this exact system inside our own firm before we ever install it in yours. We eat our own cooking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WORK WITH US ============ -->
+  <section class="section-pad band-top" aria-label="Work with us">
+    <div class="wrap center reveal">
+      <p class="eyebrow" style="justify-content:center">Want to work with us?</p>
+      <h2 class="h-sub" style="margin-top:.4em;max-width:18ch;margin-inline:auto">Operators and AI-native builders — <span class="gold">we should talk.</span></h2>
+      <p class="lede" style="margin:1em auto 1.6em">If you've run real businesses, or you build at the speed of this technology, there's a place for you here.</p>
+      <a class="btn btn-ghost" href="mailto:vision@visiongenesisai.com?subject=Working%20with%20Vision%20Genesis">vision@visiongenesisai.com</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="index.html" aria-label="Vision Genesis AI — home">
+      <img class="mono" src="assets/vg-monogram.png" alt="" aria-hidden="true">
+      <b>Vision <em>Genesis</em> AI</b>
+    </a>
+    <ul class="foot-links">
+      <li><a href="index.html#norris">Norris</a></li>
+      <li><a href="index.html#live">See it live</a></li>
+      <li><a href="index.html#work">Products &amp; Services</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="mailto:vision@visiongenesisai.com">Want to work with us?</a></li>
+    </ul>
+    <small>© 2026 Vision Genesis AI · Blazing trails into the future.</small>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var burger=document.getElementById("burger"), menu=document.getElementById("mobileMenu");
+  function setMenu(open){ burger.setAttribute("aria-expanded",String(open)); menu.classList.toggle("open",open); menu.setAttribute("aria-hidden",String(!open)); document.body.style.overflow=open?"hidden":""; }
+  burger.addEventListener("click",function(){ setMenu(burger.getAttribute("aria-expanded")!=="true"); });
+  menu.querySelectorAll("a").forEach(function(a){ a.addEventListener("click",function(){ setMenu(false); }); });
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&menu.classList.contains("open")) setMenu(false); });
+  var rev=document.querySelectorAll(".reveal");
+  if("IntersectionObserver" in window && !prefersReduced){
+    var io=new IntersectionObserver(function(en){ en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); } }); },{threshold:.12,rootMargin:"0px 0px -6% 0px"});
+    rev.forEach(function(el){ io.observe(el); });
+  } else { rev.forEach(function(el){ el.classList.add("in"); }); }
+})();
+</script>
+</body>
+</html>
