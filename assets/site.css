@@ -401,3 +401,80 @@ footer{ background:var(--navy-deep); border-top:1px solid var(--line-soft); padd
 .sticky-cta p b{ color:var(--gold-hi); font-weight:700; }
 .sticky-cta .btn{ white-space:nowrap; flex:none; }
 @media (max-width:879px){ .sticky-cta{ display:flex; } body{ padding-bottom:66px; } }
+
+
+/* ============================================================ NORRIS COMMAND CENTER (cockpit mockup) */
+.cockpit{ position:relative; border-radius:20px; border:1px solid var(--line); background:linear-gradient(168deg,var(--navy-raise),var(--navy-card) 78%); box-shadow:0 30px 80px rgba(0,0,0,.45), 0 0 60px rgba(252,208,74,.05); overflow:hidden; }
+.cockpit::before{ content:""; position:absolute; inset:-1px; border-radius:21px; padding:1px; background:linear-gradient(140deg, rgba(252,208,74,.4), transparent 32%, transparent 68%, rgba(252,208,74,.18)); -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; }
+.cp-head{ display:flex; align-items:center; gap:.7rem; padding:15px 22px; border-bottom:1px solid var(--line-soft); background:rgba(252,208,74,.03); }
+.cp-head .chat-dot{ width:9px;height:9px;border-radius:50%;background:var(--gold-hi);box-shadow:0 0 10px var(--gold-hi);animation:dotPulse 2.4s ease-in-out infinite; }
+.cp-head strong{ font-size:.92rem; }
+.cp-head small{ margin-left:auto; font-family:var(--mono); color:var(--ink-faint); font-size:.62rem; letter-spacing:.08em; }
+.cp-grid{ display:grid; gap:1px; background:var(--line-soft); }
+@media (min-width:620px){ .cp-grid{ grid-template-columns:1fr 1fr; } }
+.cp-cell{ background:var(--navy-card); padding:18px 20px; }
+.cp-label{ font-family:var(--mono); font-size:.6rem; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); display:flex; align-items:center; gap:.5em; }
+.cp-label svg{ width:13px; height:13px; }
+.cp-li{ display:flex; gap:.6em; align-items:baseline; margin-top:.7em; font-size:.86rem; color:var(--ink-soft); }
+.cp-li b{ color:var(--ink); font-weight:600; }
+.cp-li .dot{ width:6px; height:6px; border-radius:50%; flex:none; margin-top:.45em; background:var(--gold); }
+.cp-li .dot.warn{ background:#E8893A; }
+.cp-li .dot.ok{ background:#5BB98C; }
+/* mini bar chart */
+.cp-chart{ display:flex; align-items:flex-end; gap:6px; height:54px; margin-top:.8em; }
+.cp-chart span{ flex:1; background:linear-gradient(180deg, var(--gold-hi), rgba(236,184,56,.25)); border-radius:3px 3px 0 0; opacity:.85; }
+.cp-chart .peak{ background:linear-gradient(180deg,#FCD04A,rgba(252,208,74,.4)); box-shadow:0 0 12px var(--gold-glow); }
+.cp-metric{ display:flex; align-items:baseline; gap:.5em; margin-top:.5em; }
+.cp-metric .n{ font-family:var(--disp); font-size:1.5rem; font-weight:600; color:var(--gold-hi); }
+.cp-metric .d{ font-size:.74rem; color:#5BB98C; font-weight:600; }
+.cp-strat{ font-size:.86rem; color:var(--ink-soft); margin-top:.7em; line-height:1.5; }
+.cp-strat b{ color:var(--ink); }
+/* the voice bar */
+.cp-voice{ display:flex; align-items:center; gap:.8em; padding:14px 22px; border-top:1px solid var(--line-soft); background:rgba(3,13,26,.4); }
+.cp-voice .mic{ width:34px; height:34px; flex:none; border-radius:50%; display:grid; place-items:center; color:var(--navy-deep); background:linear-gradient(135deg,var(--gold-hi),var(--gold)); }
+.cp-voice .mic svg{ width:16px; height:16px; }
+.cp-voice .ask{ font-size:.86rem; color:var(--ink-faint); font-style:italic; }
+
+
+/* ============================================================ PROOF CARD refinements (R round 2) */
+a.pcard{ color:inherit; cursor:pointer; }
+.pcard .vertical{ min-height:2.4em; }            /* align headers across cards even when one wraps */
+.pcard .fact{ font-family:var(--mono); font-size:.66rem; letter-spacing:.04em; color:var(--gold); margin-top:.45em; }
+.pcard .plink{ cursor:pointer; }
+
+
+/* ============================================================ PRODUCTS & SERVICES round-2 (equal height + buttons) */
+@media (min-width:960px){ .ps-grid{ align-items:stretch; } }
+.ps-col{ display:flex; flex-direction:column; }
+.ps-link{ color:var(--gold-hi); font-weight:600; white-space:nowrap; }
+.ps-cta{ margin-top:auto; padding-top:22px; }
+.ps-cta .btn{ width:100%; }
+
+
+/* ============================================================ TESTIMONIALS (R round 2) */
+.quotes{ display:grid; gap:18px; margin-top:clamp(40px,6vw,56px); }
+@media (min-width:820px){ .quotes{ grid-template-columns:1fr 1fr; } }
+.quote{ border:1px solid var(--line-soft); border-radius:18px; padding:28px 28px 24px; background:linear-gradient(170deg,rgba(12,30,55,.5),rgba(8,20,38,.5)); display:flex; flex-direction:column; transition:border-color .3s, transform .3s; }
+.quote:hover{ border-color:rgba(252,208,74,.25); transform:translateY(-3px); }
+.quote .mark{ font-family:var(--disp); font-size:2.6rem; line-height:.4; color:var(--gold-dim); height:.5em; }
+.quote blockquote{ font-size:1.02rem; color:var(--ink); line-height:1.6; margin:.5em 0 0; flex:1; }
+.quote blockquote b{ color:var(--gold-hi); font-weight:600; }
+.quote .by{ display:flex; flex-direction:column; gap:.15em; margin-top:1.3em; padding-top:1.2em; border-top:1px solid var(--line-soft); }
+.quote .by .who{ font-weight:700; color:var(--ink); font-size:.96rem; }
+.quote .by .role{ font-family:var(--mono); font-size:.66rem; letter-spacing:.03em; color:var(--ink-faint); }
+.quote .by a{ color:var(--gold); }
+
+
+/* ============================================================ FOOTER rebuild (R round 2: not ugly + drop "AI") */
+footer{ padding-block:clamp(44px,6vw,64px); position:relative; }
+footer::before{ content:""; position:absolute; top:0; left:10%; right:10%; height:1px; background:linear-gradient(90deg, transparent, var(--gold-dim), transparent); }
+.foot-top{ display:grid; gap:30px; }
+@media (min-width:760px){ .foot-top{ grid-template-columns:1.3fr 1fr; align-items:start; } }
+.foot-brand-block .brand{ font-size:1.05rem; }
+.foot-tagline{ font-family:var(--mono); font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:var(--gold); margin-top:1.1em; }
+.foot-blurb{ color:var(--ink-faint); font-size:.9rem; margin-top:.7em; max-width:30em; line-height:1.6; }
+.foot-links{ display:flex; flex-wrap:wrap; gap:.8rem 1.5rem; list-style:none; }
+@media (min-width:760px){ .foot-links{ flex-direction:column; gap:.75rem; align-items:flex-end; } }
+.foot-bottom{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; margin-top:clamp(30px,4vw,44px); padding-top:20px; border-top:1px solid var(--line-soft); }
+.foot-bottom small{ font-family:var(--mono); color:var(--ink-faint); font-size:.72rem; letter-spacing:.04em; }
+.foot-bottom small:last-child{ color:var(--gold-dim); }
