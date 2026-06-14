@@ -510,14 +510,42 @@
     var body=document.getElementById("anBody"), form=document.getElementById("anForm"), input=document.getElementById("anInput"), chips=document.getElementById("anChips");
     if(!body) return;
     var KB={
-      "norris":"Norris is the AI brain that runs your front line — it answers customers, drafts quotes, and learns from every conversation. Not a dashboard, not a chatbot. The 'Ask My' products you see are Norris's powers wearing your brand.",
-      "cost":"Most owners start with a Pain-Point Pilot — we run a Bottleneck Unlock to find the one constraint costing you most, then break it. Productized 'Ask My' deployments start much smaller. Tell me your business and I'll point you to the right door — drop your email below.",
-      "fast":"Productized deployments go live in hours, not weeks — no IT project, no rip-and-replace. A full custom build is scoped per engagement. The honest answer depends on your business; the fastest way to find out is the 10-minute Bottleneck Unlock right below.",
-      "default":"Great question. The straight answer: we install Norris in your business, then teach you how to win with it. For specifics on your situation, the 10-minute Bottleneck Unlock below gets you a real read-out — or email vision@visiongenesisai.com."
+      norris:"Think of Norris as the brain that runs your front line — it answers customers, drafts quotes, watches the numbers, and flags what's slipping, and it gets a little sharper every day. Not a dashboard you babysit, not a script. The 'Ask My' products are Norris wearing your brand on the customer-facing side.",
+      askmy:"Ask My is the part of Norris your customers actually talk to — Ask My Business, Church, School. It answers only from your real content, can't make things up, and routes people to the right next step. You can have one live on your site by lunch — the Ask My page shows exactly how.",
+      cost:"Honest answer: it depends what you're solving. The productized Ask My deployments start at $99/mo. A services engagement usually starts with a Pain-Point Pilot — a 10-minute Bottleneck Unlock to find the one constraint costing you most, then we price the fix to that. Tell me your business and I'll point you to the right door.",
+      fast:"The productized stuff goes live in hours, not weeks — no IT project, no rip-and-replace. A custom build is scoped to the work. Fastest way to a real answer for your situation is the 10-minute Bottleneck Unlock right below: you talk, we listen, you get a read-out.",
+      diff:"Fair question. A normal chatbot recites a script and hits a wall. Norris does the actual work — and only from what's true about your business, so it can't make things up. The difference shows up in month two, when it's handling things you never thought to program. Phone tree with better fonts vs. an employee who never sleeps.",
+      data:"Norris has a public voice and a private side, cleanly separated. The public voice only knows what you've published. Your internal docs, email, and books stay untouched unless you deliberately hand them over — the same way you run your business now.",
+      who:"Vision Genesis is Ryan Dix's firm — two decades operating at ExxonMobil and Iron Mountain, plus businesses he built and ran himself (one folded, like restaurants do — he keeps the scar). Veteran operator, AI-native builders, and Norris doing the rest. More on the About page.",
+      proof:"Real organizations run on Norris right now — churches, a school, seminaries, a national wrestling camp, a landscaper quoting jobs by voice. The 'Norris in action' section up the page has the live ones you can try.",
+      voice:"Voice-to-Quote is Norris for people who quote work in the field. Walk the job and just talk; it prices against your own catalog, market-checks the number, spots the upsell, and the quote's in your inbox before you're back at the office — sharper with every quote you approve.",
+      start:"Easiest first step is the 10-minute Bottleneck Unlock right below — no forms, no pushy sales call, just talk. Or drop your email and a real person follows up, or reach us at vision@visiongenesisai.com."
     };
+    var ESC=[
+      "Let me try that a different way — what's the part of your business actually eating your time right now? Point me at the real problem and I can be a lot more useful than a generic answer.",
+      "Fair, that was a bit canned. The honest move is to get you a real read-out instead of me guessing — the 10-minute Bottleneck Unlock below does exactly that, or drop your email and a person will follow up.",
+      "I hear you. I'm trained on what's public about Vision Genesis, so for the specifics of your situation a human will serve you better — vision@visiongenesisai.com, or the Bottleneck Unlock right below.",
+      "Let's cut to it: what are you trying to fix? Quotes that take too long, calls you can't answer, leads going cold? Tell me that."
+    ];
+    var lastKey=null, escI=0;
     function add(text,who){ var d=document.createElement("div"); d.className="an-msg "+who; d.textContent=text; body.appendChild(d); body.scrollTop=body.scrollHeight; return d; }
-    function answer(q){ var l=q.toLowerCase(),k="default"; if(l.indexOf("norris")>-1||l.indexOf("what is")>-1)k="norris"; if(l.indexOf("cost")>-1||l.indexOf("price")>-1||l.indexOf("pricing")>-1||l.indexOf("how much")>-1)k="cost"; if(l.indexOf("fast")>-1||l.indexOf("how long")>-1||l.indexOf("launch")>-1||l.indexOf("quick")>-1)k="fast";
-      var t=add("Norris is thinking…","bot typing"); setTimeout(function(){ t.classList.remove("typing"); t.textContent=KB[k]; },650+Math.random()*500); }
+    function answer(q){ var l=q.toLowerCase(), k=null;
+      if(/norris|second brain|the brain|jarvis/.test(l))k="norris";
+      if(/ask\s*my|customer.?facing|answer.*customer/.test(l))k="askmy";
+      if(/cost|price|pricing|how much|afford|month|\$/.test(l))k="cost";
+      if(/fast|how long|launch|quick|when|timeline|set ?up/.test(l))k="fast";
+      if(/different|chatgpt|gpt|better than|why you|just a chatbot| vs /.test(l))k="diff";
+      if(/data|privat|privacy|secur|safe|confidential|internal/.test(l))k="data";
+      if(/who |ryan|founder|behind|team|your story|about you/.test(l))k="who";
+      if(/proof|real|example|case|using|demo|see it/.test(l))k="proof";
+      if(/voice.?to.?quote|quote|estimate|landscap|contractor|field/.test(l))k="voice";
+      if(/start|get going|sign up|begin|next step|talk to|contact|email/.test(l))k="start";
+      var diss=/didn'?t? ?like|don'?t? ?like|not helpful|that'?s not|try again|different answer|too generic|vague|wrong|same answer|^no$|nope|unhelpful|boring|robot/.test(l);
+      var t=add("Norris is thinking…","bot typing");
+      setTimeout(function(){ t.classList.remove("typing");
+        if(diss || !k || k===lastKey){ t.textContent=ESC[escI%ESC.length]; escI++; lastKey=null; }
+        else { t.textContent=KB[k]; lastKey=k; }
+      },600+Math.random()*500); }
     function ask(q){ add(q,"me"); if(chips)chips.style.display="none"; answer(q); }
     form.addEventListener("submit",function(e){ e.preventDefault(); var v=input.value.trim(); if(!v)return; input.value=""; ask(v); });
     chips&&chips.querySelectorAll(".an-chip").forEach(function(c){ c.addEventListener("click",function(){ ask(c.getAttribute("data-q")); }); });
