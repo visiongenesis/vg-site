@@ -142,7 +142,7 @@ em{ font-style:italic; color:var(--gold-hi); }
     var(--navy-deep);
 }
 #particles{ position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
-.flux-vid{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:62% 50%; z-index:1; opacity:0; pointer-events:none; mix-blend-mode:screen; filter:sepia(.72) saturate(2.2) hue-rotate(-12deg) brightness(1.06) contrast(1.05); -webkit-mask-image:radial-gradient(ellipse 78% 78% at 64% 48%, #000 26%, transparent 82%); mask-image:radial-gradient(ellipse 78% 78% at 64% 48%, #000 26%, transparent 82%); transition:opacity .5s ease; }
+.flux-vid{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:74% 50%; z-index:1; opacity:0; pointer-events:none; mix-blend-mode:screen; filter:sepia(.72) saturate(2.2) hue-rotate(-12deg) brightness(1.06) contrast(1.05); -webkit-mask-image:radial-gradient(ellipse 78% 78% at 64% 48%, #000 26%, transparent 82%); mask-image:radial-gradient(ellipse 78% 78% at 64% 48%, #000 26%, transparent 82%); transition:opacity .9s ease; }
 .hero-core{
   position:absolute; top:50%; left:50%; width:min(120vw,920px); aspect-ratio:1;
   transform:translate(-50%,-50%); border-radius:50%;
@@ -478,3 +478,54 @@ footer::before{ content:""; position:absolute; top:0; left:10%; right:10%; heigh
 .foot-bottom{ display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; margin-top:clamp(30px,4vw,44px); padding-top:20px; border-top:1px solid var(--line-soft); }
 .foot-bottom small{ font-family:var(--mono); color:var(--ink-faint); font-size:.72rem; letter-spacing:.04em; }
 .foot-bottom small:last-child{ color:var(--gold-dim); }
+
+
+/* ============================================================ ROUND 3 */
+/* mission: AI for the good guys bigger + italic on its own line */
+.intake-quote .aigg{ font-style:italic; font-size:1.2em; display:inline-block; margin-top:.15em; }
+/* testimonials: org names gold, roles gray */
+.quote .by .org{ color:var(--gold-hi); font-weight:600; }
+/* proof cards: bulletproof header alignment (clamp vertical to 2 lines, fixed reserve) */
+.pcard .vertical{ min-height:2.7em; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+/* product CTAs as little embedded pills */
+.ps-link{ display:inline-flex; align-items:center; gap:.3em; font-size:.72rem; font-weight:700; color:var(--gold-hi);
+  border:1px solid rgba(252,208,74,.38); background:rgba(252,208,74,.07); padding:.32em .8em; border-radius:999px;
+  white-space:nowrap; vertical-align:middle; transition:background .2s, border-color .2s; }
+.ps-link:hover{ background:rgba(252,208,74,.16); border-color:var(--gold-hi); }
+/* intake recorder: glow to signal tappable; red + stop-square while recording */
+.rec-orb{ position:relative; transition:background .3s, box-shadow .3s; animation:orbIdle 2.4s ease-in-out infinite; }
+@keyframes orbIdle{ 0%,100%{ box-shadow:0 0 18px rgba(252,208,74,.4); } 50%{ box-shadow:0 0 34px rgba(252,208,74,.75); } }
+.rec-orb .ic-stop{ display:none; }
+.rec-orb.rec{ background:linear-gradient(135deg,#FF6152,#D8392A); animation:recPulseRed 1.3s ease-in-out infinite; }
+.rec-orb.rec .ic-mic{ display:none; }
+.rec-orb.rec .ic-stop{ display:block; color:#fff; }
+@keyframes recPulseRed{ 0%{ box-shadow:0 0 0 0 rgba(255,97,82,.55); } 70%{ box-shadow:0 0 0 20px rgba(255,97,82,0); } 100%{ box-shadow:0 0 0 0 rgba(255,97,82,0); } }
+.rec-hint{ font-family:var(--mono); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--gold); margin-top:-6px; }
+
+
+/* ============================================================ VTQ flow de-densify + catalog visual (R3 D2-D4) */
+.vtq-grid{ display:grid; gap:clamp(24px,4vw,40px); margin-top:clamp(40px,5vw,56px); }
+@media (min-width:880px){ .vtq-grid{ grid-template-columns:1fr 1fr; align-items:start; } }
+.flow2{ display:grid; gap:12px; }
+.fstep{ border:1px solid var(--line-soft); border-radius:14px; padding:15px 18px; background:linear-gradient(170deg,rgba(12,30,55,.5),rgba(8,20,38,.5)); transition:border-color .25s; }
+.fstep:hover,.fstep:focus-within{ border-color:rgba(252,208,74,.32); }
+.fstep-h{ display:flex; align-items:center; gap:.75em; }
+.fstep-h .ic{ width:36px; height:36px; flex:none; border-radius:10px; display:grid; place-items:center; color:var(--gold-hi); background:rgba(252,208,74,.1); border:1px solid rgba(252,208,74,.25); }
+.fstep-h .ic svg{ width:18px; height:18px; }
+.fstep-h h4{ font-family:var(--body); font-weight:700; font-size:1.02rem; color:var(--ink); }
+.fstep-h .more{ margin-left:auto; color:var(--ink-faint); font-size:1.2rem; line-height:1; transition:transform .3s, color .2s; }
+.fstep:hover .fstep-h .more,.fstep:focus-within .fstep-h .more{ transform:rotate(45deg); color:var(--gold); }
+.fstep-d{ font-size:.88rem; color:var(--ink-soft); max-height:0; opacity:0; overflow:hidden; transition:max-height .35s ease, opacity .3s ease, margin .35s; }
+.fstep:hover .fstep-d,.fstep:focus-within .fstep-d{ max-height:7em; opacity:1; margin-top:.6em; }
+@media (max-width:759px){ .fstep-d{ max-height:none; opacity:1; margin-top:.55em; } .fstep-h .more{ display:none; } }
+/* self-improving catalog mockup */
+.catalog-viz{ border-radius:18px; border:1px solid var(--line); background:linear-gradient(168deg,var(--navy-raise),var(--navy-card)); box-shadow:0 26px 70px rgba(0,0,0,.4),0 0 50px rgba(252,208,74,.05); overflow:hidden; }
+.cv-head{ display:flex; align-items:center; gap:.55em; padding:14px 18px; border-bottom:1px solid var(--line-soft); background:rgba(252,208,74,.03); font-weight:600; font-size:.9rem; }
+.cv-head .chat-dot{ width:8px;height:8px;border-radius:50%;background:var(--gold-hi);box-shadow:0 0 8px var(--gold-hi);animation:dotPulse 2.4s ease-in-out infinite; }
+.cv-head small{ margin-left:auto; font-family:var(--mono); font-size:.58rem; letter-spacing:.08em; color:var(--gold); }
+.cv-row{ display:flex; align-items:center; gap:.7em; padding:11px 18px; border-bottom:1px solid var(--line-soft); font-size:.88rem; }
+.cv-row .lbl{ color:var(--ink-soft); flex:1; }
+.cv-row .price{ font-family:var(--mono); color:var(--ink); font-weight:600; }
+.cv-row .tick{ font-family:var(--mono); font-size:.6rem; color:#5BB98C; white-space:nowrap; }
+.cv-foot{ padding:14px 18px; font-size:.86rem; color:var(--ink-soft); line-height:1.5; }
+.cv-foot b{ color:var(--gold-hi); }
