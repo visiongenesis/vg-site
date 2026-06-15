@@ -67,6 +67,37 @@ p strong,li strong{color:#fff;}
 .badge .tee{flex:0 0 52px;width:52px;height:60px;display:flex;align-items:center;justify-content:center;}
 .badge .medal{width:48px;height:58px;filter:drop-shadow(0 2px 5px rgba(0,0,0,.45));}
 .badge .bt{font-size:14.5px;color:var(--mut);text-wrap:pretty;}.badge .bt b{color:#fff;}
+/* section header with a right-side mark (e.g. the transport bus) */
+.seghead{display:flex;align-items:center;gap:18px;justify-content:space-between;}
+.seghead .st{flex:1;min-width:0;}
+.seghead .si{flex:0 0 auto;opacity:.92;}
+.busicon{display:block;}
+@media(max-width:440px){.seghead .si{display:none;}}
+/* optional add-on card (ask a local business) — visibly SEPARATE from the main flow */
+.optcard{background:rgba(236,184,56,.055);border:1.5px dashed rgba(236,184,56,.55);border-radius:14px;padding:16px 18px 18px;margin:18px 0;}
+.optcard .oh{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;}
+.optpill{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:5px 11px;border-radius:20px;font-weight:700;white-space:nowrap;}
+.optcard .oic{flex:0 0 auto;opacity:.9;}
+.optcard h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;color:#fff;margin:0 0 8px;text-wrap:balance;}
+.optcard p{color:var(--mut);font-size:14.5px;margin:0 0 10px;text-wrap:pretty;}
+.optcard .ol{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;letter-spacing:.03em;}
+/* "Who your wrestler trains with" — photo feature (the marquee offer) */
+.trainwith{margin:16px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--navy-2);}
+.twhero{position:relative;height:184px;overflow:hidden;}
+.twhero>img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;}
+.twov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,20,38,.35),rgba(7,20,38,.92));}
+.twcap{position:absolute;left:0;right:0;bottom:0;padding:15px 18px;}
+.twh{font-family:'Fraunces',Georgia,serif;font-weight:580;font-size:clamp(19px,5.2vw,25px);color:#fff;line-height:1.12;text-wrap:balance;margin-top:3px;}
+.twgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);}
+@media(min-width:560px){.twgrid{grid-template-columns:repeat(4,1fr);}}
+.twc{position:relative;margin:0;background:var(--navy-2);}
+.twc>img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;}
+.twc figcaption{padding:9px 12px 12px;}
+.twc figcaption b{display:block;color:#fff;font-size:13.5px;font-weight:700;line-height:1.15;}
+.twc figcaption span{display:block;color:var(--mut);font-size:11px;margin-top:2px;line-height:1.25;text-wrap:pretty;}
+.twc.feat figcaption b{color:var(--gold-hi);}
+.twc.feat::before{content:"OLYMPIAN";position:absolute;top:8px;left:8px;z-index:2;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;background:var(--gold);color:var(--navy);padding:3px 7px;border-radius:11px;font-weight:700;}
+.twmore{padding:13px 16px;font-size:12.5px;color:var(--mut);background:var(--deep);border-top:1px solid var(--line);text-wrap:pretty;}
 .notes{display:grid;grid-template-columns:1fr;gap:12px;margin:16px 0;}
 @media(min-width:560px){.notes{grid-template-columns:1fr 1fr;}}
 .ncard{background:var(--navy-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
@@ -132,12 +163,15 @@ body{padding-bottom:84px;}
 </div></section>
 
 <section style="background:var(--deep)"><div class="wrap">
-  <div class="rule"></div><div class="eyebrow">The ride is on us</div>
-  <h2>Vision Genesis drives the whole team &mdash; both ways.</h2>
-  <p>You don't drive to Ohio. <strong>Vision Genesis sponsors the transportation, to camp and home again.</strong> And it isn't just your scholar-athlete: any wrestler in the program can sign up to come, cover their own tuition, and <strong>ride free with their teammates.</strong> This is a <strong>Knoxville-wide program</strong> &mdash; the goal is to fill a charter bus with the hardest workers from across town, headed to Ohio together.</p>
-  <div class="tier"><div class="th"><span class="tn">Want help with your $475?</span><span class="tp">optional</span></div>
-    <p style="margin:0;color:var(--mut)">A club or family can bring in a local business to help cover the half &mdash; and we give you the ask materials, so you don't have to figure out how to ask. A business that puts in <strong>$225 or more</strong> gets featured in Knoxville Catholic's press &amp; marketing, plus a free <strong>AI Business Bottleneck Unlock</strong> from Vision Genesis ($1,500 value). <a href="catholic-business.pdf" style="color:var(--accent);font-weight:600">The one-pager to hand a business &rsaquo;</a></p></div>
-  <div class="roster"><div class="rl">Who your wrestler trains with</div><div class="rn">Olympian <b>Ken Chertow</b> &middot; Ty Morgan, 3&times; Ohio state champion &middot; Dave Habat, 6&times; Slovenia world team &middot; Alexia Wagner, 2020 national champion &middot; Alexio Garcia, coach of a 2026 NCAA women's champion &middot; + the Gold Medal staff</div></div>
+  <div class="seghead"><div class="st"><div class="rule"></div><div class="eyebrow">The ride is on us</div>
+    <h2 style="margin-bottom:0">Vision Genesis drives the whole team &mdash; both ways.</h2></div>
+    <span class="si"><svg class="busicon" viewBox="0 0 116 60" width="112" height="58" aria-hidden="true"><g fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="92" height="34" rx="7"/><line x1="5" y1="31" x2="97" y2="31"/><rect x="84" y="33" width="11" height="12" rx="1.5"/><circle cx="30" cy="49" r="6.5"/><circle cx="76" cy="49" r="6.5"/><path d="M104 21 h8 M106 30 h7 M104 39 h8" opacity="0.5"/></g><rect x="12" y="17" width="12" height="10" rx="1.5" fill="var(--accent)" opacity="0.16"/><rect x="27" y="17" width="12" height="10" rx="1.5" fill="var(--accent)" opacity="0.16"/><rect x="42" y="17" width="12" height="10" rx="1.5" fill="var(--accent)" opacity="0.16"/><rect x="57" y="17" width="12" height="10" rx="1.5" fill="var(--accent)" opacity="0.16"/><rect x="72" y="17" width="12" height="10" rx="1.5" fill="var(--accent)" opacity="0.16"/></svg></span></div>
+  <p style="margin-top:14px">You don't drive to Ohio. <strong>Vision Genesis sponsors the transportation, to camp and home again.</strong> And it isn't just your scholar-athlete: any wrestler in the program can sign up to come, cover their own tuition, and <strong>ride free with their teammates.</strong> This is a <strong>Knoxville-wide program</strong> &mdash; the goal is to fill a charter bus with the hardest workers from across town, headed to Ohio together.</p>
+  <div class="optcard"><div class="oh"><span class="optpill">Optional &mdash; if you want help</span><span class="oic"><svg class="bizicon" viewBox="0 0 48 44" width="38" height="35" aria-hidden="true"><g fill="none" stroke="var(--gold)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18 V40 H40 V18"/><path d="M6 18 L10 8 H38 L42 18 Z"/><line x1="16" y1="18" x2="16" y2="9"/><line x1="24" y1="18" x2="24" y2="9"/><line x1="32" y1="18" x2="32" y2="9"/><rect x="20" y="27" width="9" height="13"/></g></svg></span></div>
+    <h3>Ask a local business to help sponsor your wrestler.</h3>
+    <p>You don't have to &mdash; but if you'd like help covering your $475, we make the ask easy and hand you the materials. A business that chips in <strong>$225 or more</strong> gets featured in Knoxville Catholic's press &amp; marketing, plus a free <strong>AI Business Bottleneck Unlock</strong> from Vision Genesis &mdash; a $1,500 value for them.</p>
+    <a class="ol" href="catholic-business.pdf">The one-pager to hand a business &rsaquo;</a></div>
+  <div class="trainwith"><div class="twhero"><img src="../../staff/camp.webp" alt="Gold Medal Training Camp" loading="lazy"><div class="twov"></div><div class="twcap"><div class="eyebrow" style="color:var(--gold)">Who your wrestler trains with</div><div class="twh">An Olympian and a staff of champions &mdash; in the room every day.</div></div></div><div class="twgrid"><figure class="twc feat"><img src="../../staff/ken.webp" alt="Ken Chertow" loading="lazy"><figcaption><b>Ken Chertow</b><span>Olympian &middot; your camp's namesake</span></figcaption></figure><figure class="twc"><img src="../../staff/ty.jpg" alt="Ty Morgan" loading="lazy"><figcaption><b>Ty Morgan</b><span>3&times; Ohio state champion</span></figcaption></figure><figure class="twc"><img src="../../staff/alexia.jpg" alt="Alexia Wagner" loading="lazy"><figcaption><b>Alexia Wagner</b><span>2020 national champion</span></figcaption></figure><figure class="twc"><img src="../../staff/alexio.jpg" alt="Alexio Garcia" loading="lazy"><figcaption><b>Alexio Garcia</b><span>coached a 2026 NCAA champion</span></figcaption></figure></div><div class="twmore">&plus; Dave Habat (6&times; Slovenia world team) and the full Gold Medal staff. This is the week itself &mdash; not a name on a flyer.</div></div>
 </div></section>
 
 <section><div class="wrap">

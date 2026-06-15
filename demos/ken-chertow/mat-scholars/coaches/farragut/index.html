@@ -67,6 +67,37 @@ p strong,li strong{color:#fff;}
 .badge .tee{flex:0 0 52px;width:52px;height:60px;display:flex;align-items:center;justify-content:center;}
 .badge .medal{width:48px;height:58px;filter:drop-shadow(0 2px 5px rgba(0,0,0,.45));}
 .badge .bt{font-size:14.5px;color:var(--mut);text-wrap:pretty;}.badge .bt b{color:#fff;}
+/* section header with a right-side mark (e.g. the transport bus) */
+.seghead{display:flex;align-items:center;gap:18px;justify-content:space-between;}
+.seghead .st{flex:1;min-width:0;}
+.seghead .si{flex:0 0 auto;opacity:.92;}
+.busicon{display:block;}
+@media(max-width:440px){.seghead .si{display:none;}}
+/* optional add-on card (ask a local business) — visibly SEPARATE from the main flow */
+.optcard{background:rgba(236,184,56,.055);border:1.5px dashed rgba(236,184,56,.55);border-radius:14px;padding:16px 18px 18px;margin:18px 0;}
+.optcard .oh{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px;}
+.optpill{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:5px 11px;border-radius:20px;font-weight:700;white-space:nowrap;}
+.optcard .oic{flex:0 0 auto;opacity:.9;}
+.optcard h3{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:20px;color:#fff;margin:0 0 8px;text-wrap:balance;}
+.optcard p{color:var(--mut);font-size:14.5px;margin:0 0 10px;text-wrap:pretty;}
+.optcard .ol{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--gold);text-decoration:none;letter-spacing:.03em;}
+/* "Who your wrestler trains with" — photo feature (the marquee offer) */
+.trainwith{margin:16px 0;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--navy-2);}
+.twhero{position:relative;height:184px;overflow:hidden;}
+.twhero>img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block;}
+.twov{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,20,38,.35),rgba(7,20,38,.92));}
+.twcap{position:absolute;left:0;right:0;bottom:0;padding:15px 18px;}
+.twh{font-family:'Fraunces',Georgia,serif;font-weight:580;font-size:clamp(19px,5.2vw,25px);color:#fff;line-height:1.12;text-wrap:balance;margin-top:3px;}
+.twgrid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);}
+@media(min-width:560px){.twgrid{grid-template-columns:repeat(4,1fr);}}
+.twc{position:relative;margin:0;background:var(--navy-2);}
+.twc>img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;}
+.twc figcaption{padding:9px 12px 12px;}
+.twc figcaption b{display:block;color:#fff;font-size:13.5px;font-weight:700;line-height:1.15;}
+.twc figcaption span{display:block;color:var(--mut);font-size:11px;margin-top:2px;line-height:1.25;text-wrap:pretty;}
+.twc.feat figcaption b{color:var(--gold-hi);}
+.twc.feat::before{content:"OLYMPIAN";position:absolute;top:8px;left:8px;z-index:2;font-family:'JetBrains Mono',monospace;font-size:8px;letter-spacing:.1em;background:var(--gold);color:var(--navy);padding:3px 7px;border-radius:11px;font-weight:700;}
+.twmore{padding:13px 16px;font-size:12.5px;color:var(--mut);background:var(--deep);border-top:1px solid var(--line);text-wrap:pretty;}
 .notes{display:grid;grid-template-columns:1fr;gap:12px;margin:16px 0;}
 @media(min-width:560px){.notes{grid-template-columns:1fr 1fr;}}
 .ncard{background:var(--navy-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
@@ -137,8 +168,8 @@ body{padding-bottom:84px;}
   <div class="step"><div class="n">1</div><div class="b"><strong>Nominate the one wrestler who's earned it.</strong> Hardest worker, lifts the room, takes care of business in class too &mdash; your Farragut Gold Medal Scholar. One per program. <em>A real case for more than one? Reach out &mdash; we'll talk it through.</em></div></div>
   <div class="step"><div class="n">2</div><div class="b"><strong>The family or club funds their half &mdash; $475.</strong> That's the skin in the game that makes a 50% award mean something. Want help? We hand you ready-to-go outreach materials to bring in a local business &mdash; optional, never required (see below).</div></div>
   <div class="step"><div class="n">3</div><div class="b"><strong>Fill the bus.</strong> Any wrestler in your program can ride too &mdash; they cover their own tuition, <strong>Vision Genesis covers the ride, both ways.</strong> They join the rest of Knoxville on the bus to Ohio.</div></div>
-  <div class="badge"><span class="tee"><svg class="medal" viewBox="0 0 48 58" width="48" height="58" aria-hidden="true"><defs><radialGradient id="gm" cx="0.4" cy="0.34" r="0.78"><stop offset="0" stop-color="#FCEAAE"/><stop offset="0.5" stop-color="#ECB838"/><stop offset="1" stop-color="#B6841C"/></radialGradient></defs><path d="M11 3 L24 33 L18 34 L7 8 Z" fill="#032B5F"/><path d="M37 3 L24 33 L30 34 L41 8 Z" fill="#032B5F" opacity="0.72"/><circle cx="24" cy="40" r="15.5" fill="url(#gm)" stroke="#8C6310" stroke-width="1.2"/><circle cx="24" cy="40" r="11.5" fill="none" stroke="#FBE6A6" stroke-width="1" opacity="0.55"/><path d="M24 31.5 L26.0 37.25 L32.08 37.37 L27.23 41.05 L29.0 46.88 L24 43.4 L19.0 46.88 L20.77 41.05 L15.92 37.37 L22.0 37.25 Z" fill="#FFF7DC"/></svg></span><div class="bt">Every winner is a <b>Gold Medal Scholar</b> &mdash; and wears the shirt. Not aid they quietly receive: <b>a title they earned, on their chest.</b></div></div>
-  <div class="roster"><div class="rl">Who they'll train with in Ohio</div><div class="rn">Olympian <b>Ken Chertow</b> &middot; Ty Morgan, 3&times; Ohio state champion &middot; Dave Habat, 6&times; Slovenia world team &middot; Alexia Wagner, 2020 national champion &middot; Alexio Garcia, coach of a 2026 NCAA women's champion &middot; + the Gold Medal staff</div></div>
+  <div class="badge"><span class="tee"><svg class="medal" viewBox="0 0 48 58" width="48" height="58" aria-hidden="true"><defs><radialGradient id="gm" cx="0.4" cy="0.34" r="0.78"><stop offset="0" stop-color="#FCEAAE"/><stop offset="0.5" stop-color="#ECB838"/><stop offset="1" stop-color="#B6841C"/></radialGradient></defs><path d="M11 3 L24 33 L18 34 L7 8 Z" fill="#032B5F"/><path d="M37 3 L24 33 L30 34 L41 8 Z" fill="#032B5F" opacity="0.72"/><circle cx="24" cy="40" r="15.5" fill="url(#gm)" stroke="#8C6310" stroke-width="1.2"/><circle cx="24" cy="40" r="11.5" fill="none" stroke="#FBE6A6" stroke-width="1" opacity="0.55"/><path d="M24 31.5 L26.0 37.25 L32.08 37.37 L27.23 41.05 L29.0 46.88 L24 43.4 L19.0 46.88 L20.77 41.05 L15.92 37.37 L22.0 37.25 Z" fill="#FFF7DC"/></svg></span><div class="bt">Every winner is a <b>Gold Medal Scholar</b> &mdash; and wears the shirt. It's not aid they quietly receive &mdash; it's <b>a title they earned, on their chest.</b></div></div>
+  <div class="trainwith"><div class="twhero"><img src="../../staff/camp.webp" alt="Gold Medal Training Camp" loading="lazy"><div class="twov"></div><div class="twcap"><div class="eyebrow" style="color:var(--gold)">Who they'll train with in Ohio</div><div class="twh">An Olympian and a staff of champions &mdash; in the room every day.</div></div></div><div class="twgrid"><figure class="twc feat"><img src="../../staff/ken.webp" alt="Ken Chertow" loading="lazy"><figcaption><b>Ken Chertow</b><span>Olympian &middot; your camp's namesake</span></figcaption></figure><figure class="twc"><img src="../../staff/ty.jpg" alt="Ty Morgan" loading="lazy"><figcaption><b>Ty Morgan</b><span>3&times; Ohio state champion</span></figcaption></figure><figure class="twc"><img src="../../staff/alexia.jpg" alt="Alexia Wagner" loading="lazy"><figcaption><b>Alexia Wagner</b><span>2020 national champion</span></figcaption></figure><figure class="twc"><img src="../../staff/alexio.jpg" alt="Alexio Garcia" loading="lazy"><figcaption><b>Alexio Garcia</b><span>coached a 2026 NCAA champion</span></figcaption></figure></div><div class="twmore">&plus; Dave Habat (6&times; Slovenia world team) and the full Gold Medal staff. This is the week itself &mdash; not a name on a flyer.</div></div>
   <div class="notes">
     <div class="ncard"><strong>Merit based.</strong><div class="t">It's not how good they are &mdash; it's how hard they work, in class and on the mat. No financial forms.</div></div>
     <div class="ncard"><strong>In the news.</strong><div class="t">We coordinate Knoxville &amp; Cincinnati press around the send-off &mdash; your scholar-athlete and Farragut, by name.</div></div>
