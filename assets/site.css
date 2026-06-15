@@ -231,6 +231,8 @@ em{ font-style:italic; color:var(--gold-hi); }
 .an-msg.bot{ align-self:flex-start; background:rgba(236,184,56,.1); border:1px solid rgba(236,184,56,.2); border-bottom-left-radius:4px; }
 .an-msg.me{ align-self:flex-end; background:rgba(168,184,207,.13); border:1px solid var(--line-soft); border-bottom-right-radius:4px; }
 .an-msg.typing{ color:var(--ink-faint); font-style:italic; }
+.an-msg a{ color:var(--gold-hi); text-decoration:underline; text-underline-offset:2px; font-weight:600; }
+.an-msg b{ font-weight:700; }
 .an-chips{ display:flex; flex-wrap:wrap; gap:8px; padding:0 20px 14px; }
 .an-chip{ font-size:.78rem; font-weight:600; color:var(--gold-hi); border:1px solid rgba(252,208,74,.28); background:rgba(252,208,74,.05); padding:.45em .9em; border-radius:999px; transition:background .2s, border-color .2s; }
 .an-chip:hover{ background:rgba(252,208,74,.12); border-color:var(--gold-hi); }

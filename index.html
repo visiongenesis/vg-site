@@ -174,7 +174,7 @@
             <div class="an-head">
               <img class="mono-mark" src="assets/vg-monogram.png" alt="" aria-hidden="true">
               <strong>Ask Norris</strong>
-              <small>PREVIEW</small>
+              <small>LIVE</small>
             </div>
             <div class="an-body" id="anBody">
               <div class="an-msg bot">Hey — I'm Norris, the AI that runs Vision Genesis. Ask me what we build, how it works, or what it'd look like in your business.</div>
@@ -563,10 +563,12 @@
     var buf=""; document.addEventListener("keydown",function(e){ buf=(buf+e.key).slice(-2); if(buf==="88"){ size(); blaze(); } });
   })();
 
-  /* ---- Ask Norris widget (front-end; wires to live endpoint in next pass) ---- */
+  /* ---- Ask Norris widget — wired to the live grounded Sonnet endpoint (graceful fallback) ---- */
   (function(){
     var body=document.getElementById("anBody"), form=document.getElementById("anForm"), input=document.getElementById("anInput"), chips=document.getElementById("anChips");
     if(!body) return;
+    var ENDPOINT="https://vg-worker.visiongenesis.workers.dev/ask-church/norris";
+    var history=[];
     var KB={
       norris:"Think of Norris as the brain that runs your front line — it answers customers, drafts quotes, watches the numbers, and flags what's slipping, and it gets a little sharper every day. Not a dashboard you babysit, not a script. The 'Ask My' products are Norris wearing your brand on the customer-facing side.",
       askmy:"Ask My is the part of Norris your customers actually talk to — Ask My Business, Church, School. It answers only from your real content, can't make things up, and routes people to the right next step. You can have one live on your site by lunch — the Ask My page shows exactly how.",
@@ -586,8 +588,15 @@
       "Let's cut to it: what are you trying to fix? Quotes that take too long, calls you can't answer, leads going cold? Tell me that."
     ];
     var lastKey=null, escI=0;
+    function esc(x){ return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+    function fmt(x){ var h=esc(x);
+      h=h.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g,function(m,t,u){return '<a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>';});
+      h=h.replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>");
+      h=h.replace(/\n{2,}/g,"<br><br>").replace(/\n/g,"<br>");
+      return h; }
     function add(text,who){ var d=document.createElement("div"); d.className="an-msg "+who; d.textContent=text; body.appendChild(d); body.scrollTop=body.scrollHeight; return d; }
-    function answer(q){ var l=q.toLowerCase(), k=null;
+    function sid(){ try{ var v=localStorage.getItem("vg_an_sid"); if(!v){ v="an-"+Date.now().toString(36)+Math.random().toString(36).slice(2,8); localStorage.setItem("vg_an_sid",v);} return v; }catch(e){ return "an-anon"; } }
+    function fallback(q,t){ var l=q.toLowerCase(), k=null;
       if(/norris|second brain|the brain|jarvis/.test(l))k="norris";
       if(/ask\s*my|customer.?facing|answer.*customer/.test(l))k="askmy";
       if(/cost|price|pricing|how much|afford|month|\$/.test(l))k="cost";
@@ -599,12 +608,20 @@
       if(/voice.?to.?quote|quote|estimate|landscap|contractor|field/.test(l))k="voice";
       if(/start|get going|sign up|begin|next step|talk to|contact|email/.test(l))k="start";
       var diss=/didn'?t? ?like|don'?t? ?like|not helpful|that'?s not|try again|different answer|too generic|vague|wrong|same answer|^no$|nope|unhelpful|boring|robot/.test(l);
-      var t=add("Norris is thinking…","bot typing");
-      setTimeout(function(){ t.classList.remove("typing");
-        if(diss || !k || k===lastKey){ t.textContent=ESC[escI%ESC.length]; escI++; lastKey=null; }
-        else { t.textContent=KB[k]; lastKey=k; }
-      },600+Math.random()*500); }
-    function ask(q){ add(q,"me"); if(chips)chips.style.display="none"; answer(q); }
+      if(diss || !k || k===lastKey){ t.textContent=ESC[escI%ESC.length]; escI++; lastKey=null; }
+      else { t.textContent=KB[k]; lastKey=k; } }
+    function ask(q){
+      add(q,"me"); if(chips)chips.style.display="none";
+      history.push({role:"user",content:q});
+      var t=add("Norris is thinking…","bot typing"), done=false;
+      var timer=setTimeout(function(){ if(done)return; done=true; t.classList.remove("typing"); fallback(q,t); },13000);
+      fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history.slice(-12),sid:sid(),src:"site-asknorris"})})
+        .then(function(r){ return r.ok?r.json():Promise.reject(r.status); })
+        .then(function(d){ if(done)return; done=true; clearTimeout(timer); t.classList.remove("typing");
+          var reply=(d&&d.reply)?d.reply:""; if(!reply){ fallback(q,t); return; }
+          t.innerHTML=fmt(reply); history.push({role:"assistant",content:reply}); body.scrollTop=body.scrollHeight; })
+        .catch(function(){ if(done)return; done=true; clearTimeout(timer); t.classList.remove("typing"); fallback(q,t); });
+    }
     form.addEventListener("submit",function(e){ e.preventDefault(); var v=input.value.trim(); if(!v)return; input.value=""; ask(v); });
     chips&&chips.querySelectorAll(".an-chip").forEach(function(c){ c.addEventListener("click",function(){ ask(c.getAttribute("data-q")); }); });
   })();
