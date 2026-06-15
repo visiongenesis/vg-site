@@ -534,41 +534,48 @@
     size(); window.addEventListener("resize",size,{passive:true});
     function blaze(){
       var W=hero.clientWidth, H=hero.clientHeight;
-      var x0=-W*0.10, y0=H*0.92, x1=W*0.80, y1=-H*0.30;          // ~38deg, bottom-left -> top-right; not from the exact bottom
-      var dx=x1-x0, dy=y1-y0, len=Math.hypot(dx,dy), px=-dy/len, py=dx/len, ang=Math.atan2(dy,dx);
-      var trail=[], t=0, T_RUN=52, T_FLASH=52, T_END=222;
+      var x0=-W*0.12, y0=H*0.94, x1=W*0.74, y1=H*0.46;     // crack in the right-half dead space, at the headline's height
+      var dx=x1-x0, dy=y1-y0, len=Math.hypot(dx,dy), px=-dy/len, py=dx/len;
+      var trail=[], t=0, T_RUN=56, CRACK=30, T_END=T_RUN+CRACK+120;
       flux.style.opacity="1";
-      function L(a,b,p){ return a+(b-a)*p; }
-      function carAt(p){ var e=p*p; return { x:L(x0,x1,e), y:L(y0,y1,e), d:L(1,0.34,e) }; }
-      function bolt(ax,ay,bx,by,disp,depth){ if(depth<=0){ ctx.lineTo(bx,by); return; } var mx=(ax+bx)/2+(Math.random()-.5)*disp, my=(ay+by)/2+(Math.random()-.5)*disp; bolt(ax,ay,mx,my,disp*.55,depth-1); bolt(mx,my,bx,by,disp*.55,depth-1); }
-      function rays(cx,cy,r,n,col,w){ ctx.strokeStyle=col; ctx.lineWidth=w; for(var i=0;i<n;i++){ var a=Math.random()*Math.PI*2; ctx.beginPath(); ctx.moveTo(cx,cy); bolt(cx,cy,cx+Math.cos(a)*r,cy+Math.sin(a)*r,r*0.4,3); ctx.stroke(); } }
+      function Lr(a,b,p){ return a+(b-a)*p; }
+      function rnd(a,b){ return a+Math.random()*(b-a); }
+      function carAt(p){ var e=p*p; return { x:Lr(x0,x1,e), y:Lr(y0,y1,e), d:Lr(0.65,1,e) }; }
+      function bolt(ax,ay,bx,by,disp,depth,branch){ if(depth<=0){ ctx.lineTo(bx,by); return; } var mx=(ax+bx)/2+(Math.random()-.5)*disp, my=(ay+by)/2+(Math.random()-.5)*disp; bolt(ax,ay,mx,my,disp*.55,depth-1,branch); if(branch && Math.random()<0.35){ ctx.lineTo(mx,my); ctx.lineTo(mx+rnd(-disp,disp),my+rnd(-disp,disp)); ctx.moveTo(mx,my); } bolt(mx,my,bx,by,disp*.55,depth-1,branch); }
+      function strike(cx,cy,r,n,col,w,branch){ ctx.strokeStyle=col; ctx.lineWidth=w; ctx.lineCap="round"; for(var i=0;i<n;i++){ var a=Math.random()*Math.PI*2, rr=r*rnd(0.55,1.15); ctx.beginPath(); ctx.moveTo(cx,cy); bolt(cx,cy,cx+Math.cos(a)*rr,cy+Math.sin(a)*rr,rr*0.42,4,branch); ctx.stroke(); } }
+      function attract(cx,cy,r,n,col,w){ ctx.strokeStyle=col; ctx.lineWidth=w; ctx.lineCap="round"; for(var i=0;i<n;i++){ var a=Math.random()*Math.PI*2, rr=r*rnd(0.8,1.3), sx=cx+Math.cos(a)*rr, sy=cy+Math.sin(a)*rr; ctx.beginPath(); ctx.moveTo(sx,sy); bolt(sx,sy,cx,cy,rr*0.4,4,false); ctx.stroke(); } }
       function step(){
         t++; ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation="lighter";
         var rp=Math.min(t/T_RUN,1), car=carAt(rp);
-        if(t<=T_RUN){ var pc=carAt(Math.max(0,(t-1)/T_RUN)); for(var k=1;k<=3;k++){ var pp=k/3, ix=L(pc.x,car.x,pp), iy=L(pc.y,car.y,pp), idd=L(pc.d,car.d,pp), sep=12*idd; trail.push({x:ix+px*sep,y:iy+py*sep,life:1,d:idd}); trail.push({x:ix-px*sep,y:iy-py*sep,life:1,d:idd}); } }
-        for(var i=0;i<trail.length;i++){ var q=trail[i]; q.life-=0.006; if(q.life<=0) continue;
-          var fl=0.88+0.18*Math.sin((t+i*1.6)*0.5), r=(18*q.d+4)*q.life*fl;
-          var g=ctx.createRadialGradient(q.x,q.y,0,q.x,q.y,r);
-          g.addColorStop(0,"rgba(255,255,235,"+(0.9*q.life)+")"); g.addColorStop(.30,"rgba(255,224,150,"+(0.82*q.life)+")"); g.addColorStop(.62,"rgba(252,150,40,"+(0.5*q.life)+")"); g.addColorStop(1,"rgba(190,55,10,0)");
-          ctx.fillStyle=g; ctx.beginPath(); ctx.arc(q.x,q.y,r,0,Math.PI*2); ctx.fill();
+        if(t<=T_RUN){ var pc=carAt(Math.max(0,(t-1)/T_RUN)); for(var k=1;k<=3;k++){ var pp=k/3, ix=Lr(pc.x,car.x,pp), iy=Lr(pc.y,car.y,pp), idd=Lr(pc.d,car.d,pp), sep=10*idd; trail.push({x:ix+px*sep+rnd(-3,3),y:iy+py*sep,life:1,d:idd,ph:rnd(0,6.28),vx:rnd(-.25,.25)}); trail.push({x:ix-px*sep+rnd(-3,3),y:iy-py*sep,life:1,d:idd,ph:rnd(0,6.28),vx:rnd(-.25,.25)}); } }
+        for(var i=0;i<trail.length;i++){ var q=trail[i]; q.life-=0.0068; if(q.life<=0) continue;
+          q.y-=(1.3*(1-q.life)+0.3); q.x+=q.vx;
+          var fl=0.6+0.5*Math.sin(t*0.55+q.ph)+0.14*Math.sin(t*1.9+q.ph*1.7);
+          var r=(15*q.d+3)*q.life*Math.max(0.35,fl), hot=q.life;
+          ctx.save(); ctx.translate(q.x,q.y); ctx.scale(1, 1.75);
+          var g=ctx.createRadialGradient(0,0,0,0,0,r);
+          g.addColorStop(0,"rgba(255,250,"+Math.round(205+35*hot)+","+(0.9*q.life)+")");
+          g.addColorStop(.26,"rgba(255,"+Math.round(190+45*hot)+",80,"+(0.78*q.life)+")");
+          g.addColorStop(.58,"rgba(240,"+Math.round(80+40*hot)+",28,"+(0.48*q.life)+")");
+          g.addColorStop(1,"rgba(140,28,8,0)");
+          ctx.fillStyle=g; ctx.beginPath(); ctx.arc(0,-r*0.35,r,0,Math.PI*2); ctx.fill(); ctx.restore();
         }
-        if(t<T_RUN){
-          ctx.save(); ctx.translate(car.x,car.y); ctx.rotate(ang); var s=car.d;
-          ctx.globalCompositeOperation="source-over"; ctx.fillStyle="rgba(3,9,18,0.5)";
-          ctx.beginPath(); ctx.moveTo(-36*s,7*s); ctx.lineTo(24*s,7*s); ctx.lineTo(20*s,-5*s); ctx.lineTo(-6*s,-10*s); ctx.lineTo(-36*s,-2*s); ctx.closePath(); ctx.fill();
-          ctx.globalCompositeOperation="lighter";
-          var hg=ctx.createRadialGradient(26*s,0,0,26*s,0,24*s); hg.addColorStop(0,"rgba(228,242,255,.9)"); hg.addColorStop(.5,"rgba(130,185,255,.35)"); hg.addColorStop(1,"rgba(90,150,255,0)");
-          ctx.fillStyle=hg; ctx.beginPath(); ctx.arc(26*s,0,24*s,0,Math.PI*2); ctx.fill(); ctx.restore();
-          if(rp>0.5){ rays(car.x,car.y, 36*car.d, 3, "rgba(175,212,255,"+(0.6*(rp-0.5)/0.5)+")", 1.5*car.d); }
+        if(t<T_RUN && rp>0.30){ var inten=(rp-0.30)/0.70;
+          strike(car.x,car.y, (38+95*inten)*car.d, 1+Math.round(inten*2.4), "rgba(185,218,255,"+(0.45+0.5*inten)+")", 1.5, false);
+          if(Math.random()<0.6*inten) attract(car.x,car.y,(60+90*inten),1,"rgba(150,200,255,"+(0.4+0.45*inten)+")",1.2);
+          var hg=ctx.createRadialGradient(car.x,car.y,0,car.x,car.y,(20+16*inten)*car.d); hg.addColorStop(0,"rgba(225,240,255,"+(0.55+0.35*inten)+")"); hg.addColorStop(1,"rgba(120,180,255,0)");
+          ctx.fillStyle=hg; ctx.beginPath(); ctx.arc(car.x,car.y,(20+16*inten)*car.d,0,Math.PI*2); ctx.fill();
         }
-        if(t>=T_FLASH && t<T_FLASH+16){
-          var env=Math.sin(((t-T_FLASH)/16)*Math.PI), env2=env*env, fr=env*Math.max(W,H)*0.5, fx=carAt(0.80).x, fy=carAt(0.80).y;
-          var fg=ctx.createRadialGradient(fx,fy,0,fx,fy,fr+1);
-          fg.addColorStop(0,"rgba(255,255,255,"+env+")"); fg.addColorStop(.16,"rgba(255,255,255,"+(0.95*env)+")"); fg.addColorStop(.42,"rgba(226,240,255,"+(0.55*env)+")"); fg.addColorStop(.74,"rgba(150,200,255,"+(0.22*env)+")"); fg.addColorStop(1,"rgba(120,180,255,0)");
-          ctx.fillStyle=fg; ctx.beginPath(); ctx.arc(fx,fy,fr+1,0,Math.PI*2); ctx.fill();
-          ctx.strokeStyle="rgba(255,255,255,"+(0.85*env2)+")"; ctx.lineWidth=3;
-          ctx.beginPath(); ctx.moveTo(fx-fr*1.5,fy); ctx.lineTo(fx+fr*1.5,fy); ctx.moveTo(fx,fy-fr*1.5); ctx.lineTo(fx,fy+fr*1.5); ctx.stroke();
-          rays(fx,fy, fr*1.25, 12, "rgba(205,228,255,"+(0.9*env)+")", 2.4);
+        if(t>=T_RUN && t<T_RUN+CRACK){
+          var ce=(t-T_RUN)/CRACK, flick=rnd(0.5,1)*(1-ce*ce);
+          var fr=Math.max(W,H)*0.30*flick + Math.max(W,H)*0.09;
+          var fg=ctx.createRadialGradient(x1,y1,0,x1,y1,fr);
+          fg.addColorStop(0,"rgba(255,255,255,"+(0.96*flick)+")"); fg.addColorStop(.2,"rgba(255,255,255,"+(0.85*flick)+")"); fg.addColorStop(.5,"rgba(222,238,255,"+(0.45*flick)+")"); fg.addColorStop(.8,"rgba(150,200,255,"+(0.2*flick)+")"); fg.addColorStop(1,"rgba(120,180,255,0)");
+          ctx.fillStyle=fg; ctx.beginPath(); ctx.arc(x1,y1,fr,0,Math.PI*2); ctx.fill();
+          ctx.strokeStyle="rgba(255,255,255,"+(0.7*flick*flick)+")"; ctx.lineWidth=3;
+          ctx.beginPath(); ctx.moveTo(x1-fr*1.7,y1); ctx.lineTo(x1+fr*1.7,y1); ctx.moveTo(x1,y1-fr*1.7); ctx.lineTo(x1,y1+fr*1.7); ctx.stroke();
+          strike(x1,y1, fr*1.5, 11+Math.round(rnd(0,7)), "rgba(208,230,255,"+(0.9*flick)+")", 2.4, true);
+          attract(x1,y1, fr*1.7, 3, "rgba(170,210,255,"+(0.6*flick)+")", 1.6);
         }
         ctx.globalCompositeOperation="source-over";
         if(t<T_END){ requestAnimationFrame(step); } else { var fade=function(){ var o=parseFloat(flux.style.opacity)-0.05; flux.style.opacity=o>0?o:0; if(o>0)requestAnimationFrame(fade); else ctx.clearRect(0,0,W,H); }; fade(); }
