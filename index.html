@@ -692,8 +692,8 @@
     function ask(q){
       add(q,"me"); if(chips)chips.style.display="none";
       history.push({role:"user",content:q});
-      var t=add("Norris is thinking…","bot typing"), done=false;
-      var timer=setTimeout(function(){ if(done)return; done=true; t.classList.remove("typing"); fallback(q,t); },13000);
+      var t=add("Norris is thinking","bot typing"), done=false;
+      var timer=setTimeout(function(){ if(done)return; done=true; t.classList.remove("typing"); fallback(q,t); },30000);
       fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history.slice(-12),sid:sid(),src:"site-asknorris"})})
         .then(function(r){ return r.ok?r.json():Promise.reject(r.status); })
         .then(function(d){ if(done)return; done=true; clearTimeout(timer); t.classList.remove("typing");

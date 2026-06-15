@@ -231,6 +231,8 @@ em{ font-style:italic; color:var(--gold-hi); }
 .an-msg.bot{ align-self:flex-start; background:rgba(236,184,56,.1); border:1px solid rgba(236,184,56,.2); border-bottom-left-radius:4px; }
 .an-msg.me{ align-self:flex-end; background:rgba(168,184,207,.13); border:1px solid var(--line-soft); border-bottom-right-radius:4px; }
 .an-msg.typing{ color:var(--ink-faint); font-style:italic; }
+.an-msg.typing::after{ content:"…"; display:inline-block; width:1.1em; text-align:left; animation:anEllipsis 1.4s steps(4,end) infinite; }
+@keyframes anEllipsis{ 0%{content:""} 25%{content:"."} 50%{content:".."} 75%{content:"…"} 100%{content:""} }
 .an-msg a{ color:var(--gold-hi); text-decoration:underline; text-underline-offset:2px; font-weight:600; }
 .an-msg b{ font-weight:700; }
 .an-chips{ display:flex; flex-wrap:wrap; gap:8px; padding:0 20px 14px; }
