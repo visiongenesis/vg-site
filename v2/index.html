@@ -538,7 +538,7 @@
   var dx=x1-x0, dy=y1-y0, len=Math.hypot(dx,dy), px=-dy/len, py=dx/len;
   var ux=dx/len, uy=dy/len;                 // forward (travel) unit vector: up & to the right
   var L=34;                                  // one "car length" in px
-  var trail=[], t=0, T_RUN=58, CRACK=20, T_END=T_RUN+CRACK+90;
+  var trail=[], t=0, T_RUN=58, CRACK=42, T_END=T_RUN+CRACK+50;
   var _freeze=0;  // DEBUG only
   try{ var _at=parseFloat((location.search.match(/[?&]at=([0-9.]+)/)||[])[1]); if(_at>0){ t=_at; _freeze=_at; } }catch(e){}  // DEBUG freeze clock at t
   flux.style.opacity="1";
@@ -632,37 +632,55 @@
       var hg=ctx.createRadialGradient(car.x,car.y,0,car.x,car.y,hr); hg.addColorStop(0,"rgba(220,242,255,"+(0.55+0.4*inten)+")"); hg.addColorStop(1,"rgba(110,180,255,0)");
       ctx.fillStyle=hg; ctx.beginPath(); ctx.arc(car.x,car.y,hr,0,Math.PI*2); ctx.fill();
     }
-    // TERMINAL MERGE-EXPLOSION: the car is pulled INTO the lightning at the crack and discharges
-    // FORWARD in one burst, then it is GONE. EVERY bolt is constrained to a forward cone around the
-    // travel vector (ang) — never backward/down — so it reads as a directional lance, not a radial pulse.
+    // TERMINAL: the car keeps driving FORWARD and opens a PORTAL ahead, then whooshes THROUGH it — gone.
+    // A vortex ring opens out front (like headlights into a doorway); the car races in; flash; collapse to nothing.
     if(t>=T_RUN && t<T_RUN+CRACK){
-      var ce=(t-T_RUN)/CRACK;                            // 0..1 across the crack
-      var ang=Math.atan2(uy,ux);                         // travel direction (up & to the right)
-      // BEAT 1 (ce<0.45): PULL-IN — streamers rush from AHEAD (forward cone only) back INTO the crack point
-      if(ce<0.45){
-        var pin=1-ce/0.45;                               // 1 -> 0
-        var nin=4+Math.round(pin*7);
-        for(var m=0;m<nin;m++){
-          var ca=ang+rnd(-0.62,0.62);                    // forward cone, +/- ~36 deg
-          var dist=rnd(1.6,3.8)*L*(0.6+pin);
-          arc(x1+Math.cos(ca)*dist, y1+Math.sin(ca)*dist, x1, y1, 0.8*pin+0.18);
+      var ce=(t-T_RUN)/CRACK;                              // 0..1 across the terminal
+      var maxR=Math.min(W,H)*0.17;
+      var pd=L*2.8;                                        // portal opens ~3 car-lengths AHEAD, in the dead space
+      var pcx=x1+ux*pd, pcy=y1+uy*pd;
+      var openP = ce<0.5 ? (1-Math.pow(1-ce/0.5,3)) : 1;  // ease-out open 0->1
+      var closeP = ce>0.66 ? Math.max(0,1-(ce-0.66)/0.34) : 1;  // collapse 1->0 at the end
+      var Rmaj=maxR*openP*closeP, Rmin=Rmaj*0.40;          // ellipse FACING the car (foreshortened along travel)
+      // inner portal glow — the opening the car dives into (brightens as it enters)
+      if(Rmaj>2){
+        ctx.save(); ctx.translate(pcx,pcy); ctx.rotate(Math.atan2(uy,ux)); ctx.scale(Rmin/Rmaj,1);
+        var core=0.28+0.6*Math.min(1,ce/0.6);
+        var ig=ctx.createRadialGradient(0,0,0,0,0,Rmaj);
+        ig.addColorStop(0,"rgba(236,248,255,"+(core*closeP)+")");
+        ig.addColorStop(0.55,"rgba(96,172,255,"+(0.30*closeP)+")");
+        ig.addColorStop(1,"rgba(60,130,255,0)");
+        ctx.fillStyle=ig; ctx.beginPath(); ctx.arc(0,0,Rmaj,0,Math.PI*2); ctx.fill(); ctx.restore();
+      }
+      // crackling electric rim — short arcs chained around the ellipse, swirling like a vortex
+      if(openP>0.12){
+        var N=22, spin=ce*4.2, prevx=null, prevy=null;
+        for(var r=0;r<=N;r++){
+          var th=(r/N)*Math.PI*2+spin;
+          var ex=pcx+Math.cos(th)*Rmin*ux+Math.sin(th)*Rmaj*px;   // minor along travel(ux,uy), major along perp(px,py)
+          var ey=pcy+Math.cos(th)*Rmin*uy+Math.sin(th)*Rmaj*py;
+          if(prevx!==null) arc(prevx,prevy,ex,ey,(0.42+0.5*openP)*closeP);
+          prevx=ex; prevy=ey;
         }
       }
-      // BEAT 2: the FLASH — a white-hot core stretched + offset FORWARD (a lance, not a centred disc)
-      var flick=(1-ce)*(1-ce)*(1-ce);                    // cubic snap: peaks instantly, gone fast
-      ctx.save(); ctx.translate(x1,y1); ctx.rotate(ang);
-      var fr=Math.max(W,H)*0.20*flick + 24;
-      ctx.scale(1.0,0.42);                               // squashed perpendicular => forward lance
-      var fg=ctx.createRadialGradient(fr*0.28,0,0, fr*0.28,0,fr);   // core sits slightly AHEAD
-      fg.addColorStop(0,"rgba(255,255,255,"+(0.98*flick+0.02)+")"); fg.addColorStop(.18,"rgba(228,245,255,"+(0.72*flick)+")"); fg.addColorStop(.5,"rgba(140,200,255,"+(0.28*flick)+")"); fg.addColorStop(1,"rgba(110,180,255,0)");
-      ctx.fillStyle=fg; ctx.beginPath(); ctx.arc(fr*0.28,0,fr,0,Math.PI*2); ctx.fill();
-      ctx.restore();
-      // BEAT 3: the discharge BLASTS FORWARD ONLY — a fan of bolts inside the forward cone, snapping shut
-      var nb=Math.round(13*flick)+3;
-      for(var b=0;b<nb;b++){
-        var ca2=ang+rnd(-0.72,0.72);                     // forward cone +/- ~41 deg, NEVER backward
-        var ah=rnd(1.3,5.2)*flick+0.45;
-        arc(x1, y1, x1+Math.cos(ca2)*ah*L*1.8, y1+Math.sin(ca2)*ah*L*1.8, 0.9*flick+0.06);
+      // the car WHOOSHES forward from the run-end into the portal centre, shortening as it enters
+      var ws=Math.min(1,ce/0.6);
+      var carx=Lr(x1,pcx,ws), cary=Lr(y1,pcy,ws);
+      if(ce<0.66){
+        var tail=L*2.4*(1-ws)+L*0.4;
+        arc(carx-ux*tail, cary-uy*tail, carx, cary, 0.85*(1-ws*0.45)+0.1);
+        var cr=(7+9*(1-ws))*closeP;
+        var cg=ctx.createRadialGradient(carx,cary,0,carx,cary,cr*2);
+        cg.addColorStop(0,"rgba(255,255,255,"+(0.95*closeP)+")"); cg.addColorStop(1,"rgba(150,205,255,0)");
+        ctx.fillStyle=cg; ctx.beginPath(); ctx.arc(carx,cary,cr*2,0,Math.PI*2); ctx.fill();
+      }
+      // the FLASH as it goes through, then the portal collapses to nothing
+      if(ce>0.56 && ce<0.80){
+        var fl=1-Math.abs(ce-0.63)/0.13;
+        if(fl>0){ var fr2=maxR*1.35*fl;
+          var fg2=ctx.createRadialGradient(pcx,pcy,0,pcx,pcy,fr2);
+          fg2.addColorStop(0,"rgba(255,255,255,"+(0.92*fl)+")"); fg2.addColorStop(0.4,"rgba(212,236,255,"+(0.42*fl)+")"); fg2.addColorStop(1,"rgba(150,200,255,0)");
+          ctx.fillStyle=fg2; ctx.beginPath(); ctx.arc(pcx,pcy,fr2,0,Math.PI*2); ctx.fill(); }
       }
     }
     ctx.globalCompositeOperation="source-over";
