@@ -543,6 +543,8 @@
   try{ var _at=parseFloat((location.search.match(/[?&]at=([0-9.]+)/)||[])[1]); if(_at>0){ t=_at; _freeze=_at; } }catch(e){}  // DEBUG freeze clock at t
   flux.style.opacity="1";
   var last=performance.now(), carPrev=null;
+  function Lr(a,b,p){ return a+(b-a)*p; }
+  function rnd(a,b){ return a+Math.random()*(b-a); }
   function carAt(p){ var e=p*p; return { x:Lr(x0,x1,e), y:Lr(y0,y1,e), d:Lr(0.65,1,e) }; }
   function jag(ax,ay,bx,by,disp,depth,branches){
     if(depth<=0){ ctx.lineTo(bx,by); return; }
