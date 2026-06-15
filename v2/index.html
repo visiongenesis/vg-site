@@ -743,13 +743,34 @@
     function ask(q){
       add(q,"me"); if(chips)chips.style.display="none";
       history.push({role:"user",content:q});
-      var t=add("Norris is thinking","bot typing"), done=false;
+      var t=add("Norris is thinking","bot typing"), done=false, acc="", started=false;
       var timer=setTimeout(function(){ if(done)return; done=true; t.classList.remove("typing"); fallback(q,t); },30000);
-      fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history.slice(-12),sid:sid(),src:"site-asknorris"})})
-        .then(function(r){ return r.ok?r.json():Promise.reject(r.status); })
-        .then(function(d){ if(done)return; done=true; clearTimeout(timer); t.classList.remove("typing");
-          var reply=(d&&d.reply)?d.reply:""; if(!reply){ fallback(q,t); return; }
-          t.innerHTML=fmt(reply); history.push({role:"assistant",content:reply}); body.scrollTop=body.scrollHeight; })
+      function finish(reply){ if(done)return; done=true; clearTimeout(timer); t.classList.remove("typing");
+        if(!reply){ fallback(q,t); return; }
+        t.innerHTML=fmt(reply); history.push({role:"assistant",content:reply}); body.scrollTop=body.scrollHeight; }
+      fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history.slice(-12),sid:sid(),src:"site-asknorris",stream:true})})
+        .then(function(r){
+          if(!r.ok) return Promise.reject(r.status);
+          var ct=r.headers.get("content-type")||"";
+          if(!r.body || ct.indexOf("text/event-stream")<0){ return r.json().then(function(d){ finish((d&&d.reply)||""); }); }
+          clearTimeout(timer);
+          var reader=r.body.getReader(), dec=new TextDecoder(), buf="";
+          (function pump(){ reader.read().then(function(res){
+            if(res.done){ finish(acc); return; }
+            buf+=dec.decode(res.value,{stream:true});
+            var idx;
+            while((idx=buf.indexOf("\n\n"))>=0){
+              var ev=buf.slice(0,idx).split("\n").filter(function(x){return x.indexOf("data:")===0;})[0];
+              buf=buf.slice(idx+2);
+              if(!ev)continue;
+              try{ var o=JSON.parse(ev.slice(5).trim());
+                if(o.t){ if(!started){started=true; t.classList.remove("typing"); t.textContent="";} acc+=o.t; t.textContent=acc; body.scrollTop=body.scrollHeight; }
+                else if(o.done){ finish(acc); return; }
+              }catch(e){}
+            }
+            pump();
+          }).catch(function(){ if(started){ finish(acc); } else if(!done){ done=true; clearTimeout(timer); t.classList.remove("typing"); fallback(q,t); } }); })();
+        })
         .catch(function(){ if(done)return; done=true; clearTimeout(timer); t.classList.remove("typing"); fallback(q,t); });
     }
     form.addEventListener("submit",function(e){ e.preventDefault(); var v=input.value.trim(); if(!v)return; input.value=""; ask(v); });
