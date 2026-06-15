@@ -533,65 +533,142 @@
     function size(){ flux.width=hero.clientWidth*dpr; flux.height=hero.clientHeight*dpr; ctx.setTransform(dpr,0,0,dpr,0,0); }
     size(); window.addEventListener("resize",size,{passive:true});
     function blaze(){
-      var W=hero.clientWidth, H=hero.clientHeight;
-      var x0=-W*0.12, y0=H*0.94, x1=W*0.74, y1=H*0.46;     // crack in the right-half dead space, at the headline's height
-      var dx=x1-x0, dy=y1-y0, len=Math.hypot(dx,dy), px=-dy/len, py=dx/len;
-      var trail=[], t=0, T_RUN=56, CRACK=32, T_END=T_RUN+CRACK+120;
-      flux.style.opacity="1";
-      var last=performance.now(), carPrev=null;
-      function Lr(a,b,p){ return a+(b-a)*p; }
-      function rnd(a,b){ return a+Math.random()*(b-a); }
-      function carAt(p){ var e=p*p; return { x:Lr(x0,x1,e), y:Lr(y0,y1,e), d:Lr(0.65,1,e) }; }
-      function jag(ax,ay,bx,by,disp,depth,branches){ if(depth<=0){ ctx.lineTo(bx,by); return; } var mx=(ax+bx)/2+(Math.random()-.5)*disp, my=(ay+by)/2+(Math.random()-.5)*disp; jag(ax,ay,mx,my,disp*.6,depth-1,branches); if(branches>0 && Math.random()<0.45){ ctx.lineTo(mx,my); jag(mx,my,mx+rnd(-disp*1.5,disp*1.5),my+rnd(-disp*1.5,disp*1.5),disp*.6,depth-1,branches-1); ctx.moveTo(mx,my); } jag(mx,my,bx,by,disp*.6,depth-1,branches); }
-      function arc(ax,ay,bx,by,alpha){ var d=Math.hypot(bx-ax,by-ay), disp=d*0.26; ctx.lineCap="round";
-        ctx.strokeStyle="rgba(70,150,255,"+(0.42*alpha)+")"; ctx.lineWidth=6; ctx.beginPath(); ctx.moveTo(ax,ay); jag(ax,ay,bx,by,disp,5,2); ctx.stroke();
-        ctx.strokeStyle="rgba(120,195,255,"+(0.55*alpha)+")"; ctx.lineWidth=2.6; ctx.beginPath(); ctx.moveTo(ax,ay); jag(ax,ay,bx,by,disp,5,1); ctx.stroke();
-        ctx.strokeStyle="rgba(232,247,255,"+(0.95*alpha)+")"; ctx.lineWidth=1.2; ctx.beginPath(); ctx.moveTo(ax,ay); jag(ax,ay,bx,by,disp,5,1); ctx.stroke(); }
-      function burst(cx,cy,r,n,alpha){ for(var i=0;i<n;i++){ var a=Math.random()*Math.PI*2, rr=r*rnd(0.5,1.15); arc(cx,cy,cx+Math.cos(a)*rr,cy+Math.sin(a)*rr,alpha); } }
-      function inbound(cx,cy,r,n,alpha){ for(var i=0;i<n;i++){ var a=Math.random()*Math.PI*2, rr=r*rnd(0.8,1.3); arc(cx+Math.cos(a)*rr,cy+Math.sin(a)*rr,cx,cy,alpha); } }
-      function step(now){
-        now=now||performance.now(); var dt=(now-last)/16.667; last=now; if(dt>4)dt=4; if(dt<=0)dt=1;
-        t+=dt;
-        ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation="lighter";
-        var rp=Math.min(t/T_RUN,1), car=carAt(rp); if(!carPrev)carPrev=car;
-        if(rp<1){ var sx=car.x-carPrev.x, sy=car.y-carPrev.y, sl=Math.hypot(sx,sy), steps=Math.max(1,Math.round(sl/6));
-          for(var k=1;k<=steps;k++){ var pp=k/steps, ix=Lr(carPrev.x,car.x,pp), iy=Lr(carPrev.y,car.y,pp), idd=Lr(carPrev.d,car.d,pp), sep=10*idd;
-            trail.push({x:ix+px*sep+rnd(-3,3),y:iy+py*sep,life:1,d:idd,ph:rnd(0,6.28),vx:rnd(-.25,.25)});
-            trail.push({x:ix-px*sep+rnd(-3,3),y:iy-py*sep,life:1,d:idd,ph:rnd(0,6.28),vx:rnd(-.25,.25)}); } }
-        carPrev=car;
-        for(var i=0;i<trail.length;i++){ var q=trail[i]; q.life-=0.0068*dt; if(q.life<=0) continue;
-          q.y-=(1.3*(1-q.life)+0.3)*dt; q.x+=q.vx*dt;
-          var fl=0.6+0.5*Math.sin(t*0.55+q.ph)+0.14*Math.sin(t*1.9+q.ph*1.7);
-          var r=(15*q.d+3)*q.life*Math.max(0.35,fl), hot=q.life;
-          ctx.save(); ctx.translate(q.x,q.y); ctx.scale(1,1.75);
-          var g=ctx.createRadialGradient(0,0,0,0,0,r);
-          g.addColorStop(0,"rgba(255,248,190,"+(0.9*q.life)+")");
-          g.addColorStop(.26,"rgba(255,"+Math.round(165+55*hot)+",55,"+(0.8*q.life)+")");
-          g.addColorStop(.58,"rgba(235,"+Math.round(65+35*hot)+",20,"+(0.5*q.life)+")");
-          g.addColorStop(1,"rgba(130,22,6,0)");
-          ctx.fillStyle=g; ctx.beginPath(); ctx.arc(0,-r*0.35,r,0,Math.PI*2); ctx.fill(); ctx.restore();
-        }
-        if(rp>0.18 && rp<1){ var inten=(rp-0.18)/0.82;
-          burst(car.x,car.y,(48+100*inten)*car.d, 2+Math.round(inten*3), 0.6+0.4*inten);
-          if(Math.random()<0.8*inten) inbound(car.x,car.y,(75+95*inten),1+Math.round(inten*2), 0.6+0.4*inten);
-          var nt=Math.min(trail.length, 14+Math.round(inten*26));
-          for(var z=0; z<1+Math.round(inten*5); z++){ var qq=trail[trail.length-1-Math.floor(Math.random()*nt)]; if(qq){ var a=Math.random()*Math.PI*2, rr=(28+55*inten); arc(qq.x,qq.y, qq.x+Math.cos(a)*rr, qq.y+Math.sin(a)*rr, 0.5+0.4*inten); } }
-          var hg=ctx.createRadialGradient(car.x,car.y,0,car.x,car.y,(24+20*inten)*car.d); hg.addColorStop(0,"rgba(205,235,255,"+(0.55+0.35*inten)+")"); hg.addColorStop(1,"rgba(110,180,255,0)");
-          ctx.fillStyle=hg; ctx.beginPath(); ctx.arc(car.x,car.y,(24+20*inten)*car.d,0,Math.PI*2); ctx.fill();
-        }
-        if(t>=T_RUN && t<T_RUN+CRACK){ var ce=(t-T_RUN)/CRACK, flick=rnd(0.5,1)*(1-ce*ce);
-          var fr=Math.max(W,H)*0.30*flick + Math.max(W,H)*0.09;
-          var fg=ctx.createRadialGradient(x1,y1,0,x1,y1,fr);
-          fg.addColorStop(0,"rgba(255,255,255,"+(0.96*flick)+")"); fg.addColorStop(.22,"rgba(220,242,255,"+(0.7*flick)+")"); fg.addColorStop(.55,"rgba(140,200,255,"+(0.42*flick)+")"); fg.addColorStop(1,"rgba(110,180,255,0)");
-          ctx.fillStyle=fg; ctx.beginPath(); ctx.arc(x1,y1,fr,0,Math.PI*2); ctx.fill();
-          burst(x1,y1, fr*1.5, 13+Math.round(rnd(0,8)), 0.9*flick+0.1);
-          inbound(x1,y1, fr*1.8, 4, 0.7*flick+0.1);
-        }
-        ctx.globalCompositeOperation="source-over";
-        if(t<T_END){ requestAnimationFrame(step); } else { var fade=function(){ var o=parseFloat(flux.style.opacity)-0.05; flux.style.opacity=o>0?o:0; if(o>0)requestAnimationFrame(fade); else ctx.clearRect(0,0,W,H); }; fade(); }
-      }
-      requestAnimationFrame(step);
+  var W=hero.clientWidth, H=hero.clientHeight;
+  var x0=-W*0.12, y0=H*0.94, x1=W*0.74, y1=H*0.46;
+  var dx=x1-x0, dy=y1-y0, len=Math.hypot(dx,dy), px=-dy/len, py=dx/len;
+  var ux=dx/len, uy=dy/len;                 // forward (travel) unit vector: up & to the right
+  var L=34;                                  // one "car length" in px
+  var trail=[], t=0, T_RUN=58, CRACK=20, T_END=T_RUN+CRACK+90;
+  var _freeze=0;  // DEBUG only
+  try{ var _at=parseFloat((location.search.match(/[?&]at=([0-9.]+)/)||[])[1]); if(_at>0){ t=_at; _freeze=_at; } }catch(e){}  // DEBUG freeze clock at t
+  flux.style.opacity="1";
+  var last=performance.now(), carPrev=null;
+  function carAt(p){ var e=p*p; return { x:Lr(x0,x1,e), y:Lr(y0,y1,e), d:Lr(0.65,1,e) }; }
+  function jag(ax,ay,bx,by,disp,depth,branches){
+    if(depth<=0){ ctx.lineTo(bx,by); return; }
+    var mx=(ax+bx)/2+(Math.random()-.5)*disp, my=(ay+by)/2+(Math.random()-.5)*disp;
+    jag(ax,ay,mx,my,disp*.6,depth-1,branches);
+    if(branches>0 && Math.random()<0.45){ ctx.lineTo(mx,my); jag(mx,my,mx+rnd(-disp*1.5,disp*1.5),my+rnd(-disp*1.5,disp*1.5),disp*.6,depth-1,branches-1); ctx.moveTo(mx,my); }
+    jag(mx,my,bx,by,disp*.6,depth-1,branches);
+  }
+  function arc(ax,ay,bx,by,alpha){   // electric-blue glowing arc: wide soft glow + thin bright core
+    var d=Math.hypot(bx-ax,by-ay), disp=d*0.22; ctx.lineCap="round";
+    ctx.strokeStyle="rgba(70,150,255,"+(0.42*alpha)+")"; ctx.lineWidth=6;
+    ctx.beginPath(); ctx.moveTo(ax,ay); jag(ax,ay,bx,by,disp,5,2); ctx.stroke();
+    ctx.strokeStyle="rgba(120,195,255,"+(0.55*alpha)+")"; ctx.lineWidth=2.6;
+    ctx.beginPath(); ctx.moveTo(ax,ay); jag(ax,ay,bx,by,disp,5,1); ctx.stroke();
+    ctx.strokeStyle="rgba(232,247,255,"+(0.95*alpha)+")"; ctx.lineWidth=1.2;
+    ctx.beginPath(); ctx.moveTo(ax,ay); jag(ax,ay,bx,by,disp,5,1); ctx.stroke();
+  }
+  // FORWARD bolt: fires off the TOP of the car, ahead along travel, slight upward lift + small lateral spread.
+  // reach is in car-lengths (near..far), spread is a fraction of reach => a tight forward CONE, never radial.
+  function forwardBolt(car,near,far,spread,alpha){
+    var ahead=rnd(near,far)*L, lat=rnd(-spread,spread)*L, lift=rnd(0.25,0.7)*L;
+    // start: just off the top of the car (lifted up the screen a touch)
+    var sx=car.x - uy*(0.15*L*car.d), sy=car.y + ux*(0.15*L*car.d) - 0.55*L*car.d;
+    // end: forward along travel (ux,uy), lifted straight UP the screen, small lateral spread along the perpendicular
+    var ex=car.x + ux*ahead + px*lat;
+    var ey=car.y + uy*ahead + py*lat - lift;
+    arc(sx,sy,ex,ey,alpha);
+  }
+  // INBOUND bolt: ATTRACTED IN. Originates a SHORT distance ahead (~2 car-lengths) and is pulled INTO the car.
+  function attractIn(car,near,far,spread,alpha){
+    var ahead=rnd(near,far)*L, lat=rnd(-spread,spread)*L, lift=rnd(0.1,0.6)*L;
+    var sx=car.x + ux*ahead + px*lat;
+    var sy=car.y + uy*ahead + py*lat - lift;
+    var ex=car.x - uy*(0.1*L*car.d);                 // into the top of the car
+    var ey=car.y + ux*(0.1*L*car.d) - 0.35*L*car.d;
+    arc(sx,sy,ex,ey,alpha);
+  }
+  // converging streamers for the terminal merge: bolts rush from ahead of the crack INTO the crack point
+  function mergeIn(cx,cy,reach,n,alpha){
+    for(var i=0;i<n;i++){
+      var ahead=rnd(reach*0.45,reach)*L, fan=rnd(-1.0,1.0);
+      var sx=cx + ux*ahead + px*fan*reach*0.4*L, sy=cy + uy*ahead + py*fan*reach*0.4*L;
+      arc(sx,sy,cx,cy,alpha);
     }
+  }
+  function step(now){
+    now=now||performance.now(); var dt=(now-last)/16.667; last=now; if(dt>4)dt=4; if(dt<=0)dt=1;
+    t+=dt;
+    if(_freeze){ t=_freeze; if(!trail.length){ var _n=200; for(var _i=0;_i<_n;_i++){ var _p=carAt(Math.min(_i/_n,0.999)); trail.push({x:_p.x+px*10*_p.d+rnd(-3,3),y:_p.y+py*10*_p.d,life:Math.max(0.05,1-(_i/_n)*0.7),d:_p.d,ph:rnd(0,6.28),vx:rnd(-.25,.25)}); trail.push({x:_p.x-px*10*_p.d+rnd(-3,3),y:_p.y-py*10*_p.d,life:Math.max(0.05,1-(_i/_n)*0.7),d:_p.d,ph:rnd(0,6.28),vx:rnd(-.25,.25)}); } } }  // DEBUG seed trail
+    ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation="lighter";
+    var rp=Math.min(t/T_RUN,1), car=carAt(rp); if(!carPrev)carPrev=car;
+    // FLAMES along path (distance-based density => frame-rate independent)
+    if(rp<1){ var sx=car.x-carPrev.x, sy=car.y-carPrev.y, sl=Math.hypot(sx,sy), steps=Math.max(1,Math.round(sl/6));
+      for(var k=1;k<=steps;k++){ var pp=k/steps, ix=Lr(carPrev.x,car.x,pp), iy=Lr(carPrev.y,car.y,pp), idd=Lr(carPrev.d,car.d,pp), sep=10*idd;
+        trail.push({x:ix+px*sep+rnd(-3,3),y:iy+py*sep,life:1,d:idd,ph:rnd(0,6.28),vx:rnd(-.25,.25)});
+        trail.push({x:ix-px*sep+rnd(-3,3),y:iy-py*sep,life:1,d:idd,ph:rnd(0,6.28),vx:rnd(-.25,.25)}); } }
+    carPrev=car;
+    for(var i=0;i<trail.length;i++){ var q=trail[i]; q.life-=0.0068*dt; if(q.life<=0) continue;
+      q.y-=(1.3*(1-q.life)+0.3)*dt; q.x+=q.vx*dt;
+      var fl=0.6+0.5*Math.sin(t*0.55+q.ph)+0.14*Math.sin(t*1.9+q.ph*1.7);
+      var r=(15*q.d+3)*q.life*Math.max(0.35,fl), hot=q.life;
+      ctx.save(); ctx.translate(q.x,q.y); ctx.scale(1,1.75);
+      var g=ctx.createRadialGradient(0,0,0,0,0,r);
+      g.addColorStop(0,"rgba(255,248,190,"+(0.9*q.life)+")");
+      g.addColorStop(.26,"rgba(255,"+Math.round(165+55*hot)+",55,"+(0.8*q.life)+")");
+      g.addColorStop(.58,"rgba(235,"+Math.round(65+35*hot)+",20,"+(0.5*q.life)+")");
+      g.addColorStop(1,"rgba(130,22,6,0)");
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(0,-r*0.35,r,0,Math.PI*2); ctx.fill(); ctx.restore();
+    }
+    // DIRECTIONAL electric lightning: forward-firing off the car + short-range inbound attraction, aligned to travel.
+    // Minimal & punchy: few clean high-contrast bolts during the run; reach stays ~2 car-lengths; intensity ramps with rp.
+    if(rp>0.16 && rp<1){
+      var inten=(rp-0.16)/0.84;                         // 0..1 builds toward the crack
+      var acc=inten*inten;                              // accelerate: quadratic so the END crackles much harder
+      var far=1.4+0.85*inten;                           // forward reach: ~1.4 -> ~2.25 car-lengths (stays short)
+      var spread=0.32+0.16*inten;                       // tight cone, widens a touch as it crackles harder
+      // FORWARD off the top of the car (the charge shooting AHEAD) — count + brightness ramp hard toward the crack
+      var nf=1+Math.round(acc*3.2);                     // 1 -> 4 forward bolts by the end
+      for(var f=0;f<nf;f++) forwardBolt(car, 0.7, far, spread, 0.6+0.4*inten);
+      // SHORT-RANGE inbound attraction from just ahead — clearly present, ramps toward the crack
+      var ni=(rp>0.4?1:0) + ((Math.random()<0.35+0.55*acc)?(1+Math.round(acc*1.5)):0);
+      for(var g2=0;g2<ni;g2++) attractIn(car, far*0.8, far+0.5, spread, 0.6+0.4*inten);
+      // tight white-hot head glow (the charge point), small so it never becomes a radial pulse
+      var hr=(10+11*acc)*car.d;
+      var hg=ctx.createRadialGradient(car.x,car.y,0,car.x,car.y,hr); hg.addColorStop(0,"rgba(220,242,255,"+(0.55+0.4*inten)+")"); hg.addColorStop(1,"rgba(110,180,255,0)");
+      ctx.fillStyle=hg; ctx.beginPath(); ctx.arc(car.x,car.y,hr,0,Math.PI*2); ctx.fill();
+    }
+    // TERMINAL MERGE-EXPLOSION: the car is pulled INTO the lightning at the crack and discharges
+    // FORWARD in one burst, then it is GONE. EVERY bolt is constrained to a forward cone around the
+    // travel vector (ang) — never backward/down — so it reads as a directional lance, not a radial pulse.
+    if(t>=T_RUN && t<T_RUN+CRACK){
+      var ce=(t-T_RUN)/CRACK;                            // 0..1 across the crack
+      var ang=Math.atan2(uy,ux);                         // travel direction (up & to the right)
+      // BEAT 1 (ce<0.45): PULL-IN — streamers rush from AHEAD (forward cone only) back INTO the crack point
+      if(ce<0.45){
+        var pin=1-ce/0.45;                               // 1 -> 0
+        var nin=4+Math.round(pin*7);
+        for(var m=0;m<nin;m++){
+          var ca=ang+rnd(-0.62,0.62);                    // forward cone, +/- ~36 deg
+          var dist=rnd(1.6,3.8)*L*(0.6+pin);
+          arc(x1+Math.cos(ca)*dist, y1+Math.sin(ca)*dist, x1, y1, 0.8*pin+0.18);
+        }
+      }
+      // BEAT 2: the FLASH — a white-hot core stretched + offset FORWARD (a lance, not a centred disc)
+      var flick=(1-ce)*(1-ce)*(1-ce);                    // cubic snap: peaks instantly, gone fast
+      ctx.save(); ctx.translate(x1,y1); ctx.rotate(ang);
+      var fr=Math.max(W,H)*0.20*flick + 24;
+      ctx.scale(1.0,0.42);                               // squashed perpendicular => forward lance
+      var fg=ctx.createRadialGradient(fr*0.28,0,0, fr*0.28,0,fr);   // core sits slightly AHEAD
+      fg.addColorStop(0,"rgba(255,255,255,"+(0.98*flick+0.02)+")"); fg.addColorStop(.18,"rgba(228,245,255,"+(0.72*flick)+")"); fg.addColorStop(.5,"rgba(140,200,255,"+(0.28*flick)+")"); fg.addColorStop(1,"rgba(110,180,255,0)");
+      ctx.fillStyle=fg; ctx.beginPath(); ctx.arc(fr*0.28,0,fr,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+      // BEAT 3: the discharge BLASTS FORWARD ONLY — a fan of bolts inside the forward cone, snapping shut
+      var nb=Math.round(13*flick)+3;
+      for(var b=0;b<nb;b++){
+        var ca2=ang+rnd(-0.72,0.72);                     // forward cone +/- ~41 deg, NEVER backward
+        var ah=rnd(1.3,5.2)*flick+0.45;
+        arc(x1, y1, x1+Math.cos(ca2)*ah*L*1.8, y1+Math.sin(ca2)*ah*L*1.8, 0.9*flick+0.06);
+      }
+    }
+    ctx.globalCompositeOperation="source-over";
+    if(t<T_END){ requestAnimationFrame(step); } else { var fade=function(){ var o=parseFloat(flux.style.opacity)-0.08; flux.style.opacity=o>0?o:0; if(o>0)requestAnimationFrame(fade); else ctx.clearRect(0,0,W,H); }; fade(); }
+  }
+  requestAnimationFrame(step);
+}
+
     setTimeout(blaze, 1400);
     var buf=""; document.addEventListener("keydown",function(e){ buf=(buf+e.key).slice(-2); if(buf==="88"){ size(); blaze(); } });
   })();
