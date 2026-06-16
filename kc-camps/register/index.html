@@ -350,7 +350,7 @@ function stepReserve(){
       <button class="cta" id="reserveBtn" disabled>Reserve This Spot <span class="arr">→</span></button>
       <div class="cta-sub">Opens secure checkout in a new tab — about 5 minutes to finish.</div>
     </div>
-    <div class="ohio"><div class="eb">Also Headed to Ohio?</div><div class="tx">The Ohio camp runs <b>Jul 18–23</b>. There's a <b>$100 multi-camp discount</b> — tap Ask Coach and we'll set it up.</div></div>
+    ${c.loc ? '' : `<div class="ohio"><div class="eb">Also Headed to Ohio?</div><div class="tx">The Ohio camp runs <b>Jul 18–23</b>. There's a <b>$100 multi-camp discount</b> — tap Ask Coach and we'll set it up.</div></div>`}
     <div class="fineprint">Prices are the real 2026 registration rates — resident is all-in (hotel and meals included). Optional add-ons (apparel, airport shuttle, PURE) and full payment are completed on Coach Ken's secure RegFox checkout.</div>`;
   wireReserve(c, isRes, base);
 }
