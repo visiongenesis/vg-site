@@ -503,7 +503,7 @@
     <div class="w-9 h-9 rounded-full bg-gold/15 flex items-center justify-center text-gold text-lg">&#9733;</div>
     <div class="flex-1">
       <div class="font-display uppercase tracking-wide text-white text-[15px] leading-none">Find Your Camp</div>
-      <div class="text-[11px] text-gold/90 mt-1">3 questions &middot; instant price</div>
+      <div class="text-[11px] text-gold/90 mt-1">a few questions &middot; instant price</div>
     </div>
     <button id="finderClose" class="text-white/50 hover:text-white p-1" aria-label="Close">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
@@ -512,7 +512,14 @@
   <div class="p-5 overflow-y-auto">
     <div class="flex items-center gap-2 mb-6" id="finderDots"></div>
     <div id="finderSteps">
-      <div class="finder-step" data-step="0">
+      <div class="finder-step" data-screen="loc">
+        <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">Which camp &mdash; Ohio or Pennsylvania?</h3>
+        <div class="grid grid-cols-1 gap-3">
+          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="loc" data-val="oh"><div class="font-display text-lg text-white">Ohio</div><div class="text-white/55 text-sm">Spooky Nook &middot; Hamilton, OH &middot; Jul 18&ndash;23</div></button>
+          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="loc" data-val="pa"><div class="font-display text-lg text-white">Pennsylvania</div><div class="text-white/55 text-sm">Spooky Nook &middot; multiple weeks, June&ndash;July</div></button>
+        </div>
+      </div>
+      <div class="finder-step hidden" data-screen="who">
         <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">Who's wrestling?</h3>
         <div class="grid grid-cols-1 gap-3">
           <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="who" data-val="boy"><div class="font-display text-lg text-white">Teen Boy</div><div class="text-white/55 text-sm">Ages 13&ndash;18</div></button>
@@ -520,7 +527,7 @@
           <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="who" data-val="youth"><div class="font-display text-lg text-white">Youth</div><div class="text-white/55 text-sm">Ages 6&ndash;12</div></button>
         </div>
       </div>
-      <div class="finder-step hidden" data-step="1">
+      <div class="finder-step hidden" data-screen="level">
         <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">How deep do they want to go?</h3>
         <div class="grid grid-cols-1 gap-3">
           <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="level" data-val="intro"><div class="font-display text-lg text-white">Get a Taste</div><div class="text-white/55 text-sm">Shorter, focused camp</div></button>
@@ -528,7 +535,7 @@
           <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="level" data-val="elite"><div class="font-display text-lg text-white">Go All-In</div><div class="text-white/55 text-sm">The 2-week intensive</div></button>
         </div>
       </div>
-      <div class="finder-step hidden" data-step="2">
+      <div class="finder-step hidden" data-screen="stay">
         <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">Staying over, or commuting?</h3>
         <div class="grid grid-cols-1 gap-3">
           <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="stay" data-val="res"><div class="font-display text-lg text-white">Resident</div><div class="text-white/55 text-sm">On-site hotel + all meals</div></button>
@@ -660,40 +667,42 @@ document.querySelectorAll('.loc').forEach(b=>b.addEventListener('click',()=>{
 }));
 
 /* ============ FIND YOUR CAMP ============ */
-const fAns = {}; let fStep = 0;
-const steps = document.querySelectorAll('.finder-step');
+const fAns = {};
+let flow = ['loc'], fi = 0;          // Ohio skips the "how deep" step (single 6-day camp); PA keeps it
+const stepEls = document.querySelectorAll('.finder-step');
 const dotsWrap = document.getElementById('finderDots');
 const backBtn = document.getElementById('finderBack');
+function buildFlow(){ flow = (fAns.loc==='oh') ? ['loc','who','stay'] : ['loc','who','level','stay']; }
 function renderDots(){
-  dotsWrap.innerHTML = [0,1,2].map(i=>`<div class="h-1.5 flex-1 rounded-full ${i<=fStep?'bg-gold':'bg-white/15'}"></div>`).join('');
+  dotsWrap.innerHTML = flow.map((_,i)=>`<div class="h-1.5 flex-1 rounded-full ${i<=fi?'bg-gold':'bg-white/15'}"></div>`).join('');
 }
-function showStep(n){
-  fStep=n; renderDots();
-  steps.forEach(s=>s.classList.toggle('hidden', +s.dataset.step!==n));
+function showScreen(){
+  const key = flow[fi]; renderDots();
+  stepEls.forEach(s=>s.classList.toggle('hidden', s.dataset.screen!==key));
   document.getElementById('finderResult').classList.add('hidden');
   document.getElementById('finderSteps').classList.remove('hidden');
-  backBtn.classList.toggle('hidden', n===0);
+  backBtn.classList.toggle('hidden', fi===0);
 }
+function resetFinder(){ for(const k in fAns) delete fAns[k]; flow=['loc']; fi=0; showScreen(); }
 function recommend(){
-  const t = fAns.who; // boy | girl | youth
-  const regKey = t==='youth'?'youth':(t==='girl'?'girls':'boys');
-  const list = CAMPS[regKey];
-  let camp;
-  if(t==='youth'){
-    if(fAns.level==='elite') camp=list[0];
-    else if(fAns.level==='serious') camp=list[1];
-    else camp=list[2];
+  const t = fAns.who, regKey = t==='youth'?'youth':(t==='girl'?'girls':'boys');
+  let camp, where;
+  if(fAns.loc==='oh'){
+    camp = CAMPS_OH[regKey][0];
+    where = 'Spooky Nook · Hamilton, OH · Jul 18–23';
   } else {
-    if(fAns.level==='elite') camp=list[0];
-    else if(fAns.level==='serious') camp=list[1];
-    else camp=list[3];
+    const list = CAMPS[regKey];
+    const idx = (t==='youth') ? (fAns.level==='elite'?0 : fAns.level==='serious'?1 : 2)
+                              : (fAns.level==='elite'?0 : fAns.level==='serious'?1 : 3);
+    camp = list[idx];
+    where = 'Spooky Nook, Pennsylvania';
   }
   const price = fAns.stay==='res'?camp.res:camp.comm;
   document.getElementById('finderSteps').classList.add('hidden');
   backBtn.classList.add('hidden');
-  const r = document.getElementById('finderResult'); r.classList.remove('hidden');
+  document.getElementById('finderResult').classList.remove('hidden');
   document.getElementById('frName').textContent = camp.name;
-  document.getElementById('frMeta').textContent = `${camp.days} · ${camp.ages} · Spooky Nook, PA`;
+  document.getElementById('frMeta').textContent = `${camp.days} · ${camp.ages} · ${where}`;
   document.getElementById('frPrice').textContent = money(price);
   document.getElementById('frStay').textContent = fAns.stay==='res'?'Resident':'Commuter';
   document.getElementById('frPitch').textContent = camp.pitch;
@@ -702,13 +711,14 @@ function recommend(){
 }
 document.querySelectorAll('.finder-opt').forEach(o=>o.addEventListener('click',()=>{
   fAns[o.dataset.key]=o.dataset.val;
-  if(fStep<2) showStep(fStep+1); else recommend();
+  if(o.dataset.key==='loc') buildFlow();           // rebuild the path once location is chosen
+  if(fi < flow.length-1){ fi++; showScreen(); } else { recommend(); }
 }));
-backBtn.addEventListener('click',()=>{ if(fStep>0) showStep(fStep-1); });
-document.getElementById('frRestart').addEventListener('click',()=>{ showStep(0); });
-showStep(0);
+backBtn.addEventListener('click',()=>{ if(fi>0){ fi--; showScreen(); } });
+document.getElementById('frRestart').addEventListener('click',resetFinder);
+resetFinder();
 const finderPanel=document.getElementById('finderPanel');
-function openFinder(){ finderPanel.classList.add('open'); document.getElementById('finderBtn').style.display='none'; showStep(0); }
+function openFinder(){ finderPanel.classList.add('open'); document.getElementById('finderBtn').style.display='none'; resetFinder(); }
 function closeFinder(){ finderPanel.classList.remove('open'); document.getElementById('finderBtn').style.display='flex'; }
 document.getElementById('finderBtn').addEventListener('click',openFinder);
 document.getElementById('finderClose').addEventListener('click',closeFinder);
