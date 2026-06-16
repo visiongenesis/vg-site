@@ -189,12 +189,12 @@ body{padding-bottom:84px;}
 
 <footer><div class="wrap">
   <div class="who"><strong>Questions? Reach out directly to your coach.</strong></div>
-  <div class="cred">The Gold Medal Scholar-Athlete Award &mdash; a Knoxville-wide program sponsored by <a class="lk" href="https://visiongenesisai.com" target="_blank" rel="noopener">Vision Genesis AI</a>, with <a class="lk" href="https://register.kenchertow.com/gold-medal-training-camps-for-boys-2026" target="_blank" rel="noopener" onclick="if(window.openFinder){openFinder();return false;}">Ken Chertow's Gold Medal Training Camps</a>.</div>
+  <div class="cred">The Gold Medal Scholar-Athlete Award &mdash; a Knoxville-wide program sponsored by <a class="lk" href="https://visiongenesisai.com" target="_blank" rel="noopener">Vision Genesis AI</a>, with <a class="lk" href="https://register.kenchertow.com/gold-medal-training-camps-for-boys-2026" target="_blank" rel="noopener">Ken Chertow's Gold Medal Training Camps</a>.</div>
 </div></footer>
 <nav class="sticky"><a class="call" href="south-doyle-family-flyer.pdf">The family flyer</a><a class="alt" href="../">All programs</a></nav><!-- ============================================================================
-     KEN CHERTOW CAMP WIDGET — verbatim port of the Find-Your-Camp + Ask-Coach
-     assistant from the landing page. Self-contained; Tailwind preflight is OFF
-     so it never touches the Gold Medal Scholars page styles.
+     KEN CHERTOW "ASK COACH" WIDGET — verbatim port of the camp assistant from the
+     landing page (top-right). Self-contained; Tailwind preflight is OFF so it never
+     touches the Gold Medal Scholars page styles.
      ============================================================================ -->
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -210,38 +210,27 @@ tailwind.config = {
 <style>
 /* ---- scoped mini-preflight: Tailwind preflight is OFF (to protect the page), so
        replicate the few resets the widget needs, confined to the widget subtree via
-       :where() (zero specificity -> never beats page rules, always loses to widget
-       classes). Fixes: native button backgrounds, invisible `border` utilities,
-       box-sizing, and default heading/paragraph margins. ---- */
-:where(#finderBtn,#coachBtn,#finderPanel,#coachPanel) *,
-:where(#finderBtn,#coachBtn,#finderPanel,#coachPanel) *::before,
-:where(#finderBtn,#coachBtn,#finderPanel,#coachPanel) *::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:rgba(255,255,255,.15);}
-:where(#finderPanel,#coachPanel) h1,:where(#finderPanel,#coachPanel) h2,:where(#finderPanel,#coachPanel) h3,:where(#finderPanel,#coachPanel) h4,:where(#finderPanel,#coachPanel) p{margin:0;}
-:where(#finderBtn,#coachBtn,#finderPanel,#coachPanel) button{background-color:transparent;background-image:none;cursor:pointer;padding:0;}
-:where(#finderBtn,#coachBtn,#finderPanel,#coachPanel) button,:where(#finderPanel,#coachPanel) input{font:inherit;color:inherit;margin:0;line-height:inherit;}
+       :where() (zero specificity). ---- */
+:where(#coachBtn,#coachPanel) *,
+:where(#coachBtn,#coachPanel) *::before,
+:where(#coachBtn,#coachPanel) *::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:rgba(255,255,255,.15);}
+:where(#coachPanel) h1,:where(#coachPanel) h2,:where(#coachPanel) h3,:where(#coachPanel) h4,:where(#coachPanel) p{margin:0;}
+:where(#coachBtn,#coachPanel) button{background-color:transparent;background-image:none;cursor:pointer;padding:0;}
+:where(#coachBtn,#coachPanel) button,:where(#coachPanel) input{font:inherit;color:inherit;margin:0;line-height:inherit;}
 /* ---- widget styles: literal colors (our :root tokens differ), keyframes kc* ---- */
-#finderBtn,#finderPanel,#coachBtn,#coachPanel{font-family:'Montserrat',sans-serif;}
+#coachBtn,#coachPanel{font-family:'Montserrat',sans-serif;}
 .font-display{font-family:'Oswald',sans-serif;}
-#finderPanel .eyebrow,#coachPanel .eyebrow,#coachChips .eyebrow{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.18em;font-weight:500;}
-.text-gradient-gold{background:linear-gradient(92deg,#ffe79a,#f2b705 55%,#d99100);-webkit-background-clip:text;background-clip:text;color:transparent;}
+#coachPanel .eyebrow,#coachChips .eyebrow{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.18em;font-weight:500;}
 .btn-red{background:#bf0a30;box-shadow:0 10px 30px -10px rgba(191,10,48,.7);transition:.2s;}
 .btn-red:hover{background:#d70d36;transform:translateY(-2px);}
 .btn-gold{background:#f2b705;color:#1b1300;transition:.2s;box-shadow:0 10px 30px -12px rgba(242,183,5,.65);}
 .btn-gold:hover{background:#ffd24a;transform:translateY(-2px);}
-.btn-ghost{border:1.5px solid rgba(255,255,255,.5);transition:.2s;}
-.btn-ghost:hover{border-color:#f2b705;color:#f2b705;}
-.finder-opt{transition:.18s;}
-.finder-opt:hover{border-color:#f2b705;transform:translateY(-2px);}
-/* critical positioning so the launchers sit correctly even before Tailwind JIT */
-#finderBtn{position:fixed;bottom:1.25rem;left:1.25rem;z-index:60;box-shadow:0 14px 34px -10px rgba(242,183,5,.6);transition:transform .2s,box-shadow .2s;}
-#finderBtn:hover{transform:translateY(-3px) scale(1.03);}
-#coachBtn{position:fixed;bottom:1.25rem;right:1.25rem;z-index:60;box-shadow:0 14px 34px -10px rgba(191,10,48,.75);transition:transform .2s,box-shadow .2s;}
-#coachBtn:hover{transform:translateY(-3px) scale(1.03);}
-#finderBtn .ping,#coachBtn .ping{animation:kcPingDot 2.4s ease-in-out infinite;}
+/* Ask Coach launcher + panel — TOP-right (bottom:auto overrides the Tailwind bottom-5) */
+#coachBtn{position:fixed;top:1.25rem;right:1.25rem;bottom:auto;z-index:60;box-shadow:0 14px 34px -10px rgba(191,10,48,.75);transition:transform .2s,box-shadow .2s;}
+#coachBtn:hover{transform:translateY(-2px) scale(1.03);}
+#coachBtn .ping{animation:kcPingDot 2.4s ease-in-out infinite;}
 @keyframes kcPingDot{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.25);}}
-#finderPanel{position:fixed;bottom:1.25rem;left:1.25rem;z-index:61;transform:translateY(24px) scale(.96);opacity:0;pointer-events:none;transition:.28s cubic-bezier(.2,.8,.2,1);transform-origin:bottom left;}
-#finderPanel.open{transform:none;opacity:1;pointer-events:auto;}
-#coachPanel{position:fixed;bottom:1.25rem;right:1.25rem;z-index:61;transform:translateY(24px) scale(.96);opacity:0;pointer-events:none;transition:.28s cubic-bezier(.2,.8,.2,1);transform-origin:bottom right;}
+#coachPanel{position:fixed;top:1.25rem;right:1.25rem;bottom:auto;z-index:61;transform:translateY(-12px) scale(.97);opacity:0;pointer-events:none;transition:.28s cubic-bezier(.2,.8,.2,1);transform-origin:top right;}
 #coachPanel.open{transform:none;opacity:1;pointer-events:auto;}
 .msg{animation:kcFadeUp .35s ease forwards;}
 @keyframes kcFadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
@@ -249,74 +238,7 @@ tailwind.config = {
 .typing span:nth-child(2){animation-delay:.18s;}.typing span:nth-child(3){animation-delay:.36s;}
 @keyframes kcTyping{0%,60%,100%{opacity:.25;transform:translateY(0);}30%{opacity:1;transform:translateY(-4px);}}
 .chip{transition:.16s;}.chip:hover{background:#f2b705;color:#1b1300;border-color:#f2b705;}
-/* keep the two launchers clear of the GMSA mobile sticky bar (~64px, mobile only) */
-@media(max-width:759px){#finderBtn,#coachBtn{bottom:calc(1.25rem + 64px);}}
 </style>
-
-<!-- ================= FIND YOUR CAMP ASSISTANT (bottom-left) ================= -->
-<button id="finderBtn" class="fixed bottom-5 left-5 z-[60] btn-gold rounded-full pl-4 pr-5 py-3.5 flex items-center gap-3 font-display uppercase tracking-[.1em] text-[14px]">
-  <span class="relative flex items-center justify-center">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
-    <span class="ping absolute -top-1 -right-1 w-2.5 h-2.5 bg-red rounded-full"></span>
-  </span>
-  Find Your Camp
-</button>
-
-<div id="finderPanel" class="fixed bottom-5 left-5 z-[61] w-[min(420px,calc(100vw-2.5rem))] flex flex-col rounded-xl overflow-hidden border border-gold/30 shadow-2xl" style="background:#061226; max-height:min(620px,calc(100vh - 2.5rem));">
-  <div class="flex items-center gap-3 px-4 py-3.5 border-b border-white/10" style="background:linear-gradient(120deg,#002868,#04122e);">
-    <div class="w-9 h-9 rounded-full bg-gold/15 flex items-center justify-center text-gold text-lg">&#9733;</div>
-    <div class="flex-1">
-      <div class="font-display uppercase tracking-wide text-white text-[15px] leading-none">Find Your Camp</div>
-      <div class="text-[11px] text-gold/90 mt-1">3 questions &middot; instant price</div>
-    </div>
-    <button id="finderClose" class="text-white/50 hover:text-white p-1" aria-label="Close">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-    </button>
-  </div>
-  <div class="p-5 overflow-y-auto">
-    <div class="flex items-center gap-2 mb-6" id="finderDots"></div>
-    <div id="finderSteps">
-      <div class="finder-step" data-step="0">
-        <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">Who's wrestling?</h3>
-        <div class="grid grid-cols-1 gap-3">
-          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="who" data-val="boy"><div class="font-display text-lg text-white">Teen Boy</div><div class="text-white/55 text-sm">Ages 13&ndash;18</div></button>
-          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="who" data-val="girl"><div class="font-display text-lg text-white">Teen Girl</div><div class="text-white/55 text-sm">Ages 13&ndash;18</div></button>
-          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="who" data-val="youth"><div class="font-display text-lg text-white">Youth</div><div class="text-white/55 text-sm">Ages 6&ndash;12</div></button>
-        </div>
-      </div>
-      <div class="finder-step hidden" data-step="1">
-        <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">How deep do they want to go?</h3>
-        <div class="grid grid-cols-1 gap-3">
-          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="level" data-val="intro"><div class="font-display text-lg text-white">Get a Taste</div><div class="text-white/55 text-sm">Shorter, focused camp</div></button>
-          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="level" data-val="serious"><div class="font-display text-lg text-white">Get Serious</div><div class="text-white/55 text-sm">Full week+ of training</div></button>
-          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="level" data-val="elite"><div class="font-display text-lg text-white">Go All-In</div><div class="text-white/55 text-sm">The 2-week intensive</div></button>
-        </div>
-      </div>
-      <div class="finder-step hidden" data-step="2">
-        <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">Staying over, or commuting?</h3>
-        <div class="grid grid-cols-1 gap-3">
-          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="stay" data-val="res"><div class="font-display text-lg text-white">Resident</div><div class="text-white/55 text-sm">On-site hotel + all meals</div></button>
-          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="stay" data-val="comm"><div class="font-display text-lg text-white">Commuter</div><div class="text-white/55 text-sm">Train by day, home by night</div></button>
-        </div>
-      </div>
-    </div>
-    <div id="finderResult" class="hidden text-center">
-      <p class="eyebrow text-gold text-[12px] mb-2">Your Match</p>
-      <h3 id="frName" class="font-display uppercase text-white text-2xl"></h3>
-      <p id="frMeta" class="text-white/60 text-sm mt-2"></p>
-      <div class="my-5 flex items-end justify-center gap-2">
-        <span id="frPrice" class="font-display text-5xl text-gradient-gold"></span>
-        <span id="frStay" class="eyebrow text-white/50 text-[12px] mb-1"></span>
-      </div>
-      <p id="frPitch" class="text-white/70 text-sm max-w-xs mx-auto mb-6"></p>
-      <div class="flex flex-col gap-2">
-        <a id="frRegister" href="#" target="_blank" rel="noopener" class="btn-red text-white font-display uppercase tracking-[.12em] px-6 py-3.5 rounded-sm">Register Now</a>
-        <button id="frRestart" class="btn-ghost text-white font-display uppercase tracking-[.12em] px-6 py-3 rounded-sm">Start Over</button>
-      </div>
-    </div>
-    <button id="finderBack" class="hidden mt-5 eyebrow text-[12px] text-white/50 hover:text-gold transition">&larr; Back</button>
-  </div>
-</div>
 
 <!-- ================= ASK COACH ASSISTANT ================= -->
 <button id="coachBtn" class="fixed bottom-5 right-5 z-[60] btn-red text-white rounded-full pl-4 pr-5 py-3.5 flex items-center gap-3 font-display uppercase tracking-[.1em] text-[14px]">
@@ -353,93 +275,6 @@ tailwind.config = {
 </div>
 
 <script>
-/* ===== Ken Chertow camp data (verbatim) ===== */
-const REG = {
-  boys:  'https://register.kenchertow.com/gold-medal-training-camps-for-boys-2026',
-  girls: 'https://register.kenchertow.com/gold-medal-training-camps-for-girls-2026',
-  youth: 'https://register.kenchertow.com/gold-medal-training-camps-for-youth-2026',
-};
-const CAMPS = {
-  boys: [
-    {name:'Super Gold Medal Camp', tag:'FLAGSHIP', days:'13-Day', ages:'Ages 13–18', res:2150, comm:1900, pitch:'The two-week intensive. Maximum transformation.'},
-    {name:'Gold Medal Training Camp', tag:'', days:'11-Day', ages:'Ages 13–18', res:1950, comm:1750, pitch:'Serious training, full immersion.'},
-    {name:'Gold Medal Training Camp', tag:'', days:'6-Day', ages:'Ages 13–18', res:950, comm:850, pitch:'A full week of championship technique.'},
-    {name:'Personalized Technique Camp', tag:'', days:'4-Day', ages:'Ages 13–18', res:700, comm:625, pitch:'Focused, individualized skill work.'},
-  ],
-  girls: [
-    {name:'SuperGirl Training Camp', tag:'FLAGSHIP', days:'13-Day', ages:'Ages 13–18', res:2150, comm:1900, pitch:'The two-week intensive, built for female wrestlers.'},
-    {name:'Gold Medal Training Camp', tag:'', days:'8-Day', ages:'Ages 13–18', res:1950, comm:1750, pitch:'High-level coaching, all-girls room.'},
-    {name:'Gold Medal Training Camp', tag:'', days:'6-Day', ages:'Ages 13–18', res:950, comm:850, pitch:'A full week of championship technique.'},
-    {name:'Personalized Technique Camp', tag:'', days:'4-Day', ages:'Ages 13–18', res:700, comm:625, pitch:'Focused, individualized skill work.'},
-  ],
-  youth: [
-    {name:'SuperKid Training Camp', tag:'FLAGSHIP', days:'11-Day', ages:'Grades 4–7', res:1950, comm:1750, pitch:'For serious young wrestlers ready to level up.'},
-    {name:'Kids Training Camp', tag:'', days:'6-Day', ages:'Ages 9–12', res:950, comm:850, pitch:'Take training to the next level.'},
-    {name:'Future Champions Camp', tag:'PARENT + CHILD', days:'4-Day', ages:'Grades 1–3', res:1000, comm:575, pitch:'Fundamentals + fun. A parent attends with the wrestler.'},
-  ],
-};
-const CAMPS_OH = {
-  boys:  [{name:'Gold Medal Training Camp', tag:'OHIO · JUL 18–23', days:'6-Day', ages:'Ages 13–18', res:950, comm:850, pitch:'A full week of championship technique at Spooky Nook, Hamilton OH.'}],
-  girls: [{name:'Gold Medal Training Camp', tag:'OHIO · JUL 18–23', days:'6-Day', ages:'Ages 13–18', res:950, comm:850, pitch:'High-level coaching for female wrestlers — the Ohio session.'}],
-  youth: [{name:'Kids Training Camp', tag:'OHIO · JUL 18–23', days:'6-Day', ages:'Ages 9–12', res:950, comm:850, pitch:'Take training to the next level — the Ohio session.'}],
-};
-function money(n){ return '$' + n.toLocaleString(); }
-
-/* ===== Find Your Camp (verbatim) ===== */
-/* ============ FIND YOUR CAMP ============ */
-const fAns = {}; let fStep = 0;
-const steps = document.querySelectorAll('.finder-step');
-const dotsWrap = document.getElementById('finderDots');
-const backBtn = document.getElementById('finderBack');
-function renderDots(){
-  dotsWrap.innerHTML = [0,1,2].map(i=>`<div class="h-1.5 flex-1 rounded-full ${i<=fStep?'bg-gold':'bg-white/15'}"></div>`).join('');
-}
-function showStep(n){
-  fStep=n; renderDots();
-  steps.forEach(s=>s.classList.toggle('hidden', +s.dataset.step!==n));
-  document.getElementById('finderResult').classList.add('hidden');
-  document.getElementById('finderSteps').classList.remove('hidden');
-  backBtn.classList.toggle('hidden', n===0);
-}
-function recommend(){
-  const t = fAns.who; // boy | girl | youth
-  const regKey = t==='youth'?'youth':(t==='girl'?'girls':'boys');
-  const list = CAMPS[regKey];
-  let camp;
-  if(t==='youth'){
-    if(fAns.level==='elite') camp=list[0];
-    else if(fAns.level==='serious') camp=list[1];
-    else camp=list[2];
-  } else {
-    if(fAns.level==='elite') camp=list[0];
-    else if(fAns.level==='serious') camp=list[1];
-    else camp=list[3];
-  }
-  const price = fAns.stay==='res'?camp.res:camp.comm;
-  document.getElementById('finderSteps').classList.add('hidden');
-  backBtn.classList.add('hidden');
-  const r = document.getElementById('finderResult'); r.classList.remove('hidden');
-  document.getElementById('frName').textContent = camp.name;
-  document.getElementById('frMeta').textContent = `${camp.days} · ${camp.ages} · Spooky Nook, PA`;
-  document.getElementById('frPrice').textContent = money(price);
-  document.getElementById('frStay').textContent = fAns.stay==='res'?'Resident':'Commuter';
-  document.getElementById('frPitch').textContent = camp.pitch;
-  document.getElementById('frRegister').href = REG[regKey];
-  renderDots();
-}
-document.querySelectorAll('.finder-opt').forEach(o=>o.addEventListener('click',()=>{
-  fAns[o.dataset.key]=o.dataset.val;
-  if(fStep<2) showStep(fStep+1); else recommend();
-}));
-backBtn.addEventListener('click',()=>{ if(fStep>0) showStep(fStep-1); });
-document.getElementById('frRestart').addEventListener('click',()=>{ showStep(0); });
-showStep(0);
-const finderPanel=document.getElementById('finderPanel');
-function openFinder(){ finderPanel.classList.add('open'); document.getElementById('finderBtn').style.display='none'; showStep(0); }
-function closeFinder(){ finderPanel.classList.remove('open'); document.getElementById('finderBtn').style.display='flex'; }
-document.getElementById('finderBtn').addEventListener('click',openFinder);
-document.getElementById('finderClose').addEventListener('click',closeFinder);
-
 /* ===== FAQ corpus (verbatim) ===== */
 /* ============ FAQ DATA (real, from kenchertow.com) ============ */
 const FAQS = [
