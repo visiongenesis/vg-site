@@ -191,219 +191,61 @@ body{padding-bottom:84px;}
   <div class="cred">The Gold Medal Scholar-Athlete Award &mdash; a Knoxville-wide program sponsored by <a class="lk" href="https://visiongenesisai.com" target="_blank" rel="noopener">Vision Genesis AI</a>, with <a class="lk" href="https://register.kenchertow.com/gold-medal-training-camps-for-boys-2026" target="_blank" rel="noopener">Ken Chertow's Gold Medal Training Camps</a>.</div>
 </div></footer>
 <nav class="sticky"><a class="call" href="farragut-family-flyer.pdf">The family flyer</a><a class="alt" href="../">All programs</a></nav><!-- ============================================================================
-     KEN CHERTOW "ASK COACH" WIDGET — verbatim port of the camp assistant from the
-     landing page (top-right). Self-contained; Tailwind preflight is OFF so it never
-     touches the Gold Medal Scholars page styles.
+     KEN CHERTOW "ASK COACH" — floating launcher that opens the ONE real AI assistant
+     (/kc-camps/ask-coach/) in a panel. Self-contained; scoped #coach* ids so it can't
+     touch the Gold Medal Scholars page styles. See build_bubbles.py for the history.
      ============================================================================ -->
-<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  corePlugins: { preflight: false },
-  theme: { extend: {
-    colors: { navy:'#002868', navyDeep:'#04122e', red:'#bf0a30', gold:'#f2b705' },
-    fontFamily: { display:['Oswald','sans-serif'] }
-  } }
-};
-</script>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
-/* ---- scoped mini-preflight: Tailwind preflight is OFF (to protect the page), so
-       replicate the few resets the widget needs, confined to the widget subtree via
-       :where() (zero specificity). ---- */
-:where(#coachBtn,#coachPanel) *,
-:where(#coachBtn,#coachPanel) *::before,
-:where(#coachBtn,#coachPanel) *::after{box-sizing:border-box;border-width:0;border-style:solid;border-color:rgba(255,255,255,.15);}
-:where(#coachPanel) h1,:where(#coachPanel) h2,:where(#coachPanel) h3,:where(#coachPanel) h4,:where(#coachPanel) p{margin:0;}
-:where(#coachBtn,#coachPanel) button{background-color:transparent;background-image:none;cursor:pointer;padding:0;}
-:where(#coachBtn,#coachPanel) button,:where(#coachPanel) input{font:inherit;color:inherit;margin:0;line-height:inherit;}
-/* ---- widget styles: literal colors (our :root tokens differ), keyframes kc* ---- */
-#coachBtn,#coachPanel{font-family:'Montserrat',sans-serif;}
-.font-display{font-family:'Oswald',sans-serif;}
-#coachPanel .eyebrow,#coachChips .eyebrow{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.18em;font-weight:500;}
-.btn-red{background:#bf0a30;box-shadow:0 10px 30px -10px rgba(191,10,48,.7);transition:.2s;}
-.btn-red:hover{background:#d70d36;transform:translateY(-2px);}
-.btn-gold{background:#f2b705;color:#1b1300;transition:.2s;box-shadow:0 10px 30px -12px rgba(242,183,5,.65);}
-.btn-gold:hover{background:#ffd24a;transform:translateY(-2px);}
-/* Ask Coach launcher + panel — TOP-right (bottom:auto overrides the Tailwind bottom-5) */
-#coachBtn{position:fixed;top:1.25rem;right:1.25rem;bottom:auto;z-index:60;box-shadow:0 14px 34px -10px rgba(191,10,48,.75);transition:transform .2s,box-shadow .2s;}
-#coachBtn:hover{transform:translateY(-2px) scale(1.03);}
-#coachBtn .ping{animation:kcPingDot 2.4s ease-in-out infinite;}
-@keyframes kcPingDot{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.25);}}
-#coachPanel{position:fixed;top:1.25rem;right:1.25rem;bottom:auto;z-index:61;transform:translateY(-12px) scale(.97);opacity:0;pointer-events:none;transition:.28s cubic-bezier(.2,.8,.2,1);transform-origin:top right;}
-#coachPanel.open{transform:none;opacity:1;pointer-events:auto;}
-.msg{animation:kcFadeUp .35s ease forwards;}
-@keyframes kcFadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
-.typing span{width:7px;height:7px;background:#f2b705;border-radius:50%;display:inline-block;animation:kcTyping 1.1s infinite;}
-.typing span:nth-child(2){animation-delay:.18s;}.typing span:nth-child(3){animation-delay:.36s;}
-@keyframes kcTyping{0%,60%,100%{opacity:.25;transform:translateY(0);}30%{opacity:1;transform:translateY(-4px);}}
-.chip{transition:.16s;}.chip:hover{background:#f2b705;color:#1b1300;border-color:#f2b705;}
+  #coachBtn,#coachWrap,#coachWrap *{box-sizing:border-box;}
+  #coachBtn{position:fixed;top:1.25rem;right:1.25rem;z-index:60;display:flex;align-items:center;gap:10px;
+    background:#bf0a30;color:#fff;border:0;cursor:pointer;font-family:'Oswald',sans-serif;text-transform:uppercase;
+    letter-spacing:.1em;font-size:14px;font-weight:600;padding:13px 19px 13px 15px;border-radius:999px;
+    box-shadow:0 14px 34px -10px rgba(191,10,48,.75);transition:transform .2s,box-shadow .2s;}
+  #coachBtn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 18px 40px -10px rgba(191,10,48,.85);}
+  #coachBtn .ic{position:relative;display:flex;}
+  #coachBtn .ping{position:absolute;top:-3px;right:-3px;width:9px;height:9px;background:#f2b705;border-radius:50%;
+    animation:kcPing 2.4s ease-in-out infinite;}
+  @keyframes kcPing{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.25);}}
+  #coachWrap{position:fixed;top:1.25rem;right:1.25rem;z-index:61;
+    width:min(392px,calc(100vw - 1.5rem));height:min(640px,calc(100vh - 2rem));
+    border-radius:16px;overflow:hidden;border:1px solid rgba(242,183,5,.32);
+    box-shadow:0 30px 80px rgba(0,0,0,.55);background:#030b1c;
+    transform:translateY(-12px) scale(.97);opacity:0;pointer-events:none;
+    transition:.28s cubic-bezier(.2,.8,.2,1);transform-origin:top right;}
+  #coachWrap.open{transform:none;opacity:1;pointer-events:auto;}
+  #coachWrap iframe{width:100%;height:100%;border:0;display:block;background:#030b1c;}
+  #coachClose{position:absolute;top:9px;right:10px;z-index:2;width:30px;height:30px;border-radius:50%;
+    background:rgba(3,11,28,.55);border:1px solid rgba(255,255,255,.22);color:#fff;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);transition:.15s;}
+  #coachClose:hover{background:rgba(191,10,48,.85);border-color:transparent;}
 </style>
 
-<!-- ================= ASK COACH ASSISTANT ================= -->
-<button id="coachBtn" class="fixed bottom-5 right-5 z-[60] btn-red text-white rounded-full pl-4 pr-5 py-3.5 flex items-center gap-3 font-display uppercase tracking-[.1em] text-[14px]">
-  <span class="relative flex items-center justify-center">
+<button id="coachBtn" aria-label="Open Ask Coach — Ken Chertow camp assistant">
+  <span class="ic">
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>
-    <span class="ping absolute -top-1 -right-1 w-2.5 h-2.5 bg-gold rounded-full"></span>
+    <span class="ping"></span>
   </span>
   Ask Coach
 </button>
 
-<div id="coachPanel" class="fixed bottom-5 right-5 z-[61] w-[min(380px,calc(100vw-2.5rem))] h-[min(560px,calc(100vh-2.5rem))] flex flex-col rounded-xl overflow-hidden border border-gold/30 shadow-2xl" style="background:#061226;">
-  <!-- header -->
-  <div class="flex items-center gap-3 px-4 py-3.5 border-b border-white/10" style="background:linear-gradient(120deg,#002868,#04122e);">
-    <div class="w-9 h-9 rounded-full bg-gold/15 flex items-center justify-center text-gold font-display text-lg">KC</div>
-    <div class="flex-1">
-      <div class="font-display uppercase tracking-wide text-white text-[15px] leading-none">Ask Coach</div>
-      <div class="text-[11px] text-emerald-400 flex items-center gap-1.5 mt-1"><span class="w-1.5 h-1.5 bg-emerald-400 rounded-full"></span> Camp assistant · instant answers</div>
-    </div>
-    <button id="coachClose" class="text-white/50 hover:text-white p-1" aria-label="Close">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
-    </button>
-  </div>
-  <!-- messages -->
-  <div id="coachLog" class="flex-1 overflow-y-auto px-4 py-4 space-y-3 text-[14px]"></div>
-  <!-- suggested chips -->
-  <div id="coachChips" class="px-3 pb-2 flex flex-wrap gap-2"></div>
-  <!-- input -->
-  <form id="coachForm" class="p-3 border-t border-white/10 flex gap-2" style="background:#04102a;">
-    <input id="coachInput" autocomplete="off" placeholder="Ask about cost, lodging, what to bring…" class="flex-1 bg-black/30 border border-white/15 rounded-full px-4 py-2.5 text-white text-[14px] placeholder-white/40 focus:border-gold outline-none" />
-    <button class="btn-gold rounded-full w-11 h-11 flex items-center justify-center shrink-0" aria-label="Send">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-    </button>
-  </form>
+<div id="coachWrap" aria-hidden="true" role="dialog" aria-label="Ask Coach">
+  <button id="coachClose" aria-label="Close Ask Coach">
+    <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg>
+  </button>
+  <iframe id="coachFrame" title="Ask Coach — Ken Chertow camp assistant" loading="lazy" data-src="/kc-camps/ask-coach/"></iframe>
 </div>
 
-
 <script>
-/* ===== FAQ corpus (verbatim) ===== */
-const FAQS = [
-  {q:"Do you offer discounts for teams?", a:"Yes! Groups of 4 get $25 off per wrestler, groups of 8 get $50 off each, and groups of 12 get $75 off per wrestler — plus one coach or parent attends free with housing and meals.", tags:["team","teams","group","discount","coach","bulk","club","cheaper"]},
-  {q:"I paid a deposit — how do I make additional payments?", a:"Log in or create an account at kenchertow.account.webconnex.com to make additional payments anytime.", tags:["deposit","payment","additional","balance","pay","account","webconnex","installment"]},
-  {q:"How are campers supervised?", a:"Every resident camper is assigned a roll-call/bed-check counselor who makes sure they are in bed at curfew and up for the first session. Staff strictly enforce curfew and no-leaving policies.", tags:["supervised","supervision","safe","safety","counselor","watch","monitor","secure"]},
-  {q:"What should I bring, and what should I expect?", a:"A detailed camp newsletter is emailed in early spring and posted on the website — it covers exactly what to bring and what to expect.", tags:["bring","pack","packing","what to bring","gear","expect","prepare","newsletter","supplies"]},
-  {q:"What is included in the cost of camp?", a:"High-quality wrestling instruction and all meals are included for every wrestler. Residents also get hotel accommodations. Parent meals are not included, but discounted hotel rates and meal plans are available.", tags:["include","included","cost","price","meals","food","hotel","fee","whats included"]},
-  {q:"What is the camper-to-staff ratio?", a:"Teen camps run 10:1 and youth camps run 6:1.", tags:["ratio","staff","counselor","supervision"]},
-  {q:"Where is the girls camp located?", a:"The girls camp is at Spooky Nook Sports Center and the attached hotel.", tags:["girls","girl","female","women","womens","location","where"]},
-  {q:"What if I cannot afford the full cost right now?", a:"Register with just 25% down as a deposit, then pay toward the balance anytime. Any remaining balance is automatically charged on May 1st.", tags:["afford","payment","plan","deposit","installment","later","finance","budget"]},
-  {q:"Do Future Champions campers have the same schedule as older campers?", a:"Yes.", tags:["future champions","schedule","young","little","beginner"]},
-  {q:"Does the second week of Super Gold repeat the first week?", a:"No — the second week is continued, increasingly personalized instruction that builds on week one.", tags:["super gold","supergirl","second week","repeat","two week","13 day","intensive"]},
-  {q:"What are the dates for team camps?", a:"Teams are welcome to attend any of our camps.", tags:["team","teams","dates","when","group"]},
-  {q:"What time is curfew?", a:"Resident campers must be in their rooms by 10 p.m.", tags:["curfew","bed","night","bedtime","sleep"]},
-  {q:"How many days can my child stay at camp?", a:"Teens choose 4, 6, 11, or 13-day options; youth choose 4, 6, or 11-day camps. The 4-day Future Champions camp (ages 6-9) requires a parent.", tags:["how many days","how long can","days at camp","length of stay","number of days","days","weeks","duration","stay"]},
-  {q:"How long is each training session?", a:"Sessions run two to three hours each, three times a day.", tags:["how long is each","how long are the","how long is a","session","sessions","practice","practices","training session","mat time","hours","how many hours","each day","daily schedule"]},
-  {q:"How many wrestlers attend camp?", a:"Hundreds of campers attend across the summer. This year alone, we anticipate nearly 500 campers across our multiple weeks of camps.", tags:["how many kids","how many campers","how many wrestlers","how many people","how many attend","attend","attendance","enrolled","kids","campers","how big","size of camp","number of campers","how popular"]},
-  {q:"Do you provide airport transportation?", a:"Yes — pickups from Harrisburg and Cincinnati airports for $50 per person per trip, with payment due by June 10.", tags:["airport","transportation","transport","ride","pickup","pick up","fly","flight","harrisburg","cincinnati","travel","bus"]},
-  {q:"How do I arrange airport transportation?", a:"Email Beth@kenchertow.com with the wrestler's name, cell phone number, and flight itinerary.", tags:["transportation","arrange","airport","beth","contact","flight","book","pickup"]},
-  {q:"Do you have medical staff on site?", a:"Yes — a highly trained camp nurse is on staff for the entire duration of camp.", tags:["medical","nurse","doctor","hurt","injury","health","sick","emergency"]},
-  {q:"When is check-in?", a:"Check-in is June 28th, July 5th, or July 18th (depending on your camp) from 1:00-2:30 p.m. at Spooky Nook Sports Center.", tags:["check-in","check in","checkin","arrive","drop off","start","when","arrival"]},
-  {q:"When is check-out?", a:"Camps ending July 10th and July 23rd check out at 11:00 a.m.; all other camps end at 11:30 a.m.", tags:["check-out","check out","checkout","end","leave","done","departure"]},
-  {q:"Can I take my child out for dinner during camp?", a:"Commuters do not need to notify anyone. Resident campers must be signed out at the camp store.", tags:["dinner","out","leave","sign out","food","eat","family","visit"]},
-  {q:"My child takes daily medication — what should we do?", a:"If your child can self-administer, just list the medication on the application. Otherwise, present it to the nurse at check-in.", tags:["medication","medicine","pills","prescription","nurse","daily","meds"]},
-  {q:"Is room and board included in the fee?", a:"Yes — for those enrolled as residents.", tags:["room","board","lodging","hotel","stay","sleep","resident","included"]},
-  {q:"How many campers per room?", a:"Four campers per room is standard. A bed-buyout option is available for $50/night for more private bedding.", tags:["room","roommate","per room","bed","share","sleep"]},
-  {q:"What is a bed-buyout?", a:"For $50/night your child gets their own bed (still with roommates). Camp tries to house with one roommate; uneven numbers may mean two.", tags:["bed","buyout","bed-buyout","private bed","upgrade"]},
-  {q:"What is the private room option?", a:"Parents only can purchase a private hotel room at $150/night through partner hotels. Wrestlers cannot stay in a room alone.", tags:["private","room","parent","alone","upgrade","own room"]},
-  {q:"What if we live close, or have family nearby?", a:"Sign up as a commuter and attend camp each day — meals are still included.", tags:["commuter","commute","local","daily","drive","day","close","nearby"]},
-  {q:"What is the Parent/Child camp option?", a:"Future Champions (ages 6-9) require a parent to attend; the fee includes a hotel room and parent meals. Older campers' parents may also attend — rooms are $150/night and meals $45/day.", tags:["parent","child","future champions","young","little","beginner","family"]},
-  {q:"Do we have to book the private room through you?", a:"No — you are free to make your own arrangements. The discounted rate is just an optional service we offer.", tags:["private","room","own","book","arrange","hotel","optional"]},
-  {q:"Can my child request a roommate?", a:"Yes — request it on the camp application or email Beth@kenchertow.com before June 1st.", tags:["roommate","request","friend","room","pair","share","beth"]},
-  {q:"How are roommates determined if I do not request one?", a:"Roommates are paired by camp type first, then grade and weight.", tags:["roommate","determined","assigned","pair","who","room","share"]},
-  {q:"Can I cancel my registration?", a:"Two options: (1) camp credit — full before June 1st, 50% after, none after June 25th or for a no-show — with a doctor's note; or (2) buy registration protection for a 100% refund for qualifying unforeseen circumstances.", tags:["cancel","refund","cancellation","money back","credit","change","protection"]},
-];
-
-/* ===== Ask Coach assistant (verbatim) ===== */
-/* ============ ASK COACH ASSISTANT ============ */
-const panel = document.getElementById('coachPanel');
-const logEl = document.getElementById('coachLog');
-const chipsEl = document.getElementById('coachChips');
-const STOP = new Set(["the","a","an","is","are","am","do","does","did","i","my","me","we","our","us","to","of","for","and","or","you","your","it","its","this","that","what","whats","what's","how","can","could","should","would","when","will","there","please","with","on","in","at","as","be","have","has","had","get","got","about","into","if","so","just","need","want","camp","camps","option","options","wrestler","wrestlers"]);
-function tok(s){ return s.toLowerCase().replace(/[^a-z0-9'\s]/g,' ').split(/\s+/).filter(w=>w && w.length>1 && !STOP.has(w)); }
-const FN = FAQS.length, DF = {};
-FAQS.forEach(f=>{
-  f._tagset = new Set(f.tags.map(t=>t.toLowerCase()));
-  f._words = new Set([...tok(f.q), ...f.tags.flatMap(t=>tok(t))]);
-  f._hay = (f.q+' '+f.tags.join(' ')).toLowerCase();
-  f._phrases = f.tags.filter(t=>t.indexOf(' ')>=0).map(t=>t.toLowerCase());
-  f._words.forEach(w=> DF[w]=(DF[w]||0)+1);
-});
-function idf(t){ return Math.log(1 + FN/(DF[t]||0.5)); }
-function scoreFaq(qw, raw, f){
-  let s=0, strong=false;   // strong = matched a real keyword (exact tag) or a specific multi-word phrase, not just an incidental shared word
-  qw.forEach(t=>{
-    if(f._tagset.has(t)){ s += 3*idf(t); strong=true; }
-    else if(f._words.has(t)) s += 2*idf(t);
-    else if(t.length>3 && f._hay.includes(t)) s += idf(t);
-  });
-  f._phrases.forEach(ph=>{ if(raw.indexOf(ph)>=0){ s += 5; strong=true; } });
-  return {s, strong};
-}
-function bestMatches(q){
-  const raw=q.toLowerCase(), w=tok(q); if(!w.length) return [];
-  return FAQS.map(f=>{ const r=scoreFaq(w,raw,f); return {f, s:r.s, strong:r.strong}; }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
-}
-function addMsg(html, who='bot'){
-  const wrap=document.createElement('div');
-  wrap.className='msg flex '+(who==='user'?'justify-end':'justify-start');
-  wrap.innerHTML = who==='user'
-    ? `<div class="bg-red/90 text-white rounded-2xl rounded-br-sm px-4 py-2.5 max-w-[82%]">${html}</div>`
-    : `<div class="rounded-2xl rounded-bl-sm px-4 py-2.5 max-w-[88%] text-white/90" style="background:#0c2244;">${html}</div>`;
-  logEl.appendChild(wrap); logEl.scrollTop=logEl.scrollHeight;
-}
-function typing(){
-  const t=document.createElement('div'); t.className='msg flex justify-start'; t.id='typing';
-  t.innerHTML=`<div class="typing rounded-2xl px-4 py-3" style="background:#0c2244;"><span></span><span></span><span></span></div>`;
-  logEl.appendChild(t); logEl.scrollTop=logEl.scrollHeight;
-}
-function answer(q){
-  addMsg(q,'user');
-  typing();
-  setTimeout(()=>{
-    document.getElementById('typing')?.remove();
-    const m = bestMatches(q);
-    // Only answer on a confident, real keyword/phrase match. A weak or incidental match
-    // (e.g. one shared common word) falls through to "I don't know → camps@" — far better
-    // than confidently handing back the wrong FAQ.
-    if(!m.length || m[0].s < 4 || !m[0].strong){
-      addMsg(`I'm not totally sure on that one — Coach's team can help directly at <a href="mailto:camps@kenchertow.com" class="text-gold underline">camps@kenchertow.com</a>. Meanwhile, try asking about <em>cost, lodging, what to bring, airport pickup,</em> or <em>cancellation</em>.`);
-      return;
-    }
-    const top = m[0].f;
-    addMsg(`<div class="text-gold eyebrow text-[10px] mb-1">${top.q}</div>${top.a}`);
-    const related = m.slice(1,3).filter(x=>x.strong && x.s>=4).map(x=>x.f.q);
-    if(related.length){
-      chipsEl.innerHTML = related.map(q=>`<button class="chip eyebrow text-[10px] text-white/70 border border-white/20 rounded-full px-3 py-1.5">${q}</button>`).join('');
-      bindChips();
-    }
-  }, 480);
-}
-const DEFAULT_CHIPS = ["What is included in the price?","What should I bring?","Do you pick up from the airport?","What's the cancellation policy?","How are campers supervised?"];
-function renderDefaultChips(){
-  chipsEl.innerHTML = DEFAULT_CHIPS.map(q=>`<button class="chip eyebrow text-[10px] text-white/70 border border-white/20 rounded-full px-3 py-1.5">${q}</button>`).join('');
-  bindChips();
-}
-function bindChips(){
-  chipsEl.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{ answer(c.textContent); }));
-}
-let coachOpened=false;
-function openCoach(){
-  panel.classList.add('open');
-  document.getElementById('coachBtn').style.display='none';
-  if(!coachOpened){
-    coachOpened=true;
-    addMsg(`Hey! I'm Coach Chertow's camp assistant 🤼 Ask me anything about the 2026 camps — pricing, lodging, what to pack, travel, you name it. I answer instantly.`);
-    renderDefaultChips();
-  }
-  setTimeout(()=>document.getElementById('coachInput').focus(),250);
-}
-function closeCoach(){ panel.classList.remove('open'); document.getElementById('coachBtn').style.display='flex'; }
-document.getElementById('coachBtn').addEventListener('click',openCoach);
-document.getElementById('coachClose').addEventListener('click',closeCoach);
-document.getElementById('coachForm').addEventListener('submit',e=>{
-  e.preventDefault();
-  const inp=document.getElementById('coachInput'); const v=inp.value.trim();
-  if(!v) return; inp.value=''; answer(v);
-});
-
-
+(function(){
+  var btn=document.getElementById('coachBtn'), wrap=document.getElementById('coachWrap'),
+      frame=document.getElementById('coachFrame'), closeB=document.getElementById('coachClose');
+  function openCoach(){ if(!frame.src){ frame.src=frame.getAttribute('data-src'); } /* lazy: load the assistant only on first open */
+    wrap.classList.add('open'); wrap.setAttribute('aria-hidden','false'); btn.style.display='none'; }
+  function closeCoach(){ wrap.classList.remove('open'); wrap.setAttribute('aria-hidden','true'); btn.style.display='flex'; }
+  btn.addEventListener('click', openCoach);
+  closeB.addEventListener('click', closeCoach);
+  document.addEventListener('keydown', function(e){ if(e.key==='Escape' && wrap.classList.contains('open')) closeCoach(); });
+})();
 </script>
 </body></html>
