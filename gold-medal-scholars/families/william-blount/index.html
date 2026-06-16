@@ -289,7 +289,9 @@ const FAQS = [
   {q:"Does the second week of Super Gold repeat the first week?", a:"No — the second week is continued, increasingly personalized instruction that builds on week one.", tags:["super gold","supergirl","second week","repeat","two week","13 day","intensive"]},
   {q:"What are the dates for team camps?", a:"Teams are welcome to attend any of our camps.", tags:["team","teams","dates","when","group"]},
   {q:"What time is curfew?", a:"Resident campers must be in their rooms by 10 p.m.", tags:["curfew","bed","night","bedtime","sleep"]},
-  {q:"How many days can my child stay at camp?", a:"Teens choose 4, 6, 11, or 13-day options; youth choose 4, 6, or 11-day camps. The 4-day Future Champions camp (ages 6-9) requires a parent.", tags:["days","how long","length","duration","weeks","options","stay"]},
+  {q:"How many days can my child stay at camp?", a:"Teens choose 4, 6, 11, or 13-day options; youth choose 4, 6, or 11-day camps. The 4-day Future Champions camp (ages 6-9) requires a parent.", tags:["how many days","how long can","days at camp","length of stay","number of days","days","weeks","duration","stay"]},
+  {q:"How long is each training session?", a:"Sessions run two to three hours each, three times a day.", tags:["how long is each","how long are the","how long is a","session","sessions","practice","practices","training session","mat time","hours","how many hours","each day","daily schedule"]},
+  {q:"How many wrestlers attend camp?", a:"Hundreds of campers attend across the summer. This year alone, we anticipate nearly 500 campers across our multiple weeks of camps.", tags:["how many kids","how many campers","how many wrestlers","how many people","how many attend","attend","attendance","enrolled","kids","campers","how big","size of camp","number of campers","how popular"]},
   {q:"Do you provide airport transportation?", a:"Yes — pickups from Harrisburg and Cincinnati airports for $50 per person per trip, with payment due by June 10.", tags:["airport","transportation","transport","ride","pickup","pick up","fly","flight","harrisburg","cincinnati","travel","bus"]},
   {q:"How do I arrange airport transportation?", a:"Email Beth@kenchertow.com with the wrestler's name, cell phone number, and flight itinerary.", tags:["transportation","arrange","airport","beth","contact","flight","book","pickup"]},
   {q:"Do you have medical staff on site?", a:"Yes — a highly trained camp nurse is on staff for the entire duration of camp.", tags:["medical","nurse","doctor","hurt","injury","health","sick","emergency"]},
@@ -326,18 +328,18 @@ FAQS.forEach(f=>{
 });
 function idf(t){ return Math.log(1 + FN/(DF[t]||0.5)); }
 function scoreFaq(qw, raw, f){
-  let s=0;
+  let s=0, strong=false;   // strong = matched a real keyword (exact tag) or a specific multi-word phrase, not just an incidental shared word
   qw.forEach(t=>{
-    if(f._tagset.has(t)) s += 3*idf(t);
+    if(f._tagset.has(t)){ s += 3*idf(t); strong=true; }
     else if(f._words.has(t)) s += 2*idf(t);
     else if(t.length>3 && f._hay.includes(t)) s += idf(t);
   });
-  f._phrases.forEach(ph=>{ if(raw.indexOf(ph)>=0) s += 5; });
-  return s;
+  f._phrases.forEach(ph=>{ if(raw.indexOf(ph)>=0){ s += 5; strong=true; } });
+  return {s, strong};
 }
 function bestMatches(q){
   const raw=q.toLowerCase(), w=tok(q); if(!w.length) return [];
-  return FAQS.map(f=>({f,s:scoreFaq(w,raw,f)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
+  return FAQS.map(f=>{ const r=scoreFaq(w,raw,f); return {f, s:r.s, strong:r.strong}; }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
 }
 function addMsg(html, who='bot'){
   const wrap=document.createElement('div');
@@ -358,13 +360,16 @@ function answer(q){
   setTimeout(()=>{
     document.getElementById('typing')?.remove();
     const m = bestMatches(q);
-    if(!m.length || m[0].s < 3.5){
+    // Only answer on a confident, real keyword/phrase match. A weak or incidental match
+    // (e.g. one shared common word) falls through to "I don't know → camps@" — far better
+    // than confidently handing back the wrong FAQ.
+    if(!m.length || m[0].s < 4 || !m[0].strong){
       addMsg(`I'm not totally sure on that one — Coach's team can help directly at <a href="mailto:camps@kenchertow.com" class="text-gold underline">camps@kenchertow.com</a>. Meanwhile, try asking about <em>cost, lodging, what to bring, airport pickup,</em> or <em>cancellation</em>.`);
       return;
     }
     const top = m[0].f;
     addMsg(`<div class="text-gold eyebrow text-[10px] mb-1">${top.q}</div>${top.a}`);
-    const related = m.slice(1,3).filter(x=>x.s>=3.5).map(x=>x.f.q);
+    const related = m.slice(1,3).filter(x=>x.strong && x.s>=4).map(x=>x.f.q);
     if(related.length){
       chipsEl.innerHTML = related.map(q=>`<button class="chip eyebrow text-[10px] text-white/70 border border-white/20 rounded-full px-3 py-1.5">${q}</button>`).join('');
       bindChips();
