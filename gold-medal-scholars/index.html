@@ -251,9 +251,9 @@ tailwind.config = {
   </form>
 </div>
 
+
 <script>
 /* ===== FAQ corpus (verbatim) ===== */
-/* ============ FAQ DATA (real, from kenchertow.com) ============ */
 const FAQS = [
   {q:"Do you offer discounts for teams?", a:"Yes! Groups of 4 get $25 off per wrestler, groups of 8 get $50 off each, and groups of 12 get $75 off per wrestler — plus one coach or parent attends free with housing and meals.", tags:["team","teams","group","discount","coach","bulk","club","cheaper"]},
   {q:"I paid a deposit — how do I make additional payments?", a:"Log in or create an account at kenchertow.account.webconnex.com to make additional payments anytime.", tags:["deposit","payment","additional","balance","pay","account","webconnex","installment"]},
@@ -376,5 +376,7 @@ document.getElementById('coachForm').addEventListener('submit',e=>{
   const inp=document.getElementById('coachInput'); const v=inp.value.trim();
   if(!v) return; inp.value=''; answer(v);
 });
+
+
 </script>
 </body></html>
