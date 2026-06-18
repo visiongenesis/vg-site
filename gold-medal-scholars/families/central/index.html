@@ -106,6 +106,11 @@ p strong,li strong{color:#fff;}
 .ncard{background:var(--navy-2);border:1px solid var(--line);border-radius:12px;padding:14px 16px;}
 .ncard strong{display:block;margin-bottom:3px;}.ncard .t{font-size:14px;color:var(--mut);text-wrap:pretty;}
 .step .b,.tier p{text-wrap:pretty;}
+/* a word from Ken — launch video */
+.kenvid{margin:18px 0 2px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#000;box-shadow:0 12px 36px rgba(0,0,0,.45);}
+.kenvid video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000;}
+.kenvid .vcap{padding:11px 16px 13px;background:var(--navy-2);border-top:1px solid var(--line);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);}
+.kenvid .vcap b{color:var(--gold);font-weight:600;}
 /* logo grid (portal) */
 .find{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:6px 0 14px;}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
@@ -153,6 +158,18 @@ body{padding-bottom:84px;}
 </div></div></header>
 
 <section><div class="wrap">
+  <div class="rule"></div><div class="eyebrow">A word from Ken</div>
+  <h2>Hear it straight from the Olympian.</h2>
+  <p>A minute and a half with <strong>Ken Chertow</strong> &mdash; U.S. Olympian and three-time NCAA All-American &mdash; on what this award gives your wrestlers, and why he wants a busload from Knoxville on his mat this July.</p>
+  <div class="kenvid">
+    <video controls playsinline preload="metadata" poster="../../ken-poster.jpg">
+      <source src="../../ken-launch.mp4" type="video/mp4">
+      <a href="../../ken-launch.mp4">Tap here to watch Ken&rsquo;s message.</a>
+    </video>
+    <div class="vcap"><b>Ken Chertow</b> &middot; U.S. Olympian &middot; 1:35</div>
+  </div>
+</div></section>
+<section><div class="wrap">
   <div class="rule"></div><div class="eyebrow">For families &amp; clubs</div>
   <h2>Your wrestler earned a 50% scholarship. Here's how to claim it.</h2>
   <p>A Knoxville Central coach nominated your wrestler for <strong>The Gold Medal Scholar-Athlete Award</strong> &mdash; a <strong style="color:var(--accent)">50% scholarship</strong> from Ken Chertow's Gold Medal Training Camps toward Ken's six-day Olympic camp. It's an honor, and it's earned: a champion <strong>on the mat and in the classroom</strong>. To claim it, the family or club funds the other half &mdash; <strong>$475</strong>.</p>
@@ -161,7 +178,7 @@ body{padding-bottom:84px;}
     <span class="op eq">=</span><span class="unit award"><span class="big">$475</span><span class="cap">Scholar-Athlete Award</span></span>
     <span class="op plus">+</span><span class="unit invest"><span class="big">$475</span><span class="cap">family/community investment</span></span></div></div>
   <h3>What the week is</h3>
-  <p>Six days of Olympic-level coaching, elite partners, and room &amp; board at Spooky Nook &middot; Hamilton, Ohio &mdash; July 18&ndash;23.</p>
+  <p>Six days of Olympic-level coaching, elite partners, and room &amp; board at Spooky Nook &middot; Cincinnati, Ohio &mdash; July 18&ndash;23.</p>
   <div class="badge"><span class="tee"><svg class="medal" viewBox="0 0 48 58" width="48" height="58" aria-hidden="true"><defs><radialGradient id="gm" cx="0.4" cy="0.34" r="0.78"><stop offset="0" stop-color="#FCEAAE"/><stop offset="0.5" stop-color="#ECB838"/><stop offset="1" stop-color="#B6841C"/></radialGradient></defs><path d="M11 3 L24 33 L18 34 L7 8 Z" fill="#E21937"/><path d="M37 3 L24 33 L30 34 L41 8 Z" fill="#E21937" opacity="0.72"/><circle cx="24" cy="40" r="15.5" fill="url(#gm)" stroke="#8C6310" stroke-width="1.2"/><circle cx="24" cy="40" r="11.5" fill="none" stroke="#FBE6A6" stroke-width="1" opacity="0.55"/><path d="M24 31.5 L26.0 37.25 L32.08 37.37 L27.23 41.05 L29.0 46.88 L24 43.4 L19.0 46.88 L20.77 41.05 L15.92 37.37 L22.0 37.25 Z" fill="#FFF7DC"/></svg></span><div class="bt">Your wrestler becomes a <b>Gold Medal Scholar</b> &mdash; and wears the shirt. A title they earned, on their chest.</div></div>
 </div></section>
 
@@ -169,7 +186,7 @@ body{padding-bottom:84px;}
   <div class="seghead"><div class="st"><div class="rule"></div><div class="eyebrow">The ride is on us</div>
     <h2 style="margin-bottom:0">Vision Genesis provides transportation for the whole team &mdash; to Ohio and back.</h2></div>
     <span class="si"><svg class="busicon" viewBox="0 0 116 60" width="112" height="58" aria-hidden="true"><g fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="92" height="34" rx="7"/><line x1="5" y1="31" x2="97" y2="31"/><rect x="84" y="33" width="11" height="12" rx="1.5"/><circle cx="30" cy="49" r="6.5"/><circle cx="76" cy="49" r="6.5"/><path d="M104 21 h8 M106 30 h7 M104 39 h8" opacity="0.5"/></g><rect x="12" y="17" width="12" height="10" rx="1.5" fill="var(--accent)" opacity="0.16"/><rect x="27" y="17" width="12" height="10" rx="1.5" fill="var(--accent)" opacity="0.16"/><rect x="42" y="17" width="12" height="10" rx="1.5" fill="var(--accent)" opacity="0.16"/><rect x="57" y="17" width="12" height="10" rx="1.5" fill="var(--accent)" opacity="0.16"/><rect x="72" y="17" width="12" height="10" rx="1.5" fill="var(--accent)" opacity="0.16"/></svg></span></div>
-  <p style="margin-top:14px">You don't drive to Ohio. <strong>Vision Genesis sponsors the transportation, to camp and home again.</strong> And it isn't just your scholar-athlete &mdash; <strong>any teammate can come for $100 off tuition</strong> (code KNOX100) and <strong>ride free, both ways</strong>. It's a Knoxville-wide program, and we want to send as many Knoxville wrestlers as possible.</p>
+  <p style="margin-top:14px">You don't drive to Ohio. <strong>Vision Genesis sponsors the transportation, to camp and home again.</strong> And it isn't just your scholar-athlete &mdash; <strong>any teammate can come for $100 off tuition</strong> (code 2026TN100) and <strong>ride free, both ways</strong>. It's a Knoxville-wide program, and we want to send as many Knoxville wrestlers as possible.</p>
   <div class="optcard"><div class="oh"><span class="optpill">Optional &mdash; a local business can get behind it</span><span class="oic"><svg class="bizicon" viewBox="0 0 48 44" width="38" height="35" aria-hidden="true"><g fill="none" stroke="var(--gold)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 18 V40 H40 V18"/><path d="M6 18 L10 8 H38 L42 18 Z"/><line x1="16" y1="18" x2="16" y2="9"/><line x1="24" y1="18" x2="24" y2="9"/><line x1="32" y1="18" x2="32" y2="9"/><rect x="20" y="27" width="9" height="13"/></g></svg></span></div>
     <h3>Put a hometown business behind your wrestlers.</h3>
     <a class="ol" href="central-business.pdf">The one-pager to hand a business &rsaquo;</a></div>
