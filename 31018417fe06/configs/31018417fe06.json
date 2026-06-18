@@ -1,0 +1,2305 @@
+{
+  "_meta": {
+    "schema_version": "1.1",
+    "config_format": "event-package-ledger.v1",
+    "extracted_from": "clients/doppelt-southeastern-dermatology/demo/app.html",
+    "extracted_at": "2026-05-02",
+    "last_updated": "2026-05-02",
+    "changelog": [
+      {
+        "version": "1.0",
+        "date": "2026-05-02",
+        "change": "Initial extraction from app.html (Doppelt-specific)"
+      },
+      {
+        "version": "1.1",
+        "date": "2026-05-02",
+        "change": "Added cpt_to_sku mapping + appointment_id requirement (board iter 2)"
+      }
+    ]
+  },
+  "practice": {
+    "id": "doppelt-southeastern-dermatology",
+    "name": "Southeastern Dermatology",
+    "short_name": "Doppelt",
+    "vertical": "cosmetic-dermatology",
+    "owner": "Dr. Matt Doppelt",
+    "ops_manager": "Jake",
+    "biller": "Tawny",
+    "reconciler": "Tani",
+    "emr": "ModMed",
+    "clearinghouse": "TriZetto",
+    "currency": "USD",
+    "timezone": "America/New_York",
+    "brand_display": "wordmarks",
+    "website_url": "https://www.drdoppelt.com",
+    "branding": {
+      "primary_color": "#080e24",
+      "accent_color": "#7b9fab",
+      "header_bg": "#080e24",
+      "body_bg": "#f5f4f2",
+      "text_color": "#404040",
+      "heading_font": "'Montserrat', sans-serif",
+      "body_font": "'Montserrat', sans-serif",
+      "event_brand": "Glammiversary / Botox & Bingo"
+    },
+    "product_links": {
+      "BOTOX_UNIT": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/botox/",
+      "DYSPORT_UNIT": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/dysport/",
+      "JUVE_ULTRA_XC": "https://www.drdoppelt.com/juvederm-ultra-xc/",
+      "JUVE_ULTRA_PLUS": "https://www.drdoppelt.com/juvederm-ultra-plus-xc/",
+      "JUVE_VOLUMA": "https://www.drdoppelt.com/juvederm-voluma-xc/",
+      "JUVE_VOLLURE": "https://www.drdoppelt.com/juvederm-vollure-xc/",
+      "JUVE_VOLBELLA": "https://www.drdoppelt.com/juvederm-volbella-xc/",
+      "JUVE_VOLUX": "https://www.drdoppelt.com/juvederm-volux/",
+      "JUVE_SKINVIVE": "https://www.drdoppelt.com/special/skinvive-treatment/",
+      "REST_L": "https://www.drdoppelt.com/product/restylane-l/",
+      "REST_KYSSE": "https://www.drdoppelt.com/product/restylane-kysse/",
+      "REST_DEFYNE": "https://www.drdoppelt.com/product/restylane-defyne/",
+      "REST_REFYNE": "https://www.drdoppelt.com/product/restylane-refyne/",
+      "REST_LYFT": "https://www.drdoppelt.com/product/restylane-lyft/",
+      "REST_CONTOUR": "https://www.drdoppelt.com/product/restylane-contour/",
+      "SCULPTRA_VIAL": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/dermal-fillers/sculptra/",
+      "RADIESSE_VIAL": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/dermal-fillers/radiesse/",
+      "HA_PKG_3": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/dermal-fillers/",
+      "HA_PKG_4": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/dermal-fillers/",
+      "HA_PKG_5": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/dermal-fillers/",
+      "HA_PKG_6": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/dermal-fillers/",
+      "DIAMOND_GLOW_1": "https://www.drdoppelt.com/diamond-glow/",
+      "DIAMOND_GLOW_6": "https://www.drdoppelt.com/diamond-glow/",
+      "HYDRAFACIAL_1": "https://www.drdoppelt.com/hydrafacial/",
+      "HYDRAFACIAL_6": "https://www.drdoppelt.com/hydrafacial/",
+      "PEEL_ORIG_1": "https://www.drdoppelt.com/chemical-peels/",
+      "PEEL_ORIG_3": "https://www.drdoppelt.com/chemical-peels/",
+      "PEEL_ADV_1": "https://www.drdoppelt.com/chemical-peels/",
+      "PEEL_ADV_3": "https://www.drdoppelt.com/chemical-peels/",
+      "PEEL_PURITY_1": "https://www.drdoppelt.com/chemical-peels/",
+      "PEEL_PURITY_3": "https://www.drdoppelt.com/chemical-peels/",
+      "PEEL_PURITY_PEPTIDE_1": "https://www.drdoppelt.com/chemical-peels/",
+      "PEEL_PURITY_PEPTIDE_3": "https://www.drdoppelt.com/chemical-peels/",
+      "PEEL_PRECISION_1": "https://www.drdoppelt.com/chemical-peels/",
+      "PEEL_PRECISION_3": "https://www.drdoppelt.com/chemical-peels/",
+      "PEEL_BODY_1": "https://www.drdoppelt.com/chemical-peels/",
+      "PEEL_BODY_3": "https://www.drdoppelt.com/chemical-peels/",
+      "MORPH_PERIORAL": "https://www.drdoppelt.com/morpheus-8/",
+      "MORPH_FACE_NECK_1": "https://www.drdoppelt.com/morpheus-8/",
+      "MORPH_FACE_NECK_3": "https://www.drdoppelt.com/morpheus-8/",
+      "MORPH_BODY_SMALL": "https://www.drdoppelt.com/morpheus-8/",
+      "MORPH_BODY_LARGE": "https://www.drdoppelt.com/morpheus-8/",
+      "SKINPEN_1": "https://www.drdoppelt.com/skinpen/",
+      "SKINPEN_3": "https://www.drdoppelt.com/skinpen/",
+      "IPL_FACE_1": "https://www.drdoppelt.com/intense-pulsed-light-knoxville/",
+      "IPL_FACE_3": "https://www.drdoppelt.com/intense-pulsed-light-knoxville/",
+      "IPL_FNC_1": "https://www.drdoppelt.com/intense-pulsed-light-knoxville/",
+      "IPL_FNC_3": "https://www.drdoppelt.com/intense-pulsed-light-knoxville/",
+      "UC_FACE_1": "https://www.drdoppelt.com/ultraclear/",
+      "UC_FACE_3": "https://www.drdoppelt.com/ultraclear/",
+      "UC_FNC_1": "https://www.drdoppelt.com/ultraclear/",
+      "UC_FNC_3": "https://www.drdoppelt.com/ultraclear/",
+      "CB_CLASSIC_1": "https://www.coolsculpting.com",
+      "CB_CLASSIC_6": "https://www.coolsculpting.com",
+      "CB_DUO_1": "https://www.coolsculpting.com",
+      "CB_DUO_6": "https://www.coolsculpting.com",
+      "BIO_FACE_SCULPTRA_2": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/dermal-fillers/sculptra/",
+      "BIO_FACE_RADIESSE_3": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/dermal-fillers/radiesse/",
+      "BIO_NECK": "https://www.drdoppelt.com/neck/",
+      "BIO_CHEST": "https://www.drdoppelt.com/chest/",
+      "BIO_HANDS": "https://www.drdoppelt.com/hands/",
+      "BIO_KNEES": "https://www.drdoppelt.com/knees/",
+      "BIO_ARMS": "https://www.drdoppelt.com/arms/",
+      "BIO_UNDEREYE": "https://www.drdoppelt.com/undereye/",
+      "LHR_UNDERARMS": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/laser-hair-removal/",
+      "LHR_BIKINI": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/laser-hair-removal/",
+      "LHR_LEGS_FULL": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/laser-hair-removal/",
+      "LHR_LEGS_HALF": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/laser-hair-removal/",
+      "LHR_BACK": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/laser-hair-removal/",
+      "LHR_LIP_OR_CHIN": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/laser-hair-removal/",
+      "LHR_LIP_AND_CHIN": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/laser-hair-removal/",
+      "LHR_FULL_FACE": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/laser-hair-removal/",
+      "UC_FACE_NECK_LIGHT_1": "https://www.drdoppelt.com/ultraclear/",
+      "UC_FACE_NECK_LIGHT_3": "https://www.drdoppelt.com/ultraclear/",
+      "UC_FACE_NECK_LIGHT_6": "https://www.drdoppelt.com/ultraclear/",
+      "UC_HANDS_LIGHT_3": "https://www.drdoppelt.com/ultraclear/",
+      "UC_FACE_NECK_MOD_1": "https://www.drdoppelt.com/ultraclear/",
+      "UC_FACE_NECK_MOD_3": "https://www.drdoppelt.com/ultraclear/",
+      "UC_FACE_NECK_MORPH_MOD_1": "https://www.drdoppelt.com/ultraclear/",
+      "UC_FACE_NECK_MORPH_MOD_3": "https://www.drdoppelt.com/ultraclear/",
+      "UC_PLUS_FACE_DEEP": "https://www.drdoppelt.com/ultraclear/",
+      "UC_PLUS_FACE_MORPH_DEEP": "https://www.drdoppelt.com/ultraclear/",
+      "UC_PLUS_FACE_NECK_DEEP": "https://www.drdoppelt.com/ultraclear/",
+      "UC_PLUS_FACE_NECK_MORPH_DEEP": "https://www.drdoppelt.com/ultraclear/",
+      "UC_ULT_FACE_LASER_MAX": "https://www.drdoppelt.com/ultraclear/",
+      "UC_ULT_FACE_NECK_LASER_MAX": "https://www.drdoppelt.com/ultraclear/",
+      "UC_MADONNA_EYE_DEEP": "https://www.drdoppelt.com/ultraclear/",
+      "UC_PERIORAL_DEEP": "https://www.drdoppelt.com/ultraclear/",
+      "IPL_HANDS_3": "https://www.drdoppelt.com/intense-pulsed-light-knoxville/",
+      "ULT_FULL_FACE": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/ultherapy/",
+      "ULT_FULL_FACE_NECK": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/ultherapy/",
+      "ULT_LOWER_FACE": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/ultherapy/",
+      "ULT_LOWER_FACE_NECK": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/ultherapy/",
+      "ULT_BROW": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/ultherapy/",
+      "ULT_NECK_OR_CHEST": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/ultherapy/",
+      "ULT_CHIN_STRAP": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/ultherapy/",
+      "BT_ABDOMEN": "https://www.drdoppelt.com/bodytite/",
+      "BT_EXT_ABDOMEN": "https://www.drdoppelt.com/bodytite/",
+      "BT_LOVE_HANDLES": "https://www.drdoppelt.com/bodytite/",
+      "BT_INNER_OR_OUTER_THIGHS": "https://www.drdoppelt.com/bodytite/",
+      "BT_INNER_AND_OUTER_THIGHS": "https://www.drdoppelt.com/bodytite/",
+      "BT_ARMS": "https://www.drdoppelt.com/bodytite/",
+      "BT_BACK": "https://www.drdoppelt.com/bodytite/",
+      "BT_EXT_BACK_LOVE_HANDLES": "https://www.drdoppelt.com/bodytite/",
+      "EVOLVE_1AREA": "https://www.drdoppelt.com/evolve-body-contouring/",
+      "EVOLVE_2AREAS": "https://www.drdoppelt.com/evolve-body-contouring/",
+      "EVOLVE_3AREAS": "https://www.drdoppelt.com/evolve-body-contouring/",
+      "FT_FACE_OR_NECK": "https://www.drdoppelt.com/facetite/",
+      "FT_FACE_AND_NECK": "https://www.drdoppelt.com/facetite/",
+      "DEFINE_CHIN_OR_CHEEK": "https://www.drdoppelt.com/define/",
+      "DEFINE_CHIN_AND_CHEEK": "https://www.drdoppelt.com/define/",
+      "DERMAPLANE_1": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/dermaplane/",
+      "DERMAPLANE_6": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/dermaplane/",
+      "DERMAPLANE_ADDON": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/dermaplane/",
+      "QRF_FACE_OR_NECK": "https://www.drdoppelt.com/skin-tightening-procedures/",
+      "QRF_FACE_AND_NECK": "https://www.drdoppelt.com/skin-tightening-procedures/",
+      "QRF_ARMS": "https://www.drdoppelt.com/skin-tightening-procedures/",
+      "QRF_INNER_OR_OUTER_THIGHS": "https://www.drdoppelt.com/skin-tightening-procedures/",
+      "QRF_INNER_AND_OUTER_THIGHS": "https://www.drdoppelt.com/skin-tightening-procedures/",
+      "QRF_KNEES": "https://www.drdoppelt.com/skin-tightening-procedures/",
+      "VOTIVA_RENJUV": "https://www.drdoppelt.com/votiva/",
+      "VOTIVA_MAINT": "https://www.drdoppelt.com/votiva/",
+      "ATED_MAINT": "https://www.drdoppelt.com/ariessence/",
+      "ATED_4TX": "https://www.drdoppelt.com/ariessence/",
+      "ATED_ARIESSENCE_4TX": "https://www.drdoppelt.com/ariessence/",
+      "DERMA_V_FACE_1": "https://www.drdoppelt.com/dermav/",
+      "DERMA_V_FACE_3": "https://www.drdoppelt.com/dermav/",
+      "PICOSURE_1": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/picosure-focus-skin-rejuvenation/",
+      "PICOSURE_3": "https://www.drdoppelt.com/knoxville-procedures/cosmetic-dermatology/picosure-focus-skin-rejuvenation/",
+      "SKINPEN_ARIESSENCE_ADDON": "https://www.drdoppelt.com/skinpen/",
+      "RENUVA_15": "https://www.drdoppelt.com/renuva/",
+      "RENUVA_30": "https://www.drdoppelt.com/renuva/",
+      "ARIESSENCE_RADIESSE": "https://www.drdoppelt.com/ariessence/"
+    }
+  },
+  "providers": [
+    {
+      "id": "kathy",
+      "name": "Kathy",
+      "specialty": "injectables",
+      "earns_bonus_on": [
+        "injectables"
+      ]
+    },
+    {
+      "id": "mary",
+      "name": "Mary",
+      "specialty": "lasers",
+      "earns_bonus_on": [
+        "lasers",
+        "treatments"
+      ]
+    },
+    {
+      "id": "matt",
+      "name": "Dr. Matt Doppelt",
+      "specialty": "physician",
+      "earns_bonus_on": [
+        "injectables",
+        "treatments",
+        "lasers",
+        "contouring"
+      ]
+    }
+  ],
+  "catalog": {
+    "categories": [
+      {
+        "id": "injectables",
+        "label": "Injectables",
+        "page": 1,
+        "groups": [
+          {
+            "id": "neuromodulators",
+            "label": "Neuromodulators",
+            "subtitle": "Botox / Dysport \u2014 temporarily reduce fine lines & wrinkles",
+            "unit": "per unit",
+            "items": [
+              {
+                "sku": "BOTOX_UNIT",
+                "name": "Botox",
+                "reg_price": 14,
+                "glam_price": 11,
+                "unit": "per unit"
+              },
+              {
+                "sku": "DYSPORT_UNIT",
+                "name": "Dysport",
+                "reg_price": 5.6,
+                "glam_price": 4.4,
+                "unit": "per unit"
+              }
+            ]
+          },
+          {
+            "id": "ha_fillers",
+            "label": "HA Fillers",
+            "subtitle": "Hyaluronic acid fillers \u2014 Juvederm + Restylane",
+            "unit": "per syringe",
+            "items": [
+              {
+                "sku": "JUVE_ULTRA_XC",
+                "name": "Juvederm Ultra XC",
+                "reg_price": 750,
+                "glam_price": 600
+              },
+              {
+                "sku": "JUVE_ULTRA_PLUS",
+                "name": "Juvederm Ultra Plus",
+                "reg_price": 750,
+                "glam_price": 600
+              },
+              {
+                "sku": "JUVE_VOLUMA",
+                "name": "Juvederm Voluma",
+                "reg_price": 900,
+                "glam_price": 720
+              },
+              {
+                "sku": "JUVE_VOLLURE",
+                "name": "Juvederm Vollure",
+                "reg_price": 750,
+                "glam_price": 600
+              },
+              {
+                "sku": "JUVE_VOLBELLA",
+                "name": "Juvederm Volbella (1.0 cc)",
+                "reg_price": 750,
+                "glam_price": 600
+              },
+              {
+                "sku": "JUVE_VOLUX",
+                "name": "Juvederm Volux",
+                "reg_price": 950,
+                "glam_price": 760
+              },
+              {
+                "sku": "JUVE_SKINVIVE",
+                "name": "Skinvive by Juvederm",
+                "reg_price": 700,
+                "glam_price": 560
+              },
+              {
+                "sku": "REST_L",
+                "name": "Restylane-L",
+                "reg_price": 750,
+                "glam_price": 600
+              },
+              {
+                "sku": "REST_KYSSE",
+                "name": "Restylane Kysse",
+                "reg_price": 750,
+                "glam_price": 600
+              },
+              {
+                "sku": "REST_DEFYNE",
+                "name": "Restylane Defyne",
+                "reg_price": 750,
+                "glam_price": 600
+              },
+              {
+                "sku": "REST_REFYNE",
+                "name": "Restylane Refyne",
+                "reg_price": 750,
+                "glam_price": 600
+              },
+              {
+                "sku": "REST_LYFT",
+                "name": "Restylane Lyft",
+                "reg_price": 750,
+                "glam_price": 600
+              },
+              {
+                "sku": "REST_CONTOUR",
+                "name": "Restylane Contour",
+                "reg_price": 900,
+                "glam_price": 720
+              }
+            ]
+          },
+          {
+            "id": "biostim_fillers",
+            "label": "Biostimulatory Fillers",
+            "subtitle": "Sculptra / Radiesse / Renuva \u2014 gradual collagen-stimulating",
+            "unit": "per vial",
+            "items": [
+              {
+                "sku": "SCULPTRA_VIAL",
+                "name": "Sculptra (per vial)",
+                "reg_price": 900,
+                "glam_price": 720
+              },
+              {
+                "sku": "RADIESSE_VIAL",
+                "name": "Radiesse (per vial)",
+                "reg_price": 900,
+                "glam_price": 720
+              },
+              {
+                "sku": "RENUVA_15",
+                "name": "Renuva (1.5 cc)",
+                "reg_price": 1500,
+                "glam_price": 1200
+              },
+              {
+                "sku": "RENUVA_30",
+                "name": "Renuva (3 cc)",
+                "reg_price": 3000,
+                "glam_price": 2400
+              },
+              {
+                "sku": "ARIESSENCE_RADIESSE",
+                "name": "Ariessence + Radiesse",
+                "reg_price": 1300,
+                "glam_price": 1040
+              }
+            ]
+          },
+          {
+            "id": "ha_packages",
+            "label": "HA Filler Packages",
+            "subtitle": "Juvederm / Restylane only \u2014 multi-syringe bundles",
+            "unit": "package",
+            "items": [
+              {
+                "sku": "HA_PKG_3",
+                "name": "3 Syringes Filler",
+                "glam_price": 2200,
+                "syringes": 3,
+                "redemption_units": 3,
+                "redemption_unit_label": "syringe"
+              },
+              {
+                "sku": "HA_PKG_4",
+                "name": "4 Syringes Filler",
+                "glam_price": 2700,
+                "syringes": 4,
+                "redemption_units": 4,
+                "redemption_unit_label": "syringe"
+              },
+              {
+                "sku": "HA_PKG_5",
+                "name": "5 Syringes Filler",
+                "glam_price": 3200,
+                "syringes": 5,
+                "redemption_units": 5,
+                "redemption_unit_label": "syringe"
+              },
+              {
+                "sku": "HA_PKG_6",
+                "name": "6 Syringes Filler",
+                "glam_price": 3800,
+                "syringes": 6,
+                "redemption_units": 6,
+                "redemption_unit_label": "syringe"
+              }
+            ]
+          },
+          {
+            "id": "biostim_packages",
+            "label": "Biostimulatory Packages",
+            "subtitle": "By body area \u2014 2 tiers (injections only / +Add On)",
+            "addon_note": "Biostim package add-ons may include Morpheus8, Ultherapy, or UltraClear",
+            "unit": "package",
+            "items": [
+              {
+                "sku": "BIO_FACE_SCULPTRA_2",
+                "name": "Face (Sculptra - 2 tx)",
+                "glam_price": 3300,
+                "addon_price": 4300,
+                "redemption_units": 2,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "BIO_FACE_RADIESSE_3",
+                "name": "Face (Radiesse - 3 tx)",
+                "glam_price": 2500,
+                "addon_price": 4000,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "BIO_NECK",
+                "name": "Neck",
+                "glam_price": 2400,
+                "addon_price": 3400
+              },
+              {
+                "sku": "BIO_CHEST",
+                "name": "Chest",
+                "glam_price": 4000,
+                "addon_price": 5500
+              },
+              {
+                "sku": "BIO_HANDS",
+                "name": "Hands",
+                "glam_price": 1800,
+                "addon_price": 2400
+              },
+              {
+                "sku": "BIO_KNEES",
+                "name": "Knees",
+                "glam_price": 5000,
+                "addon_price": 7100
+              },
+              {
+                "sku": "BIO_ARMS",
+                "name": "Arms",
+                "glam_price": 5000,
+                "addon_price": 7100
+              },
+              {
+                "sku": "BIO_UNDEREYE",
+                "name": "Ariessence Under Eye (3 tx)",
+                "glam_price": 2300,
+                "addon_price": 1840,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "treatments",
+        "label": "Treatments",
+        "page": 2,
+        "groups": [
+          {
+            "id": "facials_dermaplane",
+            "label": "Facials + Dermaplane",
+            "items": [
+              {
+                "sku": "DIAMOND_GLOW_1",
+                "name": "DiamondGlow (1 tx)",
+                "reg_price": 200,
+                "glam_price": 160
+              },
+              {
+                "sku": "DIAMOND_GLOW_6",
+                "name": "DiamondGlow (6 tx)",
+                "reg_price": 1100,
+                "glam_price": 880,
+                "redemption_units": 6,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "HYDRAFACIAL_1",
+                "name": "HydraFacial (1 tx)",
+                "reg_price": 200,
+                "glam_price": 160
+              },
+              {
+                "sku": "HYDRAFACIAL_6",
+                "name": "HydraFacial (6 tx)",
+                "reg_price": 1100,
+                "glam_price": 880,
+                "redemption_units": 6,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "DERMAPLANE_1",
+                "name": "Dermaplane (1 tx)",
+                "reg_price": 150,
+                "glam_price": 120
+              },
+              {
+                "sku": "DERMAPLANE_6",
+                "name": "Dermaplane (6 tx)",
+                "reg_price": 750,
+                "glam_price": 600,
+                "redemption_units": 6,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "DERMAPLANE_ADDON",
+                "name": "Add Dermaplane To Any Facial",
+                "glam_price": 50
+              }
+            ]
+          },
+          {
+            "id": "chemical_peels",
+            "label": "Chemical Peels",
+            "items": [
+              {
+                "sku": "PEEL_ORIG_1",
+                "name": "Original Facial Peel (1 tx)",
+                "reg_price": 350,
+                "glam_price": 280
+              },
+              {
+                "sku": "PEEL_ORIG_3",
+                "name": "Original Facial Peel (3 tx)",
+                "reg_price": 950,
+                "glam_price": 760,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "PEEL_ADV_1",
+                "name": "Advanced Facial Peel (1 tx)",
+                "reg_price": 350,
+                "glam_price": 280
+              },
+              {
+                "sku": "PEEL_ADV_3",
+                "name": "Advanced Facial Peel (3 tx)",
+                "reg_price": 950,
+                "glam_price": 760,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "PEEL_PURITY_1",
+                "name": "Purity Facial Peel (1 tx)",
+                "reg_price": 350,
+                "glam_price": 280
+              },
+              {
+                "sku": "PEEL_PURITY_3",
+                "name": "Purity Facial Peel (3 tx)",
+                "reg_price": 950,
+                "glam_price": 760,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "PEEL_PURITY_PEPTIDE_1",
+                "name": "Purity w/ Precision + Peptides (1 tx)",
+                "reg_price": 350,
+                "glam_price": 280
+              },
+              {
+                "sku": "PEEL_PURITY_PEPTIDE_3",
+                "name": "Purity w/ Precision + Peptides (3 tx)",
+                "reg_price": 950,
+                "glam_price": 760,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "PEEL_PRECISION_1",
+                "name": "Precision + Peptides Facial Peel (1 tx)",
+                "reg_price": 350,
+                "glam_price": 280
+              },
+              {
+                "sku": "PEEL_PRECISION_3",
+                "name": "Precision + Peptides Facial Peel (3 tx)",
+                "reg_price": 950,
+                "glam_price": 760,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "PEEL_BODY_1",
+                "name": "Body Peel (1 tx)",
+                "reg_price": 450,
+                "glam_price": 360
+              },
+              {
+                "sku": "PEEL_BODY_3",
+                "name": "Body Peel (3 tx)",
+                "reg_price": 1215,
+                "glam_price": 972,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              }
+            ]
+          },
+          {
+            "id": "microneedling",
+            "label": "Microneedling",
+            "items": [
+              {
+                "sku": "MORPH_PERIORAL",
+                "name": "Morpheus8 Perioral or Eye (3 tx)",
+                "reg_price": 1750,
+                "glam_price": 1400,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "MORPH_FACE_NECK_1",
+                "name": "Morpheus8 Face + Neck (1 tx)",
+                "reg_price": 1250,
+                "glam_price": 1000
+              },
+              {
+                "sku": "MORPH_FACE_NECK_3",
+                "name": "Morpheus8 Face + Neck (3 tx)",
+                "reg_price": 3500,
+                "glam_price": 2800,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "MORPH_BODY_SMALL",
+                "name": "Morpheus8 Body - Small Area (3 tx)",
+                "reg_price": 3500,
+                "glam_price": 2800,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "MORPH_BODY_LARGE",
+                "name": "Morpheus8 Body - Large Area (3 tx)",
+                "reg_price": 4500,
+                "glam_price": 3600,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "SKINPEN_1",
+                "name": "SkinPen Microneedling Face + Neck (1 tx)",
+                "reg_price": 450,
+                "glam_price": 360
+              },
+              {
+                "sku": "SKINPEN_3",
+                "name": "SkinPen Microneedling Face + Neck (3 tx)",
+                "reg_price": 1275,
+                "glam_price": 1020,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "SKINPEN_ARIESSENCE_ADDON",
+                "name": "Add Ariessence To SkinPen",
+                "glam_price": 400
+              }
+            ]
+          },
+          {
+            "id": "clear_brilliant",
+            "label": "Clear + Brilliant",
+            "items": [
+              {
+                "sku": "CB_CLASSIC_1",
+                "name": "Classic - 1 wavelength (1 tx)",
+                "reg_price": 350,
+                "glam_price": 280
+              },
+              {
+                "sku": "CB_CLASSIC_6",
+                "name": "Classic - 1 wavelength (6 tx)",
+                "reg_price": 1800,
+                "glam_price": 1440,
+                "redemption_units": 6,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "CB_DUO_1",
+                "name": "Duo - 2 wavelengths (1 tx)",
+                "reg_price": 450,
+                "glam_price": 360
+              },
+              {
+                "sku": "CB_DUO_6",
+                "name": "Duo - 2 wavelengths (6 tx)",
+                "reg_price": 2700,
+                "glam_price": 2160,
+                "redemption_units": 6,
+                "redemption_unit_label": "treatment"
+              }
+            ]
+          },
+          {
+            "id": "misc_lasers_p2",
+            "label": "Misc Laser Treatments",
+            "items": [
+              {
+                "sku": "IPL_FACE_1",
+                "name": "IPL Face (1 tx)",
+                "reg_price": 450,
+                "glam_price": 360
+              },
+              {
+                "sku": "IPL_FACE_3",
+                "name": "IPL Face (3 tx)",
+                "reg_price": 1200,
+                "glam_price": 960,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "IPL_FNC_1",
+                "name": "IPL Face + Neck + Chest (1 tx)",
+                "reg_price": 650,
+                "glam_price": 520
+              },
+              {
+                "sku": "IPL_FNC_3",
+                "name": "IPL Face + Neck + Chest (3 tx)",
+                "reg_price": 1750,
+                "glam_price": 1400,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "IPL_HANDS_3",
+                "name": "IPL Hands (3 tx)",
+                "reg_price": 600,
+                "glam_price": 480,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "DERMA_V_FACE_1",
+                "name": "DermaV Face (1 tx)",
+                "reg_price": 450,
+                "glam_price": 360
+              },
+              {
+                "sku": "DERMA_V_FACE_3",
+                "name": "DermaV Face (3 tx)",
+                "reg_price": 1200,
+                "glam_price": 960,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "PICOSURE_1",
+                "name": "Picosure Focus Array (1 tx)",
+                "reg_price": 500,
+                "glam_price": 400
+              },
+              {
+                "sku": "PICOSURE_3",
+                "name": "Picosure Focus Array (3 tx)",
+                "reg_price": 1400,
+                "glam_price": 1120,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "VOTIVA_RENJUV",
+                "name": "Votiva Vaginal Rejuvenation",
+                "reg_price": 3000,
+                "glam_price": 2400
+              },
+              {
+                "sku": "VOTIVA_MAINT",
+                "name": "Votiva Maintenance",
+                "glam_price": 800
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "lasers",
+        "label": "Lasers + Hair Removal",
+        "page": 3,
+        "groups": [
+          {
+            "id": "ultraclear",
+            "label": "UltraClear",
+            "subtitle": "Customized laser skin rejuvenation",
+            "items": [
+              {
+                "sku": "UC_FACE_NECK_LIGHT_1",
+                "name": "3DMiracl Face + Neck (Light, 1 tx)",
+                "reg_price": 900,
+                "glam_price": 720
+              },
+              {
+                "sku": "UC_FACE_NECK_LIGHT_3",
+                "name": "3DMiracl Face + Neck (Light, 3 tx)",
+                "reg_price": 2400,
+                "glam_price": 1920,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "UC_FACE_NECK_LIGHT_6",
+                "name": "3DMiracl Face + Neck (Light, 6 tx)",
+                "reg_price": 3900,
+                "glam_price": 3120,
+                "redemption_units": 6,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "UC_HANDS_LIGHT_3",
+                "name": "Hands (Light, 3 tx)",
+                "glam_price": 480,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "UC_FACE_NECK_MOD_1",
+                "name": "Customized Face + Neck (Moderate, 1 tx)",
+                "reg_price": 1300,
+                "glam_price": 1040
+              },
+              {
+                "sku": "UC_FACE_NECK_MOD_3",
+                "name": "Customized Face + Neck (Moderate, 3 tx)",
+                "reg_price": 3450,
+                "glam_price": 2760,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "UC_FACE_NECK_MORPH_MOD_1",
+                "name": "Customized Face + Neck w/ Morpheus8 (Moderate, 1 tx)",
+                "reg_price": 1900,
+                "glam_price": 1520
+              },
+              {
+                "sku": "UC_FACE_NECK_MORPH_MOD_3",
+                "name": "Customized Face + Neck w/ Morpheus8 (Moderate, 3 tx)",
+                "reg_price": 5400,
+                "glam_price": 4320,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "UC_PLUS_FACE_DEEP",
+                "name": "Plus Face (Deep, 1 tx)",
+                "reg_price": 3100,
+                "glam_price": 2480
+              },
+              {
+                "sku": "UC_PLUS_FACE_MORPH_DEEP",
+                "name": "Plus Face w/ Morpheus8 (Deep, 1 tx)",
+                "reg_price": 4750,
+                "glam_price": 3800
+              },
+              {
+                "sku": "UC_PLUS_FACE_NECK_DEEP",
+                "name": "Plus Face + Neck (Deep, 1 tx)",
+                "reg_price": 4100,
+                "glam_price": 3280
+              },
+              {
+                "sku": "UC_PLUS_FACE_NECK_MORPH_DEEP",
+                "name": "Plus Face + Neck w/ Morpheus8 (Deep, 1 tx)",
+                "reg_price": 5750,
+                "glam_price": 4600
+              },
+              {
+                "sku": "UC_ULT_FACE_LASER_MAX",
+                "name": "Ultimate Face w/ Laser Core (Maximum, 1 tx)",
+                "reg_price": 4000,
+                "glam_price": 3200
+              },
+              {
+                "sku": "UC_ULT_FACE_NECK_LASER_MAX",
+                "name": "Ultimate Face + Neck w/ Laser Core (Maximum, 1 tx)",
+                "reg_price": 5500,
+                "glam_price": 4400
+              },
+              {
+                "sku": "UC_MADONNA_EYE_DEEP",
+                "name": "Madonna Eye Renewal Max (Deep, 3 tx)",
+                "reg_price": 2750,
+                "glam_price": 2200,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "UC_PERIORAL_DEEP",
+                "name": "Perioral Max (Deep, 3 tx)",
+                "reg_price": 2750,
+                "glam_price": 2200,
+                "redemption_units": 3,
+                "redemption_unit_label": "treatment"
+              }
+            ]
+          },
+          {
+            "id": "laser_hair_removal",
+            "label": "Laser Hair Removal (4 tx packages)",
+            "items": [
+              {
+                "sku": "LHR_UNDERARMS",
+                "name": "Underarms (4 tx)",
+                "reg_price": 1500,
+                "glam_price": 1200,
+                "redemption_units": 4,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "LHR_BIKINI",
+                "name": "Bikini/Brazilian (4 tx)",
+                "reg_price": 1700,
+                "glam_price": 1360,
+                "redemption_units": 4,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "LHR_LEGS_FULL",
+                "name": "Legs - Full (4 tx)",
+                "reg_price": 4200,
+                "glam_price": 3360,
+                "redemption_units": 4,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "LHR_LEGS_HALF",
+                "name": "Legs - Half (4 tx)",
+                "reg_price": 2200,
+                "glam_price": 1780,
+                "redemption_units": 4,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "LHR_BACK",
+                "name": "Back (4 tx)",
+                "reg_price": 4200,
+                "glam_price": 3360,
+                "redemption_units": 4,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "LHR_LIP_OR_CHIN",
+                "name": "Lip or Chin (4 tx)",
+                "reg_price": 600,
+                "glam_price": 480,
+                "redemption_units": 4,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "LHR_LIP_AND_CHIN",
+                "name": "Lip + Chin (4 tx)",
+                "reg_price": 1200,
+                "glam_price": 960,
+                "redemption_units": 4,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "LHR_FULL_FACE",
+                "name": "Full Face (4 tx)",
+                "reg_price": 1500,
+                "glam_price": 1200,
+                "redemption_units": 4,
+                "redemption_unit_label": "treatment"
+              }
+            ]
+          },
+          {
+            "id": "quantumrf",
+            "label": "QuantumRF",
+            "subtitle": "1 tx QuantumRF + 3 tx Morpheus8 Burst Deep",
+            "items": [
+              {
+                "sku": "QRF_FACE_OR_NECK",
+                "name": "QuantumRF Face or Neck",
+                "reg_price": 4250,
+                "glam_price": 3750
+              },
+              {
+                "sku": "QRF_FACE_AND_NECK",
+                "name": "QuantumRF Face + Neck",
+                "reg_price": 7000,
+                "glam_price": 6500
+              },
+              {
+                "sku": "QRF_ARMS",
+                "name": "QuantumRF Arms",
+                "reg_price": 6750,
+                "glam_price": 6000
+              },
+              {
+                "sku": "QRF_INNER_OR_OUTER_THIGHS",
+                "name": "QuantumRF Inner or Outer Thighs",
+                "reg_price": 6000,
+                "glam_price": 5250
+              },
+              {
+                "sku": "QRF_INNER_AND_OUTER_THIGHS",
+                "name": "QuantumRF Inner + Outer Thighs",
+                "reg_price": 8500,
+                "glam_price": 7750
+              },
+              {
+                "sku": "QRF_KNEES",
+                "name": "QuantumRF Knees",
+                "reg_price": 4700,
+                "glam_price": 3950
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "contouring",
+        "label": "Body & Face Contouring + Hair Restoration",
+        "page": 4,
+        "groups": [
+          {
+            "id": "hair_restoration",
+            "label": "Hair Restoration (Alma TED)",
+            "items": [
+              {
+                "sku": "ATED_MAINT",
+                "name": "Alma TED Hair Restoration - Maintenance (1 tx)",
+                "glam_price": 800,
+                "note": "Must complete a treatment series before purchasing maintenance"
+              },
+              {
+                "sku": "ATED_4TX",
+                "name": "Alma TED Hair Restoration (4 tx)",
+                "reg_price": 3200,
+                "glam_price": 2700,
+                "redemption_units": 4,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "ATED_ARIESSENCE_4TX",
+                "name": "Alma TED Hair Restoration w/ Ariessence (4 tx)",
+                "reg_price": 1200,
+                "glam_price": 1000,
+                "redemption_units": 4,
+                "redemption_unit_label": "treatment"
+              }
+            ]
+          },
+          {
+            "id": "bodytite",
+            "label": "BodyTite MAX",
+            "subtitle": "1 tx BodyTite + 3 tx Morpheus8 Burst Deep",
+            "items": [
+              {
+                "sku": "BT_ABDOMEN",
+                "name": "BodyTite Abdomen",
+                "reg_price": 6250,
+                "glam_price": 5500
+              },
+              {
+                "sku": "BT_EXT_ABDOMEN",
+                "name": "BodyTite Ext. Abdomen",
+                "reg_price": 7750,
+                "glam_price": 7000
+              },
+              {
+                "sku": "BT_LOVE_HANDLES",
+                "name": "BodyTite Love Handles",
+                "reg_price": 6250,
+                "glam_price": 5500
+              },
+              {
+                "sku": "BT_INNER_OR_OUTER_THIGHS",
+                "name": "BodyTite Inner or Outer Thighs",
+                "reg_price": 6250,
+                "glam_price": 5500
+              },
+              {
+                "sku": "BT_INNER_AND_OUTER_THIGHS",
+                "name": "BodyTite Inner + Outer Thighs",
+                "reg_price": 9000,
+                "glam_price": 8250
+              },
+              {
+                "sku": "BT_ARMS",
+                "name": "BodyTite Arms",
+                "reg_price": 7750,
+                "glam_price": 7000
+              },
+              {
+                "sku": "BT_BACK",
+                "name": "BodyTite Back",
+                "reg_price": 6250,
+                "glam_price": 5500
+              },
+              {
+                "sku": "BT_EXT_BACK_LOVE_HANDLES",
+                "name": "BodyTite Ext. Back + Love Handles",
+                "reg_price": 8000,
+                "glam_price": 7250
+              }
+            ]
+          },
+          {
+            "id": "evolvex",
+            "label": "Evolve Transform (6 tx)",
+            "items": [
+              {
+                "sku": "EVOLVE_1AREA",
+                "name": "Evolve Transform - One Area (6 tx)",
+                "reg_price": 2500,
+                "glam_price": 2000,
+                "redemption_units": 6,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "EVOLVE_2AREAS",
+                "name": "Evolve Transform - Two Areas (6 tx)",
+                "reg_price": 3250,
+                "glam_price": 2600,
+                "redemption_units": 6,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "EVOLVE_3AREAS",
+                "name": "Evolve Transform - Three Areas (6 tx)",
+                "reg_price": 4000,
+                "glam_price": 3200,
+                "redemption_units": 6,
+                "redemption_unit_label": "treatment"
+              }
+            ]
+          },
+          {
+            "id": "facetite",
+            "label": "FaceTite MAX",
+            "subtitle": "1 tx FaceTite + 3 tx Morpheus8 Burst Deep",
+            "items": [
+              {
+                "sku": "FT_FACE_OR_NECK",
+                "name": "FaceTite Face or Neck",
+                "reg_price": 4500,
+                "glam_price": 4000
+              },
+              {
+                "sku": "FT_FACE_AND_NECK",
+                "name": "FaceTite Face + Neck",
+                "reg_price": 6750,
+                "glam_price": 6250
+              }
+            ]
+          },
+          {
+            "id": "define",
+            "label": "Define (6 tx)",
+            "items": [
+              {
+                "sku": "DEFINE_CHIN_OR_CHEEK",
+                "name": "Chin or Cheek (6 tx)",
+                "reg_price": 2500,
+                "glam_price": 2000,
+                "redemption_units": 6,
+                "redemption_unit_label": "treatment"
+              },
+              {
+                "sku": "DEFINE_CHIN_AND_CHEEK",
+                "name": "Chin + Cheek (6 tx)",
+                "reg_price": 4000,
+                "glam_price": 3200,
+                "redemption_units": 6,
+                "redemption_unit_label": "treatment"
+              }
+            ]
+          },
+          {
+            "id": "ultherapy",
+            "label": "Ultherapy Prime",
+            "items": [
+              {
+                "sku": "ULT_FULL_FACE",
+                "name": "Full Face (1 tx)",
+                "reg_price": 3700,
+                "glam_price": 2960
+              },
+              {
+                "sku": "ULT_FULL_FACE_NECK",
+                "name": "Full Face + Neck (1 tx)",
+                "reg_price": 4200,
+                "glam_price": 3360
+              },
+              {
+                "sku": "ULT_LOWER_FACE",
+                "name": "Lower Face (1 tx)",
+                "reg_price": 2700,
+                "glam_price": 2160
+              },
+              {
+                "sku": "ULT_LOWER_FACE_NECK",
+                "name": "Lower Face + Neck (1 tx)",
+                "reg_price": 3700,
+                "glam_price": 2960
+              },
+              {
+                "sku": "ULT_BROW",
+                "name": "Brow (1 tx)",
+                "reg_price": 600,
+                "glam_price": 480
+              },
+              {
+                "sku": "ULT_NECK_OR_CHEST",
+                "name": "Neck or Chest (1 tx)",
+                "reg_price": 1500,
+                "glam_price": 1200
+              },
+              {
+                "sku": "ULT_CHIN_STRAP",
+                "name": "Chin Strap (Jawline) (1 tx)",
+                "reg_price": 1200,
+                "glam_price": 960
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "_total_skus": 129
+  },
+  "events": [
+    {
+      "id": "glammiversary",
+      "name": "Glammiversary",
+      "cadence": "annual",
+      "typical_month": 11,
+      "redemption_window_months": 12,
+      "rollover_policy": "credit-to-next-event",
+      "rollover_target_event_id": "botox_bingo"
+    },
+    {
+      "id": "botox_bingo",
+      "name": "Botox & Bingo",
+      "cadence": "annual",
+      "typical_month": 4,
+      "redemption_window_months": 6,
+      "rollover_policy": "credit-to-next-event",
+      "rollover_target_event_id": "glammiversary"
+    }
+  ],
+  "bonus_rules": [
+    {
+      "id": "kathy-injectables",
+      "provider_id": "kathy",
+      "applies_to_categories": [
+        "injectables"
+      ],
+      "bonus_pct": 10.0,
+      "trigger": "on-redemption",
+      "note": "Bonus paid only when service is delivered, not at sale (per Jake intake)"
+    },
+    {
+      "id": "mary-lasers-treatments",
+      "provider_id": "mary",
+      "applies_to_categories": [
+        "lasers",
+        "treatments"
+      ],
+      "bonus_pct": 10.0,
+      "trigger": "on-redemption"
+    }
+  ],
+  "alert_rules": [
+    {
+      "id": "deadline-approaching-90d",
+      "name": "Deadline approaching (90 days)",
+      "condition": "outstanding_value > 0 AND days_to_deadline <= 90 AND days_to_deadline > 30",
+      "channel": "email",
+      "template": "deadline-soft-reminder"
+    },
+    {
+      "id": "deadline-urgent-30d",
+      "name": "Deadline urgent (30 days)",
+      "condition": "outstanding_value > 0 AND days_to_deadline <= 30",
+      "channel": "email",
+      "template": "deadline-urgent"
+    },
+    {
+      "id": "behind-schedule-50pct",
+      "name": "Behind schedule (50% time, <30% redeemed)",
+      "condition": "elapsed_pct >= 0.5 AND redeemed_pct < 0.3",
+      "channel": "email",
+      "template": "behind-schedule-nudge"
+    }
+  ],
+  "csv_import_mappings": {
+    "modmed_treatment_export": {
+      "description": "ModMed treatment notes export \u2014 daily CSV from ModMed PM",
+      "format": "csv",
+      "expected_columns": [
+        "patient_id",
+        "patient_name",
+        "appointment_id",
+        "service_date",
+        "provider_name",
+        "cpt_code",
+        "cpt_modifiers",
+        "procedure_description",
+        "quantity",
+        "amount"
+      ],
+      "match_strategy": "patient_id + appointment_id + service_date + cpt_code \u2192 match against outstanding package units; if cpt_code unmapped, fallback to procedure_description keyword match \u2192 human review queue",
+      "cadence": "daily export at end-of-day",
+      "delivery": "Phase 0: Tawny exports CSV from ModMed and emails it. Tier 2: scheduled SFTP / direct API."
+    },
+    "cpt_to_sku": {
+      "J0585": "BOTOX_UNIT",
+      "J0586": "BOTOX_UNIT",
+      "J0588": "DYSPORT_UNIT",
+      "Q2026": "JUVE_VOLUMA",
+      "Q2028": "SCULPTRA_VIAL",
+      "DOPPELT_HA_PKG_4": "HA_PKG_4",
+      "DOPPELT_HA_PKG_5": "HA_PKG_5",
+      "DOPPELT_HA_PKG_6": "HA_PKG_6",
+      "0489T": "MORPH_FACE_NECK_3",
+      "0490T": "MORPH_BODY_LARGE",
+      "17380": "LHR_UNDERARMS",
+      "17110": "PEEL_ORIG_1",
+      "DOPPELT_DIAMOND_GLOW": "DIAMOND_GLOW_1",
+      "DOPPELT_HYDRAFACIAL": "HYDRAFACIAL_1",
+      "17999": "IPL_FACE_1",
+      "0648T": "FT_FACE_OR_NECK",
+      "17106": "UC_FACE_NECK_LIGHT_1",
+      "0312T": "ULT_FULL_FACE"
+    },
+    "_mapping_note": "Codes here are illustrative. Real practice mapping is built during Tier 1 diagnostic \u2014 Tawny + Jake walk through last 30 days of completed event-package treatments and we map their actual ModMed codes to SKUs. ~50 codes typically cover 95% of volume."
+  },
+  "sample_data": {
+    "currentEventId": "botox_bingo_2025",
+    "currentOrder": null,
+    "events": {
+      "glammiversary_2024": {
+        "id": "glammiversary_2024",
+        "name": "Glammiversary 2024",
+        "date": "2024-11-07",
+        "deadline": "2025-10-31"
+      },
+      "botox_bingo_2025": {
+        "id": "botox_bingo_2025",
+        "name": "Botox & Bingo 2025",
+        "date": "2025-04-17",
+        "deadline": "2025-10-31"
+      }
+    },
+    "customers": {
+      "cust_01": {
+        "id": "cust_01",
+        "name": "Ashley Whitfield",
+        "phone": "865-555-2184",
+        "email": "ashley.whitfield@gmail.com",
+        "createdAt": "2024-11-07T11:00:00Z"
+      },
+      "cust_02": {
+        "id": "cust_02",
+        "name": "Megan Hartley",
+        "phone": "865-555-3091",
+        "email": "megan.hartley@yahoo.com",
+        "createdAt": "2024-11-07T11:20:00Z"
+      },
+      "cust_03": {
+        "id": "cust_03",
+        "name": "Lauren Caldwell",
+        "phone": "865-555-4127",
+        "email": "lcaldwell@outlook.com",
+        "createdAt": "2024-11-07T12:00:00Z"
+      },
+      "cust_04": {
+        "id": "cust_04",
+        "name": "Brittany Sizemore",
+        "phone": "865-555-5533",
+        "email": "brittany.s@icloud.com",
+        "createdAt": "2024-11-07T13:15:00Z"
+      },
+      "cust_05": {
+        "id": "cust_05",
+        "name": "Stephanie Raines",
+        "phone": "865-555-6290",
+        "email": "steph.raines@gmail.com",
+        "createdAt": "2024-11-07T14:00:00Z"
+      },
+      "cust_06": {
+        "id": "cust_06",
+        "name": "Courtney Dawson",
+        "phone": "865-555-7418",
+        "email": "cdawson77@gmail.com",
+        "createdAt": "2025-04-17T10:30:00Z"
+      },
+      "cust_07": {
+        "id": "cust_07",
+        "name": "Jennifer Tipton",
+        "phone": "865-555-8862",
+        "email": "jtipton@bellsouth.net",
+        "createdAt": "2025-04-17T11:00:00Z"
+      },
+      "cust_08": {
+        "id": "cust_08",
+        "name": "Kelly Underwood",
+        "phone": "865-555-9103",
+        "email": "kellyunderwood@gmail.com",
+        "createdAt": "2025-04-17T11:30:00Z"
+      },
+      "cust_09": {
+        "id": "cust_09",
+        "name": "Amanda Strickland",
+        "phone": "865-555-0247",
+        "email": "amanda.strickland@me.com",
+        "createdAt": "2025-04-17T12:00:00Z"
+      },
+      "cust_10": {
+        "id": "cust_10",
+        "name": "Christina Parton",
+        "phone": "865-555-1389",
+        "email": "cparton@knoxvilletn.gov",
+        "createdAt": "2025-04-17T12:45:00Z"
+      },
+      "cust_11": {
+        "id": "cust_11",
+        "name": "Rachel Hensley",
+        "phone": "865-555-2956",
+        "email": "rachel.hensley@gmail.com",
+        "createdAt": "2025-04-17T13:15:00Z"
+      },
+      "cust_12": {
+        "id": "cust_12",
+        "name": "Heather Maynard",
+        "phone": "865-555-3711",
+        "email": "heather.m@yahoo.com",
+        "createdAt": "2024-11-07T15:00:00Z"
+      },
+      "cust_13": {
+        "id": "cust_13",
+        "name": "Kimberly Foust",
+        "phone": "865-555-4082",
+        "email": "kfoust@gmail.com",
+        "createdAt": "2025-04-17T14:00:00Z"
+      },
+      "cust_14": {
+        "id": "cust_14",
+        "name": "Rebecca Lawson",
+        "phone": "865-555-5590",
+        "email": "rlawson@comcast.net",
+        "createdAt": "2024-11-07T16:00:00Z"
+      },
+      "cust_15": {
+        "id": "cust_15",
+        "name": "Tiffany Blair",
+        "phone": "865-555-6834",
+        "email": "tiffanyblair@icloud.com",
+        "createdAt": "2025-04-17T14:30:00Z"
+      }
+    },
+    "orders": {
+      "ord_01_2024": {
+        "id": "ord_01_2024",
+        "customerId": "cust_01",
+        "eventId": "glammiversary_2024",
+        "createdAt": "2024-11-07T11:05:00Z",
+        "subtotal": 3200,
+        "paymentMethod": "cc",
+        "paymentRef": "7291",
+        "deadline": "2025-10-31",
+        "lines": [
+          {
+            "sku": "HA_PKG_5",
+            "name": "5 Syringes Filler",
+            "qty": 1,
+            "unitPrice": 3200,
+            "lineTotal": 3200,
+            "category": "injectables",
+            "redemptionUnitsTotal": 5,
+            "redemptionUnitLabel": "syringe"
+          }
+        ]
+      },
+      "ord_02_2024": {
+        "id": "ord_02_2024",
+        "customerId": "cust_02",
+        "eventId": "glammiversary_2024",
+        "createdAt": "2024-11-07T11:25:00Z",
+        "subtotal": 4320,
+        "paymentMethod": "cc",
+        "paymentRef": "3845",
+        "deadline": "2025-10-31",
+        "lines": [
+          {
+            "sku": "MORPH_FACE_NECK_3",
+            "name": "Morpheus8 Face + Neck (3 tx)",
+            "qty": 1,
+            "unitPrice": 4320,
+            "lineTotal": 4320,
+            "category": "lasers",
+            "redemptionUnitsTotal": 3,
+            "redemptionUnitLabel": "treatment"
+          }
+        ]
+      },
+      "ord_03_2024": {
+        "id": "ord_03_2024",
+        "customerId": "cust_03",
+        "eventId": "glammiversary_2024",
+        "createdAt": "2024-11-07T12:10:00Z",
+        "subtotal": 5580,
+        "paymentMethod": "cc",
+        "paymentRef": "8102",
+        "deadline": "2025-10-31",
+        "lines": [
+          {
+            "sku": "UC_FACE_NECK_MOD_3",
+            "name": "UltraClear Face + Neck Moderate (3 tx)",
+            "qty": 1,
+            "unitPrice": 4320,
+            "lineTotal": 4320,
+            "category": "lasers",
+            "redemptionUnitsTotal": 3,
+            "redemptionUnitLabel": "treatment"
+          },
+          {
+            "sku": "SCULPTRA_VIAL",
+            "name": "Sculptra (per vial)",
+            "qty": 2,
+            "unitPrice": 630,
+            "lineTotal": 1260,
+            "category": "injectables",
+            "redemptionUnitsTotal": 2,
+            "redemptionUnitLabel": "vial"
+          }
+        ]
+      },
+      "ord_04_2024": {
+        "id": "ord_04_2024",
+        "customerId": "cust_04",
+        "eventId": "glammiversary_2024",
+        "createdAt": "2024-11-07T13:20:00Z",
+        "subtotal": 880,
+        "paymentMethod": "cc",
+        "paymentRef": "5503",
+        "deadline": "2025-10-31",
+        "lines": [
+          {
+            "sku": "HYDRAFACIAL_6",
+            "name": "HydraFacial (6 tx)",
+            "qty": 1,
+            "unitPrice": 880,
+            "lineTotal": 880,
+            "category": "treatments",
+            "redemptionUnitsTotal": 6,
+            "redemptionUnitLabel": "treatment"
+          }
+        ]
+      },
+      "ord_05_2024": {
+        "id": "ord_05_2024",
+        "customerId": "cust_05",
+        "eventId": "glammiversary_2024",
+        "createdAt": "2024-11-07T14:10:00Z",
+        "subtotal": 2700,
+        "paymentMethod": "cc",
+        "paymentRef": "9214",
+        "deadline": "2025-10-31",
+        "lines": [
+          {
+            "sku": "HA_PKG_4",
+            "name": "4 Syringes Filler",
+            "qty": 1,
+            "unitPrice": 2700,
+            "lineTotal": 2700,
+            "category": "injectables",
+            "redemptionUnitsTotal": 4,
+            "redemptionUnitLabel": "syringe"
+          }
+        ]
+      },
+      "ord_12_2024": {
+        "id": "ord_12_2024",
+        "customerId": "cust_12",
+        "eventId": "glammiversary_2024",
+        "createdAt": "2024-11-07T15:05:00Z",
+        "subtotal": 1440,
+        "paymentMethod": "cc",
+        "paymentRef": "6618",
+        "deadline": "2025-10-31",
+        "lines": [
+          {
+            "sku": "BOTOX_UNIT",
+            "name": "Botox",
+            "qty": 80,
+            "unitPrice": 11,
+            "lineTotal": 880,
+            "category": "injectables",
+            "redemptionUnitsTotal": 80,
+            "redemptionUnitLabel": "unit"
+          },
+          {
+            "sku": "SKINPEN_3",
+            "name": "SkinPen (3 tx)",
+            "qty": 1,
+            "unitPrice": 560,
+            "lineTotal": 560,
+            "category": "treatments",
+            "redemptionUnitsTotal": 3,
+            "redemptionUnitLabel": "treatment"
+          }
+        ]
+      },
+      "ord_14_2024": {
+        "id": "ord_14_2024",
+        "customerId": "cust_14",
+        "eventId": "glammiversary_2024",
+        "createdAt": "2024-11-07T16:10:00Z",
+        "subtotal": 3120,
+        "paymentMethod": "cc",
+        "paymentRef": "2270",
+        "deadline": "2025-10-31",
+        "lines": [
+          {
+            "sku": "FT_FACE_AND_NECK",
+            "name": "FaceTite Face + Neck",
+            "qty": 1,
+            "unitPrice": 3120,
+            "lineTotal": 3120,
+            "category": "body",
+            "redemptionUnitsTotal": 1,
+            "redemptionUnitLabel": "treatment"
+          }
+        ]
+      },
+      "ord_06_2025": {
+        "id": "ord_06_2025",
+        "customerId": "cust_06",
+        "eventId": "botox_bingo_2025",
+        "createdAt": "2025-04-17T10:35:00Z",
+        "subtotal": 4000,
+        "paymentMethod": "cc",
+        "paymentRef": "4401",
+        "deadline": "2026-10-31",
+        "lines": [
+          {
+            "sku": "HA_PKG_6",
+            "name": "6 Syringes Filler",
+            "qty": 1,
+            "unitPrice": 4000,
+            "lineTotal": 4000,
+            "category": "injectables",
+            "redemptionUnitsTotal": 6,
+            "redemptionUnitLabel": "syringe"
+          }
+        ]
+      },
+      "ord_07_2025": {
+        "id": "ord_07_2025",
+        "customerId": "cust_07",
+        "eventId": "botox_bingo_2025",
+        "createdAt": "2025-04-17T11:05:00Z",
+        "subtotal": 3060,
+        "paymentMethod": "cc",
+        "paymentRef": "8823",
+        "deadline": "2026-10-31",
+        "lines": [
+          {
+            "sku": "JUVE_VOLUMA",
+            "name": "Juvederm Voluma",
+            "qty": 2,
+            "unitPrice": 760,
+            "lineTotal": 1520,
+            "category": "injectables",
+            "redemptionUnitsTotal": 2,
+            "redemptionUnitLabel": "syringe"
+          },
+          {
+            "sku": "BOTOX_UNIT",
+            "name": "Botox",
+            "qty": 60,
+            "unitPrice": 11,
+            "lineTotal": 660,
+            "category": "injectables",
+            "redemptionUnitsTotal": 60,
+            "redemptionUnitLabel": "unit"
+          },
+          {
+            "sku": "DIAMOND_GLOW_6",
+            "name": "DiamondGlow (6 tx)",
+            "qty": 1,
+            "unitPrice": 880,
+            "lineTotal": 880,
+            "category": "treatments",
+            "redemptionUnitsTotal": 6,
+            "redemptionUnitLabel": "treatment"
+          }
+        ]
+      },
+      "ord_08_2025": {
+        "id": "ord_08_2025",
+        "customerId": "cust_08",
+        "eventId": "botox_bingo_2025",
+        "createdAt": "2025-04-17T11:35:00Z",
+        "subtotal": 5040,
+        "paymentMethod": "cc",
+        "paymentRef": "1156",
+        "deadline": "2026-10-31",
+        "lines": [
+          {
+            "sku": "BIO_FACE_SCULPTRA_2",
+            "name": "Sculptra Face (2 vials)",
+            "qty": 1,
+            "unitPrice": 1440,
+            "lineTotal": 1440,
+            "category": "injectables",
+            "redemptionUnitsTotal": 2,
+            "redemptionUnitLabel": "vial"
+          },
+          {
+            "sku": "MORPH_FACE_NECK_3",
+            "name": "Morpheus8 Face + Neck (3 tx)",
+            "qty": 1,
+            "unitPrice": 3600,
+            "lineTotal": 3600,
+            "category": "lasers",
+            "redemptionUnitsTotal": 3,
+            "redemptionUnitLabel": "treatment"
+          }
+        ]
+      },
+      "ord_09_2025": {
+        "id": "ord_09_2025",
+        "customerId": "cust_09",
+        "eventId": "botox_bingo_2025",
+        "createdAt": "2025-04-17T12:05:00Z",
+        "subtotal": 1920,
+        "paymentMethod": "cc",
+        "paymentRef": "7734",
+        "deadline": "2026-10-31",
+        "lines": [
+          {
+            "sku": "UC_FACE_NECK_LIGHT_3",
+            "name": "UltraClear Face + Neck Light (3 tx)",
+            "qty": 1,
+            "unitPrice": 1920,
+            "lineTotal": 1920,
+            "category": "lasers",
+            "redemptionUnitsTotal": 3,
+            "redemptionUnitLabel": "treatment"
+          }
+        ]
+      },
+      "ord_10_2025": {
+        "id": "ord_10_2025",
+        "customerId": "cust_10",
+        "eventId": "botox_bingo_2025",
+        "createdAt": "2025-04-17T12:50:00Z",
+        "subtotal": 2700,
+        "paymentMethod": "cc",
+        "paymentRef": "3390",
+        "deadline": "2026-10-31",
+        "lines": [
+          {
+            "sku": "HA_PKG_4",
+            "name": "4 Syringes Filler",
+            "qty": 1,
+            "unitPrice": 2700,
+            "lineTotal": 2700,
+            "category": "injectables",
+            "redemptionUnitsTotal": 4,
+            "redemptionUnitLabel": "syringe"
+          }
+        ]
+      },
+      "ord_11_2025": {
+        "id": "ord_11_2025",
+        "customerId": "cust_11",
+        "eventId": "botox_bingo_2025",
+        "createdAt": "2025-04-17T13:20:00Z",
+        "subtotal": 1560,
+        "paymentMethod": "cc",
+        "paymentRef": "5567",
+        "deadline": "2026-10-31",
+        "lines": [
+          {
+            "sku": "PEEL_ADV_3",
+            "name": "Advanced Peel (3 tx)",
+            "qty": 1,
+            "unitPrice": 680,
+            "lineTotal": 680,
+            "category": "treatments",
+            "redemptionUnitsTotal": 3,
+            "redemptionUnitLabel": "treatment"
+          },
+          {
+            "sku": "HYDRAFACIAL_6",
+            "name": "HydraFacial (6 tx)",
+            "qty": 1,
+            "unitPrice": 880,
+            "lineTotal": 880,
+            "category": "treatments",
+            "redemptionUnitsTotal": 6,
+            "redemptionUnitLabel": "treatment"
+          }
+        ]
+      },
+      "ord_13_2025": {
+        "id": "ord_13_2025",
+        "customerId": "cust_13",
+        "eventId": "botox_bingo_2025",
+        "createdAt": "2025-04-17T14:05:00Z",
+        "subtotal": 2080,
+        "paymentMethod": "cc",
+        "paymentRef": "9901",
+        "deadline": "2026-10-31",
+        "lines": [
+          {
+            "sku": "CB_DUO_6",
+            "name": "CoolSculpting Dual (6 cycles)",
+            "qty": 1,
+            "unitPrice": 2080,
+            "lineTotal": 2080,
+            "category": "body",
+            "redemptionUnitsTotal": 6,
+            "redemptionUnitLabel": "cycle"
+          }
+        ]
+      },
+      "ord_15_2025": {
+        "id": "ord_15_2025",
+        "customerId": "cust_15",
+        "eventId": "botox_bingo_2025",
+        "createdAt": "2025-04-17T14:35:00Z",
+        "subtotal": 1320,
+        "paymentMethod": "cc",
+        "paymentRef": "2248",
+        "deadline": "2026-10-31",
+        "lines": [
+          {
+            "sku": "IPL_FACE_3",
+            "name": "IPL Face (3 tx)",
+            "qty": 1,
+            "unitPrice": 640,
+            "lineTotal": 640,
+            "category": "lasers",
+            "redemptionUnitsTotal": 3,
+            "redemptionUnitLabel": "treatment"
+          },
+          {
+            "sku": "DERMAPLANE_6",
+            "name": "Dermaplaning (6 tx)",
+            "qty": 1,
+            "unitPrice": 680,
+            "lineTotal": 680,
+            "category": "treatments",
+            "redemptionUnitsTotal": 6,
+            "redemptionUnitLabel": "treatment"
+          }
+        ]
+      }
+    },
+    "redemptions": {
+      "red_01a": {
+        "id": "red_01a",
+        "customerId": "cust_01",
+        "orderId": "ord_01_2024",
+        "lineSku": "HA_PKG_5",
+        "providerId": "kathy",
+        "redeemedAt": "2024-11-15T10:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_01b": {
+        "id": "red_01b",
+        "customerId": "cust_01",
+        "orderId": "ord_01_2024",
+        "lineSku": "HA_PKG_5",
+        "providerId": "kathy",
+        "redeemedAt": "2025-02-08T14:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_01c": {
+        "id": "red_01c",
+        "customerId": "cust_01",
+        "orderId": "ord_01_2024",
+        "lineSku": "HA_PKG_5",
+        "providerId": "kathy",
+        "redeemedAt": "2025-06-20T11:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_02a": {
+        "id": "red_02a",
+        "customerId": "cust_02",
+        "orderId": "ord_02_2024",
+        "lineSku": "MORPH_FACE_NECK_3",
+        "providerId": "mary",
+        "redeemedAt": "2024-11-22T09:30:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_02b": {
+        "id": "red_02b",
+        "customerId": "cust_02",
+        "orderId": "ord_02_2024",
+        "lineSku": "MORPH_FACE_NECK_3",
+        "providerId": "mary",
+        "redeemedAt": "2025-01-17T15:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_02c": {
+        "id": "red_02c",
+        "customerId": "cust_02",
+        "orderId": "ord_02_2024",
+        "lineSku": "MORPH_FACE_NECK_3",
+        "providerId": "mary",
+        "redeemedAt": "2025-04-04T10:30:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_03a": {
+        "id": "red_03a",
+        "customerId": "cust_03",
+        "orderId": "ord_03_2024",
+        "lineSku": "UC_FACE_NECK_MOD_3",
+        "providerId": "mary",
+        "redeemedAt": "2024-12-06T14:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_03b": {
+        "id": "red_03b",
+        "customerId": "cust_03",
+        "orderId": "ord_03_2024",
+        "lineSku": "UC_FACE_NECK_MOD_3",
+        "providerId": "mary",
+        "redeemedAt": "2025-02-28T10:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_03c": {
+        "id": "red_03c",
+        "customerId": "cust_03",
+        "orderId": "ord_03_2024",
+        "lineSku": "UC_FACE_NECK_MOD_3",
+        "providerId": "mary",
+        "redeemedAt": "2025-05-16T16:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_03d": {
+        "id": "red_03d",
+        "customerId": "cust_03",
+        "orderId": "ord_03_2024",
+        "lineSku": "SCULPTRA_VIAL",
+        "providerId": "kathy",
+        "redeemedAt": "2025-03-14T11:30:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_04a": {
+        "id": "red_04a",
+        "customerId": "cust_04",
+        "orderId": "ord_04_2024",
+        "lineSku": "HYDRAFACIAL_6",
+        "providerId": "mary",
+        "redeemedAt": "2024-10-25T09:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_04b": {
+        "id": "red_04b",
+        "customerId": "cust_04",
+        "orderId": "ord_04_2024",
+        "lineSku": "HYDRAFACIAL_6",
+        "providerId": "mary",
+        "redeemedAt": "2024-11-29T09:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_04c": {
+        "id": "red_04c",
+        "customerId": "cust_04",
+        "orderId": "ord_04_2024",
+        "lineSku": "HYDRAFACIAL_6",
+        "providerId": "mary",
+        "redeemedAt": "2025-01-10T14:30:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_04d": {
+        "id": "red_04d",
+        "customerId": "cust_04",
+        "orderId": "ord_04_2024",
+        "lineSku": "HYDRAFACIAL_6",
+        "providerId": "mary",
+        "redeemedAt": "2025-03-07T09:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_04e": {
+        "id": "red_04e",
+        "customerId": "cust_04",
+        "orderId": "ord_04_2024",
+        "lineSku": "HYDRAFACIAL_6",
+        "providerId": "mary",
+        "redeemedAt": "2025-05-02T14:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_04f": {
+        "id": "red_04f",
+        "customerId": "cust_04",
+        "orderId": "ord_04_2024",
+        "lineSku": "HYDRAFACIAL_6",
+        "providerId": "mary",
+        "redeemedAt": "2025-07-11T10:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_05a": {
+        "id": "red_05a",
+        "customerId": "cust_05",
+        "orderId": "ord_05_2024",
+        "lineSku": "HA_PKG_4",
+        "providerId": "kathy",
+        "redeemedAt": "2025-01-24T15:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_05b": {
+        "id": "red_05b",
+        "customerId": "cust_05",
+        "orderId": "ord_05_2024",
+        "lineSku": "HA_PKG_4",
+        "providerId": "kathy",
+        "redeemedAt": "2025-05-09T11:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_12a": {
+        "id": "red_12a",
+        "customerId": "cust_12",
+        "orderId": "ord_12_2024",
+        "lineSku": "BOTOX_UNIT",
+        "providerId": "kathy",
+        "redeemedAt": "2024-12-13T10:00:00Z",
+        "unitsRedeemed": 40
+      },
+      "red_12b": {
+        "id": "red_12b",
+        "customerId": "cust_12",
+        "orderId": "ord_12_2024",
+        "lineSku": "BOTOX_UNIT",
+        "providerId": "kathy",
+        "redeemedAt": "2025-04-18T14:00:00Z",
+        "unitsRedeemed": 40
+      },
+      "red_12c": {
+        "id": "red_12c",
+        "customerId": "cust_12",
+        "orderId": "ord_12_2024",
+        "lineSku": "SKINPEN_3",
+        "providerId": "mary",
+        "redeemedAt": "2025-01-31T10:30:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_12d": {
+        "id": "red_12d",
+        "customerId": "cust_12",
+        "orderId": "ord_12_2024",
+        "lineSku": "SKINPEN_3",
+        "providerId": "mary",
+        "redeemedAt": "2025-05-23T16:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_14a": {
+        "id": "red_14a",
+        "customerId": "cust_14",
+        "orderId": "ord_14_2024",
+        "lineSku": "FT_FACE_AND_NECK",
+        "providerId": "matt",
+        "redeemedAt": "2024-11-08T08:30:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_06a": {
+        "id": "red_06a",
+        "customerId": "cust_06",
+        "orderId": "ord_06_2025",
+        "lineSku": "HA_PKG_6",
+        "providerId": "kathy",
+        "redeemedAt": "2025-11-14T10:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_06b": {
+        "id": "red_06b",
+        "customerId": "cust_06",
+        "orderId": "ord_06_2025",
+        "lineSku": "HA_PKG_6",
+        "providerId": "kathy",
+        "redeemedAt": "2026-02-07T15:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_07a": {
+        "id": "red_07a",
+        "customerId": "cust_07",
+        "orderId": "ord_07_2025",
+        "lineSku": "JUVE_VOLUMA",
+        "providerId": "kathy",
+        "redeemedAt": "2025-12-05T14:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_07b": {
+        "id": "red_07b",
+        "customerId": "cust_07",
+        "orderId": "ord_07_2025",
+        "lineSku": "BOTOX_UNIT",
+        "providerId": "kathy",
+        "redeemedAt": "2025-12-05T14:15:00Z",
+        "unitsRedeemed": 60
+      },
+      "red_07c": {
+        "id": "red_07c",
+        "customerId": "cust_07",
+        "orderId": "ord_07_2025",
+        "lineSku": "DIAMOND_GLOW_6",
+        "providerId": "mary",
+        "redeemedAt": "2025-11-21T09:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_07d": {
+        "id": "red_07d",
+        "customerId": "cust_07",
+        "orderId": "ord_07_2025",
+        "lineSku": "DIAMOND_GLOW_6",
+        "providerId": "mary",
+        "redeemedAt": "2026-01-16T09:30:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_08a": {
+        "id": "red_08a",
+        "customerId": "cust_08",
+        "orderId": "ord_08_2025",
+        "lineSku": "BIO_FACE_SCULPTRA_2",
+        "providerId": "kathy",
+        "redeemedAt": "2025-11-07T11:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_08b": {
+        "id": "red_08b",
+        "customerId": "cust_08",
+        "orderId": "ord_08_2025",
+        "lineSku": "MORPH_FACE_NECK_3",
+        "providerId": "mary",
+        "redeemedAt": "2025-12-19T15:30:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_09a": {
+        "id": "red_09a",
+        "customerId": "cust_09",
+        "orderId": "ord_09_2025",
+        "lineSku": "UC_FACE_NECK_LIGHT_3",
+        "providerId": "mary",
+        "redeemedAt": "2026-01-10T10:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_10a": {
+        "id": "red_10a",
+        "customerId": "cust_10",
+        "orderId": "ord_10_2025",
+        "lineSku": "HA_PKG_4",
+        "providerId": "kathy",
+        "redeemedAt": "2025-11-28T14:30:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_11a": {
+        "id": "red_11a",
+        "customerId": "cust_11",
+        "orderId": "ord_11_2025",
+        "lineSku": "PEEL_ADV_3",
+        "providerId": "mary",
+        "redeemedAt": "2025-11-14T16:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_11b": {
+        "id": "red_11b",
+        "customerId": "cust_11",
+        "orderId": "ord_11_2025",
+        "lineSku": "HYDRAFACIAL_6",
+        "providerId": "mary",
+        "redeemedAt": "2025-12-06T09:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_11c": {
+        "id": "red_11c",
+        "customerId": "cust_11",
+        "orderId": "ord_11_2025",
+        "lineSku": "HYDRAFACIAL_6",
+        "providerId": "mary",
+        "redeemedAt": "2026-02-14T09:30:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_15a": {
+        "id": "red_15a",
+        "customerId": "cust_15",
+        "orderId": "ord_15_2025",
+        "lineSku": "IPL_FACE_3",
+        "providerId": "mary",
+        "redeemedAt": "2025-11-21T14:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_15b": {
+        "id": "red_15b",
+        "customerId": "cust_15",
+        "orderId": "ord_15_2025",
+        "lineSku": "DERMAPLANE_6",
+        "providerId": "mary",
+        "redeemedAt": "2025-11-21T14:30:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_15c": {
+        "id": "red_15c",
+        "customerId": "cust_15",
+        "orderId": "ord_15_2025",
+        "lineSku": "DERMAPLANE_6",
+        "providerId": "mary",
+        "redeemedAt": "2026-01-09T10:00:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_13a": {
+        "id": "red_13a",
+        "customerId": "cust_13",
+        "orderId": "ord_13_2025",
+        "lineSku": "CB_DUO_6",
+        "providerId": "mary",
+        "redeemedAt": "2025-11-28T08:30:00Z",
+        "unitsRedeemed": 1
+      },
+      "red_13b": {
+        "id": "red_13b",
+        "customerId": "cust_13",
+        "orderId": "ord_13_2025",
+        "lineSku": "CB_DUO_6",
+        "providerId": "mary",
+        "redeemedAt": "2026-01-23T08:30:00Z",
+        "unitsRedeemed": 1
+      }
+    }
+  },
+  "brand_assets": {
+    "logo_url": null,
+    "email_from": "office@drdoppelt.com (placeholder \u2014 confirm with practice)",
+    "email_signature": "\u2014 Southeastern Dermatology"
+  },
+  "hipaa_scaffolding": {
+    "_note": "Tier 2 placeholder \u2014 audit log schema and compliance settings. Not active in Tier 1 demo.",
+    "audit_log_schema": {
+      "fields": [
+        "event_id",
+        "timestamp_utc",
+        "actor_user_id",
+        "actor_role",
+        "practice_id",
+        "event_type",
+        "action",
+        "resource_type",
+        "resource_id",
+        "patient_id_hash",
+        "ip_address",
+        "session_id",
+        "success",
+        "app_version"
+      ],
+      "event_types": [
+        "user_login",
+        "user_logout",
+        "failed_login",
+        "patient_view",
+        "patient_create",
+        "patient_edit",
+        "order_create",
+        "redemption_create",
+        "redemption_void",
+        "bonus_report_view",
+        "bonus_report_export",
+        "csv_import",
+        "csv_export",
+        "print_generate",
+        "config_change",
+        "role_change",
+        "audit_log_access"
+      ],
+      "retention_years": 6,
+      "immutable": true
+    },
+    "encryption": {
+      "at_rest": "AES-256",
+      "in_transit": "TLS-1.3",
+      "backup": "AES-256"
+    },
+    "sra_cadence": "annual",
+    "baa_template_path": "legal/baa-template.md"
+  }
+}
