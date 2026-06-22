@@ -603,3 +603,25 @@ footer::before{ content:""; position:absolute; top:0; left:10%; right:10%; heigh
   box-shadow:0 8px 20px -7px rgba(200,145,42,.6), inset 0 1px 0 rgba(255,255,255,.5); }
 .cc-mic svg{ width:20px; height:20px; }
 .cc-ask{ font-family:var(--disp); font-style:italic; font-size:clamp(15px,1.7vw,18px); color:var(--ink-soft); }
+
+/* ===== Site-wide frosted glass (R 2026-06-21) ===== */
+.pcard, .chat-shell, .asknorris, .intake-widget, .catalog-viz, .stat,
+.quote, .waitlist, .stack-row, .mini{
+  background:linear-gradient(168deg, rgba(28,52,88,.50), rgba(13,30,56,.36));
+  border-color:rgba(255,255,255,.10);
+  -webkit-backdrop-filter:blur(20px) saturate(150%);
+  backdrop-filter:blur(20px) saturate(150%);
+  box-shadow:0 24px 60px -26px rgba(0,0,0,.55), 0 0 48px rgba(252,208,74,.04),
+    inset 0 1px 0 rgba(255,255,255,.10), inset 0 -12px 26px -18px rgba(0,0,0,.26);
+}
+/* frosted sticky nav */
+.nav.scrolled{
+  background:rgba(7,18,34,.55);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);
+  backdrop-filter:blur(18px) saturate(160%);
+}
+/* chat bubbles: faint frost so they sit in the glass system */
+.msg.user, .msg.ai, .an-msg{
+  -webkit-backdrop-filter:blur(8px) saturate(140%);
+  backdrop-filter:blur(8px) saturate(140%);
+}
