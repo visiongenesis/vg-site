@@ -156,7 +156,7 @@
               <p class="msg-meta right">CUSTOMER · 11:47 PM</p>
               <div class="msg user">Do you do emergency water-heater replacement? How fast, and roughly what's it run?</div>
               <p class="msg-meta">THEIR AI · 11:47 PM</p>
-              <div class="msg ai">We do — same-day across most of the metro. A standard 50-gallon replacement typically runs <b>$1,450–$1,900</b> installed. Want me to hold a morning slot and have a firm quote in your inbox before you wake up?</div>
+              <div class="msg ai"><span class="ai-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="ai-text">We do — same-day across most of the metro. A standard 50-gallon replacement typically runs <b>$1,450–$1,900</b> installed. Want me to hold a morning slot and have a firm quote in your inbox before you wake up?</span></div>
               <p class="msg-meta right">CUSTOMER · 11:48 PM</p>
               <div class="msg user">Yes. Wow. Yes.</div>
             </div>
@@ -811,5 +811,32 @@
 })();
 </script>
 <div class="sticky-cta"><p><b>Give your business a brain.</b></p><a class="btn btn-gold btn-sm" href="#intake">Power it up</a></div>
+<script>
+(function(){
+  var shell=document.querySelector('.chat-shell'); if(!shell) return;
+  var body=shell.querySelector('.chat-body'); if(!body) return;
+  if(window.matchMedia && window.matchMedia('(prefers-reduced-motion:reduce)').matches) return;
+  body.classList.add('chat-anim');
+  var kids=Array.prototype.slice.call(body.children), ai=body.querySelector('.msg.ai'), played=false;
+  function rv(el){ if(el) el.classList.add('in'); }
+  function play(){
+    if(played) return; played=true;
+    window.removeEventListener('scroll',onScroll); window.removeEventListener('resize',onScroll);
+    rv(kids[0]); setTimeout(function(){ rv(kids[1]); },130);
+    setTimeout(function(){ rv(kids[2]); rv(kids[3]); },950);
+    setTimeout(function(){ if(ai) ai.classList.add('typed'); },2150);
+    setTimeout(function(){ rv(kids[4]); setTimeout(function(){ rv(kids[5]); },130); },3150);
+  }
+  function vis(){
+    var r=shell.getBoundingClientRect(), vh=window.innerHeight||document.documentElement.clientHeight;
+    var shown=Math.max(0, Math.min(r.bottom,vh)-Math.max(r.top,0));
+    return r.top < vh*0.92 && shown >= Math.min(r.height,vh)*0.66;
+  }
+  function onScroll(){ if(vis()) play(); }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll,{passive:true});
+  if(vis()) play();
+})();
+</script>
 </body>
 </html>

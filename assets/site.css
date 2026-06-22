@@ -625,3 +625,24 @@ footer::before{ content:""; position:absolute; top:0; left:10%; right:10%; heigh
   -webkit-backdrop-filter:blur(8px) saturate(140%);
   backdrop-filter:blur(8px) saturate(140%);
 }
+
+/* ===== Animated demo chat — plays once on scroll-into-view (R 2026-06-21) ===== */
+.chat-anim .msg, .chat-anim .msg-meta{ opacity:0; transform:translateY(11px);
+  transition:opacity .55s var(--ease,ease), transform .55s var(--ease,ease); }
+.chat-anim .msg.in, .chat-anim .msg-meta.in{ opacity:1; transform:none; }
+.msg.ai{ position:relative; }
+.ai-dots{ display:none; }
+.chat-anim .ai-text{ opacity:0; transition:opacity .5s ease; }
+.chat-anim .msg.ai.typed .ai-text{ opacity:1; }
+.chat-anim .ai-dots{ display:inline-flex; gap:5px; position:absolute; top:1.05em; left:.95em;
+  opacity:0; transition:opacity .3s ease; }
+.chat-anim .msg.ai.in .ai-dots{ opacity:1; }
+.chat-anim .msg.ai.typed .ai-dots{ opacity:0; }
+.ai-dots i{ width:6px; height:6px; border-radius:50%; background:var(--gold-hi); display:block;
+  animation:aiDot 1.2s ease-in-out infinite; }
+.ai-dots i:nth-child(2){ animation-delay:.16s; } .ai-dots i:nth-child(3){ animation-delay:.32s; }
+@keyframes aiDot{ 0%,60%,100%{ transform:translateY(0); opacity:.4 } 30%{ transform:translateY(-4px); opacity:1 } }
+@media (prefers-reduced-motion:reduce){
+  .chat-anim .msg, .chat-anim .msg-meta, .chat-anim .ai-text{ opacity:1!important; transform:none!important; }
+  .chat-anim .ai-dots{ display:none!important; }
+}
