@@ -89,32 +89,50 @@
 
       <!-- the command center cockpit -->
       <div class="reveal" style="margin-top:clamp(36px,5vw,52px)">
-        <div class="cockpit" role="img" aria-label="The Norris command center: emails needing attention, this month's revenue, clients going stale, and a strategic prompt about a competitor — with a voice bar to ask Norris anything">
-          <div class="cp-head"><span class="chat-dot" aria-hidden="true"></span><strong>Norris · Your command center</strong><small>TUESDAY · 7:02 AM</small></div>
-          <div class="cp-grid">
-            <div class="cp-cell">
-              <p class="cp-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg> Needs you today</p>
-              <div class="cp-li"><span class="dot warn" aria-hidden="true"></span><span><b>3 quotes</b> waiting on your sign-off — $24k in play</span></div>
-              <div class="cp-li"><span class="dot" aria-hidden="true"></span><span>The Hendersons replied — ready to book the spring install</span></div>
-              <div class="cp-li"><span class="dot ok" aria-hidden="true"></span><span>Payroll cleared. Nothing on fire.</span></div>
+        <div class="cc" role="img" aria-label="The Norris command center: emails needing attention, this month's revenue, clients going stale, and a strategic prompt about a competitor — with a voice bar to ask Norris anything">
+          <span class="cc-glow" aria-hidden="true"></span>
+          <span class="cc-ring" aria-hidden="true"></span>
+          <div class="cc-head">
+            <span class="chat-dot" aria-hidden="true"></span>
+            <strong class="cc-title">Norris<span class="cc-sep">·</span>Your <span class="cc-ul">command<svg viewBox="0 0 120 11" preserveAspectRatio="none" aria-hidden="true"><path d="M2 7 C 24 2, 50 2, 70 5 C 88 7.6, 104 6, 118 3" fill="none" stroke="#ECB838" stroke-width="2.6" stroke-linecap="round"/></svg></span> center</strong>
+            <small class="cc-time">Tuesday · 7:02 AM</small>
+          </div>
+          <div class="cc-grid">
+            <div class="cc-card">
+              <p class="cc-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg> Needs you today</p>
+              <div class="cc-rows">
+                <div class="cc-row"><span class="cc-dot warn" aria-hidden="true"></span><p><b>3 quotes</b> waiting on your sign-off — $24k in play</p></div>
+                <div class="cc-row"><span class="cc-dot" aria-hidden="true"></span><p>The Hendersons replied — ready to book the spring install</p></div>
+                <div class="cc-row"><span class="cc-dot ok" aria-hidden="true"></span><p>Payroll cleared. Nothing on fire.</p></div>
+              </div>
             </div>
-            <div class="cp-cell">
-              <p class="cp-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 4-5"/></svg> The month, right now</p>
-              <div class="cp-metric"><span class="n">$184k</span><span class="d">▲ 12% vs last month</span></div>
-              <div class="cp-chart" aria-hidden="true"><span style="height:40%"></span><span style="height:55%"></span><span style="height:48%"></span><span style="height:70%"></span><span style="height:62%"></span><span class="peak" style="height:88%"></span></div>
+            <div class="cc-card">
+              <p class="cc-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 2 4-5"/></svg> The month, right now</p>
+              <div class="cc-metric">
+                <div class="cc-mfig">
+                  <span class="cc-n">$184k</span>
+                  <span class="cc-delta">▲ 12% vs last month</span>
+                </div>
+                <div class="cc-bars" aria-hidden="true"><span style="height:40%"></span><span style="height:55%"></span><span style="height:48%"></span><span style="height:70%"></span><span style="height:62%"></span><span class="peak" style="height:88%"></span></div>
+              </div>
             </div>
-            <div class="cp-cell">
-              <p class="cp-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg> Going stale</p>
-              <div class="cp-li"><span class="dot warn" aria-hidden="true"></span><span><b>Maple Grove HOA</b> — no contact in 18 days. Worth a call.</span></div>
-              <div class="cp-li"><span class="dot" aria-hidden="true"></span><span>2 estimates sent last week, still unopened</span></div>
+            <div class="cc-card">
+              <p class="cc-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/></svg> Going stale</p>
+              <div class="cc-rows">
+                <div class="cc-row"><span class="cc-dot warn" aria-hidden="true"></span><p><b>Maple Grove HOA</b> — no contact in 18 days. Worth a call.</p></div>
+                <div class="cc-row"><span class="cc-dot" aria-hidden="true"></span><p>2 estimates sent last week, still unopened</p></div>
+              </div>
             </div>
-            <div class="cp-cell">
-              <p class="cp-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg> Worth thinking about</p>
-              <p class="cp-strat"><b>Your biggest competitor just expanded into the east side.</b> Here's where your pricing and your reviews still beat them.</p>
-              <div class="cp-li" style="margin-top:.9em"><span class="dot" aria-hidden="true"></span><span>Reminder: Jack's mid-year review is overdue</span></div>
+            <div class="cc-card">
+              <p class="cc-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0 0 12 2z"/></svg> Worth thinking about</p>
+              <p class="cc-strat"><b>Your biggest competitor just expanded into the east side.</b> Here's where your pricing and your reviews still beat them.</p>
+              <div class="cc-rows"><div class="cc-row"><span class="cc-dot" aria-hidden="true"></span><p>Reminder: Jack's mid-year review is overdue</p></div></div>
             </div>
           </div>
-          <div class="cp-voice"><span class="mic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><span class="ask">"Norris, what should I deal with first this morning?"</span></div>
+          <div class="cc-voice">
+            <span class="cc-mic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span>
+            <span class="cc-ask">"Norris, what should I deal with first this morning?"</span>
+          </div>
         </div>
       </div>
 
