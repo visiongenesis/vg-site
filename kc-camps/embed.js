@@ -35,6 +35,8 @@
         'box-shadow:0 14px 34px -10px rgba(191,10,48,.75);transition:transform .2s,box-shadow .2s;}' +
       '#kcacBtn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 18px 40px -10px rgba(191,10,48,.85);}' +
       '#kcacBtn .kcac-ic{position:relative;display:flex;}' +
+      '#kcacBtn .kcac-label{white-space:nowrap;transition:opacity .26s ease;}' +
+      '#kcacBtn.kcac-swap .kcac-label{opacity:0;}' +
       '#kcacBtn .kcac-ping{position:absolute;top:-3px;right:-3px;width:9px;height:9px;background:#f2b705;border-radius:50%;' +
         'animation:kcacPing 2.4s ease-in-out infinite;}' +
       '@keyframes kcacPing{0%,100%{opacity:.5;transform:scale(1);}50%{opacity:1;transform:scale(1.25);}}' +
@@ -63,7 +65,7 @@
       '<span class="kcac-ic">' +
         '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.8-.9L3 21l1.9-5.7a8.5 8.5 0 0 1-.9-3.8A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>' +
         '<span class="kcac-ping"></span>' +
-      '</span>Ask Coach';
+      '</span><span class="kcac-label">Ask Coach</span>';
 
     var wrap = document.createElement('div');
     wrap.id = 'kcacWrap';
@@ -79,9 +81,40 @@
     document.body.appendChild(btn);
     document.body.appendChild(wrap);
 
+    // Rotating label — cycles the pill between "Ask Coach" and a few teasers so
+    // a parent's eye catches what it can actually do. Pauses while the chat is
+    // open; disabled entirely for reduced-motion users (label stays "Ask Coach").
+    var label = btn.querySelector('.kcac-label');
+    var PHRASES = [
+      'Ask Coach',
+      'Ask me anything about camp',
+      'Ask Coach',
+      'How to get ready for camp',
+      'Ask Coach',
+      'Transportation details',
+      'Ask Coach',
+      'Need help registering?'
+    ];
+    var pIdx = 0, rotTimer = null;
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function rotateLabel() {
+      btn.classList.add('kcac-swap');           // fade current text out
+      setTimeout(function () {
+        pIdx = (pIdx + 1) % PHRASES.length;
+        label.textContent = PHRASES[pIdx];
+        btn.classList.remove('kcac-swap');       // fade the new text in
+      }, 260);
+    }
+    function startRotation() { if (reduceMotion || rotTimer) return; rotTimer = setInterval(rotateLabel, 3600); }
+    function stopRotation() { if (rotTimer) { clearInterval(rotTimer); rotTimer = null; } }
+
     var frame = wrap.querySelector('#kcacFrame');
     function openCoach() {
       if (!frame.src) frame.src = COACH_URL; // lazy: load the assistant only on first open
+      stopRotation();
+      btn.classList.remove('kcac-swap');
+      label.textContent = 'Ask Coach';
+      pIdx = 0;
       wrap.classList.add('kcac-open');
       wrap.setAttribute('aria-hidden', 'false');
       btn.style.display = 'none';
@@ -90,7 +123,9 @@
       wrap.classList.remove('kcac-open');
       wrap.setAttribute('aria-hidden', 'true');
       btn.style.display = 'flex';
+      startRotation();
     }
+    startRotation();
     btn.addEventListener('click', openCoach);
     wrap.querySelector('#kcacClose').addEventListener('click', closeCoach);
     document.addEventListener('keydown', function (e) {
