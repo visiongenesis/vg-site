@@ -20,6 +20,51 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..800&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="assets/site.css">
+<style id="bu-style">
+/* Bottleneck Unlock recorder — additive, uses site.css variables */
+.bu-steps{ display:flex; gap:6px; list-style:none; margin:0; padding:14px 22px 2px; flex-wrap:wrap; }
+.bu-steps li{ display:flex; align-items:center; gap:.45em; font-family:var(--mono); font-size:.6rem; letter-spacing:.05em; text-transform:uppercase; color:var(--ink-faint); }
+.bu-steps li b{ display:grid; place-items:center; width:17px; height:17px; border-radius:50%; background:rgba(168,184,207,.14); color:var(--ink-faint); font-size:.62rem; font-weight:800; }
+.bu-steps li.on{ color:var(--gold-hi); }
+.bu-steps li.on b{ background:linear-gradient(135deg,var(--gold-hi),var(--gold)); color:var(--navy-deep); }
+.bu-steps li.done b{ background:rgba(252,208,74,.2); color:var(--gold-hi); }
+.bu-steps li:not(:last-child)::after{ content:""; width:16px; height:1px; background:var(--line-soft); margin-left:.3em; }
+.rec-live{ display:flex; align-items:center; justify-content:center; gap:.6em; margin:-2px 0 2px; }
+.rec-live[hidden], .rec-clips[hidden]{ display:none !important; }
+.rec-dot{ width:9px; height:9px; border-radius:50%; background:#FF5142; box-shadow:0 0 10px #FF5142; animation:recBlink 1s steps(2,start) infinite; }
+@keyframes recBlink{ 50%{ opacity:.25; } }
+.rec-timer{ font-family:var(--mono); font-size:1.02rem; font-weight:700; color:var(--ink); letter-spacing:.04em; font-variant-numeric:tabular-nums; }
+.rec-meter{ display:inline-flex; align-items:flex-end; gap:2px; height:20px; }
+.rec-meter i{ width:3px; height:4px; border-radius:2px; background:var(--gold-hi); transition:height .08s linear; }
+.rec-clips{ display:grid; gap:8px; margin-top:14px; text-align:left; }
+.rec-clip{ display:flex; align-items:center; gap:10px; padding:9px 12px; border:1px solid var(--line-soft); border-radius:12px; background:rgba(252,208,74,.05); }
+.rec-clip .ck{ font-family:var(--mono); font-size:.6rem; letter-spacing:.06em; text-transform:uppercase; color:var(--gold); white-space:nowrap; }
+.rec-clip audio{ height:32px; flex:1; min-width:0; }
+.rec-clip .rm{ font-size:1.15rem; line-height:1; color:var(--ink-faint); padding:2px 7px; border-radius:8px; }
+.rec-clip .rm:hover{ color:#FF7A6E; background:rgba(255,90,70,.1); }
+.iw-row{ align-items:center; }
+.bu-ghost{ font-family:var(--body); font-size:.9rem; font-weight:600; color:var(--gold-hi); border:1px solid rgba(252,208,74,.34); border-radius:999px; padding:.5em 1.1em; background:rgba(252,208,74,.05); transition:.2s; }
+.bu-ghost:hover{ background:rgba(252,208,74,.12); border-color:var(--gold-hi); }
+.bu-hint{ font-size:.8rem; color:var(--ink-faint); }
+.bu-emailwrap{ display:flex; flex-direction:column; gap:3px; flex:1; min-width:180px; }
+.bu-email{ background:rgba(168,184,207,.08); border:1px solid var(--line-soft); border-radius:10px; padding:.6em .9em; color:var(--ink); font-size:.95rem; font-family:var(--body); outline:none; max-width:280px; width:100%; transition:border-color .2s; }
+.bu-email:focus{ border-color:var(--gold-dim); }
+.bu-email.err{ border-color:#FF6152; }
+#iwSend{ white-space:nowrap; transition:opacity .2s; }
+#iwSend:disabled{ opacity:.42; cursor:not-allowed; box-shadow:none; }
+.bu-done{ text-align:center; padding:28px 22px; }
+.bu-done .ok{ width:52px; height:52px; margin:0 auto 12px; border-radius:50%; display:grid; place-items:center; background:linear-gradient(135deg,var(--gold-hi),var(--gold)); color:var(--navy-deep); }
+.bu-done h4{ font-family:var(--disp); font-size:1.32rem; color:var(--ink); font-weight:500; }
+.bu-done p{ color:var(--ink-soft); margin-top:.4em; font-size:.96rem; }
+.bu-err{ color:#FF9A8E; font-size:.84rem; margin:8px 22px 0; }
+@media (max-width:520px){
+  .iw-foot{ flex-direction:column; align-items:stretch; } #iwSend{ width:100%; } .bu-email{ max-width:none; }
+  .rec-clip{ flex-wrap:wrap; }
+  .rec-clip .ck{ order:1; }
+  .rec-clip .rm{ order:2; margin-left:auto; }
+  .rec-clip audio{ order:3; flex-basis:100%; width:100%; margin-top:6px; }
+}
+</style>
 </head>
 <body>
 
@@ -360,32 +405,30 @@
       </div>
 
       <!-- live intake widget -->
-      <div class="intake-widget reveal" data-delay="1" id="intakeWidget">
+      <div class="intake-widget reveal bu" data-delay="1" id="intakeWidget">
         <div class="iw-head">
           <span class="chat-dot" aria-hidden="true"></span>
           <strong>Your 10-minute Bottleneck Unlock</strong>
-          <div class="iw-mode">
-            <button class="iw-tab on" id="tabRec" type="button">Just talk</button>
-            <button class="iw-tab" id="tabChat" type="button">Type</button>
+          <div class="iw-mode" role="tablist" aria-label="How would you like to answer?">
+            <button class="iw-tab on" id="tabRec" type="button" role="tab" aria-selected="true">🎙 Talk</button>
+            <button class="iw-tab" id="tabChat" type="button" role="tab" aria-selected="false">Type</button>
           </div>
         </div>
 
-        <!-- typed interview -->
-        <div class="iw-body" id="iwChat" style="display:none">
-          <p class="iw-progress" id="iwProg">Question 1 of 5</p>
-          <p class="iw-q" id="iwQ">What does your business do, and who do you do it for?</p>
-          <textarea class="iw-a" id="iwA" placeholder="Talk to Norris the way you'd brief a sharp new hire…"></textarea>
-          <div class="iw-row">
-            <span class="iw-mic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg> or tap to speak</span>
-          </div>
-        </div>
+        <!-- how-it-works ribbon -->
+        <ol class="bu-steps" id="buSteps" aria-label="Three steps">
+          <li class="on" id="buStep1"><b>1</b> Answer</li>
+          <li id="buStep2"><b>2</b> Your email</li>
+          <li id="buStep3"><b>3</b> Send</li>
+        </ol>
 
         <!-- record mode (default — "just talk") -->
         <div class="iw-body" id="iwRec" style="display:flex">
           <div class="rec-stage">
             <button class="rec-orb" id="recOrb" type="button" aria-label="Tap to start recording"><svg class="ic-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg><svg class="ic-stop" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6.5" y="6.5" width="11" height="11" rx="2.5"/></svg></button>
             <p class="rec-hint" id="recHint">Tap to start</p>
-            <p class="iw-q" id="recState">Tap to start. Then just talk us through these — take your time.</p>
+            <div class="rec-live" id="recLiveRow" hidden><span class="rec-dot" aria-hidden="true"></span><span class="rec-timer" id="recTimer">0:00</span><span class="rec-meter" id="recMeter" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+            <p class="iw-q" id="recState">Tap the mic, then talk us through the questions below — take your time.</p>
             <div class="rec-prompts">
               <p class="rec-prompt on">What do you do, and what are you known for?</p>
               <p class="rec-prompt">What's the one headache pulling you away from growing the business?</p>
@@ -395,13 +438,29 @@
               <p class="rec-prompt">Walk us through how a typical job runs — where do the delays hit?</p>
               <p class="rec-prompt">If that bottleneck vanished next month, what would you do with the time or cash?</p>
             </div>
+            <div class="rec-clips" id="recClips" hidden></div>
           </div>
         </div>
 
+        <!-- typed interview -->
+        <div class="iw-body" id="iwChat" style="display:none">
+          <p class="iw-progress" id="iwProg">Question 1 of 7</p>
+          <p class="iw-q" id="iwQ">What does your business do, and who do you do it for?</p>
+          <textarea class="iw-a" id="iwA" placeholder="Talk to Norris the way you'd brief a sharp new hire…"></textarea>
+          <div class="iw-row">
+            <button class="bu-ghost" id="iwPrev" type="button" hidden>← Back</button>
+            <button class="bu-ghost" id="iwNext" type="button">Next question →</button>
+            <span class="bu-hint" id="iwTypeHint">Answer as many as you like — even one is plenty to start.</span>
+          </div>
+        </div>
+
+        <!-- shared footer: email + send (always visible so the last step is obvious) -->
         <form class="iw-foot" id="iwFoot" autocomplete="off">
-          <small id="iwFootNote">Where should Norris send your read-out?</small>
-          <input class="iw-a" id="iwEmail" type="email" placeholder="you@yourbusiness.com" style="min-height:auto;max-width:240px;flex:1" aria-label="Your email">
-          <button class="btn btn-gold btn-sm" id="iwNext" type="submit">Next →</button>
+          <span class="bu-emailwrap">
+            <small id="iwFootNote">Where should Norris send your read-out?</small>
+            <input class="bu-email" id="iwEmail" type="email" inputmode="email" placeholder="you@yourbusiness.com" aria-label="Your email" required>
+          </span>
+          <button class="btn btn-gold btn-sm" id="iwSend" type="submit" disabled>Send to Norris →</button>
         </form>
       </div>
 
@@ -761,8 +820,9 @@
     chips&&chips.querySelectorAll(".an-chip").forEach(function(c){ c.addEventListener("click",function(){ ask(c.getAttribute("data-q")); }); });
   })();
 
-  /* ---- Intake widget: typed interview + record toggle ---- */
+  /* ---- Bottleneck Unlock: real voice recorder + typed interview ---- */
   (function(){
+    var ENDPOINT="https://vg-worker.visiongenesis.workers.dev/bottleneck-unlock/upload";
     var Q=[
       "First — what do you do, and what are you known for?",
       "What's the one headache that pulls you away from actually growing the business?",
@@ -772,32 +832,136 @@
       "Walk me through how a typical job runs, start to finish — where do the handoffs and delays hit?",
       "If that one bottleneck vanished next month, what would you do with the time or the cash?"
     ];
-    var i=0, answers=[];
-    var qEl=document.getElementById("iwQ"), aEl=document.getElementById("iwA"), pEl=document.getElementById("iwProg"),
-        foot=document.getElementById("iwFoot"), nextBtn=document.getElementById("iwNext"), footNote=document.getElementById("iwFootNote"), emailEl=document.getElementById("iwEmail");
-    var tabChat=document.getElementById("tabChat"), tabRec=document.getElementById("tabRec"), chat=document.getElementById("iwChat"), rec=document.getElementById("iwRec");
-    if(!qEl) return;
-    var rowEl=document.querySelector(".iw-row");
-    emailEl.style.display="none";
-    function render(){ pEl.textContent="Question "+(i+1)+" of "+Q.length; qEl.textContent=Q[i]; aEl.value=answers[i]||""; if(i===Q.length-1){ nextBtn.textContent="Finish →"; } else { nextBtn.textContent="Next →"; } }
-    foot.addEventListener("submit",function(e){ e.preventDefault();
-      if(emailEl.style.display!=="none"){
-        var ev=emailEl.value.trim(); if(!ev){ emailEl.focus(); return; }
-        fetch("https://formspree.io/f/xeedoodv",{method:"POST",headers:{"Accept":"application/json","Content-Type":"application/json"},body:JSON.stringify({email:ev,_subject:"Bottleneck Unlock intake (visiongenesisai.com)",answers:answers})}).catch(function(){});
-        qEl.textContent="You're in. Norris is on it."; pEl.textContent="DONE"; aEl.style.display="none"; if(rowEl)rowEl.style.display="none";
-        footNote.textContent="We've got your answers — we'll be in touch at "+ev+" shortly."; emailEl.style.display="none"; nextBtn.style.display="none";
-        return;
+    var $=function(id){ return document.getElementById(id); };
+    var widget=$("intakeWidget"); if(!widget) return;
+    var tabRec=$("tabRec"), tabChat=$("tabChat"), recPane=$("iwRec"), chatPane=$("iwChat");
+    var orb=$("recOrb"), recHint=$("recHint"), recState=$("recState"), liveRow=$("recLiveRow"),
+        timerEl=$("recTimer"), meter=$("recMeter"), clipsWrap=$("recClips");
+    var qEl=$("iwQ"), aEl=$("iwA"), pEl=$("iwProg"), prevBtn=$("iwPrev"), nextBtn=$("iwNext"), typeHint=$("iwTypeHint");
+    var foot=$("iwFoot"), emailEl=$("iwEmail"), sendBtn=$("iwSend");
+    var step1=$("buStep1"), step2=$("buStep2"), step3=$("buStep3");
+    var meterBars=meter?meter.querySelectorAll("i"):[];
+
+    var isRec=true, recording=false, starting=false, clips=[], i=0, answers=[];
+    var mr=null, stream=null, chunks=[], startedAt=0, tick=null, raf=null, audioCtx=null, analyser=null;
+
+    function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((v||"").trim()); }
+    function fmt(ms){ var s=Math.floor(ms/1000); return Math.floor(s/60)+":"+("0"+(s%60)).slice(-2); }
+    function hasTyped(){ for(var k=0;k<answers.length;k++){ if(answers[k]&&answers[k].trim()) return true; } return false; }
+    function ready(){ return isRec ? clips.length>0 : hasTyped(); }
+    function canSend(){ return validEmail(emailEl.value) && ready(); }
+    function refreshSend(){
+      sendBtn.disabled=!canSend();
+      var okEmail=validEmail(emailEl.value);
+      step1&&step1.classList.toggle("done", ready());
+      step2&&step2.classList.toggle("on", ready() && !okEmail);
+      step2&&step2.classList.toggle("done", okEmail);
+      step3&&step3.classList.toggle("on", canSend());
+    }
+    emailEl.addEventListener("input",function(){ emailEl.classList.remove("err"); refreshSend(); });
+
+    function setMode(rec){
+      isRec=rec;
+      tabRec.classList.toggle("on",rec); tabChat.classList.toggle("on",!rec);
+      tabRec.setAttribute("aria-selected",rec?"true":"false"); tabChat.setAttribute("aria-selected",rec?"false":"true");
+      recPane.style.display=rec?"flex":"none"; chatPane.style.display=rec?"none":"flex";
+      refreshSend();
+    }
+    tabRec.addEventListener("click",function(){ if(recording) return; setMode(true); });
+    tabChat.addEventListener("click",function(){ if(recording) stopRec(); setMode(false); });
+
+    /* typed interview */
+    function renderQ(){ pEl.textContent="Question "+(i+1)+" of "+Q.length; qEl.textContent=Q[i]; aEl.value=answers[i]||"";
+      prevBtn.hidden=(i===0); nextBtn.textContent=(i===Q.length-1)?"Done ✓":"Next question →"; }
+    aEl.addEventListener("input",function(){ answers[i]=aEl.value; refreshSend(); });
+    nextBtn.addEventListener("click",function(){ answers[i]=aEl.value; if(i<Q.length-1){ i++; renderQ(); } else { typeHint.textContent="All set — add your email and hit Send."; emailEl.focus(); } refreshSend(); });
+    prevBtn.addEventListener("click",function(){ answers[i]=aEl.value; if(i>0){ i--; renderQ(); } });
+
+    /* recording */
+    function supported(){ return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder); }
+    function pickMime(){ if(!window.MediaRecorder) return ""; var C=["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/mpeg","audio/ogg"]; for(var k=0;k<C.length;k++){ try{ if(MediaRecorder.isTypeSupported(C[k])) return C[k]; }catch(e){} } return ""; }
+    function drawMeter(){ if(!analyser) return; var d=new Uint8Array(analyser.frequencyBinCount); analyser.getByteFrequencyData(d);
+      for(var b=0;b<meterBars.length;b++){ var seg=d[2+b*3]||0; meterBars[b].style.height=(4+Math.round((seg/255)*16))+"px"; }
+      raf=requestAnimationFrame(drawMeter); }
+    function startRec(){
+      if(recording||starting) return;
+      if(!supported()){ recState.innerHTML='This browser blocks in-page recording. Tap <b>Type</b> above to answer in writing — same result.'; return; }
+      starting=true; recHint.textContent="Starting…";
+      navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){
+        starting=false; stream=s; chunks=[]; var mime=pickMime();
+        mr=new MediaRecorder(s, mime?{mimeType:mime}:undefined);
+        mr.ondataavailable=function(e){ if(e.data&&e.data.size) chunks.push(e.data); };
+        mr.onstop=function(){ finishClip(mr&&mr.mimeType?mr.mimeType:mime); };
+        mr.start(); recording=true; startedAt=Date.now();
+        orb.classList.add("rec"); orb.setAttribute("aria-label","Stop recording");
+        recHint.textContent="Recording…"; liveRow.hidden=false; timerEl.textContent="0:00";
+        recState.textContent=(clips.length?"Recording another — ":"Recording — ")+"talk us through the questions. Tap the square when you're done.";
+        tick=setInterval(function(){ var el=Date.now()-startedAt; timerEl.textContent=fmt(el); if(el>12*60*1000) stopRec(); },250);
+        try{ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); var src=audioCtx.createMediaStreamSource(s); analyser=audioCtx.createAnalyser(); analyser.fftSize=64; src.connect(analyser); drawMeter(); }catch(e){}
+      }).catch(function(){
+        starting=false; recording=false; orb.classList.remove("rec"); recHint.textContent="Tap to start";
+        recState.innerHTML='Couldn’t reach your mic — allow the 🎙 permission in your browser bar, or tap <b>Type</b> to answer in writing.';
+      });
+    }
+    function stopRec(){ if(!recording||!mr) return; recording=false; try{ mr.stop(); }catch(e){}
+      if(tick){ clearInterval(tick); tick=null; } if(raf){ cancelAnimationFrame(raf); raf=null; } }
+    function finishClip(mime){
+      if(stream){ stream.getTracks().forEach(function(t){ t.stop(); }); stream=null; }
+      if(audioCtx){ try{ audioCtx.close(); }catch(e){} audioCtx=null; analyser=null; }
+      var ms=Date.now()-startedAt, type=(mime||"audio/webm").split(";")[0], blob=new Blob(chunks,{type:type});
+      orb.classList.remove("rec"); orb.setAttribute("aria-label","Tap to record another"); liveRow.hidden=true; recHint.textContent="Tap to add another";
+      if(!blob.size){ recState.textContent="Hmm — that clip came through empty. Tap the mic and try again."; return; }
+      clips.push({blob:blob,url:URL.createObjectURL(blob),ms:ms,type:type}); renderClips();
+      recState.innerHTML="Saved ✓ — add another, or drop your email below and hit <b>Send</b>.";
+      refreshSend();
+    }
+    function extFor(t){ t=(t||"").toLowerCase(); if(t.indexOf("mp4")>-1) return "mp4"; if(t.indexOf("mpeg")>-1) return "mp3"; if(t.indexOf("ogg")>-1) return "ogg"; return "webm"; }
+    function renderClips(){
+      clipsWrap.hidden=clips.length===0; clipsWrap.innerHTML="";
+      clips.forEach(function(c,idx){
+        var row=document.createElement("div"); row.className="rec-clip";
+        var lab=document.createElement("span"); lab.className="ck"; lab.textContent="Clip "+(idx+1)+" · "+fmt(c.ms);
+        var au=document.createElement("audio"); au.controls=true; au.src=c.url; au.preload="metadata";
+        var rm=document.createElement("button"); rm.type="button"; rm.className="rm"; rm.setAttribute("aria-label","Remove clip "+(idx+1)); rm.innerHTML="&times;";
+        rm.addEventListener("click",function(){ URL.revokeObjectURL(c.url); clips.splice(idx,1); renderClips(); if(!clips.length){ recState.textContent="Tap the mic, then talk us through the questions below — take your time."; recHint.textContent="Tap to start"; } refreshSend(); });
+        row.appendChild(lab); row.appendChild(au); row.appendChild(rm); clipsWrap.appendChild(row);
+      });
+    }
+    orb.addEventListener("click",function(){ if(recording) stopRec(); else startRec(); });
+
+    /* send */
+    function showDone(email){
+      var steps=widget.querySelector(".bu-steps"); if(steps) steps.style.display="none";
+      recPane.style.display="none"; chatPane.style.display="none"; foot.style.display="none";
+      var d=document.createElement("div"); d.className="bu-done";
+      d.innerHTML='<div class="ok"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><h4>Got it — Norris is on it.</h4><p>We’ll be in touch at <b>'+email+'</b> shortly. Thanks for talking us through it.</p>';
+      widget.appendChild(d);
+    }
+    function setSending(on,label){ sendBtn.disabled=on||!canSend(); sendBtn.textContent=on?(label||"Sending…"):"Send to Norris →"; }
+    function fail(msg){ setSending(false); var e=widget.querySelector(".bu-err"); if(!e){ e=document.createElement("p"); e.className="bu-err"; foot.parentNode.insertBefore(e,foot.nextSibling); } e.textContent=msg||"Something went wrong sending that — please try again, or email vision@visiongenesisai.com."; }
+
+    foot.addEventListener("submit",function(ev){ ev.preventDefault();
+      if(!validEmail(emailEl.value)){ emailEl.classList.add("err"); emailEl.focus(); return; }
+      var email=emailEl.value.trim(); var oldErr=widget.querySelector(".bu-err"); if(oldErr) oldErr.remove();
+      if(isRec){
+        if(!clips.length){ recState.textContent="Record at least one answer first — tap the mic."; return; }
+        setSending(true,"Uploading… "); var okAll=true, pending=clips.length;
+        clips.forEach(function(c,idx){
+          var fd=new FormData(); fd.append("audio",c.blob,"clip-"+(idx+1)+"."+extFor(c.type)); fd.append("email",email); fd.append("durationMs",String(c.ms));
+          fetch(ENDPOINT,{method:"POST",body:fd}).then(function(r){ return r.ok?r.json():Promise.reject(r.status); })
+            .then(function(j){ if(!j||!j.success) okAll=false; })
+            .catch(function(){ okAll=false; })
+            .then(function(){ if(--pending===0){ okAll?showDone(email):fail(); } });
+        });
+      } else {
+        answers[i]=aEl.value; if(!hasTyped()){ typeHint.textContent="Type at least one answer first."; return; }
+        setSending(true,"Sending… ");
+        fetch("https://formspree.io/f/xeedoodv",{method:"POST",headers:{"Accept":"application/json","Content-Type":"application/json"},body:JSON.stringify({email:email,_subject:"Bottleneck Unlock intake (visiongenesisai.com)",answers:answers})})
+          .then(function(r){ return r.ok?r.json():Promise.reject(r.status); }).then(function(){ showDone(email); }).catch(function(){ fail(); });
       }
-      answers[i]=aEl.value.trim();
-      if(i<Q.length-1){ i++; render(); }
-      else { qEl.textContent="Last thing — where should Norris send your read-out?"; pEl.textContent="ALMOST THERE"; aEl.style.display="none"; if(rowEl)rowEl.style.display="none"; footNote.textContent=""; emailEl.style.display="block"; nextBtn.textContent="Send it →"; emailEl.focus(); }
     });
-    function mode(isRec){ tabRec.classList.toggle("on",isRec); tabChat.classList.toggle("on",!isRec); rec.style.display=isRec?"flex":"none"; chat.style.display=isRec?"none":"flex"; }
-    tabChat.addEventListener("click",function(){ mode(false); });
-    tabRec.addEventListener("click",function(){ mode(true); });
-    var orb=document.getElementById("recOrb"), recState=document.getElementById("recState"), recLive=false;
-    orb&&orb.addEventListener("click",function(){ recLive=!recLive; orb.classList.toggle("rec",recLive); recState.textContent=recLive?"Recording — talk us through the prompts below. Tap the square when you're done.":"Saved. Tap to keep going, or switch to Type."; orb.setAttribute("aria-label",recLive?"Stop recording":"Tap to start recording"); var rh=document.getElementById("recHint"); if(rh)rh.textContent=recLive?"Recording…":"Tap to start"; });
-    render();
+
+    renderQ(); refreshSend();
   })();
 
   /* ---- Waitlist + smooth focus ---- */
