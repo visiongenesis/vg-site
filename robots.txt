@@ -5,3 +5,5 @@ Disallow: /v-pre-r3/
 Disallow: /v-pre-superpowers/
 Disallow: /31018417fe06/
 Disallow: /sed/
+
+Sitemap: https://visiongenesisai.com/sitemap.xml
