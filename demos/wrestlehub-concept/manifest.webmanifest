@@ -1,5 +1,5 @@
 {
-  "name": "WrestleHub Concept",
+  "name": "WrestleHub",
   "short_name": "WrestleHub",
   "description": "Every wrestler, every practice, match, camp, and goal in one family plan.",
   "start_url": "./",
@@ -8,10 +8,22 @@
   "theme_color": "#070a0f",
   "icons": [
     {
-      "src": "./assets/wrestlehub-concept-icon.png",
-      "sizes": "1254x1254",
+      "src": "./icon-192.png",
+      "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }
