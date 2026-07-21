@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vision Genesis — AI implementation for owner-led businesses</title>
+<meta name="description" content="We build AI that carries the repeatable work — customer answers, draft quotes, follow-up — and hands the judgment back to you. Live products from $99/mo. Custom builds for the work that doesn't fit a product.">
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" type="image/png" href="/assets/favicon-96x96.png" sizes="96x96">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Vision Genesis">
+<meta property="og:title" content="Vision Genesis — The work stops waiting on you.">
+<meta property="og:description" content="AI that carries the repeatable work and hands judgment back to people. Live products, field-tested workflow rebuilds, and one business brain on the way.">
+<meta property="og:image" content="https://visiongenesisai.com/next/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://visiongenesisai.com/next/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#071426; --panel:#0B1B31; --panel2:#0E2038;
+  --gold:#ECB838; --goldhi:#FCD04A;
+  --txt:#E8EDF5; --mut:#9FAEC4; --dim:#6E7F97;
+  --live:#3FCB7E; --field:#E8A33D; --dev:#8CA8C8;
+  --hair:rgba(255,255,255,.08); --goldhair:rgba(236,184,56,.28);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{background:var(--navy);color:var(--txt);font:400 17px/1.62 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+[hidden]{display:none!important}
+.wrap{max-width:1180px;margin:0 auto;padding:0 40px}
+.serif{font-family:Fraunces,serif;font-optical-sizing:auto}
+.mono{font-family:"JetBrains Mono",monospace}
+a{color:var(--gold);text-decoration:none}
+img{max-width:100%}
+section{border-top:1px solid var(--hair);padding:96px 0;scroll-margin-top:70px}
+.eyebrow{font:600 11.5px/1 "JetBrains Mono",monospace;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:22px}
+.stage{display:inline-flex;align-items:center;gap:7px;font:500 11px/1 "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase}
+.stage .dot{width:7px;height:7px;border-radius:50%}
+.st-live{color:var(--live)} .st-live .dot{background:var(--live);box-shadow:0 0 8px rgba(63,203,126,.7)}
+.st-field{color:var(--field)} .st-field .dot{background:var(--field)}
+.st-dev{color:var(--dev)} .st-dev .dot{background:var(--dev)}
+h2{font-family:Fraunces,serif;font-weight:500;font-size:52px;line-height:1.06;letter-spacing:-.01em;margin-bottom:20px}
+h2 em{font-style:italic;color:var(--gold)}
+.lead{font-size:19px;color:var(--mut);max-width:640px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--gold);color:#1A1405;font:600 16px/1 Inter,sans-serif;padding:17px 28px;border-radius:8px;box-shadow:0 6px 24px rgba(236,184,56,.22);border:0;cursor:pointer}
+.btn:hover{background:var(--goldhi)}
+.btn[disabled]{opacity:.45;cursor:default;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--goldhair);box-shadow:none}
+.btn.ghost:hover{background:rgba(236,184,56,.08)}
+.micro{font:400 13px/1.5 Inter,sans-serif;color:var(--dim);margin-top:10px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(7,20,38,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--hair)}
+nav .row{display:flex;align-items:center;gap:36px;padding:16px 0}
+nav .brand{display:flex;align-items:center;gap:12px;font:600 17px/1 Inter,sans-serif;color:var(--txt)}
+nav .brand img{height:32px}
+nav .brand b{color:var(--gold);font-weight:600}
+nav .links{display:flex;gap:28px;margin-left:auto;font:500 14.5px/1 Inter,sans-serif}
+nav .links a{color:var(--mut)} nav .links a:hover{color:var(--txt)}
+nav .btn{padding:12px 20px;font-size:14px;white-space:nowrap}
+nav .ctashort{display:none}
+@media (max-width:760px){ nav .ctafull{display:none} nav .ctashort{display:inline} }
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.06fr .94fr;gap:64px;align-items:center;padding:80px 0 92px}
+.hero h1{font-family:Fraunces,serif;font-weight:500;font-size:72px;line-height:1.02;letter-spacing:-.015em;margin-bottom:26px}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero .lead{margin-bottom:32px}
+.ctarow{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.trust{display:flex;gap:22px;margin-top:24px;font:500 13px/1.4 Inter,sans-serif;color:var(--dim);flex-wrap:wrap}
+.trust span{display:flex;align-items:center;gap:7px}
+.trust svg{width:13px;height:13px;fill:var(--gold);opacity:.8;flex-shrink:0}
+
+/* ask panel */
+.ask{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--goldhair);border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.ask .hd{display:flex;align-items:center;gap:11px;padding:15px 20px;border-bottom:1px solid var(--hair);background:rgba(7,20,38,.5)}
+.ask .hd img{height:22px}
+.ask .hd .t{font:600 14.5px/1 Inter,sans-serif}
+.ask .hd .stage{margin-left:auto}
+.an-body{padding:22px 20px;display:flex;flex-direction:column;gap:14px;min-height:260px;max-height:340px;overflow-y:auto}
+.an-msg{max-width:88%;padding:13px 16px;border-radius:11px;font-size:15px;line-height:1.55;overflow-wrap:break-word}
+.an-msg.me{align-self:flex-end;background:rgba(236,184,56,.13);border:1px solid rgba(236,184,56,.22)}
+.an-msg.bot{align-self:flex-start;background:rgba(255,255,255,.045);border:1px solid var(--hair)}
+.an-msg.bot a{text-decoration:underline}
+.an-msg.typing{color:var(--dim)}
+.an-msg.typing::after{content:"";display:inline-block;width:1.2em;text-align:left;animation:dots 1.3s steps(4,end) infinite}
+@keyframes dots{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+.an-chips{display:flex;gap:8px;flex-wrap:wrap;padding:0 20px 6px}
+.an-chip{font:500 12.5px/1 Inter,sans-serif;color:var(--mut);border:1px solid var(--hair);border-radius:999px;padding:8px 13px;background:transparent;cursor:pointer}
+.an-chip:hover{border-color:var(--goldhair);color:var(--txt)}
+.ask form{display:flex;gap:10px;padding:14px 20px 18px}
+.ask input{flex:1;border:1px solid var(--hair);border-radius:9px;padding:12px 15px;font:400 14px/1.4 Inter,sans-serif;color:var(--txt);background:rgba(7,20,38,.55);outline:none}
+.ask input:focus{border-color:var(--goldhair)}
+.ask input::placeholder{color:var(--dim)}
+.ask .send{width:44px;height:44px;border-radius:9px;background:var(--gold);border:0;display:flex;align-items:center;justify-content:center;color:#1A1405;font:700 17px/1 Inter,sans-serif;cursor:pointer;flex-shrink:0}
+.askcap{font:500 12px/1.6 "JetBrains Mono",monospace;color:var(--dim);text-align:center;margin-top:14px;letter-spacing:.04em}
+.askcap b{color:var(--gold);font-weight:500}
+
+/* stage rail */
+.railwrap{padding-bottom:96px}
+.rail{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--hair);border-radius:12px;overflow:hidden}
+.rail .cell{padding:28px 30px;border-right:1px solid var(--hair);background:rgba(255,255,255,.015)}
+.rail .cell:last-child{border-right:0}
+.rail .name{font-family:Fraunces,serif;font-size:23px;font-weight:500;margin:12px 0 6px}
+.rail p{font-size:14.5px;color:var(--mut)}
+.rail .price{font:600 12.5px/1.5 "JetBrains Mono",monospace;color:var(--gold);margin-top:12px;letter-spacing:.06em}
+
+/* section headers */
+.shead{display:flex;align-items:baseline;gap:26px;margin-bottom:54px;flex-wrap:wrap}
+.shead .right{margin-left:auto;max-width:400px;font-size:16px;color:var(--mut)}
+
+/* ask-my */
+.tabs{display:flex;gap:2px;border-bottom:1px solid var(--hair);margin-bottom:38px;overflow-x:auto}
+.tab{font:600 15px/1 Inter,sans-serif;color:var(--dim);padding:14px 22px;border:0;border-bottom:2px solid transparent;background:none;cursor:pointer;white-space:nowrap}
+.tab.on{color:var(--txt);border-color:var(--gold)}
+.trip{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:22px;margin-bottom:44px}
+.tcard{background:var(--panel);border:1px solid var(--hair);border-radius:12px;padding:24px}
+.tcard .lbl{font:600 10.5px/1.4 "JetBrains Mono",monospace;letter-spacing:.18em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.tcard p{font-size:15px;line-height:1.6}
+.tcard .meta{font:400 12px/1.5 "JetBrains Mono",monospace;color:var(--dim);margin-top:12px}
+.src{display:flex;align-items:center;gap:8px;font:500 11.5px/1.4 "JetBrains Mono",monospace;color:var(--dim);margin-top:12px;padding-top:9px;border-top:1px dashed rgba(255,255,255,.12);flex-wrap:wrap}
+.src b{color:var(--gold);font-weight:500}
+.handoff{background:rgba(63,203,126,.06);border-color:rgba(63,203,126,.25)}
+.handoff .lbl{color:var(--live)}
+.offer{display:flex;align-items:center;gap:34px;background:var(--panel);border:1px solid var(--goldhair);border-radius:12px;padding:30px 34px;margin-bottom:44px;flex-wrap:wrap}
+.offer .big{font-family:Fraunces,serif;font-size:42px;font-weight:500;color:var(--gold);line-height:1}
+.offer .big small{font-size:17px;color:var(--mut);font-family:Inter,sans-serif}
+.offer .terms{font-size:15px;color:var(--mut);max-width:420px}
+.offer .terms b{color:var(--txt);font-weight:600}
+.offer .btn{margin-left:auto}
+.ladder{font:500 12px/1.6 "JetBrains Mono",monospace;color:var(--dim);letter-spacing:.03em;margin-top:8px;width:100%}
+.ladder b{color:var(--gold);font-weight:500}
+.examples{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.ex{border:1px solid var(--hair);border-radius:12px;padding:22px 24px;background:rgba(255,255,255,.015)}
+.ex .n{font:600 16px/1.3 Inter,sans-serif;margin-bottom:4px}
+.ex .c{font-size:13.5px;color:var(--dim);margin-bottom:12px}
+.ex .q{font-family:Fraunces,serif;font-style:italic;font-size:16.5px;color:var(--mut);line-height:1.45;margin-bottom:14px}
+.ex a{font:600 13.5px/1 Inter,sans-serif}
+.disc{font-size:12.5px;color:var(--dim);margin-top:18px}
+
+/* ken story */
+.story{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+.tagline{display:inline-block;font:600 10.5px/1.4 "JetBrains Mono",monospace;letter-spacing:.16em;color:#F08A3C;border:1px dashed rgba(240,138,60,.5);border-radius:6px;padding:7px 11px;margin-bottom:20px;text-transform:uppercase}
+.beats{display:flex;flex-direction:column}
+.beat{display:flex;gap:22px;padding:22px 0;border-bottom:1px solid var(--hair)}
+.beat:last-child{border-bottom:0}
+.beat .k{font-family:Fraunces,serif;font-size:21px;color:var(--gold);font-weight:500;min-width:30px}
+.beat h4{font:600 16.5px/1.4 Inter,sans-serif;margin-bottom:4px}
+.beat p{font-size:14.5px;color:var(--mut)}
+
+/* custom + xray */
+.classes{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-bottom:44px}
+.cl{border-top:2px solid var(--goldhair);padding-top:22px}
+.cl h4{font-family:Fraunces,serif;font-size:22px;font-weight:500;margin-bottom:10px}
+.cl p{font-size:15px;color:var(--mut)}
+.cl .stage{margin-top:14px}
+.xray{border:1px dashed var(--goldhair);border-radius:14px;padding:38px 40px;display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center;background:rgba(236,184,56,.03)}
+.xray h3{font-family:Fraunces,serif;font-size:33px;font-weight:500;margin-bottom:14px}
+.xray h3 em{font-style:italic;color:var(--gold)}
+.xray p{font-size:16px;color:var(--mut)}
+.xsteps{display:flex;flex-direction:column;gap:16px}
+.xs{display:flex;gap:16px;align-items:flex-start}
+.xs .ic{width:34px;height:34px;border:1px solid var(--goldhair);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--gold);font:600 13px/1 "JetBrains Mono",monospace;flex-shrink:0}
+.xs p{font-size:14.5px;color:var(--mut)}
+.xs p b{color:var(--txt);font-weight:600}
+.xnote{font:500 12px/1.7 "JetBrains Mono",monospace;color:var(--gold);letter-spacing:.05em;margin-top:18px}
+
+/* vtq */
+.vtq{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.vpanel{background:var(--panel);border:1px solid var(--hair);border-radius:13px;padding:26px}
+.vpanel .lbl{font:600 10.5px/1.4 "JetBrains Mono",monospace;letter-spacing:.18em;color:var(--field);text-transform:uppercase;margin-bottom:18px}
+.wave{display:flex;align-items:center;gap:3px;height:56px;margin-bottom:18px}
+.wave i{display:block;width:4px;background:var(--field);border-radius:2px;opacity:.85}
+.tscript{font-size:14px;color:var(--mut);line-height:1.65;border-left:2px solid rgba(232,163,61,.4);padding-left:16px;font-style:italic}
+.qline{display:flex;justify-content:space-between;gap:12px;font-size:14.5px;padding:10px 0;border-bottom:1px dashed rgba(255,255,255,.1)}
+.qline span:last-child{font-family:"JetBrains Mono",monospace;font-size:13.5px;color:var(--mut)}
+.qtotal{display:flex;justify-content:space-between;font:600 17px/1 Inter,sans-serif;padding:16px 0 4px}
+.qtotal span:last-child{color:var(--gold);font-family:"JetBrains Mono",monospace}
+.vbtns{display:flex;gap:12px;margin-top:20px}
+.vbtns span{flex:1;text-align:center;font:600 14.5px/1 Inter,sans-serif;padding:13px;border-radius:8px}
+.vbtns .rev{background:var(--gold);color:#1A1405}
+.vbtns .ed{border:1px solid var(--hair);color:var(--mut)}
+.vgate{font-size:13px;color:var(--dim);text-align:center;margin-top:12px}
+
+/* why */
+.why{display:grid;grid-template-columns:.82fr 1.18fr;gap:64px;align-items:start}
+.portrait{position:relative;border-radius:14px;overflow:hidden;border:1px solid var(--hair)}
+.portrait img{width:100%;display:block;filter:saturate(.9)}
+.portrait .cap{position:absolute;left:0;right:0;bottom:0;background:linear-gradient(transparent,rgba(7,20,38,.94) 55%);padding:44px 22px 18px;font-size:14px}
+.portrait .cap b{display:block;font:600 16px/1.3 Inter,sans-serif}
+.portrait .cap span{color:var(--mut);font-size:13px}
+.roles{display:flex;flex-direction:column;gap:26px;margin-top:34px}
+.role{display:flex;gap:20px}
+.role .tag{font:600 10.5px/1.4 "JetBrains Mono",monospace;letter-spacing:.16em;color:var(--gold);min-width:104px;padding-top:5px;text-transform:uppercase}
+.role h4{font:600 17px/1.4 Inter,sans-serif;margin-bottom:4px}
+.role p{font-size:15px;color:var(--mut)}
+.safety{margin-top:44px;border:1px solid var(--hair);border-radius:12px;padding:26px 30px;background:rgba(255,255,255,.015)}
+.safety h4{font-family:Fraunces,serif;font-size:21px;font-weight:500;margin-bottom:16px}
+.safety ul{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:10px 28px}
+.safety li{font-size:14.5px;color:var(--mut);padding-left:22px;position:relative}
+.safety li::before{content:"";position:absolute;left:0;top:8px;width:10px;height:10px;border:2px solid var(--gold);border-radius:2px}
+
+/* norris */
+.nbridge{font-family:Fraunces,serif;font-size:26px;font-weight:400;font-style:italic;color:var(--mut);max-width:760px;line-height:1.45;margin:22px 0 30px}
+.nbridge b{color:var(--txt);font-weight:500;font-style:normal}
+.honest{display:flex;gap:14px;align-items:flex-start;border-left:3px solid var(--gold);background:rgba(236,184,56,.05);border-radius:0 10px 10px 0;padding:18px 22px;margin-bottom:44px;max-width:760px}
+.honest p{font-size:15px;color:var(--mut)}
+.honest b{color:var(--txt)}
+.ncols{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.ncol{border:1px solid var(--hair);border-radius:12px;padding:28px 30px}
+.ncol .lbl{font:600 11px/1 "JetBrains Mono",monospace;letter-spacing:.18em;text-transform:uppercase;margin-bottom:20px}
+.ncol.now .lbl{color:var(--live)} .ncol.later .lbl{color:var(--dev)}
+.ncol ul{list-style:none}
+.ncol li{padding:12px 0;border-bottom:1px solid var(--hair);font-size:15px}
+.ncol li:last-child{border-bottom:0}
+.ncol li b{display:block;font-weight:600;margin-bottom:2px}
+.ncol li span{color:var(--dim);font-size:13.5px}
+
+/* unlock */
+.unlock{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+.unlock h2{font-size:56px}
+.upoints{display:flex;gap:22px;margin-top:26px;font:500 13px/1 Inter,sans-serif;color:var(--dim);flex-wrap:wrap}
+.upoints span{display:flex;align-items:center;gap:7px}
+.upoints i{width:6px;height:6px;background:var(--gold);border-radius:50%}
+.bu{background:var(--panel);border:1px solid var(--goldhair);border-radius:14px;padding:28px 30px}
+.bu-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:6px}
+.bu-tab{font:600 13.5px/1 Inter,sans-serif;padding:10px 22px;border-radius:8px;color:var(--mut);border:1px solid var(--hair);background:none;cursor:pointer}
+.bu-tab.on{background:rgba(236,184,56,.12);color:var(--gold);border-color:var(--goldhair)}
+.bu-steps{display:flex;justify-content:center;gap:18px;margin:14px 0 6px;font:500 11px/1 "JetBrains Mono",monospace;letter-spacing:.1em;color:var(--dim);text-transform:uppercase}
+.bu-steps b{font-weight:500}
+.bu-steps .done{color:var(--live)}
+.bu-steps .on{color:var(--gold)}
+.bu-pane{display:flex;flex-direction:column;align-items:center;text-align:center;padding:8px 0 4px}
+.mic{width:86px;height:86px;border-radius:50%;background:var(--gold);border:0;margin:16px auto 14px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 12px rgba(236,184,56,.12),0 0 0 26px rgba(236,184,56,.05);cursor:pointer}
+.mic svg{width:34px;height:34px;fill:#1A1405}
+.mic.rec{background:#E05A4E;animation:pulse 1.6s ease-in-out infinite}
+.mic.rec svg{fill:#fff}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 10px rgba(224,90,78,.18),0 0 0 22px rgba(224,90,78,.07)}50%{box-shadow:0 0 0 16px rgba(224,90,78,.22),0 0 0 32px rgba(224,90,78,.09)}}
+#recHint{font:600 17px/1.3 Inter,sans-serif;margin-bottom:6px}
+#recState{font-size:13.5px;color:var(--dim);max-width:380px}
+#recLiveRow{display:flex;align-items:center;gap:14px;margin-top:12px}
+#recTimer{font:600 15px/1 "JetBrains Mono",monospace;color:#E05A4E}
+#recMeter{display:flex;align-items:flex-end;gap:3px;height:20px}
+#recMeter i{display:block;width:4px;height:4px;background:var(--gold);border-radius:2px}
+#recClips{width:100%;margin-top:14px;display:flex;flex-direction:column;gap:8px}
+.rec-clip{display:flex;align-items:center;gap:10px;background:rgba(7,20,38,.55);border:1px solid var(--hair);border-radius:9px;padding:8px 12px}
+.rec-clip .ck{font:500 12px/1 "JetBrains Mono",monospace;color:var(--mut);white-space:nowrap}
+.rec-clip audio{flex:1;height:32px;min-width:0}
+.rec-clip .rm{background:none;border:0;color:var(--dim);font-size:19px;cursor:pointer;line-height:1}
+.rec-clip .rm:hover{color:#E05A4E}
+#iwChat{width:100%;text-align:left}
+#iwProg{font:600 11px/1 "JetBrains Mono",monospace;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;margin-bottom:10px}
+#iwQ{font:600 17px/1.45 Inter,sans-serif;margin-bottom:12px}
+#iwA{width:100%;min-height:96px;border:1px solid var(--hair);border-radius:9px;padding:12px 15px;font:400 14.5px/1.55 Inter,sans-serif;color:var(--txt);background:rgba(7,20,38,.55);resize:vertical;outline:none}
+#iwA:focus{border-color:var(--goldhair)}
+.iw-nav{display:flex;gap:10px;margin-top:12px}
+.iw-nav button{font:600 13.5px/1 Inter,sans-serif;padding:11px 18px;border-radius:8px;border:1px solid var(--hair);background:none;color:var(--mut);cursor:pointer}
+.iw-nav button:hover{color:var(--txt);border-color:var(--goldhair)}
+#iwTypeHint{font-size:12.5px;color:var(--dim);margin-top:10px}
+#iwFoot{width:100%;margin-top:18px}
+#iwEmail{width:100%;border:1px solid var(--hair);border-radius:9px;padding:13px 15px;font:400 14px/1.4 Inter,sans-serif;color:var(--txt);background:rgba(7,20,38,.55);margin-bottom:12px;outline:none}
+#iwEmail:focus{border-color:var(--goldhair)}
+#iwEmail.err{border-color:#E05A4E}
+#iwSend{width:100%}
+.bu-err{font-size:13px;color:#F0938A;margin-top:10px;text-align:center}
+.bu-done{text-align:center;padding:26px 8px}
+.bu-done .ok{width:56px;height:56px;border-radius:50%;background:rgba(63,203,126,.14);color:var(--live);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.bu-done h4{font:600 19px/1.3 Inter,sans-serif;margin-bottom:8px}
+.bu-done p{font-size:14.5px;color:var(--mut)}
+
+/* footer */
+footer{border-top:1px solid var(--hair);padding:44px 0 54px}
+footer .row{display:flex;align-items:center;gap:34px;flex-wrap:wrap}
+footer img{height:30px;opacity:.9}
+footer .l{display:flex;gap:26px;font:500 14px/1.5 Inter,sans-serif;flex-wrap:wrap}
+footer .l a{color:var(--mut)} footer .l a:hover{color:var(--txt)}
+footer .tag{margin-left:auto;font:500 12px/1.6 "JetBrains Mono",monospace;color:var(--dim);letter-spacing:.08em}
+
+/* sticky mobile cta */
+.sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;align-items:center;gap:12px;background:rgba(7,20,38,.96);border-top:1px solid var(--goldhair);padding:12px 16px;transform:translateY(110%);transition:transform .3s ease}
+.sticky-cta.show{transform:none}
+.sticky-cta p{flex:1;font:600 13.5px/1.3 Inter,sans-serif;margin:0}
+.sticky-cta .btn{padding:12px 18px;font-size:13.5px;white-space:nowrap}
+
+@media (prefers-reduced-motion:reduce){
+  .mic.rec{animation:none}
+  .an-msg.typing::after{animation:none;content:"…"}
+  html{scroll-behavior:auto}
+}
+
+/* responsive */
+@media (max-width:1080px){
+  .hero{grid-template-columns:1fr;gap:44px;padding:56px 0 72px}
+  .hero h1{font-size:58px}
+  .shead .right{margin-left:0;max-width:640px}
+  .story,.why,.unlock,.xray{grid-template-columns:1fr;gap:40px}
+  .portrait{max-width:420px}
+  .trip{grid-template-columns:1fr;gap:14px}
+  .classes,.examples{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .wrap{padding:0 22px}
+  section{padding:64px 0}
+  nav .links{display:none}
+  nav .row{gap:12px;justify-content:space-between}
+  nav .brand{font-size:15px;gap:9px}
+  nav .brand img{height:26px}
+  nav .btn{padding:10px 13px;font-size:13px;margin-left:auto}
+  .an-body{min-height:180px;max-height:300px}
+  .hero h1{font-size:44px}
+  h2{font-size:36px}
+  .unlock h2{font-size:38px}
+  .rail{grid-template-columns:1fr}
+  .rail .cell{border-right:0;border-bottom:1px solid var(--hair)}
+  .rail .cell:last-child{border-bottom:0}
+  .classes,.examples,.ncols,.vtq,.safety ul{grid-template-columns:1fr}
+  .offer{gap:20px;padding:24px}
+  .offer .btn{margin-left:0;width:100%}
+  .xray{padding:28px 24px}
+  .nbridge{font-size:21px}
+  .sticky-cta{display:flex}
+  footer .tag{margin-left:0}
+}
+@media (max-width:420px){
+  .hero h1{font-size:38px}
+  .ctarow .btn{width:100%}
+}
+</style>
+</head>
+<body>
+
+<nav><div class="wrap"><div class="row">
+  <a class="brand" href="#top" aria-label="Vision Genesis home"><img src="/assets/vg-monogram.png" alt=""> Vision <b>Genesis</b></a>
+  <span class="links"><a href="#live">What's live</a><a href="#build">What we build</a><a href="#norris">Norris</a><a href="#why">Why us</a></span>
+  <a class="btn" href="#unlock"><span class="ctafull">Show us what's stuck →</span><span class="ctashort">What's stuck? →</span></a>
+</div></div></nav>
+
+<div class="wrap" id="top">
+
+<!-- 1 · HERO -->
+<div class="hero">
+  <div>
+    <div class="eyebrow">AI implementation for owner-led businesses</div>
+    <h1>The work stops <em>waiting on you.</em></h1>
+    <p class="lead">Customers get answers at midnight. Quotes draft themselves for your review. Follow-up keeps moving. We build AI that carries the repeatable work — and hands the judgment back to you.</p>
+    <div class="ctarow">
+      <a class="btn" href="https://askmy.business/?utm_source=visiongenesisai&utm_medium=site&utm_campaign=next-hero" target="_blank" rel="noopener">Get your free preview →</a>
+      <a class="btn ghost" href="#unlock">Show us what's stuck</a>
+    </div>
+    <p class="micro">Built from your website in under a day. No card.</p>
+    <div class="trust">
+      <span><svg viewBox="0 0 16 16"><path d="M8 0l2 5 6 .5-4.5 4 1.5 6L8 12l-5 3.5 1.5-6L0 5.5 6 5z"/></svg>Owner-led</span>
+      <span><svg viewBox="0 0 16 16"><path d="M8 0l2 5 6 .5-4.5 4 1.5 6L8 12l-5 3.5 1.5-6L0 5.5 6 5z"/></svg>Human-first</span>
+      <span><svg viewBox="0 0 16 16"><path d="M8 0l2 5 6 .5-4.5 4 1.5 6L8 12l-5 3.5 1.5-6L0 5.5 6 5z"/></svg>Built to run in your business</span>
+    </div>
+  </div>
+  <div>
+    <div class="ask">
+      <div class="hd">
+        <img src="/assets/vg-monogram.png" alt="">
+        <span class="t">Ask Norris</span>
+        <span class="stage st-live"><i class="dot"></i>Live</span>
+      </div>
+      <div class="an-body" id="anBody">
+        <div class="an-msg bot">Ask me what we'd actually build for your business — real answers, from our real content.</div>
+      </div>
+      <div class="an-chips" id="anChips">
+        <button type="button" class="an-chip" data-q="What would you build for a plumbing company?">What would you build for me?</button>
+        <button type="button" class="an-chip" data-q="What does it cost?">What does it cost?</button>
+        <button type="button" class="an-chip" data-q="What stays human?">What stays human?</button>
+      </div>
+      <form id="anForm">
+        <input id="anInput" type="text" placeholder="Ask anything about what we do…" autocomplete="off" aria-label="Ask Norris a question">
+        <button class="send" type="submit" aria-label="Send question">→</button>
+      </form>
+    </div>
+    <p class="askcap">This is <b>our own product answering for us</b> — live model, our real content. Try it before you scroll.</p>
+  </div>
+</div>
+
+<!-- 2 · STAGE RAIL -->
+<div class="railwrap" id="live">
+  <div class="rail">
+    <div class="cell">
+      <span class="stage st-live"><i class="dot"></i>Live today</span>
+      <div class="name">Ask My</div>
+      <p>Your website answers back. Grounded in your content, shows its sources, captures leads, hands judgment to your team.</p>
+      <div class="price">FROM $99/MO · 30 DAYS FREE AFTER APPROVAL</div>
+    </div>
+    <div class="cell">
+      <span class="stage st-field"><i class="dot"></i>Field-tested</span>
+      <div class="name">Voice to Quote</div>
+      <p>Walk the job. Talk. A priced draft estimate is waiting for your review — nothing sends without you.</p>
+      <div class="price">WIDER RELEASE IN PREPARATION</div>
+    </div>
+    <div class="cell">
+      <span class="stage st-dev"><i class="dot"></i>In development</span>
+      <div class="name">Norris</div>
+      <p>The business brain that connects the working pieces — answers, quotes, follow-up, intelligence — under your control.</p>
+      <div class="price">THE LONG GAME</div>
+    </div>
+  </div>
+</div>
+
+<!-- 3 · ASK MY -->
+<section id="askmy">
+  <div class="shead">
+    <div>
+      <div class="eyebrow">Start where the value is obvious</div>
+      <h2>Your website should<br><em>answer back.</em></h2>
+    </div>
+    <p class="right">Ask My turns the site you already have into a front door that answers, shows its sources, captures the people ready to act — and hands the rest to your team.</p>
+  </div>
+  <div class="tabs" role="tablist">
+    <button class="tab on" role="tab" data-v="business">AskMyBusiness</button>
+    <button class="tab" role="tab" data-v="church">AskMyChurch</button>
+    <button class="tab" role="tab" data-v="school">AskMySchool</button>
+    <button class="tab" role="tab" data-v="coach">AskCoach</button>
+  </div>
+  <div class="trip">
+    <div class="tcard">
+      <div class="lbl">Customer question · <span id="vTime">11:47 PM</span></div>
+      <p id="vQ">"Do you offer same-day appointments for root canals?"</p>
+      <p class="meta" id="vQm">Visitor · your website · after hours</p>
+    </div>
+    <div class="tcard">
+      <div class="lbl">Answer from your content</div>
+      <p id="vA">Yes — same-day root canal appointments are available Monday through Friday when booked before 2 PM.</p>
+      <div class="src"><b>Source</b> · <span id="vSrc">yourpractice.com/emergency-dentistry</span></div>
+    </div>
+    <div class="tcard handoff">
+      <div class="lbl">Human handoff</div>
+      <p id="vH">New patient request — captured with the full question and routed to your front desk for the morning.</p>
+      <p class="meta">Judgment stays with your team</p>
+    </div>
+  </div>
+  <div class="offer">
+    <div class="big">$99<small>/mo</small></div>
+    <p class="terms"><b>One plan. Preview first.</b> We build your private assistant from your website in under 24 hours — no card. You pressure-test it. If you approve, your first 30 days are free.</p>
+    <a class="btn" id="vCta" href="https://askmy.business/?utm_source=visiongenesisai&utm_medium=site&utm_campaign=next-askmy" target="_blank" rel="noopener">Build my free preview →</a>
+    <p class="ladder">THE ENTRY RUNG — <b>workflow rebuilds and custom systems are scoped separately below.</b></p>
+  </div>
+  <div class="examples">
+    <div class="ex"><div class="n">Triple F Sports</div><div class="c">Sports performance · Knoxville, TN</div><p class="q">"Which program fits a young athlete who wants to get faster?"</p><a href="https://askmy.business/ask/triple-f-sports/chat" target="_blank" rel="noopener">Talk to it →</a></div>
+    <div class="ex"><div class="n">Spooky Nook Sports</div><div class="c">Sports complex · Manheim, PA</div><p class="q">"What should our team know before booking a tournament weekend?"</p><a href="https://askmy.business/ask/spooky-nook-sports/chat" target="_blank" rel="noopener">Talk to it →</a></div>
+    <div class="ex"><div class="n">The Fox Hollow</div><div class="c">Weddings &amp; events · Woodbury, NY</div><p class="q">"Which room fits 150 guests, and how do deposits work?"</p><a href="https://askmy.business/ask/the-fox-hollow/chat" target="_blank" rel="noopener">Talk to it →</a></div>
+  </div>
+  <p class="disc">Technical examples built from public website content. Not an endorsement by the businesses shown.</p>
+</section>
+
+<!-- 4 · KEN STORY -->
+<section id="proof">
+  <div class="story">
+    <div>
+      <span class="tagline">Preview · pending Ken's OK</span>
+      <div class="eyebrow">One engagement, four working systems</div>
+      <h2>An Olympian's camp business, <em>answered.</em></h2>
+      <p class="lead" style="margin-top:6px">Ken Chertow's Gold Medal Training Camps run hundreds of wrestlers through summer camps with a two-person year-round staff. The repeatable work was drowning the humans.</p>
+    </div>
+    <div class="beats">
+      <div class="beat"><span class="k">I</span><div><h4>Camp questions, answered in Ken's voice</h4><p>AskCoach answers families from the real camp materials — pricing, schedules, packing — and routes anything uncertain to a person. Live on kenchertow.com today.</p></div></div>
+      <div class="beat"><span class="k">II</span><div><h4>A four-tap registration funnel</h4><p>Guided camp selection with exact pricing, straight into checkout. Every started registration is captured for follow-up.</p></div></div>
+      <div class="beat"><span class="k">III</span><div><h4>Follow-up that recovered real revenue</h4><p>The first recovery email converted an abandoned registration into a paid camper. The staff gets a lead digest twice a day.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · CUSTOM + XRAY -->
+<section id="build">
+  <div class="shead">
+    <div>
+      <div class="eyebrow">When the problem doesn't fit a product</div>
+      <h2>We build <em>the fix.</em></h2>
+    </div>
+    <p class="right">Bring us the job that keeps waiting on you. We find where it sticks, put the right guardrails around it, and build the smallest system that changes the outcome.</p>
+  </div>
+  <div class="classes">
+    <div class="cl"><h4>A front door that converts</h4><p>Answers the repeat questions, shows the source, captures real intent, knows when the next step belongs to a person.</p><span class="stage st-live"><i class="dot"></i>Working now · Ask My</span></div>
+    <div class="cl"><h4>A broken workflow, rebuilt</h4><p>We start with the job people already do, find the wait states and rework, and rebuild it around the real work.</p><span class="stage st-field"><i class="dot"></i>Field-tested · Voice to Quote</span></div>
+    <div class="cl"><h4>Protected context that compounds</h4><p>Public content, private knowledge, and regulated data stay separated — with approvals, audit trails, and safety gates built in.</p><span class="stage st-live"><i class="dot"></i>Built into every engagement</span></div>
+  </div>
+  <div class="xray">
+    <div>
+      <div class="eyebrow" style="margin-bottom:14px">Fixed-fee diagnostic</div>
+      <h3>The Workflow <em>X-Ray.</em></h3>
+      <p>Record the work once — on your schedule, on your machines, inside your privacy boundary. We come back with a verified map of how the work actually flows, what it's costing you, and the first fix worth building.</p>
+      <p class="xnote">FIXED FEE · SCOPED IN ONE CALL · SENSITIVE DATA NEVER LEAVES YOUR WALLS</p>
+    </div>
+    <div class="xsteps">
+      <div class="xs"><span class="ic">01</span><p><b>You record the real work</b> — screen and voice, while you do the job you already do.</p></div>
+      <div class="xs"><span class="ic">02</span><p><b>We map it</b> — every step, wait state, and workaround, verified against what you actually did.</p></div>
+      <div class="xs"><span class="ic">03</span><p><b>You get the plan</b> — the automation backlog, the ROI math, and the first build worth doing.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · VTQ -->
+<section id="vtq">
+  <div class="shead">
+    <div>
+      <div class="eyebrow">Proof we rebuild the work itself</div>
+      <h2>Walk the job. Talk.<br><em>Review the quote.</em></h2>
+    </div>
+    <p class="right">Voice to Quote was built with a working field-services crew, in the truck, on real jobs. Voice and photos go in. A priced draft comes out. The owner reviews everything before a customer sees it.</p>
+  </div>
+  <div class="vtq">
+    <div class="vpanel">
+      <div class="lbl">Job-walk recording · 04:28</div>
+      <div class="wave" aria-hidden="true"><i style="height:30%"></i><i style="height:62%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:55%"></i><i style="height:92%"></i><i style="height:38%"></i><i style="height:70%"></i><i style="height:48%"></i><i style="height:85%"></i><i style="height:60%"></i><i style="height:35%"></i><i style="height:75%"></i><i style="height:50%"></i><i style="height:88%"></i><i style="height:42%"></i><i style="height:66%"></i><i style="height:30%"></i><i style="height:58%"></i><i style="height:78%"></i><i style="height:44%"></i><i style="height:90%"></i><i style="height:52%"></i><i style="height:68%"></i><i style="height:36%"></i><i style="height:82%"></i><i style="height:47%"></i><i style="height:63%"></i><i style="height:32%"></i><i style="height:56%"></i></div>
+      <p class="tscript">"Replace the 200-amp panel. Add two dedicated circuits for HVAC and range. Outdoor receptacle by the back door…"</p>
+    </div>
+    <div class="vpanel">
+      <div class="lbl">Draft estimate · ready for review</div>
+      <div class="qline"><span>200A panel upgrade</span><span>$2,450.00</span></div>
+      <div class="qline"><span>(2) dedicated circuits</span><span>$1,300.00</span></div>
+      <div class="qline"><span>Outdoor receptacle</span><span>$180.00</span></div>
+      <div class="qline"><span>Permits &amp; materials</span><span>$650.00</span></div>
+      <div class="qtotal"><span>Total</span><span>$4,580.00</span></div>
+      <div class="vbtns"><span class="ed">Edit scope</span><span class="rev">Review &amp; send</span></div>
+      <p class="vgate">Representative draft. The owner approves every quote — nothing sends itself.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7 · WHY VG -->
+<section id="why">
+  <div class="why">
+    <div class="portrait">
+      <img src="/assets/ryan-portrait.jpg" alt="Ryan Dix, founder of Vision Genesis">
+      <div class="cap"><b>Ryan Dix</b><span>Founder · 20 years across finance and operations — ExxonMobil, Iron Mountain</span></div>
+    </div>
+    <div>
+      <div class="eyebrow">Why Vision Genesis</div>
+      <h2 style="font-size:44px">Built by operators.<br>Finished by <em>builders.</em></h2>
+      <div class="roles">
+        <div class="role"><span class="tag">Operator</span><div><h4>Finds the real constraint</h4><p>Business judgment first — where the work waits, what it costs, what's worth building at all.</p></div></div>
+        <div class="role"><span class="tag">Builder</span><div><h4>Ships the working system</h4><p>Built in the workflow with the people who will use it — not delivered as a slide deck.</p></div></div>
+        <div class="role"><span class="tag">Agent layer</span><div><h4>Keeps testing and improving</h4><p>Research, QA, monitoring, and iteration continue after the first pass. The system gets sharper.</p></div></div>
+      </div>
+      <div class="safety">
+        <h4>What our AI won't do without a person</h4>
+        <ul>
+          <li>Answer without a source it can show</li>
+          <li>Capture contact details without consent</li>
+          <li>Send a quote, or anything else, unreviewed</li>
+          <li>Handle a crisis — those route to humans, immediately</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8 · NORRIS -->
+<section id="norris">
+  <div class="eyebrow">Norris · the long game</div>
+  <h2>Every working piece becomes<br>part of <em>the brain.</em></h2>
+  <p class="nbridge"><b>Ask My</b> is a voice. <b>Voice to Quote</b> is an ear. <b>Recovery</b> is a reflex. Norris is where the working pieces connect into one business brain — that answers to you.</p>
+  <div class="honest"><p><b>Honest stage:</b> Norris is in development. The full operating system is not an off-the-shelf install today. Every piece above it is.</p></div>
+  <div class="ncols">
+    <div class="ncol now">
+      <div class="lbl">● Working now</div>
+      <ul>
+        <li><b>Ask My</b><span>Customer answers, sources, capture, handoff</span></li>
+        <li><b>Voice to Quote</b><span>Voice and photos into review-ready estimates</span></li>
+        <li><b>Canon</b><span>The verified knowledge layer under every answer</span></li>
+        <li><b>Workflow X-Ray</b><span>From a recorded workflow to a scoped build</span></li>
+      </ul>
+    </div>
+    <div class="ncol later">
+      <div class="lbl">→ Connecting over time</div>
+      <ul>
+        <li><b>Recovery loops</b><span>Unsigned estimates, unpaid invoices, stale leads</span></li>
+        <li><b>Business intelligence</b><span>What needs attention, what changed, why</span></li>
+        <li><b>Owner-approved action</b><span>Draft, approve, send, log — with an audit trail</span></li>
+        <li><b>Protected memory</b><span>The business learns without giving up control</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 9 · UNLOCK -->
+<section id="unlock">
+  <div class="unlock">
+    <div>
+      <div class="eyebrow">The bottleneck unlock</div>
+      <h2>No discovery theater.<br>Just <em>show us the work.</em></h2>
+      <p class="lead" style="margin-top:8px">Talk or type for ten minutes: what keeps waiting on you, where it sticks, what that costs. We come back with the first thing worth fixing.</p>
+      <div class="upoints"><span><i></i>About ten minutes</span><span><i></i>Talk or type</span><span><i></i>No pushy sales call</span></div>
+    </div>
+    <div class="bu" id="intakeWidget">
+      <div class="bu-tabs" role="tablist">
+        <button type="button" class="bu-tab on" id="tabRec" role="tab" aria-selected="true">🎙 Talk</button>
+        <button type="button" class="bu-tab" id="tabChat" role="tab" aria-selected="false">⌨ Type</button>
+      </div>
+      <div class="bu-steps"><b id="buStep1">1 · Answer</b><b id="buStep2">2 · Email</b><b id="buStep3">3 · Send</b></div>
+      <div class="bu-pane" id="iwRec" style="display:flex">
+        <button type="button" class="mic" id="recOrb" aria-label="Start recording"><svg viewBox="0 0 24 24"><path d="M12 15a4 4 0 0 0 4-4V6a4 4 0 1 0-8 0v5a4 4 0 0 0 4 4zm6-4a6 6 0 0 1-12 0H4a8 8 0 0 0 7 7.93V22h2v-3.07A8 8 0 0 0 20 11z"/></svg></button>
+        <div id="recHint">Tap to start</div>
+        <p id="recState">Talk through the problem in your own words — what keeps waiting on you, where it sticks, what that costs.</p>
+        <div id="recLiveRow" hidden><span id="recTimer">0:00</span><span id="recMeter"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>
+        <div id="recClips" hidden></div>
+      </div>
+      <div class="bu-pane" id="iwChat" style="display:none">
+        <div id="iwProg">Question 1 of 7</div>
+        <div id="iwQ"></div>
+        <textarea id="iwA" placeholder="Type your answer…"></textarea>
+        <div class="iw-nav"><button type="button" id="iwPrev" hidden>← Back</button><button type="button" id="iwNext">Next question →</button></div>
+        <p id="iwTypeHint">Short answers are fine — this is a conversation, not a form.</p>
+      </div>
+      <form id="iwFoot">
+        <input id="iwEmail" type="email" placeholder="you@yourbusiness.com" autocomplete="email" aria-label="Your email">
+        <button class="btn" id="iwSend" type="submit" disabled>Send the bottleneck →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="row">
+    <img src="/assets/vg-monogram.png" alt="Vision Genesis">
+    <span class="l">
+      <a href="https://askmy.business" target="_blank" rel="noopener">AskMyBusiness</a>
+      <a href="https://askmy.church" target="_blank" rel="noopener">AskMyChurch</a>
+      <a href="https://askmy.school" target="_blank" rel="noopener">AskMySchool</a>
+      <a href="/kc-camps/ask-coach/" target="_blank" rel="noopener">AskCoach</a>
+      <a href="/about.html">About</a>
+      <a href="mailto:vision@visiongenesisai.com">Contact</a>
+    </span>
+    <span class="tag">OWNER-LED · HUMAN-FIRST · KNOXVILLE, TN</span>
+  </div>
+</footer>
+
+</div><!-- /wrap -->
+
+<div class="sticky-cta" id="stickyCta">
+  <p>Free preview — live in a day.</p>
+  <a class="btn" href="https://askmy.business/?utm_source=visiongenesisai&utm_medium=site&utm_campaign=next-sticky" target="_blank" rel="noopener">Get started</a>
+</div>
+
+<script>
+/* ---- Ask My vertical tabs ---- */
+(function(){
+  var V={
+    business:{time:"11:47 PM",q:"“Do you offer same-day appointments for root canals?”",qm:"Visitor · your website · after hours",
+      a:"Yes — same-day root canal appointments are available Monday through Friday when booked before 2 PM.",
+      src:"yourpractice.com/emergency-dentistry",
+      h:"New patient request — captured with the full question and routed to your front desk for the morning.",
+      cta:"Build my free preview →",url:"https://askmy.business/?utm_source=visiongenesisai&utm_medium=site&utm_campaign=next-askmy"},
+    church:{time:"9:12 PM",q:"“What time are services on Sunday, and is there something for my kids?”",qm:"First-time visitor · your church site · Saturday night",
+      a:"Services are at 9:00 and 11:00 AM, with kids' ministry at both — check-in opens 20 minutes early at the main entrance.",
+      src:"yourchurch.org/visit",
+      h:"A prayer request goes straight to a pastor — a person follows up, never the software.",
+      cta:"See AskMyChurch →",url:"https://askmy.church"},
+    school:{time:"8:40 PM",q:"“How do we schedule a tour, and when are admissions deadlines?”",qm:"Prospective family · your school site · evening",
+      a:"Tours run Tuesday and Thursday mornings — applications for fall are open now, with priority review through March 1.",
+      src:"yourschool.org/admissions",
+      h:"Tour request captured with the family's questions and routed to the admissions office.",
+      cta:"See AskMySchool →",url:"https://askmy.school"},
+    coach:{time:"10:05 PM",q:"“Which camp fits a 12-year-old who's never wrestled?”",qm:"Parent · camp website · after practice",
+      a:"The youth 4-day camp is built for beginners — full days of instruction with no experience required, and a parent can help with registration.",
+      src:"camp materials · schedule + pricing",
+      h:"Registration questions route to the camp office — with the whole conversation attached.",
+      cta:"Talk to AskCoach →",url:"/kc-camps/ask-coach/"}
+  };
+  var tabs=document.querySelectorAll(".tab");
+  function set(v){
+    var d=V[v]; if(!d) return;
+    document.getElementById("vTime").textContent=d.time;
+    document.getElementById("vQ").textContent=d.q;
+    document.getElementById("vQm").textContent=d.qm;
+    document.getElementById("vA").textContent=d.a;
+    document.getElementById("vSrc").textContent=d.src;
+    document.getElementById("vH").textContent=d.h;
+    var c=document.getElementById("vCta"); c.textContent=d.cta; c.href=d.url;
+    tabs.forEach(function(t){ t.classList.toggle("on",t.getAttribute("data-v")===v); });
+  }
+  tabs.forEach(function(t){ t.addEventListener("click",function(){ set(t.getAttribute("data-v")); }); });
+})();
+
+/* ---- Ask Norris widget — live grounded endpoint with graceful fallback ---- */
+(function(){
+  var body=document.getElementById("anBody"), form=document.getElementById("anForm"), input=document.getElementById("anInput"), chips=document.getElementById("anChips");
+  if(!body) return;
+  var ENDPOINT="https://vg-worker.visiongenesis.workers.dev/ask-church/norris";
+  var history=[];
+  var KB={
+    norris:"Think of Norris as the brain that runs your front line — it answers customers, drafts quotes, watches the numbers, and flags what's slipping, and it gets a little sharper every day. The 'Ask My' products are Norris wearing your brand on the customer-facing side.",
+    askmy:"Ask My is the part your customers actually talk to — Ask My Business, Church, School. It answers only from your real content, can't make things up, and routes people to the right next step. Preview in under a day — the Ask My section above shows exactly how.",
+    cost:"Honest answer: it depends what you're solving. The productized Ask My deployments start at $99/mo with a free preview first. A custom engagement starts with the 10-minute Bottleneck Unlock below to find the constraint costing you most, then we price the fix to that.",
+    fast:"The productized stuff (Ask My) previews in under a day — no IT project, no rip-and-replace. Custom builds are scoped to your specific bottleneck. Fastest way to a real answer for your situation is the Bottleneck Unlock below: you talk, we listen, you get a read-out.",
+    diff:"A normal chatbot recites a script and hits a wall. Our systems do the actual work — and only from what's true about your business, so they can't make things up. Sources shown, judgment handed to a person when it matters.",
+    data:"There's a public voice and a private side, cleanly separated. The public voice only knows what you've published. Your internal docs, email, and books stay untouched unless you deliberately hand them over.",
+    who:"Vision Genesis is Ryan Dix's firm — two decades operating at ExxonMobil and Iron Mountain, plus businesses he built and ran himself. Veteran operator, AI-native builders, and an agent layer doing the rest. More on the About page.",
+    proof:"Real organizations run on this right now — churches, schools, a national wrestling camp, a field-services crew quoting jobs by voice. Try the live examples in the Ask My section above.",
+    voice:"Voice to Quote is for people who quote work in the field. Walk the job and just talk; it drafts a priced estimate against your own catalog, and you review everything before a customer sees it.",
+    start:"Easiest first step is the 10-minute Bottleneck Unlock below — no forms, no pushy sales call, just talk. Or the free Ask My preview: built from your website in under a day, no card."
+  };
+  var ESC=[
+    "Let me try that a different way — what's the part of your business actually eating your time right now? Point me at the real problem and I can be a lot more useful than a generic answer.",
+    "Fair, that was a bit canned. The honest move is to get you a real read-out instead of me guessing — the 10-minute Bottleneck Unlock below does exactly that.",
+    "I'm trained on what's public about Vision Genesis, so for the specifics of your situation a human will serve you better — vision@visiongenesisai.com, or the Bottleneck Unlock below.",
+    "Let's cut to it: what are you trying to fix? Quotes that take too long, calls you can't answer, leads going cold? Tell me that."
+  ];
+  var lastKey=null, escI=0;
+  function esc(x){ return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function fmt(x){ var h=esc(x);
+    h=h.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g,function(m,t,u){return '<a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>';});
+    h=h.replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>");
+    h=h.replace(/\n{2,}/g,"<br><br>").replace(/\n/g,"<br>");
+    return h; }
+  function add(text,who){ var d=document.createElement("div"); d.className="an-msg "+who; d.textContent=text; body.appendChild(d); body.scrollTop=body.scrollHeight; return d; }
+  function sid(){ try{ var v=localStorage.getItem("vg_an_sid"); if(!v){ v="an-"+Date.now().toString(36)+Math.random().toString(36).slice(2,8); localStorage.setItem("vg_an_sid",v);} return v; }catch(e){ return "an-anon"; } }
+  function fallback(q,t){ var l=q.toLowerCase(), k=null;
+    if(/norris|second brain|the brain|jarvis/.test(l))k="norris";
+    if(/ask\s*my|customer.?facing|answer.*customer/.test(l))k="askmy";
+    if(/cost|price|pricing|how much|afford|month|\$/.test(l))k="cost";
+    if(/fast|how long|launch|quick|when|timeline|set ?up/.test(l))k="fast";
+    if(/different|chatgpt|gpt|better than|why you|just a chatbot| vs /.test(l))k="diff";
+    if(/data|privat|privacy|secur|safe|confidential|internal/.test(l))k="data";
+    if(/who |ryan|founder|behind|team|your story|about you/.test(l))k="who";
+    if(/proof|real|example|case|using|demo|see it/.test(l))k="proof";
+    if(/voice.?to.?quote|quote|estimate|landscap|contractor|field|plumb|hvac|roof/.test(l))k="voice";
+    if(/start|get going|sign up|begin|next step|talk to|contact|email|human|person/.test(l))k="start";
+    var diss=/didn'?t? ?like|don'?t? ?like|not helpful|that'?s not|try again|different answer|too generic|vague|wrong|same answer|^no$|nope|unhelpful|boring|robot/.test(l);
+    if(diss || !k || k===lastKey){ t.textContent=ESC[escI%ESC.length]; escI++; lastKey=null; }
+    else { t.textContent=KB[k]; lastKey=k; } }
+  function ask(q){
+    add(q,"me"); if(chips)chips.style.display="none";
+    history.push({role:"user",content:q});
+    var t=add("Norris is thinking","bot typing"), done=false, acc="", started=false;
+    var timer=setTimeout(function(){ if(done)return; done=true; t.classList.remove("typing"); fallback(q,t); },30000);
+    function finish(reply){ if(done)return; done=true; clearTimeout(timer); t.classList.remove("typing");
+      if(!reply){ fallback(q,t); return; }
+      t.innerHTML=fmt(reply); history.push({role:"assistant",content:reply}); body.scrollTop=body.scrollHeight; }
+    fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history.slice(-12),sid:sid(),src:"site-next-asknorris",stream:true})})
+      .then(function(r){
+        if(!r.ok) return Promise.reject(r.status);
+        var ct=r.headers.get("content-type")||"";
+        if(!r.body || ct.indexOf("text/event-stream")<0){ return r.json().then(function(d){ finish((d&&d.reply)||""); }); }
+        clearTimeout(timer);
+        var reader=r.body.getReader(), dec=new TextDecoder(), buf="";
+        (function pump(){ reader.read().then(function(res){
+          if(res.done){ finish(acc); return; }
+          buf+=dec.decode(res.value,{stream:true});
+          var idx;
+          while((idx=buf.indexOf("\n\n"))>=0){
+            var ev=buf.slice(0,idx).split("\n").filter(function(x){return x.indexOf("data:")===0;})[0];
+            buf=buf.slice(idx+2);
+            if(!ev)continue;
+            try{ var o=JSON.parse(ev.slice(5).trim());
+              if(o.t){ if(!started){started=true; t.classList.remove("typing"); t.textContent="";} acc+=o.t; t.textContent=acc; body.scrollTop=body.scrollHeight; }
+              else if(o.done){ finish(acc); return; }
+            }catch(e){}
+          }
+          pump();
+        }).catch(function(){ if(started){ finish(acc); } else if(!done){ done=true; clearTimeout(timer); t.classList.remove("typing"); fallback(q,t); } }); })();
+      })
+      .catch(function(){ if(done)return; done=true; clearTimeout(timer); t.classList.remove("typing"); fallback(q,t); });
+  }
+  form.addEventListener("submit",function(e){ e.preventDefault(); var v=input.value.trim(); if(!v)return; input.value=""; ask(v); });
+  chips&&chips.querySelectorAll(".an-chip").forEach(function(c){ c.addEventListener("click",function(){ ask(c.getAttribute("data-q")); }); });
+})();
+
+/* ---- Bottleneck Unlock: real voice recorder + typed interview ---- */
+(function(){
+  var ENDPOINT="https://vg-worker.visiongenesis.workers.dev/bottleneck-unlock/upload";
+  var Q=[
+    "First — what do you do, and what are you known for?",
+    "What's the one headache that pulls you away from actually growing the business?",
+    "Where does the work itself get stuck or slow down the most?",
+    "Roughly what's that costing you — in missed jobs, overtime, or your own hours? A ballpark is fine.",
+    "What have you already tried, and why didn't it stick?",
+    "Walk me through how a typical job runs, start to finish — where do the handoffs and delays hit?",
+    "If that one bottleneck vanished next month, what would you do with the time or the cash?"
+  ];
+  var $=function(id){ return document.getElementById(id); };
+  var widget=$("intakeWidget"); if(!widget) return;
+  var tabRec=$("tabRec"), tabChat=$("tabChat"), recPane=$("iwRec"), chatPane=$("iwChat");
+  var orb=$("recOrb"), recHint=$("recHint"), recState=$("recState"), liveRow=$("recLiveRow"),
+      timerEl=$("recTimer"), meter=$("recMeter"), clipsWrap=$("recClips");
+  var qEl=$("iwQ"), aEl=$("iwA"), pEl=$("iwProg"), prevBtn=$("iwPrev"), nextBtn=$("iwNext"), typeHint=$("iwTypeHint");
+  var foot=$("iwFoot"), emailEl=$("iwEmail"), sendBtn=$("iwSend");
+  var step1=$("buStep1"), step2=$("buStep2"), step3=$("buStep3");
+  var meterBars=meter?meter.querySelectorAll("i"):[];
+
+  var isRec=true, recording=false, starting=false, clips=[], i=0, answers=[];
+  var mr=null, stream=null, chunks=[], startedAt=0, tick=null, raf=null, audioCtx=null, analyser=null;
+
+  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((v||"").trim()); }
+  function fmt(ms){ var s=Math.floor(ms/1000); return Math.floor(s/60)+":"+("0"+(s%60)).slice(-2); }
+  function hasTyped(){ for(var k=0;k<answers.length;k++){ if(answers[k]&&answers[k].trim()) return true; } return false; }
+  function ready(){ return isRec ? clips.length>0 : hasTyped(); }
+  function canSend(){ return validEmail(emailEl.value) && ready(); }
+  function refreshSend(){
+    sendBtn.disabled=!canSend();
+    var okEmail=validEmail(emailEl.value);
+    step1&&step1.classList.toggle("done", ready());
+    step2&&step2.classList.toggle("on", ready() && !okEmail);
+    step2&&step2.classList.toggle("done", okEmail);
+    step3&&step3.classList.toggle("on", canSend());
+  }
+  emailEl.addEventListener("input",function(){ emailEl.classList.remove("err"); refreshSend(); });
+
+  function setMode(rec){
+    isRec=rec;
+    tabRec.classList.toggle("on",rec); tabChat.classList.toggle("on",!rec);
+    tabRec.setAttribute("aria-selected",rec?"true":"false"); tabChat.setAttribute("aria-selected",rec?"false":"true");
+    recPane.style.display=rec?"flex":"none"; chatPane.style.display=rec?"none":"flex";
+    refreshSend();
+  }
+  tabRec.addEventListener("click",function(){ if(recording) return; setMode(true); });
+  tabChat.addEventListener("click",function(){ if(recording) stopRec(); setMode(false); });
+
+  /* typed interview */
+  function renderQ(){ pEl.textContent="Question "+(i+1)+" of "+Q.length; qEl.textContent=Q[i]; aEl.value=answers[i]||"";
+    prevBtn.hidden=(i===0); nextBtn.textContent=(i===Q.length-1)?"Done ✓":"Next question →"; }
+  aEl.addEventListener("input",function(){ answers[i]=aEl.value; refreshSend(); });
+  nextBtn.addEventListener("click",function(){ answers[i]=aEl.value; if(i<Q.length-1){ i++; renderQ(); } else { typeHint.textContent="All set — add your email and hit Send."; emailEl.focus(); } refreshSend(); });
+  prevBtn.addEventListener("click",function(){ answers[i]=aEl.value; if(i>0){ i--; renderQ(); } });
+
+  /* recording */
+  function supported(){ return !!(navigator.mediaDevices && navigator.mediaDevices.getUserMedia && window.MediaRecorder); }
+  function pickMime(){ if(!window.MediaRecorder) return ""; var C=["audio/webm;codecs=opus","audio/webm","audio/mp4","audio/mpeg","audio/ogg"]; for(var k=0;k<C.length;k++){ try{ if(MediaRecorder.isTypeSupported(C[k])) return C[k]; }catch(e){} } return ""; }
+  function drawMeter(){ if(!analyser) return; var d=new Uint8Array(analyser.frequencyBinCount); analyser.getByteFrequencyData(d);
+    for(var b=0;b<meterBars.length;b++){ var seg=d[2+b*3]||0; meterBars[b].style.height=(4+Math.round((seg/255)*16))+"px"; }
+    raf=requestAnimationFrame(drawMeter); }
+  function startRec(){
+    if(recording||starting) return;
+    if(!supported()){ recState.innerHTML='This browser blocks in-page recording. Tap <b>Type</b> above to answer in writing — same result.'; return; }
+    starting=true; recHint.textContent="Starting…";
+    navigator.mediaDevices.getUserMedia({audio:true}).then(function(s){
+      starting=false; stream=s; chunks=[]; var mime=pickMime();
+      mr=new MediaRecorder(s, mime?{mimeType:mime}:undefined);
+      mr.ondataavailable=function(e){ if(e.data&&e.data.size) chunks.push(e.data); };
+      mr.onstop=function(){ finishClip(mr&&mr.mimeType?mr.mimeType:mime); };
+      mr.start(); recording=true; startedAt=Date.now();
+      orb.classList.add("rec"); orb.setAttribute("aria-label","Stop recording");
+      recHint.textContent="Recording…"; liveRow.hidden=false; timerEl.textContent="0:00";
+      recState.textContent=(clips.length?"Recording another — ":"Recording — ")+"talk us through it. Tap the mic again when you're done.";
+      tick=setInterval(function(){ var el=Date.now()-startedAt; timerEl.textContent=fmt(el); if(el>12*60*1000) stopRec(); },250);
+      try{ audioCtx=new (window.AudioContext||window.webkitAudioContext)(); var src=audioCtx.createMediaStreamSource(s); analyser=audioCtx.createAnalyser(); analyser.fftSize=64; src.connect(analyser); drawMeter(); }catch(e){}
+    }).catch(function(){
+      starting=false; recording=false; orb.classList.remove("rec"); recHint.textContent="Tap to start";
+      recState.innerHTML='Couldn’t reach your mic — allow the 🎙 permission in your browser bar, or tap <b>Type</b> to answer in writing.';
+    });
+  }
+  function stopRec(){ if(!recording||!mr) return; recording=false; try{ mr.stop(); }catch(e){}
+    if(tick){ clearInterval(tick); tick=null; } if(raf){ cancelAnimationFrame(raf); raf=null; } }
+  function finishClip(mime){
+    if(stream){ stream.getTracks().forEach(function(t){ t.stop(); }); stream=null; }
+    if(audioCtx){ try{ audioCtx.close(); }catch(e){} audioCtx=null; analyser=null; }
+    var ms=Date.now()-startedAt, type=(mime||"audio/webm").split(";")[0], blob=new Blob(chunks,{type:type});
+    orb.classList.remove("rec"); orb.setAttribute("aria-label","Tap to record another"); liveRow.hidden=true; recHint.textContent="Tap to add another";
+    if(!blob.size){ recState.textContent="Hmm — that clip came through empty. Tap the mic and try again."; return; }
+    clips.push({blob:blob,url:URL.createObjectURL(blob),ms:ms,type:type}); renderClips();
+    recState.innerHTML="Saved ✓ — add another, or drop your email below and hit <b>Send</b>.";
+    refreshSend();
+  }
+  function extFor(t){ t=(t||"").toLowerCase(); if(t.indexOf("mp4")>-1) return "mp4"; if(t.indexOf("mpeg")>-1) return "mp3"; if(t.indexOf("ogg")>-1) return "ogg"; return "webm"; }
+  function renderClips(){
+    clipsWrap.hidden=clips.length===0; clipsWrap.innerHTML="";
+    clips.forEach(function(c,idx){
+      var row=document.createElement("div"); row.className="rec-clip";
+      var lab=document.createElement("span"); lab.className="ck"; lab.textContent="Clip "+(idx+1)+" · "+fmt(c.ms);
+      var au=document.createElement("audio"); au.controls=true; au.src=c.url; au.preload="metadata";
+      var rm=document.createElement("button"); rm.type="button"; rm.className="rm"; rm.setAttribute("aria-label","Remove clip "+(idx+1)); rm.innerHTML="&times;";
+      rm.addEventListener("click",function(){ URL.revokeObjectURL(c.url); clips.splice(idx,1); renderClips(); if(!clips.length){ recState.textContent="Talk through the problem in your own words."; recHint.textContent="Tap to start"; } refreshSend(); });
+      row.appendChild(lab); row.appendChild(au); row.appendChild(rm); clipsWrap.appendChild(row);
+    });
+  }
+  orb.addEventListener("click",function(){ if(recording) stopRec(); else startRec(); });
+
+  /* send */
+  function showDone(email){
+    var steps=widget.querySelector(".bu-steps"); if(steps) steps.style.display="none";
+    var tabs=widget.querySelector(".bu-tabs"); if(tabs) tabs.style.display="none";
+    recPane.style.display="none"; chatPane.style.display="none"; foot.style.display="none";
+    var d=document.createElement("div"); d.className="bu-done";
+    d.innerHTML='<div class="ok"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg></div><h4>Got it — we’re on it.</h4><p>We’ll be in touch at <b>'+email+'</b> with the first thing worth fixing. Thanks for talking us through it.</p>';
+    widget.appendChild(d);
+  }
+  function setSending(on,label){ sendBtn.disabled=on||!canSend(); sendBtn.textContent=on?(label||"Sending…"):"Send the bottleneck →"; }
+  function fail(msg){ setSending(false); var e=widget.querySelector(".bu-err"); if(!e){ e=document.createElement("p"); e.className="bu-err"; foot.parentNode.insertBefore(e,foot.nextSibling); } e.textContent=msg||"Something went wrong sending that — please try again, or email vision@visiongenesisai.com."; }
+
+  foot.addEventListener("submit",function(ev){ ev.preventDefault();
+    if(!validEmail(emailEl.value)){ emailEl.classList.add("err"); emailEl.focus(); return; }
+    var email=emailEl.value.trim(); var oldErr=widget.querySelector(".bu-err"); if(oldErr) oldErr.remove();
+    if(isRec){
+      if(!clips.length){ recState.textContent="Record at least one answer first — tap the mic."; return; }
+      setSending(true,"Uploading… "); var okAll=true, pending=clips.length;
+      clips.forEach(function(c,idx){
+        var fd=new FormData(); fd.append("audio",c.blob,"clip-"+(idx+1)+"."+extFor(c.type)); fd.append("email",email); fd.append("durationMs",String(c.ms));
+        fetch(ENDPOINT,{method:"POST",body:fd}).then(function(r){ return r.ok?r.json():Promise.reject(r.status); })
+          .then(function(j){ if(!j||!j.success) okAll=false; })
+          .catch(function(){ okAll=false; })
+          .then(function(){ if(--pending===0){ okAll?showDone(email):fail(); } });
+      });
+    } else {
+      answers[i]=aEl.value; if(!hasTyped()){ typeHint.textContent="Type at least one answer first."; return; }
+      setSending(true,"Sending… ");
+      fetch("https://formspree.io/f/xeedoodv",{method:"POST",headers:{"Accept":"application/json","Content-Type":"application/json"},body:JSON.stringify({email:email,_subject:"Bottleneck Unlock intake (visiongenesisai.com/next)",answers:answers})})
+        .then(function(r){ return r.ok?r.json():Promise.reject(r.status); }).then(function(){ showDone(email); }).catch(function(){ fail(); });
+    }
+  });
+
+  renderQ(); refreshSend();
+})();
+
+/* ---- sticky mobile CTA ---- */
+(function(){
+  var bar=document.getElementById("stickyCta"); if(!bar) return;
+  var hero=document.querySelector(".hero"), unlock=document.getElementById("unlock");
+  function onScroll(){
+    var past=hero?window.scrollY>hero.offsetTop+hero.offsetHeight:window.scrollY>600;
+    var atUnlock=false;
+    if(unlock){ var r=unlock.getBoundingClientRect(); atUnlock=r.top<window.innerHeight&&r.bottom>0; }
+    bar.classList.toggle("show",past&&!atUnlock);
+  }
+  window.addEventListener("scroll",onScroll,{passive:true}); onScroll();
+})();
+</script>
+</body>
+</html>

@@ -1,5 +1,6 @@
 User-agent: *
 Disallow: /v2/
+Disallow: /next/
 Disallow: /v-r1/
 Disallow: /v-pre-r3/
 Disallow: /v-pre-superpowers/
