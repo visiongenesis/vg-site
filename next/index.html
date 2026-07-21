@@ -390,7 +390,7 @@ footer .tag{margin-left:auto;font:500 12px/1.6 "JetBrains Mono",monospace;color:
       <span class="stage st-live"><i class="dot"></i>Live today</span>
       <div class="name">Ask My</div>
       <p>Your website answers back. Grounded in your content, shows its sources, captures leads, hands judgment to your team.</p>
-      <div class="price">FROM $99/MO · 30 DAYS FREE AFTER APPROVAL</div>
+      <div class="price">$99/MO · ONE PLAN · 30 DAYS FREE AFTER APPROVAL</div>
     </div>
     <div class="cell">
       <span class="stage st-field"><i class="dot"></i>Field-tested</span>
@@ -711,6 +711,7 @@ footer .tag{margin-left:auto;font:500 12px/1.6 "JetBrains Mono",monospace;color:
   function fmt(x){ var h=esc(x);
     h=h.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g,function(m,t,u){return '<a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>';});
     h=h.replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>");
+    h=h.replace(/(^|[\s(>])\*([^*\n]+)\*(?=[\s.,;:!?)<]|$)/g,"$1<i>$2</i>");
     h=h.replace(/\n{2,}/g,"<br><br>").replace(/\n/g,"<br>");
     return h; }
   function add(text,who){ var d=document.createElement("div"); d.className="an-msg "+who; d.textContent=text; body.appendChild(d); body.scrollTop=body.scrollHeight; return d; }
