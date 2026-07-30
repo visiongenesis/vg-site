@@ -503,7 +503,7 @@
     <div class="w-9 h-9 rounded-full bg-gold/15 flex items-center justify-center text-gold text-lg">&#9733;</div>
     <div class="flex-1">
       <div class="font-display uppercase tracking-wide text-white text-[15px] leading-none">Find Your Camp</div>
-      <div class="text-[11px] text-gold/90 mt-1">3 questions &middot; instant price</div>
+      <div class="text-[11px] text-gold/90 mt-1">a few questions &middot; instant price</div>
     </div>
     <button id="finderClose" class="text-white/50 hover:text-white p-1" aria-label="Close">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>
@@ -512,7 +512,14 @@
   <div class="p-5 overflow-y-auto">
     <div class="flex items-center gap-2 mb-6" id="finderDots"></div>
     <div id="finderSteps">
-      <div class="finder-step" data-step="0">
+      <div class="finder-step" data-screen="loc">
+        <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">Which camp &mdash; Ohio or Pennsylvania?</h3>
+        <div class="grid grid-cols-1 gap-3">
+          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="loc" data-val="oh"><div class="font-display text-lg text-white">Ohio</div><div class="text-white/55 text-sm">Spooky Nook &middot; Hamilton, OH &middot; Jul 18&ndash;23</div></button>
+          <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="loc" data-val="pa"><div class="font-display text-lg text-white">Pennsylvania</div><div class="text-white/55 text-sm">Spooky Nook &middot; multiple weeks, June&ndash;July</div></button>
+        </div>
+      </div>
+      <div class="finder-step hidden" data-screen="who">
         <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">Who's wrestling?</h3>
         <div class="grid grid-cols-1 gap-3">
           <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="who" data-val="boy"><div class="font-display text-lg text-white">Teen Boy</div><div class="text-white/55 text-sm">Ages 13&ndash;18</div></button>
@@ -520,7 +527,7 @@
           <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="who" data-val="youth"><div class="font-display text-lg text-white">Youth</div><div class="text-white/55 text-sm">Ages 6&ndash;12</div></button>
         </div>
       </div>
-      <div class="finder-step hidden" data-step="1">
+      <div class="finder-step hidden" data-screen="level">
         <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">How deep do they want to go?</h3>
         <div class="grid grid-cols-1 gap-3">
           <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="level" data-val="intro"><div class="font-display text-lg text-white">Get a Taste</div><div class="text-white/55 text-sm">Shorter, focused camp</div></button>
@@ -528,7 +535,7 @@
           <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="level" data-val="elite"><div class="font-display text-lg text-white">Go All-In</div><div class="text-white/55 text-sm">The 2-week intensive</div></button>
         </div>
       </div>
-      <div class="finder-step hidden" data-step="2">
+      <div class="finder-step hidden" data-screen="stay">
         <h3 class="font-display uppercase tracking-wide text-white text-xl mb-4">Staying over, or commuting?</h3>
         <div class="grid grid-cols-1 gap-3">
           <button class="finder-opt border border-white/15 rounded-sm p-4 text-left" data-key="stay" data-val="res"><div class="font-display text-lg text-white">Resident</div><div class="text-white/55 text-sm">On-site hotel + all meals</div></button>
@@ -660,40 +667,42 @@ document.querySelectorAll('.loc').forEach(b=>b.addEventListener('click',()=>{
 }));
 
 /* ============ FIND YOUR CAMP ============ */
-const fAns = {}; let fStep = 0;
-const steps = document.querySelectorAll('.finder-step');
+const fAns = {};
+let flow = ['loc'], fi = 0;          // Ohio skips the "how deep" step (single 6-day camp); PA keeps it
+const stepEls = document.querySelectorAll('.finder-step');
 const dotsWrap = document.getElementById('finderDots');
 const backBtn = document.getElementById('finderBack');
+function buildFlow(){ flow = (fAns.loc==='oh') ? ['loc','who','stay'] : ['loc','who','level','stay']; }
 function renderDots(){
-  dotsWrap.innerHTML = [0,1,2].map(i=>`<div class="h-1.5 flex-1 rounded-full ${i<=fStep?'bg-gold':'bg-white/15'}"></div>`).join('');
+  dotsWrap.innerHTML = flow.map((_,i)=>`<div class="h-1.5 flex-1 rounded-full ${i<=fi?'bg-gold':'bg-white/15'}"></div>`).join('');
 }
-function showStep(n){
-  fStep=n; renderDots();
-  steps.forEach(s=>s.classList.toggle('hidden', +s.dataset.step!==n));
+function showScreen(){
+  const key = flow[fi]; renderDots();
+  stepEls.forEach(s=>s.classList.toggle('hidden', s.dataset.screen!==key));
   document.getElementById('finderResult').classList.add('hidden');
   document.getElementById('finderSteps').classList.remove('hidden');
-  backBtn.classList.toggle('hidden', n===0);
+  backBtn.classList.toggle('hidden', fi===0);
 }
+function resetFinder(){ for(const k in fAns) delete fAns[k]; flow=['loc']; fi=0; showScreen(); }
 function recommend(){
-  const t = fAns.who; // boy | girl | youth
-  const regKey = t==='youth'?'youth':(t==='girl'?'girls':'boys');
-  const list = CAMPS[regKey];
-  let camp;
-  if(t==='youth'){
-    if(fAns.level==='elite') camp=list[0];
-    else if(fAns.level==='serious') camp=list[1];
-    else camp=list[2];
+  const t = fAns.who, regKey = t==='youth'?'youth':(t==='girl'?'girls':'boys');
+  let camp, where;
+  if(fAns.loc==='oh'){
+    camp = CAMPS_OH[regKey][0];
+    where = 'Spooky Nook · Hamilton, OH · Jul 18–23';
   } else {
-    if(fAns.level==='elite') camp=list[0];
-    else if(fAns.level==='serious') camp=list[1];
-    else camp=list[3];
+    const list = CAMPS[regKey];
+    const idx = (t==='youth') ? (fAns.level==='elite'?0 : fAns.level==='serious'?1 : 2)
+                              : (fAns.level==='elite'?0 : fAns.level==='serious'?1 : 3);
+    camp = list[idx];
+    where = 'Spooky Nook, Pennsylvania';
   }
   const price = fAns.stay==='res'?camp.res:camp.comm;
   document.getElementById('finderSteps').classList.add('hidden');
   backBtn.classList.add('hidden');
-  const r = document.getElementById('finderResult'); r.classList.remove('hidden');
+  document.getElementById('finderResult').classList.remove('hidden');
   document.getElementById('frName').textContent = camp.name;
-  document.getElementById('frMeta').textContent = `${camp.days} · ${camp.ages} · Spooky Nook, PA`;
+  document.getElementById('frMeta').textContent = `${camp.days} · ${camp.ages} · ${where}`;
   document.getElementById('frPrice').textContent = money(price);
   document.getElementById('frStay').textContent = fAns.stay==='res'?'Resident':'Commuter';
   document.getElementById('frPitch').textContent = camp.pitch;
@@ -702,13 +711,14 @@ function recommend(){
 }
 document.querySelectorAll('.finder-opt').forEach(o=>o.addEventListener('click',()=>{
   fAns[o.dataset.key]=o.dataset.val;
-  if(fStep<2) showStep(fStep+1); else recommend();
+  if(o.dataset.key==='loc') buildFlow();           // rebuild the path once location is chosen
+  if(fi < flow.length-1){ fi++; showScreen(); } else { recommend(); }
 }));
-backBtn.addEventListener('click',()=>{ if(fStep>0) showStep(fStep-1); });
-document.getElementById('frRestart').addEventListener('click',()=>{ showStep(0); });
-showStep(0);
+backBtn.addEventListener('click',()=>{ if(fi>0){ fi--; showScreen(); } });
+document.getElementById('frRestart').addEventListener('click',resetFinder);
+resetFinder();
 const finderPanel=document.getElementById('finderPanel');
-function openFinder(){ finderPanel.classList.add('open'); document.getElementById('finderBtn').style.display='none'; showStep(0); }
+function openFinder(){ finderPanel.classList.add('open'); document.getElementById('finderBtn').style.display='none'; resetFinder(); }
 function closeFinder(){ finderPanel.classList.remove('open'); document.getElementById('finderBtn').style.display='flex'; }
 document.getElementById('finderBtn').addEventListener('click',openFinder);
 document.getElementById('finderClose').addEventListener('click',closeFinder);
@@ -727,7 +737,9 @@ const FAQS = [
   {q:"Does the second week of Super Gold repeat the first week?", a:"No — the second week is continued, increasingly personalized instruction that builds on week one.", tags:["super gold","supergirl","second week","repeat","two week","13 day","intensive"]},
   {q:"What are the dates for team camps?", a:"Teams are welcome to attend any of our camps.", tags:["team","teams","dates","when","group"]},
   {q:"What time is curfew?", a:"Resident campers must be in their rooms by 10 p.m.", tags:["curfew","bed","night","bedtime","sleep"]},
-  {q:"How many days can my child stay at camp?", a:"Teens choose 4, 6, 11, or 13-day options; youth choose 4, 6, or 11-day camps. The 4-day Future Champions camp (ages 6-9) requires a parent.", tags:["days","how long","length","duration","weeks","options","stay"]},
+  {q:"How many days can my child stay at camp?", a:"Teens choose 4, 6, 11, or 13-day options; youth choose 4, 6, or 11-day camps. The 4-day Future Champions camp (ages 6-9) requires a parent.", tags:["how many days","how long can","days at camp","length of stay","number of days","days","weeks","duration","stay"]},
+  {q:"How long is each training session?", a:"Sessions run two to three hours each, three times a day.", tags:["how long is each","how long are the","how long is a","session","sessions","practice","practices","training session","mat time","hours","how many hours","each day","daily schedule"]},
+  {q:"How many wrestlers attend camp?", a:"Hundreds of campers attend across the summer. This year alone, we anticipate nearly 500 campers across our multiple weeks of camps.", tags:["how many kids","how many campers","how many wrestlers","how many people","how many attend","attend","attendance","enrolled","kids","campers","how big","size of camp","number of campers","how popular"]},
   {q:"Do you provide airport transportation?", a:"Yes — pickups from Harrisburg and Cincinnati airports for $50 per person per trip, with payment due by June 10.", tags:["airport","transportation","transport","ride","pickup","pick up","fly","flight","harrisburg","cincinnati","travel","bus"]},
   {q:"How do I arrange airport transportation?", a:"Email Beth@kenchertow.com with the wrestler's name, cell phone number, and flight itinerary.", tags:["transportation","arrange","airport","beth","contact","flight","book","pickup"]},
   {q:"Do you have medical staff on site?", a:"Yes — a highly trained camp nurse is on staff for the entire duration of camp.", tags:["medical","nurse","doctor","hurt","injury","health","sick","emergency"]},
@@ -763,18 +775,18 @@ FAQS.forEach(f=>{
 });
 function idf(t){ return Math.log(1 + FN/(DF[t]||0.5)); }
 function scoreFaq(qw, raw, f){
-  let s=0;
+  let s=0, strong=false;   // strong = matched a real keyword (exact tag) or a specific multi-word phrase, not just an incidental shared word
   qw.forEach(t=>{
-    if(f._tagset.has(t)) s += 3*idf(t);
+    if(f._tagset.has(t)){ s += 3*idf(t); strong=true; }
     else if(f._words.has(t)) s += 2*idf(t);
     else if(t.length>3 && f._hay.includes(t)) s += idf(t);
   });
-  f._phrases.forEach(ph=>{ if(raw.indexOf(ph)>=0) s += 5; });
-  return s;
+  f._phrases.forEach(ph=>{ if(raw.indexOf(ph)>=0){ s += 5; strong=true; } });
+  return {s, strong};
 }
 function bestMatches(q){
   const raw=q.toLowerCase(), w=tok(q); if(!w.length) return [];
-  return FAQS.map(f=>({f,s:scoreFaq(w,raw,f)})).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
+  return FAQS.map(f=>{ const r=scoreFaq(w,raw,f); return {f, s:r.s, strong:r.strong}; }).filter(x=>x.s>0).sort((a,b)=>b.s-a.s);
 }
 function addMsg(html, who='bot'){
   const wrap=document.createElement('div');
@@ -795,13 +807,16 @@ function answer(q){
   setTimeout(()=>{
     document.getElementById('typing')?.remove();
     const m = bestMatches(q);
-    if(!m.length || m[0].s < 3.5){
+    // Only answer on a confident, real keyword/phrase match. A weak or incidental match
+    // (e.g. one shared common word) falls through to "I don't know → camps@" — far better
+    // than confidently handing back the wrong FAQ.
+    if(!m.length || m[0].s < 4 || !m[0].strong){
       addMsg(`I'm not totally sure on that one — Coach's team can help directly at <a href="mailto:camps@kenchertow.com" class="text-gold underline">camps@kenchertow.com</a>. Meanwhile, try asking about <em>cost, lodging, what to bring, airport pickup,</em> or <em>cancellation</em>.`);
       return;
     }
     const top = m[0].f;
     addMsg(`<div class="text-gold eyebrow text-[10px] mb-1">${top.q}</div>${top.a}`);
-    const related = m.slice(1,3).filter(x=>x.s>=3.5).map(x=>x.f.q);
+    const related = m.slice(1,3).filter(x=>x.strong && x.s>=4).map(x=>x.f.q);
     if(related.length){
       chipsEl.innerHTML = related.map(q=>`<button class="chip eyebrow text-[10px] text-white/70 border border-white/20 rounded-full px-3 py-1.5">${q}</button>`).join('');
       bindChips();

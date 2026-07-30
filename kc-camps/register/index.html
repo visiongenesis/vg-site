@@ -197,6 +197,8 @@ const WHO = [
   {id:'youth', t:'Youth · 6–13', d:'Future Champions, Kids &amp; SuperKid'},
 ];
 const TEEN = [
+  {id:'train6oh', name:'Gold Medal Training Camp', dur:'6-Day', dates:'July 18 – 23', loc:'Spooky Nook · Hamilton, OH', comm:850, res:950, tag:'Ohio', blurb:'Our newest camp — train with an Olympian in Ohio.'},
+  {id:'tech4oh',  name:'Gold Medal Technique Camp', dur:'4-Day', dates:'July 18 – 21', loc:'Spooky Nook · Hamilton, OH', comm:625, res:700, tag:'Ohio', blurb:'Sharpen fundamentals at the Ohio camp.'},
   {id:'tech4',  name:'Gold Medal Technique Camp', dur:'4-Day', dates:'Jun 28 – Jul 1 or Jul 5 – 8', comm:625, res:700, blurb:'Sharpen fundamentals. A strong first camp.'},
   {id:'train6', name:'Gold Medal Training Camp',  dur:'6-Day', dates:'Jun 28 – Jul 3 or Jul 5 – 10', comm:850, res:950, blurb:'The classic — technique plus live wrestling.'},
   {id:'train11',name:'Gold Medal Training Camp',  dur:'11-Day',dates:'Jun 28 – Jul 8', comm:1750, res:1950, blurb:'Go deeper. Eleven days on the mat.'},
@@ -208,6 +210,8 @@ const CATALOG = {
     ? {...c, name:'SuperGirl Training Camp', blurb:'Two weeks. Our most intensive girls camp.'}
     : c),
   youth: [
+    {id:'kids6oh',   name:'Kids Training Camp', dur:'6-Day', dates:'July 18 – 23 · grades 3–7', loc:'Spooky Nook · Hamilton, OH', comm:850, res:950, tag:'Ohio', blurb:'Six days for younger wrestlers — in Ohio.'},
+    {id:'fc4oh',     name:'Future Champions Parent/Child', dur:'4-Day', dates:'July 18 – 21 · grades 1–3', loc:'Spooky Nook · Hamilton, OH', comm:575, res:1000, tag:'Ohio', blurb:'A parent trains alongside their young wrestler — in Ohio.'},
     {id:'fc4',       name:'Future Champions Parent/Child', dur:'4-Day', dates:'Grades 1–3 · a parent attends', comm:575, res:1000, blurb:'A parent trains alongside their young wrestler.'},
     {id:'kids6',     name:'Kids Training Camp', dur:'6-Day', dates:'Grades 3–7', comm:850, res:950, blurb:'Six days built for younger wrestlers.'},
     {id:'superkid11',name:'SuperKid Technique &amp; Training', dur:'11-Day', dates:'Grades 4–7 · Jun 28 – Jul 8', comm:1750, res:1950, tag:'Most Intensive', blurb:'Our deepest youth camp — eleven days.'},
@@ -220,7 +224,8 @@ const KC_SRC = (()=>{ try{ return (new URLSearchParams(location.search).get('src
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 // AskCoach passes camp by friendly slug; map to our internal ids.
 const CAMP_SLUGS = { technique:'tech4', training6:'train6', training11:'train11', supergold:'super13', supergirl:'super13',
-                     futurechamps:'fc4', kids:'kids6', superkid:'superkid11' };
+                     futurechamps:'fc4', kids:'kids6', superkid:'superkid11',
+                     training6oh:'train6oh', technique4oh:'tech4oh', kids6oh:'kids6oh', futurechamps4oh:'fc4oh' };
 
 // steps: 0=email · 1=who · 2=housing · 3=camp · 4=reserve
 const S = { email:'', name:'', who:null, housing:null, campId:null, step:0 };
@@ -334,7 +339,7 @@ function stepReserve(){
   main.innerHTML = `<button class="back" onclick="go(3)">‹ Choose camp</button>
     <div class="step-h">Step 5 · Reserve your spot</div>
     <div class="receipt">
-      <div class="top"><span class="gpill g-${S.who}">${who().t}</span><div class="nm">${c.name}</div><div class="dt">${c.dur} · ${c.dates.split('·')[0].trim()} · Spooky Nook, PA</div></div>
+      <div class="top"><span class="gpill g-${S.who}">${who().t}</span><div class="nm">${c.name}</div><div class="dt">${c.dur} · ${c.dates.split('·')[0].trim()} · ${c.loc||'Spooky Nook, PA'}</div></div>
       <div class="rrow"><span class="k">Wrestler</span><span class="v">${who().t}</span></div>
       <div class="rrow"><span class="k">Attending as</span><span class="v">${isRes?'Resident — hotel + meals included':'Commuter — drives in, meals included'}</span></div>
       <div class="rtot"><span class="k">Camp tuition</span><span class="v">${usd(base)}<small>${isRes?'bed buy-out available — $50/night':'all-in, meals included'}</small></span></div>
@@ -345,7 +350,7 @@ function stepReserve(){
       <button class="cta" id="reserveBtn" disabled>Reserve This Spot <span class="arr">→</span></button>
       <div class="cta-sub">Opens secure checkout in a new tab — about 5 minutes to finish.</div>
     </div>
-    <div class="ohio"><div class="eb">Also Headed to Ohio?</div><div class="tx">The Ohio camp runs <b>Jul 18–23</b>. There's a <b>$100 multi-camp discount</b> — tap Ask Coach and we'll set it up.</div></div>
+    ${c.loc ? '' : `<div class="ohio"><div class="eb">Also Headed to Ohio?</div><div class="tx">The Ohio camp runs <b>Jul 18–23</b>. There's a <b>$100 multi-camp discount</b> — tap Ask Coach and we'll set it up.</div></div>`}
     <div class="fineprint">Prices are the real 2026 registration rates — resident is all-in (hotel and meals included). Optional add-ons (apparel, airport shuttle, PURE) and full payment are completed on Coach Ken's secure RegFox checkout.</div>`;
   wireReserve(c, isRes, base);
 }
