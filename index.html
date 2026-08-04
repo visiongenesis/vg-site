@@ -239,9 +239,10 @@
               <strong>Ask Norris</strong>
               <small>LIVE</small>
             </div>
-            <div class="an-body" id="anBody">
+            <div class="an-body" id="anBody" tabindex="0">
               <div class="an-msg bot">Hey — I'm Norris, the AI that runs Vision Genesis. Ask me what we build, how it works, or what it'd look like in your business.</div>
             </div>
+            <button class="an-jump" id="anJump" type="button">Latest reply</button>
             <div class="an-chips" id="anChips">
               <button class="an-chip" data-q="What exactly is Norris?">What is Norris?</button>
               <button class="an-chip" data-q="What does it cost to get started?">What does it cost?</button>
@@ -738,7 +739,7 @@
 
   /* ---- Ask Norris widget — wired to the live grounded Sonnet endpoint (graceful fallback) ---- */
   (function(){
-    var body=document.getElementById("anBody"), form=document.getElementById("anForm"), input=document.getElementById("anInput"), chips=document.getElementById("anChips");
+    var body=document.getElementById("anBody"), form=document.getElementById("anForm"), input=document.getElementById("anInput"), chips=document.getElementById("anChips"), jump=document.getElementById("anJump");
     if(!body) return;
     var ENDPOINT="https://vg-worker.visiongenesis.workers.dev/ask-church/norris";
     var history=[];
@@ -762,12 +763,38 @@
     ];
     var lastKey=null, escI=0;
     function esc(x){ return String(x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
-    function fmt(x){ var h=esc(x);
-      h=h.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g,function(m,t,u){return '<a href="'+u+'" target="_blank" rel="noopener">'+t+'</a>';});
-      h=h.replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>");
-      h=h.replace(/\n{2,}/g,"<br><br>").replace(/\n/g,"<br>");
-      return h; }
-    function add(text,who){ var d=document.createElement("div"); d.className="an-msg "+who; d.textContent=text; body.appendChild(d); body.scrollTop=body.scrollHeight; return d; }
+    function linkHtml(label,url){
+      if(url.indexOf("mailto:")===0) return '<a href="'+url+'">'+label+'</a>';
+      try{
+        var u=new URL(url,location.href), owned=/^(www\.)?visiongenesisai\.com$/i.test(u.hostname)||u.origin===location.origin;
+        var href=owned?(u.pathname+u.search+u.hash):u.href;
+        return '<a href="'+href+'"'+(owned?'':' target="_blank" rel="noopener"')+'>'+label+'</a>';
+      }catch(e){ return label; }
+    }
+    function inline(x){ var h=esc(x);
+      h=h.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+|mailto:[^\s)]+)\)/g,function(m,t,u){return linkHtml(t,u);});
+      return h.replace(/\*\*([^*]+)\*\*/g,"<b>$1</b>").replace(/\*([^*]+)\*/g,"<em>$1</em>");
+    }
+    function fmt(x){
+      var lines=String(x||"").replace(/\r/g,"").split("\n"), out="", list=false;
+      function close(){ if(list){ out+="</ul>"; list=false; } }
+      lines.forEach(function(raw){ var line=raw.trim(), bullet=line.match(/^[-*•]\s+(.*)/);
+        if(!line){ close(); return; }
+        if(bullet){ if(!list){ out+="<ul>"; list=true; } out+="<li>"+inline(bullet[1])+"</li>"; }
+        else { close(); out+="<p>"+inline(line)+"</p>"; }
+      });
+      close(); return out;
+    }
+    var NEAR_EDGE=64, follow=true;
+    function below(){ return body.scrollHeight-body.scrollTop-body.clientHeight; }
+    function syncJump(){ if(jump) jump.classList.toggle("show",!follow&&below()>NEAR_EDGE); }
+    function pin(force){ if(force)follow=true; if(follow)body.scrollTop=body.scrollHeight; syncJump(); }
+    function onReaderScroll(){ follow=below()<=NEAR_EDGE; syncJump(); }
+    body.addEventListener("scroll",onReaderScroll,{passive:true});
+    body.addEventListener("wheel",function(e){ if(e.deltaY<0){ follow=false; syncJump(); } },{passive:true});
+    body.addEventListener("touchmove",onReaderScroll,{passive:true});
+    if(jump)jump.addEventListener("click",function(){ follow=true; body.scrollTop=body.scrollHeight; syncJump(); });
+    function add(text,who){ var d=document.createElement("div"); d.className="an-msg "+who; d.textContent=text; body.appendChild(d); pin(true); return d; }
     function sid(){ try{ var v=localStorage.getItem("vg_an_sid"); if(!v){ v="an-"+Date.now().toString(36)+Math.random().toString(36).slice(2,8); localStorage.setItem("vg_an_sid",v);} return v; }catch(e){ return "an-anon"; } }
     function fallback(q,t){ var l=q.toLowerCase(), k=null;
       if(/norris|second brain|the brain|jarvis/.test(l))k="norris";
@@ -781,8 +808,10 @@
       if(/voice.?to.?quote|quote|estimate|landscap|contractor|field/.test(l))k="voice";
       if(/start|get going|sign up|begin|next step|talk to|contact|email/.test(l))k="start";
       var diss=/didn'?t? ?like|don'?t? ?like|not helpful|that'?s not|try again|different answer|too generic|vague|wrong|same answer|^no$|nope|unhelpful|boring|robot/.test(l);
-      if(diss || !k || k===lastKey){ t.textContent=ESC[escI%ESC.length]; escI++; lastKey=null; }
-      else { t.textContent=KB[k]; lastKey=k; } }
+      var reply;
+      if(diss || !k || k===lastKey){ reply=ESC[escI%ESC.length]; escI++; lastKey=null; }
+      else { reply=KB[k]; lastKey=k; }
+      t.innerHTML=fmt(reply); pin(); }
     function ask(q){
       add(q,"me"); if(chips)chips.style.display="none";
       history.push({role:"user",content:q});
@@ -790,7 +819,7 @@
       var timer=setTimeout(function(){ if(done)return; done=true; t.classList.remove("typing"); fallback(q,t); },30000);
       function finish(reply){ if(done)return; done=true; clearTimeout(timer); t.classList.remove("typing");
         if(!reply){ fallback(q,t); return; }
-        t.innerHTML=fmt(reply); history.push({role:"assistant",content:reply}); body.scrollTop=body.scrollHeight; }
+        t.innerHTML=fmt(reply); history.push({role:"assistant",content:reply}); pin(); }
       fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({messages:history.slice(-12),sid:sid(),src:"site-asknorris",stream:true})})
         .then(function(r){
           if(!r.ok) return Promise.reject(r.status);
@@ -807,7 +836,7 @@
               buf=buf.slice(idx+2);
               if(!ev)continue;
               try{ var o=JSON.parse(ev.slice(5).trim());
-                if(o.t){ if(!started){started=true; t.classList.remove("typing"); t.textContent="";} acc+=o.t; t.textContent=acc; body.scrollTop=body.scrollHeight; }
+                if(o.t){ if(!started){started=true; t.classList.remove("typing"); t.textContent="";} acc+=o.t; t.innerHTML=fmt(acc); pin(); }
                 else if(o.done){ finish(acc); return; }
               }catch(e){}
             }
@@ -818,6 +847,12 @@
     }
     form.addEventListener("submit",function(e){ e.preventDefault(); var v=input.value.trim(); if(!v)return; input.value=""; ask(v); });
     chips&&chips.querySelectorAll(".an-chip").forEach(function(c){ c.addEventListener("click",function(){ ask(c.getAttribute("data-q")); }); });
+    body.addEventListener("click",function(e){
+      var a=e.target.closest&&e.target.closest("a"); if(!a)return;
+      try{ var u=new URL(a.href,location.href), samePage=u.origin===location.origin&&u.pathname===location.pathname&&u.hash;
+        if(samePage){ var target=document.querySelector(u.hash); if(target){ e.preventDefault(); target.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"}); window.history.replaceState(null,"",u.hash); } }
+      }catch(_){ }
+    });
   })();
 
   /* ---- Bottleneck Unlock: real voice recorder + typed interview ---- */
