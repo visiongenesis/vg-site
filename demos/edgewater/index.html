@@ -1,0 +1,1466 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Subscope — DOE Subcontract Radar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================== THEME TOKENS ============================== */
+:root{
+  --bg:#f4f6f8; --bg-2:#eef1f5; --panel:#ffffff; --panel-2:#f8fafc;
+  --ink:#101722; --ink-2:#3c4a60; --muted:#657084; --faint:#8a94a4;
+  --line:#e3e8ef; --line-2:#eef2f7;
+  --accent:#3b5bdb; --accent-2:#2f49b8; --accent-ink:#ffffff; --accent-wash:#eef2fe;
+  --open:#0b8a4a; --open-bg:#e4f6ec; --open-line:#bfe6cf;
+  --soon:#b3560c; --soon-bg:#fcefdf; --soon-line:#f2d6b0;
+  --fcast:#5b4cc4; --fcast-bg:#edeafc; --fcast-line:#d8d1f5;
+  --closed:#79828f; --closed-bg:#eef1f5; --closed-line:#dfe4ea;
+  --gap:#0b7285; --gap-bg:#dff5f8; --gap-line:#b7e4ea;
+  --live:#0a7a52; --live-bg:#e3f6ee; --live-line:#b4e5d1; --live-ink:#ffffff;
+  --shadow-sm:0 1px 2px rgba(16,23,34,.06);
+  --shadow:0 1px 2px rgba(16,23,34,.05),0 8px 24px rgba(16,23,34,.06);
+  --shadow-lg:0 12px 40px rgba(16,23,34,.16);
+  --radius:12px;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c0f14; --bg-2:#0f131a; --panel:#151a22; --panel-2:#1a212b;
+    --ink:#e9eef5; --ink-2:#c2ccda; --muted:#95a1b2; --faint:#6f7b8c;
+    --line:#242c38; --line-2:#1e242e;
+    --accent:#5877f0; --accent-2:#6d88f5; --accent-ink:#0a0e15; --accent-wash:#1a2138;
+    --open:#4ad991; --open-bg:#0f2c1e; --open-line:#1c4632;
+    --soon:#f0b45a; --soon-bg:#33260f; --soon-line:#4d3b18;
+    --fcast:#a99bff; --fcast-bg:#20204a; --fcast-line:#343064;
+    --closed:#8994a2; --closed-bg:#1c222c; --closed-line:#2a3340;
+    --gap:#4ecbdd; --gap-bg:#0d2a30; --gap-line:#184249;
+    --live:#37e0a0; --live-bg:#08271c; --live-line:#12513a; --live-ink:#04160f;
+    --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.4);
+    --shadow-lg:0 18px 50px rgba(0,0,0,.55);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c0f14; --bg-2:#0f131a; --panel:#151a22; --panel-2:#1a212b;
+  --ink:#e9eef5; --ink-2:#c2ccda; --muted:#95a1b2; --faint:#6f7b8c;
+  --line:#242c38; --line-2:#1e242e;
+  --accent:#5877f0; --accent-2:#6d88f5; --accent-ink:#0a0e15; --accent-wash:#1a2138;
+  --open:#4ad991; --open-bg:#0f2c1e; --open-line:#1c4632;
+  --soon:#f0b45a; --soon-bg:#33260f; --soon-line:#4d3b18;
+  --fcast:#a99bff; --fcast-bg:#20204a; --fcast-line:#343064;
+  --closed:#8994a2; --closed-bg:#1c222c; --closed-line:#2a3340;
+  --gap:#4ecbdd; --gap-bg:#0d2a30; --gap-line:#184249;
+  --live:#37e0a0; --live-bg:#08271c; --live-line:#12513a; --live-ink:#04160f;
+  --shadow-sm:0 1px 2px rgba(0,0,0,.4);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.4);
+  --shadow-lg:0 18px 50px rgba(0,0,0,.55);
+}
+
+/* ============================== BASE ============================== */
+*{box-sizing:border-box}
+html,body{overflow-x:hidden;max-width:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;}
+.mono{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+button{font-family:inherit}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+::-webkit-scrollbar{width:10px;height:10px}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:8px;border:2px solid var(--bg)}
+::-webkit-scrollbar-thumb:hover{background:var(--closed)}
+
+/* ============================== TOP BAR ============================== */
+.topbar{position:sticky;top:0;z-index:40;background:color-mix(in srgb,var(--panel) 88%,transparent);
+  backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid var(--line);}
+.topbar-inner{max-width:1640px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:14px;padding:11px 20px;}
+.brand{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.brand .mark{width:30px;height:30px;border-radius:8px;flex-shrink:0;position:relative;
+  background:linear-gradient(145deg,var(--accent),var(--accent-2));box-shadow:0 2px 8px color-mix(in srgb,var(--accent) 40%,transparent)}
+.brand .mark::before,.brand .mark::after{content:"";position:absolute;border-radius:50%}
+.brand .mark::before{inset:7px;border:2px solid rgba(255,255,255,.9)}
+.brand .mark::after{width:5px;height:5px;background:#fff;left:50%;top:50%;transform:translate(-50%,-50%);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 60%,transparent)}
+.brand .name{font-weight:800;letter-spacing:-.02em;font-size:16px}
+.brand .name span{color:var(--accent)}
+.brand .beta{font-size:9.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);
+  border:1px solid var(--line);border-radius:5px;padding:2px 5px;margin-left:2px}
+.globalsearch{flex:1;max-width:560px;position:relative;min-width:0}
+.globalsearch svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--faint);pointer-events:none}
+.globalsearch input{width:100%;font:inherit;font-size:13.5px;color:var(--ink);background:var(--panel-2);
+  border:1px solid var(--line);border-radius:9px;padding:9px 12px 9px 36px;transition:border-color .15s,box-shadow .15s}
+.globalsearch input::placeholder{color:var(--faint)}
+.globalsearch input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash);background:var(--panel)}
+.topspacer{flex:1}
+.iconbtn{position:relative;display:inline-flex;align-items:center;justify-content:center;width:36px;height:36px;
+  border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--ink-2);cursor:pointer;flex-shrink:0}
+.iconbtn:hover{background:var(--panel-2);color:var(--ink)}
+.iconbtn .dot{position:absolute;top:-4px;right:-4px;min-width:16px;height:16px;padding:0 4px;border-radius:9px;
+  background:var(--accent);color:var(--accent-ink);font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;border:2px solid var(--panel)}
+.avatar{width:34px;height:34px;border-radius:50%;flex-shrink:0;background:linear-gradient(145deg,#4b6bd6,#7a53c9);
+  color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+
+/* dropdowns */
+.pop{position:absolute;right:0;top:46px;width:320px;background:var(--panel);border:1px solid var(--line);
+  border-radius:12px;box-shadow:var(--shadow-lg);z-index:60;overflow:hidden;display:none}
+.pop.open{display:block}
+.pop h4{margin:0;padding:12px 14px;font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);
+  border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.pop .item{padding:11px 14px;border-bottom:1px solid var(--line-2);cursor:pointer;display:flex;gap:10px}
+.pop .item:last-child{border-bottom:none}
+.pop .item:hover{background:var(--panel-2)}
+.pop .item .ic{width:26px;height:26px;border-radius:7px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:13px}
+.pop .item .t{font-size:13px;font-weight:600;line-height:1.35}
+.pop .item .s{font-size:11.5px;color:var(--muted);margin-top:2px}
+
+/* ============================== TABS ============================== */
+.tabsbar{position:sticky;top:57px;z-index:30;background:var(--bg);border-bottom:1px solid var(--line)}
+.tabsbar-inner{max-width:1640px;margin:0 auto;display:flex;gap:2px;padding:0 12px;overflow-x:auto}
+.tab{position:relative;border:none;background:none;color:var(--muted);font-size:13.5px;font-weight:600;
+  padding:13px 15px 12px;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected=true]{color:var(--accent);border-bottom-color:var(--accent)}
+.tab .cnt{font-size:11px;color:var(--faint);margin-left:5px;font-weight:600}
+.tab[aria-selected=true] .cnt{color:var(--accent)}
+
+/* ============================== APP SHELL ============================== */
+.shell{max-width:1640px;margin:0 auto;display:grid;grid-template-columns:272px 1fr;gap:0;align-items:start}
+.view{min-width:0}
+.view[hidden]{display:none}
+
+/* ---- filter rail ---- */
+.rail{position:sticky;top:100px;align-self:start;height:calc(100vh - 100px);overflow-y:auto;
+  border-right:1px solid var(--line);padding:16px 16px 40px;background:var(--bg)}
+.rail h3{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 8px;font-weight:700;
+  display:flex;justify-content:space-between;align-items:center}
+.rail .clearall{font-size:11.5px;color:var(--accent);cursor:pointer;font-weight:600;text-transform:none;letter-spacing:0}
+.fsec{border-top:1px solid var(--line);padding:13px 0}
+.fsec:first-of-type{border-top:none;padding-top:4px}
+.fsec > .lbl{font-size:12px;font-weight:700;color:var(--ink-2);cursor:pointer;display:flex;justify-content:space-between;align-items:center;user-select:none}
+.fsec > .lbl .chev{color:var(--faint);transition:transform .15s}
+.fsec.collapsed > .lbl .chev{transform:rotate(-90deg)}
+.fsec .body{margin-top:11px}
+.fsec.collapsed .body{display:none}
+.checkrow{display:flex;align-items:center;gap:9px;padding:5px 0;cursor:pointer;font-size:13px;color:var(--ink-2)}
+.checkrow:hover{color:var(--ink)}
+.checkrow input{accent-color:var(--accent);width:15px;height:15px;flex-shrink:0;cursor:pointer}
+.checkrow .cnt{margin-left:auto;font-size:11px;color:var(--faint);font-variant-numeric:tabular-nums}
+.railinput{width:100%;font:inherit;font-size:13px;color:var(--ink);background:var(--panel);border:1px solid var(--line);
+  border-radius:8px;padding:7px 10px}
+.railinput:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-wash)}
+.railselect{width:100%;font:inherit;font-size:13px;color:var(--ink);background:var(--panel);border:1px solid var(--line);
+  border-radius:8px;padding:7px 9px;cursor:pointer}
+.presets{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.preset{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:7px;padding:5px 9px;
+  font-size:11.5px;cursor:pointer;font-weight:600}
+.preset[aria-pressed=true]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+
+/* value slider */
+.valhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:2px}
+.valhead .v{font-size:14px;font-weight:700;font-variant-numeric:tabular-nums}
+.range{position:relative;height:32px;margin:2px 2px 0}
+.range .track{position:absolute;top:14px;left:0;right:0;height:5px;background:var(--line);border-radius:4px}
+.range .fill{position:absolute;top:14px;height:5px;background:var(--accent);border-radius:4px}
+.range input[type=range]{position:absolute;top:0;left:0;width:100%;height:32px;margin:0;background:none;pointer-events:none;-webkit-appearance:none;appearance:none}
+.range input[type=range]:focus{outline:none}
+.range input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;pointer-events:all;width:18px;height:18px;border-radius:50%;
+  background:var(--panel);border:2px solid var(--accent);cursor:grab;box-shadow:var(--shadow-sm);margin-top:0}
+.range input[type=range]::-webkit-slider-thumb:active{cursor:grabbing;box-shadow:0 0 0 5px var(--accent-wash)}
+.range input[type=range]::-moz-range-thumb{pointer-events:all;width:18px;height:18px;border-radius:50%;
+  background:var(--panel);border:2px solid var(--accent);cursor:grab;box-shadow:var(--shadow-sm)}
+.range input[type=range]::-webkit-slider-runnable-track{background:none;border:none}
+.range input[type=range]::-moz-range-track{background:none;border:none}
+.valest{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:12px;color:var(--muted)}
+.switch{position:relative;width:34px;height:19px;flex-shrink:0;border-radius:99px;background:var(--line);cursor:pointer;transition:background .15s}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:15px;height:15px;border-radius:50%;background:#fff;transition:transform .15s;box-shadow:var(--shadow-sm)}
+.switch[aria-checked=true]{background:var(--accent)}
+.switch[aria-checked=true]::after{transform:translateX(15px)}
+
+/* ---- main column ---- */
+.main{padding:18px 22px 60px;min-width:0}
+.pagehead{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:flex-end;margin-bottom:14px}
+.pagehead h1{font-size:20px;margin:0;letter-spacing:-.02em;font-weight:800}
+.pagehead .sub{color:var(--muted);font-size:12.5px;margin:3px 0 0;max-width:66ch}
+.stamp{margin-left:auto;text-align:right;font-size:11.5px;color:var(--muted);line-height:1.45;white-space:nowrap}
+.stamp b{color:var(--ink)}
+
+/* KPI strip */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+.kpi{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;box-shadow:var(--shadow-sm);min-width:0}
+.kpi .n{font-size:22px;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.1}
+.kpi .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;margin-top:3px;font-weight:600}
+.kpi .sp{font-size:11px;margin-top:5px;font-weight:600;display:inline-flex;align-items:center;gap:4px}
+.kpi.accentbar{position:relative;overflow:hidden}
+.kpi.accentbar::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--accent)}
+
+/* pile cue */
+.pilecue{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;background:var(--gap-bg);border:1px solid var(--gap-line);
+  border-radius:var(--radius);padding:9px 14px;margin-bottom:16px;font-size:12.5px;color:var(--ink-2);overflow-wrap:anywhere}
+.pilecue b{color:var(--gap)}
+.pilecue .split{display:inline-flex;align-items:center;gap:7px;min-width:0;flex-wrap:wrap}
+.pilecue .bar{width:120px;height:8px;border-radius:5px;background:var(--closed-bg);overflow:hidden;display:inline-block;vertical-align:middle}
+.pilecue .bar i{display:block;height:100%;background:var(--gap)}
+
+/* results toolbar */
+.restoolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:12px}
+.restoolbar .count{font-size:13px;color:var(--muted)}
+.restoolbar .count b{color:var(--ink);font-weight:700}
+.restoolbar .spacer{flex:1}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--panel)}
+.seg button{border:none;background:none;color:var(--muted);font-size:12.5px;font-weight:600;padding:7px 12px;cursor:pointer}
+.seg button[aria-pressed=true]{background:var(--accent);color:var(--accent-ink)}
+.seg button+button{border-left:1px solid var(--line)}
+.sortsel{font:inherit;font-size:12.5px;color:var(--ink);background:var(--panel);border:1px solid var(--line);border-radius:9px;padding:7px 10px;cursor:pointer}
+.btn{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--panel);color:var(--ink);
+  font-size:12.5px;font-weight:600;padding:7px 12px;border-radius:9px;cursor:pointer}
+.btn:hover{background:var(--panel-2)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.primary:hover{background:var(--accent-2)}
+.btn svg{flex-shrink:0}
+.mobilefilterbtn{display:none}
+
+/* saved searches strip */
+.saved{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-bottom:14px}
+.saved .lab{font-size:11.5px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+.savedchip{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--panel);
+  color:var(--ink-2);border-radius:99px;padding:5px 11px;font-size:12px;font-weight:600;cursor:pointer}
+.savedchip:hover{border-color:var(--accent);color:var(--accent)}
+.savedchip svg{color:var(--soon)}
+.savedchip .x{color:var(--faint);font-weight:700;margin-left:1px}
+.savedchip .x:hover{color:var(--closed)}
+
+/* active filter chips */
+.activefilters{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;min-height:0}
+.afchip{display:inline-flex;align-items:center;gap:6px;background:var(--accent-wash);color:var(--accent-2);
+  border:1px solid color-mix(in srgb,var(--accent) 30%,transparent);border-radius:8px;padding:4px 8px;font-size:12px;font-weight:600}
+.afchip b{font-weight:700}
+.afchip .x{cursor:pointer;font-weight:800;opacity:.75}
+.afchip .x:hover{opacity:1}
+
+/* ---- opportunity rows ---- */
+.opplist{display:flex;flex-direction:column;gap:9px}
+.opp{display:grid;grid-template-columns:132px 1fr 190px;gap:14px;background:var(--panel);border:1px solid var(--line);
+  border-radius:var(--radius);padding:14px 16px;box-shadow:var(--shadow-sm);cursor:pointer;position:relative;
+  border-left:3px solid var(--line);transition:border-color .12s,box-shadow .12s,transform .05s}
+.opp:hover{border-color:var(--line);box-shadow:var(--shadow);border-left-color:var(--accent)}
+.opp:hover .title{color:var(--accent)}
+.opp.st-open{border-left-color:var(--open)} .opp.st-soon{border-left-color:var(--soon)}
+.opp.st-forecast{border-left-color:var(--fcast)} .opp.st-closed{border-left-color:var(--closed)}
+.opp .c1{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.opp .title{font-size:14.5px;font-weight:700;line-height:1.32;color:var(--ink);letter-spacing:-.01em}
+.opp .oprow{font-size:12px;color:var(--muted);margin-top:4px;display:flex;flex-wrap:wrap;gap:5px 9px;align-items:center}
+.opp .oprow .opn{font-weight:700;color:var(--ink-2)}
+.opp .metarow{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.opp .c3{display:flex;flex-direction:column;align-items:flex-end;gap:3px;text-align:right}
+.opp .val{font-size:16px;font-weight:800;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.opp .valtag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;padding:1px 6px;border-radius:5px}
+.vt-pub{color:var(--open);background:var(--open-bg)} .vt-est{color:var(--muted);background:var(--closed-bg)}
+.opp .due{font-size:12.5px;color:var(--ink-2);font-weight:600;margin-top:5px}
+.opp .dl{font-size:11.5px;color:var(--muted);font-weight:500}
+.opp .viewlink{font-size:12px;color:var(--accent);font-weight:600;margin-top:4px}
+
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;letter-spacing:.02em;padding:3px 9px;border-radius:99px;white-space:nowrap;border:1px solid transparent}
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.b-open{color:var(--open);background:var(--open-bg);border-color:var(--open-line)}
+.b-soon{color:var(--soon);background:var(--soon-bg);border-color:var(--soon-line)}
+.b-fcast{color:var(--fcast);background:var(--fcast-bg);border-color:var(--fcast-line)}
+.b-closed{color:var(--closed);background:var(--closed-bg);border-color:var(--closed-line)}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:6px;
+  background:var(--panel-2);color:var(--muted);border:1px solid var(--line);white-space:nowrap}
+.tag.mono{font-size:10.5px;letter-spacing:.01em}
+.tag.gap{background:var(--gap-bg);color:var(--gap);border-color:var(--gap-line)}
+.tag.pile1{background:var(--closed-bg);color:var(--muted);border-color:var(--closed-line)}
+.tag.veh{background:var(--accent-wash);color:var(--accent-2);border-color:color-mix(in srgb,var(--accent) 22%,transparent)}
+.tag.live{background:var(--live);color:var(--live-ink);border-color:transparent;font-weight:700;letter-spacing:.02em}
+.tag.live::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor;animation:livepulse 2.2s ease-out infinite}
+@keyframes livepulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--live) 60%,transparent)}70%{box-shadow:0 0 0 5px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.stamp .livedot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--live);margin-right:6px;vertical-align:middle;animation:livepulse 2.2s ease-out infinite}
+.stamp .stampsub{color:var(--muted);font-size:11px}
+
+.emptyres{text-align:center;padding:48px 20px;color:var(--muted);background:var(--panel);border:1px dashed var(--line);border-radius:var(--radius)}
+.emptyres b{color:var(--ink);display:block;font-size:15px;margin-bottom:5px}
+
+/* ---- detail slide-over ---- */
+.scrim{position:fixed;inset:0;background:rgba(10,15,25,.42);z-index:80;opacity:0;pointer-events:none;transition:opacity .2s}
+.scrim.open{opacity:1;pointer-events:auto}
+.detail{position:fixed;top:0;right:0;height:100%;width:min(560px,100%);background:var(--bg);z-index:90;
+  box-shadow:var(--shadow-lg);transform:translateX(100%);transition:transform .26s cubic-bezier(.4,0,.2,1);
+  display:flex;flex-direction:column;overflow:hidden}
+.detail.open{transform:translateX(0)}
+.detail .dhead{padding:16px 20px 14px;border-bottom:1px solid var(--line);background:var(--panel);flex-shrink:0}
+.detail .dclose{position:absolute;top:14px;right:16px}
+.detail .dbadges{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px;padding-right:40px}
+.detail h2{font-size:18px;margin:0;letter-spacing:-.02em;line-height:1.3;font-weight:800}
+.detail .dop{font-size:13px;color:var(--muted);margin-top:7px;font-weight:600}
+.detail .dop b{color:var(--ink-2)}
+.detail .dbody{overflow-y:auto;padding:0 20px 30px;flex:1}
+.detail .dactions{display:flex;gap:8px;padding:14px 20px;border-bottom:1px solid var(--line);background:var(--panel);flex-wrap:wrap;flex-shrink:0}
+.dactions .btn{flex:0 0 auto}
+.pipemenu{position:relative}
+.pipemenu .menu{position:absolute;top:40px;left:0;width:210px;background:var(--panel);border:1px solid var(--line);
+  border-radius:10px;box-shadow:var(--shadow-lg);z-index:5;overflow:hidden;display:none}
+.pipemenu.open .menu{display:block}
+.pipemenu .menu button{display:flex;width:100%;align-items:center;gap:9px;border:none;background:none;color:var(--ink);
+  padding:10px 13px;font-size:13px;font-weight:600;cursor:pointer;text-align:left;border-bottom:1px solid var(--line-2)}
+.pipemenu .menu button:last-child{border-bottom:none}
+.pipemenu .menu button:hover{background:var(--panel-2)}
+.pipemenu .menu button .swatch{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+
+.dsec{padding:16px 0;border-top:1px solid var(--line)}
+.dsec h3{font-size:11.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:0 0 11px;font-weight:700}
+.factgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px}
+.fact .k{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;font-weight:600;margin-bottom:3px}
+.fact .v{font-size:14px;font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums}
+.fact .v small{font-weight:600;color:var(--muted);font-size:11.5px}
+.scope{font-size:13.5px;color:var(--ink-2);line-height:1.6}
+.scope .provo{display:block;margin-top:9px;font-size:12px;color:var(--muted);font-style:italic}
+.doclist{display:flex;flex-direction:column;gap:7px}
+.doc{display:flex;align-items:center;gap:10px;padding:9px 11px;border:1px solid var(--line);border-radius:9px;background:var(--panel);font-size:13px}
+.doc .di{width:26px;height:26px;border-radius:6px;background:var(--accent-wash);color:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.doc .dn{font-weight:600;color:var(--ink)}
+.doc .dm{font-size:11px;color:var(--muted)}
+.doc .go{margin-left:auto;font-size:11.5px;color:var(--accent);font-weight:600;white-space:nowrap}
+.poc{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--panel)}
+.poc .pav{width:40px;height:40px;border-radius:9px;flex-shrink:0;background:linear-gradient(145deg,var(--accent),var(--accent-2));
+  color:#fff;font-weight:700;display:flex;align-items:center;justify-content:center;font-size:14px}
+.poc .pn{font-weight:700;font-size:14px}
+.poc .pr{font-size:12.5px;color:var(--muted);margin-top:2px}
+.poc .note{font-size:11.5px;color:var(--faint);margin-top:6px;font-style:italic}
+/* lineage */
+.lineage{display:flex;flex-direction:column;gap:0}
+.lstep{display:flex;gap:12px;position:relative;padding-bottom:16px}
+.lstep:last-child{padding-bottom:0}
+.lstep .rail-l{display:flex;flex-direction:column;align-items:center;flex-shrink:0}
+.lstep .node{width:16px;height:16px;border-radius:50%;border:2px solid var(--line);background:var(--panel);z-index:1;flex-shrink:0}
+.lstep .line{width:2px;flex:1;background:var(--line);margin:2px 0}
+.lstep:last-child .line{display:none}
+.lstep.done .node{background:var(--open);border-color:var(--open)}
+.lstep.done .line{background:var(--open)}
+.lstep.current .node{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-wash)}
+.lstep .ls-t{font-size:13px;font-weight:700;color:var(--ink);line-height:1.3}
+.lstep.pending .ls-t{color:var(--faint);font-weight:600}
+.lstep .ls-s{font-size:11.5px;color:var(--muted);margin-top:2px}
+.related{display:flex;flex-direction:column;gap:8px}
+.relitem{display:flex;gap:10px;align-items:center;padding:10px 12px;border:1px solid var(--line);border-radius:9px;background:var(--panel);cursor:pointer}
+.relitem:hover{border-color:var(--accent)}
+.relitem .rt{font-size:13px;font-weight:600;line-height:1.3;color:var(--ink)}
+.relitem .rm{font-size:11.5px;color:var(--muted);margin-top:2px}
+.relitem .rv{margin-left:auto;font-size:13px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--ink-2)}
+
+/* ---- pipeline board ---- */
+.board{display:grid;grid-template-columns:repeat(4,minmax(240px,1fr));gap:14px;align-items:start;overflow-x:auto;padding-bottom:8px}
+.col{background:var(--bg-2);border:1px solid var(--line);border-radius:var(--radius);padding:11px;min-height:180px}
+.col.dragover{border-color:var(--accent);background:var(--accent-wash)}
+.col .chead{display:flex;align-items:center;gap:8px;margin-bottom:11px;padding:0 3px}
+.col .swatch{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.col .ctitle{font-size:13px;font-weight:700}
+.col .ccount{font-size:11.5px;color:var(--muted);font-weight:600}
+.col .csum{margin-left:auto;font-size:11.5px;color:var(--muted);font-weight:700;font-variant-numeric:tabular-nums}
+.pcard{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:11px 12px;margin-bottom:9px;
+  box-shadow:var(--shadow-sm);cursor:grab;border-left:3px solid var(--line)}
+.pcard:active{cursor:grabbing}
+.pcard.st-open{border-left-color:var(--open)} .pcard.st-soon{border-left-color:var(--soon)}
+.pcard.st-forecast{border-left-color:var(--fcast)} .pcard.st-closed{border-left-color:var(--closed)}
+.pcard.dragging{opacity:.45}
+.pcard .pt{font-size:13px;font-weight:700;line-height:1.32;color:var(--ink)}
+.pcard .pmeta{display:flex;justify-content:space-between;align-items:center;margin-top:8px;gap:8px}
+.pcard .po{font-size:11.5px;color:var(--muted);font-weight:600}
+.pcard .pv{font-size:13px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--ink-2)}
+.pcard .pd{font-size:11px;color:var(--muted);margin-top:5px}
+.colempty{font-size:12px;color:var(--faint);text-align:center;padding:20px 8px;border:1px dashed var(--line);border-radius:9px}
+
+/* ---- profiles ---- */
+.profgroup{margin-bottom:8px}
+.profgroup .gh{display:flex;align-items:center;gap:9px;margin:20px 0 12px}
+.profgroup .gh .gt{font-size:14px;font-weight:800;letter-spacing:-.01em}
+.profgroup .gh .gc{font-size:12px;color:var(--muted);font-weight:600}
+.profgroup .gh .gline{flex:1;height:1px;background:var(--line)}
+.profgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.profcard{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:15px 16px;box-shadow:var(--shadow-sm);display:flex;flex-direction:column}
+.profcard .ph{display:flex;align-items:flex-start;gap:11px}
+.profcard .plogo{width:40px;height:40px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:13px;color:#fff;letter-spacing:-.02em}
+.profcard .pn{font-size:15px;font-weight:800;letter-spacing:-.01em;line-height:1.2}
+.profcard .ps{font-size:12px;color:var(--muted);margin-top:3px}
+.profcard .stat{display:flex;align-items:center;gap:6px;margin-left:auto;flex-shrink:0}
+.profcard .prow{display:flex;justify-content:space-between;gap:10px;font-size:12.5px;padding:7px 0;border-top:1px solid var(--line-2)}
+.profcard .prow:first-of-type{margin-top:12px}
+.profcard .prow .k{color:var(--muted)}
+.profcard .prow .vv{font-weight:600;color:var(--ink-2);text-align:right}
+.profcard .buys{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;justify-content:flex-end}
+.profcard .pfoot{margin-top:auto;padding-top:13px}
+.profcard .pfoot .btn{width:100%;justify-content:center}
+
+/* honest footer */
+.honest{max-width:1640px;margin:10px auto 0;padding:20px 22px 50px;color:var(--muted);font-size:12px;line-height:1.65}
+.honest .card{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--soon);border-radius:var(--radius);padding:14px 16px;margin-bottom:12px}
+.honest b{color:var(--ink)}
+.honest a{font-weight:600}
+
+/* toast */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);
+  padding:11px 18px;border-radius:10px;font-size:13px;font-weight:600;box-shadow:var(--shadow-lg);z-index:120;
+  opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;display:flex;align-items:center;gap:9px;max-width:90vw}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast .ok{color:var(--open)}
+
+/* ============================== RESPONSIVE ============================== */
+@media (max-width:1080px){
+  .kpis{grid-template-columns:repeat(3,1fr)}
+  .kpi:nth-child(4),.kpi:nth-child(5){grid-column:span 1}
+}
+@media (max-width:920px){
+  .shell{grid-template-columns:1fr}
+  .rail{position:fixed;top:0;left:0;height:100%;width:300px;max-width:88vw;z-index:100;border-right:1px solid var(--line);
+    transform:translateX(-100%);transition:transform .24s;box-shadow:var(--shadow-lg);background:var(--panel)}
+  .rail.open{transform:translateX(0)}
+  .mobilefilterbtn{display:inline-flex}
+  .opp{grid-template-columns:100px 1fr}
+  .opp .c3{grid-column:1 / -1;flex-direction:row;align-items:center;justify-content:space-between;text-align:left;
+    border-top:1px solid var(--line-2);padding-top:10px;margin-top:2px}
+  .opp .c3 .due{margin-top:0}
+  .stamp{margin-left:0;text-align:left;width:100%}
+}
+@media (max-width:640px){
+  .topbar-inner{padding:10px 13px;gap:9px}
+  .globalsearch{order:3;flex-basis:100%;max-width:none}
+  .brand .beta{display:none}
+  .main{padding:14px 13px 50px}
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .kpi:nth-child(5){grid-column:1 / -1}
+  .opp{grid-template-columns:1fr}
+  .opp .c1{flex-direction:row;flex-wrap:wrap;align-items:center}
+  .factgrid{grid-template-columns:1fr}
+  .pilecue{font-size:12px}
+  .detail{width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== TOP BAR ===================== -->
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="mark"></div>
+      <div class="name">Sub<span>scope</span></div>
+      <div class="beta">DOE Radar</div>
+    </div>
+    <div class="globalsearch">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="gsearch" type="search" placeholder="Search opportunities, operators, NAICS, solicitation #…" aria-label="Search">
+    </div>
+    <div class="topspacer"></div>
+    <button class="iconbtn" id="bellBtn" title="Alerts" aria-label="Alerts">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>
+      <span class="dot" id="bellCount">3</span>
+      <div class="pop" id="bellPop">
+        <h4>Radar alerts <span style="color:var(--accent);cursor:pointer" id="markread">Mark all read</span></h4>
+        <div id="alertItems"></div>
+        <div class="item" style="justify-content:center;color:var(--accent);font-weight:600;font-size:12.5px">Manage alert rules →</div>
+      </div>
+    </button>
+    <button class="iconbtn" id="themeBtn" title="Toggle light / dark" aria-label="Toggle theme">
+      <svg id="iconMoon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+    </button>
+    <div class="avatar" title="Edgewater · BD">EW</div>
+  </div>
+</div>
+
+<!-- ===================== TABS ===================== -->
+<div class="tabsbar">
+  <div class="tabsbar-inner" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-view="opps">Opportunities <span class="cnt" id="tabCntOpps"></span></button>
+    <button class="tab" role="tab" aria-selected="false" data-view="pipeline">Pipeline <span class="cnt" id="tabCntPipe"></span></button>
+    <button class="tab" role="tab" aria-selected="false" data-view="profiles">Tier-1 profiles <span class="cnt" id="tabCntProf"></span></button>
+  </div>
+</div>
+
+<!-- ===================== OPPORTUNITIES VIEW ===================== -->
+<div class="view" id="view-opps">
+  <div class="shell">
+    <!-- filter rail -->
+    <aside class="rail" id="rail">
+      <h3>Filters <span class="clearall" id="clearAll">Clear all</span></h3>
+
+      <div class="fsec" data-sec="status">
+        <div class="lbl">Status <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="body" id="fStatus"></div>
+      </div>
+
+      <div class="fsec" data-sec="value">
+        <div class="lbl">Contract value <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="body">
+          <div class="valhead"><span class="v" id="valLabel">Any size</span></div>
+          <div class="range" id="valRange">
+            <div class="track"></div><div class="fill" id="valFill"></div>
+            <input type="range" id="valMin" min="0" max="100" value="0" step="1" aria-label="Minimum value">
+            <input type="range" id="valMax" min="0" max="100" value="100" step="1" aria-label="Maximum value">
+          </div>
+          <div class="valest">
+            <span class="switch" id="estSwitch" role="switch" aria-checked="true"></span>
+            <span>Include AI-estimated values <span class="tag vt-est" style="margin-left:2px">Est.</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="fsec" data-sec="cat">
+        <div class="lbl">Category <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="body" id="fCat"></div>
+      </div>
+
+      <div class="fsec" data-sec="setaside">
+        <div class="lbl">Set-aside <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="body" id="fSet"></div>
+      </div>
+
+      <div class="fsec" data-sec="operator">
+        <div class="lbl">Tier-1 operator <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="body">
+          <input class="railinput" id="opFilter" placeholder="Filter operators…" style="margin-bottom:9px">
+          <div id="fOp" style="max-height:184px;overflow-y:auto"></div>
+        </div>
+      </div>
+
+      <div class="fsec" data-sec="place">
+        <div class="lbl">Place of performance <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="body" id="fPlace"></div>
+      </div>
+
+      <div class="fsec" data-sec="naics">
+        <div class="lbl">NAICS code <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="body" id="fNaics"></div>
+      </div>
+
+      <div class="fsec" data-sec="due">
+        <div class="lbl">Due / key date <svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M6 9l6 6 6-6"/></svg></div>
+        <div class="body">
+          <div class="presets" id="fDue">
+            <button class="preset" data-due="7">Next 7 days</button>
+            <button class="preset" data-due="30">Next 30 days</button>
+            <button class="preset" data-due="90">Next 90 days</button>
+            <button class="preset" data-due="past">Past due</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- main -->
+    <main class="main">
+      <div class="pagehead">
+        <div>
+          <h1>Subcontract opportunities</h1>
+          <p class="sub">Open RFPs and forecasts from the DOE tier-one site contractors — the work they push down to firms like Edgewater — pulled from each contractor's own portal into one feed.</p>
+        </div>
+        <div class="stamp" id="stamp"></div>
+      </div>
+
+      <div class="kpis" id="kpis"></div>
+
+      <div class="pilecue">
+        <span class="split"><b>Pile 2 coverage —</b> the subcontract layer SAM.gov &amp; GovWin don't aggregate.</span>
+        <span class="split"><span class="bar"><i id="pileBar" style="width:100%"></i></span> <b id="pilePct">100%</b> of this feed is off-SAM.gov</span>
+        <span style="color:var(--muted)">Pile 1 (SAM/GovWin-indexed) items are tagged where present.</span>
+      </div>
+
+      <div class="saved" id="savedStrip"></div>
+
+      <div class="restoolbar">
+        <button class="btn mobilefilterbtn" id="openFilters">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M7 12h10M10 18h4"/></svg>Filters</button>
+        <span class="count" id="count"></span>
+        <div class="spacer"></div>
+        <div class="seg" id="feedSeg" title="Live solicitations, forecasts, or both">
+          <button data-feed="all" aria-pressed="true">All</button>
+          <button data-feed="live" aria-pressed="false">Live</button>
+          <button data-feed="forecast" aria-pressed="false">Forecast</button>
+        </div>
+        <select class="sortsel" id="sortSel" aria-label="Sort">
+          <option value="smart">Smart sort</option>
+          <option value="closing">Closing soonest</option>
+          <option value="value">Value: high → low</option>
+          <option value="fresh">Newest to radar</option>
+          <option value="operator">Operator A→Z</option>
+        </select>
+        <button class="btn primary" id="saveSearchBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>Save search</button>
+      </div>
+
+      <div class="activefilters" id="activeFilters"></div>
+      <div class="opplist" id="opplist"></div>
+    </main>
+  </div>
+</div>
+
+<!-- ===================== PIPELINE VIEW ===================== -->
+<div class="view" id="view-pipeline" hidden>
+  <main class="main" style="max-width:1640px;margin:0 auto">
+    <div class="pagehead">
+      <div>
+        <h1>Pursuit pipeline</h1>
+        <p class="sub">Lightweight capture board. Drag a card between stages, or add opportunities from the feed. This is your team's board — not shared with the operators.</p>
+      </div>
+      <div class="stamp" id="pipeStamp"></div>
+    </div>
+    <div class="board" id="board"></div>
+  </main>
+</div>
+
+<!-- ===================== PROFILES VIEW ===================== -->
+<div class="view" id="view-profiles" hidden>
+  <main class="main" style="max-width:1640px;margin:0 auto">
+    <div class="pagehead">
+      <div>
+        <h1>Tier-1 contractor profiles</h1>
+        <p class="sub">GovWin profiles agencies; this profiles the primes that actually buy — which DOE site contractors post your NAICS, where their board lives, and who owns subcontracts. Click through to their live opportunities.</p>
+      </div>
+    </div>
+    <div id="profiles"></div>
+  </main>
+</div>
+
+<div class="honest">
+  <div class="card">
+    <b>Honest notes — read before trusting a row.</b> This is a proof-of-concept on a real snapshot pulled <span id="snap3"></span> from public, view-only portals. In production the feed re-checks each portal on a schedule and alerts on new or changed postings. <b>Forecast</b> items are opportunities an operator expects to issue (the date is the operator's expected issue, not a live deadline); <b>Open</b> items are live solicitations with a stated due date. <b>Contract-value bands tagged "Est." are our estimate</b> from category and comparable work — not a figure the operator published; bands tagged "Published" are copied from the operator's own page. Scope summaries, document lists, and named buyers shown in the detail panel are resolved live from each operator's package in production — the preview fills them representatively. Verify every row against the linked source before acting.
+  </div>
+  <p>Not affiliated with, or endorsed by, the U.S. Department of Energy or any site contractor. Sources are each operator's own public procurement portal. Built as a capability demonstration for internal review.</p>
+</div>
+
+<!-- overlays -->
+<div class="scrim" id="scrim"></div>
+<div class="detail" id="detail" role="dialog" aria-modal="true"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ==================================================================== */
+/*  DATA — real snapshot pulled 2026-08-18/19 from each operator's own   */
+/*  public portal. Same rows as the working demo; enriched at runtime.   */
+/* ==================================================================== */
+const SNAPSHOT="2026-08-19", SNAP_LABEL="Aug 19, 2026";
+/* DATA:GENERATED-START — rebuilt by engine/render_mvp.py from data/feed.json. DO NOT hand-edit. */
+const FEED_GENERATED="2026-08-19T23:05:48+00:00";
+const FEED_REFRESHED="Aug 19, 2026, 11:05 PM UTC";
+const LIVE_COUNT=23, SEED_COUNT=78;
+const DATA=[
+  {op:"ORNL",site:"Oak Ridge, TN",title:"Government Computing Facility",cat:"Construction",value:"$200M",status:"forecast",dl:"Expected issue",raw:"Oct 2026",date:"2026-10-01",src:"https://smallbusiness.ornl.gov/business-opportunities"},
+  {op:"ORNL",site:"Oak Ridge, TN",title:"Fueling Pellet Injection System (FPIS) Extruder Assembly — Expression of Interest",cat:"Fabrication & Machining",value:"$2M",status:"forecast",dl:"Expected issue",raw:"Jul 31, 2026",date:"2026-07-31",src:"https://smallbusiness.ornl.gov/business-opportunities"},
+  {op:"ORNL",site:"Oak Ridge, TN",title:"Request for Information — Travel System",cat:"Computer / IT Services",value:"$4M",status:"forecast",dl:"Expected issue",raw:"May 2026",date:"2026-05-01",src:"https://smallbusiness.ornl.gov/business-opportunities"},
+  {op:"ORNL",site:"Oak Ridge, TN",title:"High Voltage Cabinet",cat:"Industrial Equipment",value:"$780K",status:"forecast",dl:"Expected",raw:"FY26",date:null,src:"https://smallbusiness.ornl.gov/business-opportunities"},
+  {op:"ORNL",site:"Oak Ridge, TN",title:"US ITER — ICH 500 kW RF Load",cat:"Industrial Equipment",value:"TBD",status:"forecast",dl:"Expected issue",raw:"Jul 14, 2026",date:"2026-07-14",src:"https://smallbusiness.ornl.gov/business-opportunities"},
+  {op:"ORNL",site:"Oak Ridge, TN",title:"US ITER — ICH 3 MW RF Load",cat:"Industrial Equipment",value:"TBD",status:"forecast",dl:"Expected issue",raw:"Jul 14, 2026",date:"2026-07-14",src:"https://smallbusiness.ornl.gov/business-opportunities"},
+  {op:"ORNL",site:"Oak Ridge, TN",title:"US ITER — ICH 50-ohm Stub Tuner and Triple-Stub Tuner",cat:"Fabrication & Machining",value:"TBD",status:"forecast",dl:"Expected issue",raw:"Mar 2026",date:"2026-03-01",src:"https://smallbusiness.ornl.gov/business-opportunities"},
+  {op:"ORNL",site:"Oak Ridge, TN",title:"US ITER — Fabrication of ECH Transmission Line Boundary Gaskets",cat:"Fabrication & Machining",value:"$100K–$200K",status:"forecast",dl:"Expected issue",raw:"Jun 2026",date:"2026-06-01",src:"https://smallbusiness.ornl.gov/business-opportunities"},
+  {op:"ORNL",site:"Oak Ridge, TN",title:"US ITER (PPPL) Upper Wide Angle Viewing (UWAV) Diagnostic System",cat:"Industrial Equipment",value:"TBD",status:"forecast",dl:"Expected issue",raw:"May 2026",date:"2026-05-01",src:"https://smallbusiness.ornl.gov/business-opportunities"},
+
+  {op:"UCOR",site:"Oak Ridge, TN",title:"EMDF Balance of Construction",cat:"Construction · NAICS 237990",value:"TBD",status:"forecast",dl:"90-day forecast",raw:"Dates TBD",date:null,src:"https://ucor.com/90-day-forecast/"},
+  {op:"UCOR",site:"Oak Ridge, TN",title:"EMDF Landfill Water Treatment System",cat:"Construction · NAICS 237990",value:"TBD",status:"forecast",dl:"90-day forecast",raw:"Dates TBD",date:null,src:"https://ucor.com/90-day-forecast/"},
+  {op:"UCOR",site:"Oak Ridge, TN",title:"EMDF Landfill Water Treatment Tank Farm",cat:"Construction · NAICS 237110",value:"TBD",status:"forecast",dl:"90-day forecast",raw:"Dates TBD",date:null,src:"https://ucor.com/90-day-forecast/"},
+  {op:"UCOR",site:"Oak Ridge, TN",title:"EMDF Support Facility Buildings",cat:"Construction · NAICS 237990",value:"TBD",status:"forecast",dl:"90-day forecast",raw:"Dates TBD",date:null,src:"https://ucor.com/90-day-forecast/"},
+  {op:"UCOR",site:"Oak Ridge, TN",title:"Tank Farm Borehole Drilling & Sampling",cat:"Site work · NAICS 238910",value:"TBD",status:"forecast",dl:"90-day forecast",raw:"Dates TBD",date:null,src:"https://ucor.com/90-day-forecast/"},
+  {op:"UCOR",site:"Oak Ridge, TN",title:"Design & Fabrication — Modular Evaporator Skid (ORNL)",cat:"Equipment / Fabrication",value:"TBD",status:"forecast",dl:"RFII noted",raw:"RFII due 2/4/26",date:null,src:"https://ucor.com/90-day-forecast/"},
+  {op:"UCOR",site:"Oak Ridge, TN",title:"Engineering Services BOA (multiple projects)",cat:"Prof. services · NAICS 541330",value:"TBD",status:"forecast",dl:"90-day forecast",raw:"Dates TBD",date:null,src:"https://ucor.com/90-day-forecast/"},
+  {op:"UCOR",site:"Oak Ridge, TN",title:"M&TE Maintenance & Calibration (multiple)",cat:"Services · NAICS 541380",value:"TBD",status:"forecast",dl:"90-day forecast",raw:"Dates TBD",date:null,src:"https://ucor.com/90-day-forecast/"},
+  {op:"UCOR",site:"Oak Ridge, TN",title:"Equipment Rentals — On-Going (site wide)",cat:"Equipment rental",value:"TBD",status:"forecast",dl:"As needed",raw:"RFPs as needed",date:null,src:"https://ucor.com/90-day-forecast/"},
+  {op:"UCOR",site:"Oak Ridge, TN",title:"Pest Control (multiple)",cat:"Services · NAICS 561710",value:"TBD",status:"forecast",dl:"90-day forecast",raw:"Dates TBD",date:null,src:"https://ucor.com/90-day-forecast/"},
+  {op:"UCOR",site:"Oak Ridge, TN",title:"Laundry Services",cat:"Services · NAICS 812332",value:"TBD",status:"forecast",dl:"90-day forecast",raw:"Dates TBD",date:null,src:"https://ucor.com/90-day-forecast/"},
+  {op:"UCOR",site:"Oak Ridge, TN",title:"Rolloffs (multiple)",cat:"Services / Equipment",value:"TBD",status:"forecast",dl:"90-day forecast",raw:"Dates TBD",date:null,src:"https://ucor.com/90-day-forecast/"},
+  {op:"UCOR",site:"Oak Ridge, TN",title:"Porta Potties (multiple)",cat:"Services · NAICS 562991",value:"TBD",status:"forecast",dl:"90-day forecast",raw:"Dates TBD",date:null,src:"https://ucor.com/90-day-forecast/"},
+
+  {op:"HMIS",site:"Richland, WA",title:"Z-401 — New Fire Alarm Control Unit (FACU) at 6091 Building",cat:"Construction / Electrical · RFP 386379",value:"—",status:"open",dl:"Proposals due",raw:"Aug 24, 2026",date:"2026-08-24",src:"https://hmis.hanford.gov/page.cfm/SolicitationsandNotices/RFP386379",live:true},
+  {op:"HMIS",site:"Richland, WA",title:"Excavating, Trenching & Shoring Competent Person Training at HAMMER",cat:"Training / Services · RFP 390847",value:"—",status:"open",dl:"Proposals due",raw:"Sep 24, 2026",date:"2026-09-24",src:"https://hmis.hanford.gov/page.cfm/SolicitationsandNotices/RFP390847",live:true},
+  {op:"HMIS",site:"Richland, WA",title:"HAMMER Breathing Air Compressor",cat:"Equipment · RFP 391348 / Z-HM-002",value:"—",status:"open",dl:"Proposals due",raw:"Sep 10, 2026",date:"2026-09-10",src:"https://hmis.hanford.gov/page.cfm/SolicitationsandNotices/391348_ZHM002",live:true},
+  {op:"HMIS",site:"Richland, WA",title:"Interconnection in a Seismic Equipment Category II Facility (Westin Building)",cat:"Construction / Electrical · RFP 391597",value:"—",status:"open",dl:"Proposals due",raw:"Aug 31, 2026",date:"2026-08-31",src:"https://hmis.hanford.gov/page.cfm/SolicitationsandNotices/RFP391597",live:true},
+  {op:"HMIS",site:"Richland, WA",title:"10Gb Ethernet Transport Interconnection — Westin to Franklin PUD",cat:"IT / Telecom · RFP 391594",value:"—",status:"open",dl:"Proposals due",raw:"Aug 31, 2026",date:"2026-08-31",src:"https://hmis.hanford.gov/page.cfm/SolicitationsandNotices/RFP391594",live:true},
+  {op:"HMIS",site:"Richland, WA",title:"Tychem QC Hoods, 20-Pack, Single Bib, White",cat:"Supplies / PPE · RFQ 74459",value:"—",status:"open",dl:"Quotes due",raw:"Aug 20, 2026",date:"2026-08-20",src:"https://hmis.hanford.gov/page.cfm/SolicitationsandNotices/RFQ74459",live:true},
+  {op:"HMIS",site:"Richland, WA",title:"Z-334 — Construct Raw Water Truck Fill Station",cat:"Construction · RFP 389830",value:"—",status:"closed",dl:"Closed",raw:"Aug 10, 2026",date:"2026-08-10",src:"https://hmis.hanford.gov/page.cfm/SolicitationsandNotices/RFP389830",live:true},
+
+  {op:"Y-12",site:"Oak Ridge, TN",title:"Electrical Modernization",cat:"Construction · NAICS 237130",value:"$10M",status:"forecast",dl:"RFP release",raw:"FY26 Q4",date:null,src:"https://www.y12.doe.gov/sites/default/files/assets/document/Forecast-August-September_2026.pdf"},
+  {op:"Y-12",site:"Oak Ridge, TN",title:"Maintenance Facility",cat:"Construction · NAICS 236210",value:"$10M",status:"forecast",dl:"RFP release",raw:"FY27 Q1",date:null,src:"https://www.y12.doe.gov/sites/default/files/assets/document/Forecast-August-September_2026.pdf"},
+  {op:"Y-12",site:"Oak Ridge, TN",title:"Pole Placement",cat:"Construction · NAICS 237130",value:"$7.8M",status:"forecast",dl:"RFP release",raw:"FY26 Q4",date:null,src:"https://www.y12.doe.gov/sites/default/files/assets/document/Forecast-August-September_2026.pdf"},
+  {op:"Y-12",site:"Oak Ridge, TN",title:"Site Potable Water System Isolation Valves",cat:"Construction · NAICS 236210",value:"$5M",status:"forecast",dl:"RFP release",raw:"FY26 Q4",date:null,src:"https://www.y12.doe.gov/sites/default/files/assets/document/Forecast-August-September_2026.pdf"},
+  {op:"Y-12",site:"Oak Ridge, TN",title:"Generator Replacement",cat:"Construction · NAICS 237130",value:"$4M",status:"forecast",dl:"RFP release",raw:"FY26 Q4",date:null,src:"https://www.y12.doe.gov/sites/default/files/assets/document/Forecast-August-September_2026.pdf"},
+  {op:"Y-12",site:"Oak Ridge, TN",title:"HR Talent Acquisition Marketing Services & Tools",cat:"Prof. services · NAICS 541810",value:"$3.8M",status:"forecast",dl:"RFP release",raw:"FY26 Q4",date:null,src:"https://www.y12.doe.gov/sites/default/files/assets/document/Forecast-August-September_2026.pdf"},
+
+  {op:"Sandia",site:"Albuquerque, NM",title:"Induction furnace power supply",cat:"Sources Sought · NAICS 333994 · Competitive",value:"—",status:"open",dl:"Responses due",raw:"Aug 20, 2026",date:"2026-08-20",src:"https://supplierportal.sandia.gov/"},
+  {op:"Sandia",site:"Albuquerque, NM",title:"AHU Replacement, Package 2",cat:"Sources Sought · NAICS 236220 · Small-Business set-aside",value:"—",status:"open",dl:"Responses due",raw:"Aug 22, 2026",date:"2026-08-22",src:"https://supplierportal.sandia.gov/"},
+  {op:"Sandia",site:"Albuquerque, NM",title:"Solid State Power Amplifier 10KHz–225MHz, 5KW min (liquid cooled)",cat:"Sources Sought · NAICS 334516 · Competitive",value:"—",status:"open",dl:"Responses due",raw:"Aug 29, 2026",date:"2026-08-29",src:"https://supplierportal.sandia.gov/"},
+  {op:"Sandia",site:"Albuquerque, NM",title:"Spyder Crane — diesel w/ battery, non-marking tracks",cat:"RFQ · NAICS 238910 · Small Business First",value:"—",status:"open",dl:"Quotes due",raw:"Aug 18, 2026",date:"2026-08-18",src:"https://supplierportal.sandia.gov/"},
+  {op:"Sandia",site:"Albuquerque, NM",title:"Tools & storage cabinets for Accurpress hydraulic press brake",cat:"RFQ · NAICS 339999 · Small Business First",value:"—",status:"open",dl:"Quotes due",raw:"Aug 18, 2026",date:"2026-08-18",src:"https://supplierportal.sandia.gov/"},
+
+  {op:"SRNS",site:"Aiken, SC",title:"Road 1 Widening — mill, grade, culvert replacement, asphalt (~6.9 mi)",cat:"Construction · RFP 816025",value:"—",status:"open",dl:"Open RFP",raw:"see package",date:null,src:"https://savannahrivernuclearsolutions.com/opportunities/acquisition-opportunities/"},
+
+  {op:"CPCCo",site:"Richland, WA",title:"Contact-Handled Waste Processing System — Project W-245 (EOI)",cat:"Construction · EOI",value:"—",status:"open",dl:"Responses due",raw:"Aug 23, 2026",date:"2026-08-23",src:"https://cpcco.hanford.gov/page.cfm/currentsolicitations"},
+  {op:"CPCCo",site:"Richland, WA",title:"CWC HVAC Upgrades",cat:"Construction / Mechanical · RFP 390982",value:"—",status:"open",dl:"Proposals due",raw:"Aug 20, 2026",date:"2026-08-20",src:"https://cpcco.hanford.gov/page.cfm/currentsolicitations"},
+  {op:"CPCCo",site:"Richland, WA",title:"Building Trade Crafts Safety Representative Oversight",cat:"Services · RFP 391872",value:"—",status:"open",dl:"Proposals due",raw:"Aug 24, 2026",date:"2026-08-24",src:"https://cpcco.hanford.gov/page.cfm/currentsolicitations"},
+  {op:"CPCCo",site:"Richland, WA",title:"Startup Readiness Assessment",cat:"Services · RFP 391827",value:"—",status:"open",dl:"Proposals due",raw:"Aug 31, 2026",date:"2026-08-31",src:"https://cpcco.hanford.gov/page.cfm/currentsolicitations"},
+  {op:"CPCCo",site:"Richland, WA",title:"324 Building Disposition Project",cat:"Construction / D&D · RFP 389158",value:"—",status:"closed",dl:"Closed",raw:"Aug 17, 2026",date:"2026-08-17",src:"https://cpcco.hanford.gov/page.cfm/currentsolicitations"},
+
+  {op:"MSTS",site:"Las Vegas, NV",title:"Modular Construction — Blanket Master Agreement",cat:"Construction · 0039451-26-JC",value:"—",status:"open",dl:"Proposals due",raw:"Sep 29, 2026",date:"2026-09-29",src:"https://nnss.gov/procurement/doing-business-with-procurement/0039451-26-jc-nnss-modular-construction-blanket-master-agreement/",live:true},
+  {op:"MSTS",site:"Las Vegas, NV",title:"Parking & Road Maintenance / Paving — Blanket Master Agreement",cat:"Construction · 0031447-26-SP",value:"—",status:"open",dl:"Proposals due",raw:"Aug 27, 2026",date:"2026-08-27",src:"https://nnss.gov/procurement/doing-business-with-procurement/0031447-26-sp-parking-and-road-maintenance-paving-service/",live:true},
+  {op:"MSTS",site:"Las Vegas, NV",title:"Fire Suppression Services (EOI / RFI)",cat:"Services · EOI RFI PP-001",value:"—",status:"open",dl:"Responses due",raw:"Aug 24, 2026",date:"2026-08-24",src:"https://nnss.gov/procurement/doing-business-with-procurement/eoi-rfi-pp-001-fire-suppression-services/",live:true},
+  {op:"MSTS",site:"Las Vegas, NV",title:"Fire-Rated Doors 18 GA & Frames 16 GA",cat:"Commodities · 0045481-26-TRJ",value:"—",status:"open",dl:"Quotes due",raw:"Aug 21, 2026",date:"2026-08-21",src:"https://nnss.gov/procurement/doing-business-with-procurement/0045481-26-trj-fire-rated-doors-18-ga-fire-rated-frames-16-ga/",live:true},
+  {op:"MSTS",site:"Las Vegas, NV",title:"480V 150 KVA UPS — U1a Underground Drift",cat:"Commodities · 0013363-26-ALJ",value:"—",status:"open",dl:"Quotes due",raw:"Aug 20, 2026",date:"2026-08-20",src:"https://nnss.gov/procurement/doing-business-with-procurement/0013363-26-alj-480v-150-kva-uninterruptible-power-supply-for-102c-u1a-underground-drift/",live:true},
+  {op:"MSTS",site:"Las Vegas, NV",title:"Integrated Cooling, Piping, Valve & Instrumentation System Service",cat:"Construction · 0040970-26-KP",value:"—",status:"closed",dl:"Closed",raw:"Aug 18, 2026",date:"2026-08-18",src:"https://nnss.gov/procurement/doing-business-with-procurement/0040970-26-kp-integrated-cooling-piping-valve-and-instrumentation-system-service/",live:true},
+
+  {op:"H2C",site:"Richland, WA",title:"SY-03A Pump & Slurry Distributor Removal — Equipment Fabrication",cat:"Construction / Fabrication · 382475",value:"—",status:"open",dl:"Open RFP",raw:"see package",date:null,src:"https://www.hanford.gov/tocpmm/page.cfm/CurrentRequestsforProposal"},
+  {op:"H2C",site:"Richland, WA",title:"Laboratory Information Management System",cat:"IT / Systems · 382214",value:"—",status:"open",dl:"Open RFP",raw:"see package",date:null,src:"https://www.hanford.gov/tocpmm/page.cfm/CurrentRequestsforProposal"},
+  {op:"H2C",site:"Richland, WA",title:"Industrial Hygiene Sample Analysis — Nitrous Oxide Badges (BMA)",cat:"Services · 382545",value:"—",status:"open",dl:"Open RFP",raw:"see package",date:null,src:"https://www.hanford.gov/tocpmm/page.cfm/CurrentRequestsforProposal"},
+
+  {op:"SOCCo",site:"Piketon, OH",title:"Haul Road Equipment — haul trucks for D&D",cat:"Equipment / D&D · RFP SOCCo26SC55824",value:"—",status:"open",dl:"Proposals due",raw:"Aug 20, 2026",date:"2026-08-20",src:"https://teamsocco.com/working-with-us/SOCCo26SC55824.html"},
+  {op:"SOCCo",site:"Piketon, OH",title:"X-720 Roof Overlay",cat:"Construction · RFP SOCCo26SC34596",value:"—",status:"open",dl:"Open RFP",raw:"see package",date:null,src:"https://teamsocco.com/working-with-us/SOCCo26SC34596.html"},
+  {op:"SOCCo",site:"Piketon, OH",title:"Construction Quality Control Services",cat:"Construction QC · RFP SOCCo26SC45046",value:"—",status:"open",dl:"Open RFP",raw:"see package",date:null,src:"https://teamsocco.com/working-with-us/SOCCo26SC45046.html"},
+
+  {op:"FRNP",site:"Paducah, KY",title:"Engineering Services — groundwater well automation and controls",cat:"Engineering · RFP-EM-31124",value:"—",status:"open",dl:"Open RFP",raw:"see package",date:null,src:"https://fourriversnuclearpartnership.com/procurement"},
+
+  {op:"PNNL",site:"Richland, WA",title:"3065 Conex Yard Concrete Installation",cat:"Construction · Sol 0000961165",value:"—",status:"open",dl:"Proposals due",raw:"Aug 25, 2026",date:"2026-08-25",src:"https://ebs.pnnl.gov/advertised.aspx"},
+  {op:"PNNL",site:"Sequim, WA",title:"MSL5 Chiller Refurbishment and Exhaust Fan Replacement",cat:"Construction · Sol 0000959005",value:"—",status:"open",dl:"Proposals due",raw:"Sep 3, 2026",date:"2026-09-03",src:"https://ebs.pnnl.gov/advertised.aspx"},
+  {op:"PNNL",site:"Richland, WA",title:"325RPL Inorganic Synthesis and Analytical Lab Upgrades",cat:"Construction · Sol 0000957377",value:"—",status:"open",dl:"Proposals due",raw:"Sep 9, 2026",date:"2026-09-09",src:"https://ebs.pnnl.gov/advertised.aspx"},
+
+  {op:"JLab",site:"Newport News, VA",title:"Hall C A/C Replacement (Revised)",cat:"Construction / HVAC",value:"—",status:"open",dl:"Open RFP",raw:"see RFP",date:null,src:"https://misportal.jlab.org/ul/bus_ops/"},
+  {op:"JLab",site:"Newport News, VA",title:"Water Treatment Chemicals and Services (cooling / chilled / hot water)",cat:"Facilities / Utilities · Sources Sought",value:"—",status:"open",dl:"Open",raw:"see notice",date:null,src:"https://misportal.jlab.org/ul/bus_ops/"},
+  {op:"JLab",site:"Newport News, VA",title:"Fabrication Vendors — ASME/AWS welding, pressure vessels and piping (qualification)",cat:"Fabrication qualification · standing",value:"—",status:"open",dl:"Ongoing",raw:"standing",date:null,src:"https://misportal.jlab.org/ul/bus_ops/"},
+
+  {op:"WIPP",site:"Carlsbad, NM",title:"Reconfiguration and Paving of the Parking Area",cat:"Construction · paving / drainage / ADA",value:"—",status:"forecast",dl:"Sources sought",raw:"posted Aug 11",date:null,src:"https://wipp.energy.gov/SIMCO-procurement.asp"},
+  {op:"WIPP",site:"Carlsbad, NM",title:"Entry Control Facility and Parking Area Security Upgrades",cat:"Construction · gates / turnstiles / cameras",value:"—",status:"forecast",dl:"Sources sought",raw:"posted Jun 24",date:null,src:"https://wipp.energy.gov/SIMCO-procurement.asp"},
+  {op:"WIPP",site:"Carlsbad, NM",title:"Hoisting Capabilities Project — Utility and Air Intake shafts",cat:"Construction / infrastructure",value:"—",status:"forecast",dl:"Sources sought",raw:"posted Feb 24",date:null,src:"https://wipp.energy.gov/SIMCO-procurement.asp"},
+  {op:"WIPP",site:"Carlsbad, NM",title:"Trunked Radio Communication Network and Towers",cat:"Construction / infrastructure · design-build",value:"—",status:"forecast",dl:"Sources sought",raw:"posted Feb 2025",date:null,src:"https://wipp.energy.gov/SIMCO-procurement.asp"},
+  {op:"WIPP",site:"Carlsbad, NM",title:"Waste Shaft Sump and Conveyance Chairing Refurbishment",cat:"Construction / fabrication",value:"—",status:"forecast",dl:"Sources sought",raw:"posted Jul 2024",date:null,src:"https://wipp.energy.gov/SIMCO-procurement.asp"},
+
+  {op:"Pantex",site:"Amarillo, TX",title:"Domestic Water Phase II",cat:"Construction · NAICS 236210",value:"$10–20M",status:"forecast",dl:"RFP release",raw:"Q4 FY27",date:null,src:"https://pantex.energy.gov/suppliers/subcontracting-forecasts"},
+  {op:"Pantex",site:"Amarillo, TX",title:"SCADA Upgrade",cat:"Construction · NAICS 236210",value:"$1–10M",status:"forecast",dl:"RFP release",raw:"Q1 FY26",date:null,src:"https://pantex.energy.gov/suppliers/subcontracting-forecasts"},
+  {op:"Pantex",site:"Amarillo, TX",title:"Drainage Phase I — Basins E and F",cat:"Construction · NAICS 236210",value:"$1–10M",status:"forecast",dl:"RFP release",raw:"Q3 FY26",date:null,src:"https://pantex.energy.gov/suppliers/subcontracting-forecasts"},
+  {op:"Pantex",site:"Amarillo, TX",title:"Z12 North PIDS (perimeter intrusion detection)",cat:"Construction · NAICS 236210",value:"$1–10M",status:"forecast",dl:"RFP release",raw:"Q4 FY26",date:null,src:"https://pantex.energy.gov/suppliers/subcontracting-forecasts"},
+  {op:"Pantex",site:"Amarillo, TX",title:"12-44 Cells 5 and 6 HVAC Replacements",cat:"Construction · NAICS 236210",value:"$1–10M",status:"forecast",dl:"RFP release",raw:"Q1 FY27",date:null,src:"https://pantex.energy.gov/suppliers/subcontracting-forecasts"},
+  {op:"Pantex",site:"Amarillo, TX",title:"+7 more Pantex construction/fab forecasts (compressed air, load bank, lift modules, etc.)",cat:"Construction / Fabrication · see forecast",value:"$1–10M ea.",status:"forecast",dl:"RFP release",raw:"FY26–FY28",date:null,src:"https://pantex.energy.gov/suppliers/subcontracting-forecasts"},
+
+  {op:"LLNL",site:"Livermore, CA",title:"Next-Gen HPC New Facility",cat:"Construction · NAICS 236220",value:"$100M+",status:"forecast",dl:"RFP est.",raw:"Q Jan 2027",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"Product Realization Infrastructure for Stockpile Modernization (PRISM)",cat:"Construction · NAICS 236220",value:"$50M+",status:"forecast",dl:"RFP est.",raw:"Q Oct 2029",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"New Site 300 EMDEC Collaboration Bldg 839A Hub and Site Development",cat:"Construction · NAICS 236220",value:"$20M+",status:"forecast",dl:"RFP est.",raw:"Q Oct 2026",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"New Site 300 Stockpile and Production Modernization Office",cat:"Construction · NAICS 236220",value:"$20M+",status:"forecast",dl:"RFP est.",raw:"Q Oct 2026",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"New Integrated Bio-Resilience Laboratory (IBRL) 656",cat:"Construction · NAICS 236220",value:"$20M+",status:"forecast",dl:"RFP est.",raw:"Q Oct 2027",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"New S300 Energetic Materials Manufacturing Science Facility (EMMSF)",cat:"Construction · NAICS 236220",value:"$20M+",status:"forecast",dl:"RFP est.",raw:"Q Oct 2027",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"8389 / 8391 Network Intelligence Research Facilities",cat:"Construction · NAICS 236220",value:"$20M+",status:"forecast",dl:"RFP est.",raw:"Q Jan/Oct 2028",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"New S300 Energetic Materials Characterization and Evaluation Center (EMCEC)",cat:"Construction · NAICS 236220",value:"$20M+",status:"forecast",dl:"RFP est.",raw:"Q Oct 2028",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"STAR — New Site 200 Hazardous Waste Office Facility",cat:"Construction · NAICS 236220",value:"$20M+",status:"forecast",dl:"RFP est.",raw:"Q Oct 2028",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"B251 Slab / Soil Removal",cat:"Construction / D&D · NAICS 562910",value:"$20M+",status:"forecast",dl:"RFP est.",raw:"Q Jan 2028",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"Bldg 140 Water Intrusion Revitalization",cat:"Construction · NAICS 238990",value:"$20M+",status:"forecast",dl:"RFP est.",raw:"Q Oct 2030",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"New Site 200 Automated Materials Development Facility (AMD)",cat:"Construction · NAICS 236220",value:"$10M+",status:"forecast",dl:"RFP est.",raw:"Q Oct 2026",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"15CW Site 300 Utilities Installation and Site Preparation",cat:"Construction · NAICS 237110",value:"$10M+",status:"forecast",dl:"RFP est.",raw:"Q Oct 2026",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"Site 200 Cathodic Protection System Upgrade + Site 300 Water Supply Zone 2",cat:"Construction · NAICS 238210 / 221310",value:"$5M+",status:"forecast",dl:"RFP est.",raw:"Q Oct26 / Jan27",date:null,src:"https://procurement.llnl.gov/opportunities"},
+  {op:"LLNL",site:"Livermore, CA",title:"~70 more LLNL forecast items (under-$5M facility and building upgrades)",cat:"Construction · see full pipeline",value:"under $5M ea.",status:"forecast",dl:"RFP est.",raw:"FY27–FY31",date:null,src:"https://procurement.llnl.gov/opportunities"},
+
+  {op:"SAM.gov",site:"US",title:"Elden Mountain Communications Site Renovation",cat:"Heavy / Civil · Solicitation · NAICS 237130",value:"—",status:"open",dl:"Response due",raw:"Sep 10, 2026",date:"2026-09-10",src:"https://sam.gov/workspace/contract/opp/e02b0e56b3384c7c9383289b12e4a0f2/view",live:true},
+  {op:"SAM.gov",site:"New York",title:"Upgrade Entrance Portal at Brookhaven National Laboratory",cat:"Construction · Solicitation · NAICS 236220",value:"—",status:"open",dl:"Response due",raw:"Sep 8, 2026",date:"2026-09-08",src:"https://sam.gov/workspace/contract/opp/8e66fa81242f494287e40f337481157c/view",live:true},
+  {op:"SAM.gov",site:"US",title:"Loveland Field Maint Bldg Door Replacement",cat:"Specialty trade · Solicitation · NAICS 238290",value:"—",status:"open",dl:"Response due",raw:"Aug 19, 2026",date:"2026-08-19",src:"https://sam.gov/workspace/contract/opp/f6f06c6ce70145b4b94404ef0097f6a1/view",live:true},
+  {op:"SAM.gov",site:"US",title:"Power System Generator & Transfer Switches Replace",cat:"Electrical · Solicitation · NAICS 238210",value:"—",status:"open",dl:"Response due",raw:"Aug 28, 2026",date:"2026-08-28",src:"https://sam.gov/workspace/contract/opp/c711229d2a634dfcb464dc271da4d8a5/view",live:true},
+  {op:"SAM.gov",site:"Illinois",title:"2026 15KV Feeder 37 and 46B Upgrades",cat:"Electrical · Solicitation · NAICS 238210",value:"—",status:"open",dl:"Response due",raw:"Aug 21, 2026",date:"2026-08-21",src:"https://sam.gov/workspace/contract/opp/6b1d3cf8ea35452bb4c15504a0543202/view",live:true},
+  {op:"SAM.gov",site:"US",title:"Glendo-Lusk Rural Tap and Quinn Creek Substation",cat:"Powerline / Site · Solicitation · NAICS 237130",value:"—",status:"open",dl:"Response due",raw:"Aug 21, 2026",date:"2026-08-21",src:"https://sam.gov/workspace/contract/opp/b20fdd4920e2460c83d614ec431573f5/view",live:true},
+  {op:"SAM.gov",site:"US",title:"Stegall Substation Stage 07 Phase 01",cat:"Powerline / Site · Solicitation · NAICS 237130",value:"—",status:"open",dl:"Response due",raw:"Aug 28, 2026",date:"2026-08-28",src:"https://sam.gov/workspace/contract/opp/17c4b2890c564f438445ee7d2ea5a9ba/view",live:true},
+  {op:"SAM.gov",site:"Nevada",title:"Fire Suppression Services - RFI/EOI for Life-Cycle Requirements of Fire Systems",cat:"Mechanical · Presol. · NAICS 238210",value:"—",status:"open",dl:"Response due",raw:"Aug 24, 2026",date:"2026-08-24",src:"https://sam.gov/workspace/contract/opp/c7412edb383540d2bed8be6aa8dcaeb9/view",live:true},
+  {op:"SAM.gov",site:"New York",title:"Basic Ordering Agreement for Electrical Services at Brookhaven National Laboratory",cat:"Electrical · BOA · NAICS 238210",value:"—",status:"closed",dl:"Response due",raw:"Aug 14, 2026",date:"2026-08-14",src:"https://sam.gov/workspace/contract/opp/f6bd6061cd3a41dc937777a05c146c2d/view",live:true},
+  {op:"SAM.gov",site:"New York",title:"Basic Ordering Agreement for Carpentry Services at Brookhaven National Laboratory",cat:"Construction · BOA · NAICS 236220",value:"—",status:"closed",dl:"Response due",raw:"Aug 5, 2026",date:"2026-08-05",src:"https://sam.gov/workspace/contract/opp/87dc8825c7f1459d8d42d306c07a2932/view",live:true},
+];
+/* DATA:GENERATED-END */
+
+/* Tier-1 roster (coverage) — reused from the demo, with join code + prime + office role */
+const COVERAGE=[
+  {code:"UCOR",n:"UCOR",s:"Oak Ridge, TN",prog:"EM — cleanup",prime:"Amentum",f:"HTML · 90-Day Forecast",st:"in",office:"Small Business & Subcontracts, UCOR Supply Chain"},
+  {code:"ORNL",n:"ORNL / UT-Battelle",s:"Oak Ridge, TN",prog:"Office of Science",prime:"UT-Battelle",f:"HTML · SBPO listings",st:"in",office:"ORNL Small Business Programs Office"},
+  {code:"Y-12",n:"Y-12 (CNS → NPOne)",s:"Oak Ridge, TN",prog:"NNSA",prime:"Fluor / Amentum",f:"PDF forecast",st:"in",office:"Y-12 Supply Chain — Small Business"},
+  {code:"CPCCo",n:"CPCCo",s:"Richland, WA",prog:"EM — Central Plateau",prime:"Amentum / Fluor",f:"HTML · current solicitations",st:"in",office:"CPCCo Contracts & Procurement"},
+  {code:"H2C",n:"H2C (Hanford Tank Waste)",s:"Richland, WA",prog:"EM — $45B tank program",prime:"BWXT / Amentum / Fluor",f:"HTML · tocpmm RFP list",st:"in",office:"H2C Procurement — tocpmm"},
+  {code:"HMIS",n:"Hanford HMIS",s:"Richland, WA",prog:"EM — site services",prime:"Leidos",f:"CMS pages",st:"in",office:"HMIS Acquisition Services"},
+  {code:"MSTS",n:"MSTS / NNSS",s:"Las Vegas, NV",prog:"NNSA — Nevada",prime:"Honeywell / Jacobs / HII",f:"HTML · solicitations & notices",st:"in",office:"NNSS Procurement"},
+  {code:"Sandia",n:"Sandia / NTESS",s:"Albuquerque, NM",prog:"NNSA",prime:"Honeywell",f:"Oracle iSupplier — public view",st:"in",office:"Sandia Supplier Programs"},
+  {code:"SRNS",n:"SRNS (Savannah River)",s:"Aiken, SC",prog:"NNSA / EM",prime:"Fluor",f:"HTML · acquisition opps",st:"in",office:"SRNS Supply Chain Management"},
+  {code:"SOCCo",n:"SOCCo (Portsmouth)",s:"Piketon, OH",prog:"EM — D&D",prime:"Fluor-BWXT",f:"HTML · solicitations",st:"in",office:"SOCCo Subcontracts"},
+  {code:"FRNP",n:"FRNP (Paducah)",s:"Paducah, KY",prog:"EM — cleanup",prime:"Amentum / Fluor",f:"HTML · procurement",st:"in",office:"FRNP Procurement"},
+  {code:"PNNL",n:"PNNL",s:"Richland, WA",prog:"Office of Science",prime:"Battelle",f:"HTML · advertised list",st:"in",office:"PNNL Contracts (eBiz Suite)"},
+  {code:"JLab",n:"Jefferson Lab",s:"Newport News, VA",prog:"Office of Science",prime:"JSA",f:"HTML · bulletin board",st:"in",office:"JLab Procurement"},
+  {code:"WIPP",n:"WIPP / SIMCO",s:"Carlsbad, NM",prog:"EM",prime:"BWXT / Amentum",f:"HTML · SIMCO procurement",st:"in",office:"SIMCO Procurement"},
+  {code:"Pantex",n:"Pantex / PXD",s:"Amarillo, TX",prog:"NNSA",prime:"BWXT / Fluor",f:"HTML forecast (+ SAM.gov)",st:"in",office:"Pantex Supply Chain — Small Business"},
+  {code:"LLNL",n:"LLNL",s:"Livermore, CA",prog:"NNSA",prime:"Bechtel / UC (LLNS)",f:"HTML · construction pipeline",st:"in",office:"LLNL Supply Chain Management"},
+  {code:"LANL",n:"LANL / Triad",s:"Los Alamos, NM",prog:"NNSA",prime:"Triad",f:"SAP Ariba — public",st:"map",office:"LANL Supply Chain"},
+  {code:"NWD",n:"North Wind Dynamics",s:"Portsmouth / Paducah",prog:"EM",prime:"North Wind",f:"HTML · partnerships",st:"map",office:"North Wind Subcontracts"},
+  {code:"IEC",n:"Idaho Env. Coalition",s:"Idaho Falls, ID",prog:"EM — cleanup",prime:"Jacobs / North Wind",f:"HTML · procurement",st:"map",office:"IEC Procurement (Tuesdays)"},
+  {code:"N3B",n:"N3B",s:"Los Alamos, NM",prog:"EM — legacy",prime:"Newport News / BWXT",f:"HTML · procurement",st:"map",office:"N3B Procurement (Tuesdays)"},
+  {code:"PPPL",n:"PPPL",s:"Princeton, NJ",prog:"Office of Science",prime:"Princeton",f:"HTML · opportunities",st:"map",office:"PPPL Procurement ($59M+ coming)"},
+  {code:"Argonne",n:"Argonne / Fermilab / BNL",s:"IL · NY · Science labs",prog:"Office of Science",prime:"various",f:"post on SAM.gov",st:"map",office:"Routes to SAM.gov (Pile 1)"},
+  {code:"Bechtel",n:"Bechtel",s:"Hanford WTP · SRS · Clinch River",prog:"mega-builder",prime:"Bechtel",f:"bechtel.com supplier portal",st:"blk",office:"Bechtel Procurement (account)"},
+  {code:"SRMC",n:"SRMC",s:"Aiken, SC",prog:"EM — SRS liquid waste",prime:"BWXT / Fluor / AECOM",f:"register to view",st:"blk",office:"SRMC Supply Chain (account)"},
+  {code:"HFMT",n:"Honeywell FM&T",s:"Kansas City, MO",prog:"NNSA",prime:"Honeywell",f:"KCNSC supplier portal",st:"blk",office:"KCNSC Supplier Portal (account)"},
+  {code:"NNL",n:"Naval Nuclear Lab",s:"West Mifflin, PA / Niskayuna, NY",prog:"NNSA",prime:"Fluor",f:"invite-only",st:"blk",office:"No public board — invite only"},
+];
+
+/* ==================================================================== */
+/*  ENRICHMENT                                                           */
+/* ==================================================================== */
+const snapDate=new Date(SNAPSHOT+"T00:00:00");
+const daysLeft=d=>d==null?null:Math.round((new Date(d+"T00:00:00")-snapDate)/864e5);
+
+function num(n,u){u=(u||"").toLowerCase();return parseFloat(n)*(u==="b"?1e9:u==="m"?1e6:u==="k"?1e3:1);}
+function parsePublished(v){
+  if(!v) return null; let s=v.trim(); if(!s||s==="—"||/^tbd$/i.test(s)) return null;
+  s=s.replace(/[–—]/g,"-"); const under=/under/i.test(s), plus=/\+/.test(s);
+  let m=s.match(/(\d+(?:\.\d+)?)\s*([kmb])?\s*-\s*(\d+(?:\.\d+)?)\s*([kmb])/i);
+  if(m){const u2=m[4],u1=m[2]||u2;return{min:num(m[1],u1),max:num(m[3],u2),tag:"Published"};}
+  m=s.match(/(\d+(?:\.\d+)?)\s*([kmb])/i);
+  if(m){const val=num(m[1],m[2]); if(under) return{min:0,max:val,tag:"Published"};
+    if(plus) return{min:val,max:Infinity,tag:"Published"}; return{min:val,max:val,tag:"Published"};}
+  return null;
+}
+// category bucket (facet + drives estimation); visible category on cards stays the operator's own text
+function bucketOf(r){
+  const t=(r.title+" "+r.cat).toLowerCase();
+  if(/ethernet|telecom|\bit\b|comput(ing|er)|\blims\b|laboratory information|travel system|network/.test(t)) return "IT / Systems";
+  if(/compressor|\bups\b|uninterruptible|crane|cabinet|\bdoors?\b|furnace|amplifier|hoods|chiller|generator|\bvalves?\b|injection|load bank|power supply|breathing air|rf load|stub tuner|gaskets|pellet|extruder|rolloff|porta pot|rental/.test(t)) return "Equipment / Commodities";
+  if(/fabricat|machining|\bweld|pressure vessel|\bskid\b|\bpump\b|slurry|distributor/.test(t)) return "Fabrication";
+  if(/engineering|prof\.|professional|acquisition|oversight|assessment|marketing|talent|calibration|\bqc\b|quality control|\banalysis\b|\bboa\b|readiness|\bm&te\b/.test(t)) return "Prof. / Engineering svc";
+  if(/pest|laundry|hygiene|suppression|treatment chemicals|\btraining\b|\bservices?\b(?!.*construct)/.test(t) && !/construct|paving|roof|hvac|electrical/.test(t)) return "Services";
+  if(/construct|roof|pav|widen|hvac|electrical|water|drill|facilit|building|\bslab\b|infrastructure|modular|pids|drainage|scada|utilities|\broad\b|culvert|borehole|shaft|hoisting|excavat|trench|fill station|interconnection|concrete/.test(t)) return "Construction";
+  return "Services";
+}
+const EST={
+  "Construction":[2e6,20e6],"Fabrication":[3e5,3e6],"Equipment / Commodities":[1e5,1e6],
+  "Prof. / Engineering svc":[5e5,5e6],"IT / Systems":[1e6,1e7],"Services":[2.5e5,2e6]
+};
+function estimateBand(r,bucket){
+  let[lo,hi]=EST[bucket]||[5e5,5e6]; const t=(r.title+" "+r.cat).toLowerCase();
+  if(bucket==="Construction"&&/facilit|disposition|balance of construction|hpc|modernization|treatment system|water treatment/.test(t)){lo=1e7;hi=5e7;}
+  return{min:lo,max:hi,tag:"Est."};
+}
+function vehicleOf(r){
+  const t=(r.cat+" "+r.title+" "+r.dl+" "+r.src).toLowerCase();
+  if(r.status==="forecast") return "Forecast";
+  if(/sources sought/.test(t)) return "Sources Sought";
+  if(/\brfq\b|quotes due/.test(t)) return "RFQ";
+  if(/\brfi\b/.test(t)) return "RFI";
+  if(/\beoi\b|expression of interest/.test(t)) return "EOI";
+  if(/\bboa\b|\bbma\b|blanket|master agreement|\bidiq\b/.test(t)) return "BOA / IDIQ";
+  return "RFP";
+}
+function setAsideOf(r){
+  const t=r.cat.toLowerCase();
+  if(/small-business set-aside|small business set-aside/.test(t)) return "Small business set-aside";
+  if(/small business first/.test(t)) return "Small business (first)";
+  if(/8\(a\)|hubzone|sdvosb|wosb/.test(t)) return "Socioeconomic";
+  if(/competitive/.test(t)) return "Full & open";
+  return "Unspecified";
+}
+function fmtUSD(n){
+  if(n===Infinity) return "∞";
+  if(n>=1e9) return "$"+(n/1e9).toFixed(n%1e9?1:0)+"B";
+  if(n>=1e6) return "$"+(n/1e6).toFixed(n%1e6&&n<1e7?1:0)+"M";
+  if(n>=1e3) return "$"+Math.round(n/1e3)+"K";
+  return "$"+Math.round(n);
+}
+function bandLabel(b){
+  if(b.max===Infinity) return fmtUSD(b.min)+"+";
+  if(b.min===b.max) return fmtUSD(b.min);
+  return fmtUSD(b.min)+"–"+fmtUSD(b.max);
+}
+const NAICS_SECTOR={"23":"Construction","33":"Manufacturing","32":"Manufacturing","31":"Manufacturing","54":"Prof. services","56":"Admin & support","81":"Other services","22":"Utilities"};
+
+DATA.forEach((r,i)=>{
+  r.id="opp-"+i;
+  r._dl=daysLeft(r.date);
+  r._st=r.status==="open"?((r._dl!=null&&r._dl<0)?"closed":"open"):r.status;
+  r._soon=r._st==="open"&&r._dl!=null&&r._dl<=7;
+  r._stClass=r._st==="open"?(r._soon?"soon":"open"):r._st;
+  r.sortDate=r.date||"9999-99";
+  r._prio=r._st==="open"?0:r._st==="forecast"?1:2;
+  r.bucket=bucketOf(r);
+  const pub=parsePublished(r.value);
+  r.band=pub||estimateBand(r,r.bucket);
+  r.valTag=r.band.tag;
+  r.valLabel=bandLabel(r.band);
+  r.vehicle=vehicleOf(r);
+  r.setAside=setAsideOf(r);
+  // Only treat a number as NAICS when the operator explicitly labelled it "NAICS ######".
+  // Solicitation / RFP numbers (e.g. "RFP 390982", "Sol 0000961165") are NOT NAICS codes.
+  const nm=r.cat.match(/NAICS\s*(\d{6})/i); r.naics=nm?nm[1]:null;
+  r.naicsSector=r.naics?(NAICS_SECTOR[r.naics.slice(0,2)]||"Other"):null;
+  r.catLabel=r.cat.split("·")[0].trim();
+  r.pile=/sam\.gov/i.test(r.src)?1:2;
+  r.mid=r.band.max===Infinity?r.band.min*1.5:(r.band.min+r.band.max)/2;
+  r.stage=null; // pipeline
+});
+
+// seed a few into the pursuit pipeline (Oak Ridge construction bias — Edgewater's lane)
+function seed(sub,stage){const r=DATA.find(x=>x.title.includes(sub));if(r)r.stage=stage;}
+seed("Government Computing Facility","watching");
+seed("Electrical Modernization","watching");
+seed("EMDF Balance of Construction","pursuing");
+seed("CWC HVAC Upgrades","pursuing");
+seed("Z-401","bidding");
+seed("Modular Construction","bidding");
+seed("Startup Readiness","submitted");
+
+/* ==================================================================== */
+/*  STATE                                                                */
+/* ==================================================================== */
+const S={q:"",status:new Set(),cat:new Set(),setAside:new Set(),op:new Set(),place:new Set(),
+  naics:new Set(),due:"",feed:"all",sort:"smart",valLo:0,valHi:100,inclEst:true};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+
+/* ----- value slider (log scale) ----- */
+const L_MIN=Math.log10(25000), L_MAX=Math.log10(500e6);
+function posToUSD(p){ p=+p; if(p<=0) return 0; if(p>=100) return Infinity;
+  return Math.pow(10, L_MIN+(L_MAX-L_MIN)*(p/100)); }
+function valueActive(){ return S.valLo>0 || S.valHi<100; }
+function updateSliderUI(){
+  const lo=posToUSD(S.valLo), hi=posToUSD(S.valHi);
+  const fill=$("#valFill"); fill.style.left=S.valLo+"%"; fill.style.width=(S.valHi-S.valLo)+"%";
+  const lbl=$("#valLabel");
+  if(!valueActive()) lbl.textContent="Any size";
+  else lbl.textContent=(lo<=0?"$0":fmtUSD(lo))+" – "+(hi===Infinity?"$500M+":fmtUSD(hi));
+}
+
+/* ==================================================================== */
+/*  FILTER + SORT                                                        */
+/* ==================================================================== */
+function passes(r){
+  if(S.q){const h=(r.title+" "+r.cat+" "+r.op+" "+r.site+" "+(r.naics||"")).toLowerCase();
+    if(!h.includes(S.q)) return false;}
+  if(S.feed==="live"&&r._st==="forecast") return false;
+  if(S.feed==="forecast"&&r._st!=="forecast") return false;
+  if(S.status.size&&!S.status.has(r._st)) return false;
+  if(S.cat.size&&!S.cat.has(r.bucket)) return false;
+  if(S.setAside.size&&!S.setAside.has(r.setAside)) return false;
+  if(S.op.size&&!S.op.has(r.op)) return false;
+  if(S.place.size&&!S.place.has(r.site)) return false;
+  if(S.naics.size&&!S.naics.has(r.naics)) return false;
+  if(S.due){
+    if(S.due==="past"){ if(!(r._st==="closed"||(r._dl!=null&&r._dl<0))) return false; }
+    else { const d=r._dl; if(d==null||d<0||d>(+S.due)) return false; }
+  }
+  if(valueActive()){
+    const lo=posToUSD(S.valLo), hi=posToUSD(S.valHi);
+    if(r.valTag==="Est." && !S.inclEst) return false;
+    if(r.band.max<lo || r.band.min>hi) return false;
+  }
+  return true;
+}
+function filtered(){ return DATA.filter(passes); }
+function sortRows(rows){
+  const s=S.sort;
+  return rows.sort((a,b)=>{
+    if(s==="smart"){ if(a._prio!==b._prio) return a._prio-b._prio; return a.sortDate<b.sortDate?-1:a.sortDate>b.sortDate?1:0; }
+    if(s==="closing"){ const av=a._st==="open"&&a._dl!=null?a._dl:9999, bv=b._st==="open"&&b._dl!=null?b._dl:9999; return av-bv; }
+    if(s==="value"){ return b.mid-a.mid; }
+    if(s==="fresh"){ return a.id<b.id?1:-1; }
+    if(s==="operator"){ return a.op<b.op?-1:a.op>b.op?1:0; }
+    return 0;
+  });
+}
+
+/* ==================================================================== */
+/*  RENDER — opportunities                                               */
+/* ==================================================================== */
+function badge(r){
+  const map={open:["b-open","Open now"],soon:["b-soon","Closing soon"],forecast:["b-fcast","Forecast"],closed:["b-closed","Closed"]};
+  const[c,t]=map[r._stClass]; return `<span class="badge ${c}">${t}</span>`;
+}
+function dueText(r){
+  if(r._st==="open"&&r._dl!=null) return `${r.raw}<div class="dl">${r._dl<0?"closed":r._dl+" day"+(r._dl===1?"":"s")+" left"}</div>`;
+  if(r._st==="forecast") return `${r.raw}<div class="dl">${r.dl}</div>`;
+  return `${r.raw}<div class="dl">${r.dl}</div>`;
+}
+function oppRow(r){
+  const naics=r.naics?`<span class="tag mono">NAICS ${r.naics}</span>`:"";
+  const set=r.setAside!=="Unspecified"?`<span class="tag">${r.setAside}</span>`:"";
+  const pile=r.pile===2?`<span class="tag gap">Pile 2 · off-SAM</span>`:`<span class="tag pile1">Pile 1 · SAM</span>`;
+  return `<div class="opp st-${r._stClass}" data-id="${r.id}">
+    <div class="c1">${r.live?'<span class="tag live">Live</span>':""}${badge(r)}${r.vehicle==="Forecast"?"":`<span class="tag veh">${r.vehicle}</span>`}${pile}</div>
+    <div class="c2">
+      <div class="title">${r.title}</div>
+      <div class="oprow"><span class="opn">${r.op}</span><span>·</span><span>${r.site}</span><span>·</span><span>${r.catLabel}</span></div>
+      <div class="metarow">${naics}${set}<span class="tag">${r.bucket}</span></div>
+    </div>
+    <div class="c3">
+      <div><span class="val">${r.valLabel}</span></div>
+      <div><span class="valtag ${r.valTag==="Published"?"vt-pub":"vt-est"}">${r.valTag}</span></div>
+      <div class="due">${dueText(r)}</div>
+      <div class="viewlink">Open detail →</div>
+    </div>
+  </div>`;
+}
+function renderOpps(){
+  const rows=sortRows(filtered());
+  const list=$("#opplist");
+  list.innerHTML = rows.length ? rows.map(oppRow).join("")
+    : `<div class="emptyres"><b>No opportunities match those filters.</b>Try widening the value range or clearing a facet.</div>`;
+  $("#count").innerHTML=`<b>${rows.length}</b> of ${DATA.length} opportunities`;
+  renderKPIs(rows);
+  renderActiveChips();
+  // pile stats on the filtered view
+  const p2=rows.filter(r=>r.pile===2).length, pct=rows.length?Math.round(p2/rows.length*100):0;
+  $("#pileBar").style.width=pct+"%"; $("#pilePct").textContent=pct+"%";
+  list.querySelectorAll(".opp").forEach(el=>el.onclick=()=>openDetail(el.dataset.id));
+}
+function renderKPIs(rows){
+  const open=rows.filter(r=>r._st==="open").length;
+  const soon=rows.filter(r=>r._soon).length;
+  const fc=rows.filter(r=>r._st==="forecast").length;
+  const ops=new Set(rows.map(r=>r.op)).size;
+  const sum=rows.reduce((a,r)=>a+r.mid,0);
+  const tiles=[
+    [open,"Open right now",""],
+    [soon,"Closing ≤ 7 days",soon?"var(--soon)":""],
+    [fc,"Forecast / upcoming",""],
+    [ops,"Tier-1s in view",""],
+    [fmtUSD(sum).replace("$",""),"Est. value in view","$"]
+  ];
+  $("#kpis").innerHTML=tiles.map(([n,l,pre],i)=>
+    `<div class="kpi${i===4?" accentbar":""}"><div class="n">${i===4?"$":""}${n}</div><div class="l">${l}</div></div>`
+  ).join("");
+}
+
+/* active filter chips */
+function renderActiveChips(){
+  const box=$("#activeFilters"); const chips=[];
+  const add=(label,val,clear)=>chips.push(`<span class="afchip"><span>${label}: <b>${val}</b></span><span class="x" data-clr="${clear}">✕</span></span>`);
+  if(S.q) add("Search",S.q,"q");
+  if(S.feed!=="all") add("Feed",S.feed==="live"?"Live":"Forecast","feed");
+  S.status.forEach(v=>add("Status",v,"status:"+v));
+  S.cat.forEach(v=>add("Category",v,"cat:"+v));
+  S.setAside.forEach(v=>add("Set-aside",v,"setAside:"+v));
+  S.op.forEach(v=>add("Operator",v,"op:"+v));
+  S.place.forEach(v=>add("Place",v,"place:"+v));
+  S.naics.forEach(v=>add("NAICS",v,"naics:"+v));
+  if(S.due) add("Due",S.due==="past"?"Past due":"Next "+S.due+"d","due");
+  if(valueActive()){const lo=posToUSD(S.valLo),hi=posToUSD(S.valHi);
+    add("Value",(lo<=0?"$0":fmtUSD(lo))+"–"+(hi===Infinity?"$500M+":fmtUSD(hi)),"val");}
+  box.innerHTML=chips.join("");
+  box.querySelectorAll(".x").forEach(x=>x.onclick=()=>clearOne(x.dataset.clr));
+}
+function clearOne(key){
+  if(key==="q"){S.q="";$("#gsearch").value="";}
+  else if(key==="feed"){S.feed="all";syncFeedSeg();}
+  else if(key==="due"){S.due="";syncDuePresets();}
+  else if(key==="val"){S.valLo=0;S.valHi=100;$("#valMin").value=0;$("#valMax").value=100;updateSliderUI();}
+  else{const[set,val]=key.split(":");S[set].delete(val);syncChecks();}
+  renderOpps();
+}
+
+/* ==================================================================== */
+/*  FILTER RAIL BUILD                                                    */
+/* ==================================================================== */
+function counts(keyFn){const m={};DATA.forEach(r=>{const k=keyFn(r);if(k==null)return;m[k]=(m[k]||0)+1;});return m;}
+function checkList(container,items,setName){
+  container.innerHTML=items.map(([val,label,cnt])=>
+    `<label class="checkrow"><input type="checkbox" data-set="${setName}" value="${val}"><span>${label}</span><span class="cnt">${cnt}</span></label>`).join("");
+  container.querySelectorAll("input").forEach(inp=>inp.onchange=()=>{
+    inp.checked?S[setName].add(inp.value):S[setName].delete(inp.value); renderOpps();
+  });
+}
+function buildRail(){
+  const stC=counts(r=>r._st);
+  checkList($("#fStatus"),[["open","Open now",stC.open||0],["forecast","Forecast",stC.forecast||0],["closed","Closed",stC.closed||0]],"status");
+  const catC=counts(r=>r.bucket);
+  checkList($("#fCat"),Object.entries(catC).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,k,v]),"cat");
+  const setC=counts(r=>r.setAside);
+  const setOrder=["Small business set-aside","Small business (first)","Full & open","Socioeconomic","Unspecified"];
+  checkList($("#fSet"),setOrder.filter(k=>setC[k]).map(k=>[k,k,setC[k]]),"setAside");
+  const opC=counts(r=>r.op);
+  buildOpList(Object.entries(opC).sort((a,b)=>b[1]-a[1]));
+  const plC=counts(r=>r.site);
+  checkList($("#fPlace"),Object.entries(plC).sort((a,b)=>b[1]-a[1]).map(([k,v])=>[k,k,v]),"place");
+  const nC=counts(r=>r.naics);
+  checkList($("#fNaics"),Object.entries(nC).sort((a,b)=>a[0]<b[0]?-1:1).map(([k,v])=>[k,`<span class="mono">${k}</span> <span style="color:var(--faint)">${NAICS_SECTOR[k.slice(0,2)]||""}</span>`,v]),"naics");
+}
+let OP_ENTRIES=[];
+function buildOpList(entries){OP_ENTRIES=entries;renderOpList("");}
+function renderOpList(flt){
+  const items=OP_ENTRIES.filter(([k])=>k.toLowerCase().includes(flt.toLowerCase()));
+  checkList($("#fOp"),items.map(([k,v])=>[k,k,v]),"op");
+  syncChecks();
+}
+function syncChecks(){
+  $$("#rail input[type=checkbox]").forEach(inp=>{const set=inp.dataset.set;inp.checked=S[set].has(inp.value);});
+}
+function syncFeedSeg(){$$("#feedSeg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.feed===S.feed));}
+function syncDuePresets(){$$("#fDue .preset").forEach(b=>b.setAttribute("aria-pressed",b.dataset.due===S.due));}
+
+/* ==================================================================== */
+/*  DETAIL SLIDE-OVER                                                    */
+/* ==================================================================== */
+const STAGES={watching:["Watching","var(--fcast)"],pursuing:["Pursuing","var(--accent)"],bidding:["Bidding","var(--soon)"],submitted:["Submitted","var(--open)"]};
+let curDetailId=null;
+function openDetail(id){
+  const r=DATA.find(x=>x.id===id); if(!r) return; curDetailId=id;
+  $("#detail").innerHTML=detailHTML(r);
+  $("#scrim").classList.add("open"); $("#detail").classList.add("open");
+  wireDetail(r); syncURL();
+}
+function closeDetail(){$("#scrim").classList.remove("open");$("#detail").classList.remove("open");curDetailId=null;syncURL();}
+function lineageSteps(r){
+  // Forecast → Sources Sought / RFI → RFP issued → Due / Award
+  const veh=r.vehicle;
+  let cur;
+  if(r._st==="forecast") cur=0;
+  else if(veh==="Sources Sought"||veh==="RFI"||veh==="EOI") cur=1;
+  else if(r._st==="closed") cur=3;
+  else cur=2;
+  const steps=[
+    ["Forecasted","Operator signalled the buy on its forecast"],
+    ["Sources sought / RFI","Market survey · capability statements"],
+    ["Solicitation issued",veh==="Forecast"?"RFP / RFQ not yet released":`${veh} on the operator portal`],
+    [r._st==="closed"?"Closed / award":"Proposals due",r.raw||"—"]
+  ];
+  return steps.map((s,i)=>{
+    const cls=i<cur?"done":i===cur?"current":"pending";
+    return `<div class="lstep ${cls}"><div class="rail-l"><div class="node"></div><div class="line"></div></div>
+      <div><div class="ls-t">${s[0]}</div><div class="ls-s">${s[1]}</div></div></div>`;
+  }).join("");
+}
+function related(r){
+  let rel=DATA.filter(x=>x.id!==r.id&&x.op===r.op);
+  if(rel.length<3) rel=rel.concat(DATA.filter(x=>x.id!==r.id&&x.op!==r.op&&x.bucket===r.bucket));
+  return rel.slice(0,3).map(x=>`<div class="relitem" data-id="${x.id}">
+    <div><div class="rt">${x.title}</div><div class="rm">${x.op} · ${x.vehicle} · ${x.catLabel}</div></div>
+    <div class="rv">${x.valLabel}</div></div>`).join("")||`<div class="rm" style="color:var(--faint)">No related items.</div>`;
+}
+function detailHTML(r){
+  const prof=COVERAGE.find(c=>c.code===r.op)||{};
+  const pileTag=r.pile===2?`<span class="tag gap">Pile 2 · not on SAM.gov / GovWin</span>`:`<span class="tag pile1">Pile 1 · SAM.gov-indexed</span>`;
+  const inPipe=r.stage?`<span class="badge b-fcast" style="background:${STAGES[r.stage][1]}22;color:${STAGES[r.stage][1]};border-color:transparent">In pipeline · ${STAGES[r.stage][0]}</span>`:"";
+  const docs=[
+    ["Solicitation notice",`${r.vehicle}${r.naics?" · NAICS "+r.naics:""}`],
+    ["Statement of work / scope","PDF on operator portal"],
+    r.bucket==="Construction"?["Drawings & specifications","package attachment"]:["Item / spec sheet","package attachment"],
+    ["Q&A / amendments","check portal for updates"]
+  ];
+  return `
+  <div class="dhead">
+    <button class="iconbtn dclose" id="dClose" aria-label="Close">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <div class="dbadges">${r.live?'<span class="tag live">Live</span>':""}${badge(r)}${r.vehicle==="Forecast"?"":`<span class="tag veh">${r.vehicle}</span>`}${pileTag}${inPipe}</div>
+    <h2>${r.title}</h2>
+    <div class="dop">${[`<b>${prof.n||r.op}</b>`,r.site,prof.prog,prof.prime].filter(Boolean).join(" · ")}</div>
+  </div>
+  <div class="dactions">
+    <div class="pipemenu" id="pipeMenu">
+      <button class="btn primary" id="pipeBtn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>${r.stage?"Move stage":"Add to pipeline"}</button>
+      <div class="menu">
+        ${Object.entries(STAGES).map(([k,v])=>`<button data-stage="${k}"><span class="swatch" style="background:${v[1]}"></span>${v[0]}</button>`).join("")}
+        ${r.stage?`<button data-stage="none"><span class="swatch" style="background:var(--closed)"></span>Remove from pipeline</button>`:""}
+      </div>
+    </div>
+    <button class="btn" id="trackBtn">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>Track</button>
+    <a class="btn" href="${r.src}" target="_blank" rel="noopener">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><path d="M15 3h6v6M10 14 21 3"/></svg>Operator portal</a>
+  </div>
+  <div class="dbody">
+    <div class="dsec" style="border-top:none">
+      <div class="factgrid">
+        <div class="fact"><div class="k">Contract value</div><div class="v">${r.valLabel} <small>${r.valTag}</small></div></div>
+        <div class="fact"><div class="k">${r._st==="forecast"?"Expected issue":"Key date"}</div><div class="v">${r.raw||"—"} ${r._st==="open"&&r._dl!=null?`<small>${r._dl<0?"closed":r._dl+"d left"}</small>`:""}</div></div>
+        <div class="fact"><div class="k">NAICS</div><div class="v mono">${r.naics||"—"} <small>${r.naicsSector||""}</small></div></div>
+        <div class="fact"><div class="k">Set-aside</div><div class="v" style="font-size:13px">${r.setAside}</div></div>
+        <div class="fact"><div class="k">Category</div><div class="v" style="font-size:13px">${r.bucket}</div></div>
+        <div class="fact"><div class="k">First seen by radar</div><div class="v" style="font-size:13px">${SNAP_LABEL}</div></div>
+      </div>
+    </div>
+    <div class="dsec">
+      <h3>Scope</h3>
+      <div class="scope">Captured from <b>${prof.n||r.op}</b>'s ${prof.f||"public portal"} (${r.site}). ${r.catLabel} work${r.naics?` under NAICS ${r.naics}`:""}, ${r.valTag==="Published"?`operator-published value ${r.valLabel}`:`estimated ${r.valLabel} (no figure published)`}. ${r._st==="forecast"?`Not yet solicited — expected issue ${r.raw}.`:`Live ${r.vehicle}; ${r._dl!=null&&r._dl>=0?`${r._dl} days to respond.`:"see package for the response window."}`}
+      <span class="provo">Full statement of work, drawings, and clause list live in the operator's package — open it on the portal. In production this panel renders the operator's actual scope text.</span></div>
+    </div>
+    <div class="dsec">
+      <h3>Documents · on operator portal</h3>
+      <div class="doclist">${docs.map(d=>`<a class="doc" href="${r.src}" target="_blank" rel="noopener"><span class="di">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span>
+        <span><div class="dn">${d[0]}</div><div class="dm">${d[1]}</div></span><span class="go">Open ↗</span></a>`).join("")}</div>
+    </div>
+    <div class="dsec">
+      <h3>Responsible tier-1 &amp; buyer</h3>
+      <div class="poc"><div class="pav">${(prof.n||r.op).slice(0,2).toUpperCase()}</div>
+        <div><div class="pn">${prof.office||r.op+" Procurement"}</div>
+          <div class="pr">${prof.n||r.op} · ${r.site}${prof.prime?" · prime: "+prof.prime:""}</div>
+          <div class="note">Named subcontracts / small-business liaison is resolved from the operator's SBLO directory in production.</div></div></div>
+    </div>
+    <div class="dsec">
+      <h3>Forecast → solicitation lineage</h3>
+      <div class="lineage">${lineageSteps(r)}</div>
+    </div>
+    <div class="dsec">
+      <h3>Related at ${r.op}</h3>
+      <div class="related">${related(r)}</div>
+    </div>
+  </div>`;
+}
+function wireDetail(r){
+  $("#dClose").onclick=closeDetail;
+  const pm=$("#pipeMenu");
+  $("#pipeBtn").onclick=e=>{e.stopPropagation();pm.classList.toggle("open");};
+  pm.querySelectorAll("[data-stage]").forEach(b=>b.onclick=()=>{
+    const st=b.dataset.stage; r.stage=st==="none"?null:st; pm.classList.remove("open");
+    toast(st==="none"?"Removed from pipeline":`Added to <b>${STAGES[st][0]}</b>`);
+    renderBoard(); updateTabCounts(); openDetail(r.id);
+  });
+  $("#trackBtn").onclick=()=>toast("Tracking — you'll be alerted on any change");
+  $("#detail").querySelectorAll(".relitem").forEach(el=>el.onclick=()=>openDetail(el.dataset.id));
+}
+
+/* ==================================================================== */
+/*  PIPELINE BOARD                                                       */
+/* ==================================================================== */
+function renderBoard(){
+  const board=$("#board"); board.innerHTML="";
+  Object.entries(STAGES).forEach(([key,[label,color]])=>{
+    const items=DATA.filter(r=>r.stage===key);
+    const sum=items.reduce((a,r)=>a+r.mid,0);
+    const col=document.createElement("div"); col.className="col"; col.dataset.stage=key;
+    col.innerHTML=`<div class="chead"><span class="swatch" style="background:${color}"></span>
+      <span class="ctitle">${label}</span><span class="ccount">${items.length}</span>
+      <span class="csum">${items.length?fmtUSD(sum):""}</span></div>
+      <div class="colbody">${items.length?items.map(pcard).join(""):`<div class="colempty">Drag opportunities here${key==="watching"?", or add from the feed":""}</div>`}</div>`;
+    board.appendChild(col);
+  });
+  wireBoard();
+}
+function pcard(r){
+  return `<div class="pcard st-${r._stClass}" draggable="true" data-id="${r.id}">
+    <div class="pt">${r.title}</div>
+    <div class="pmeta"><span class="po">${r.op} · ${r.vehicle}</span><span class="pv">${r.valLabel}</span></div>
+    <div class="pd">${r.site} · ${r._st==="open"&&r._dl!=null?(r._dl<0?"closed":r._dl+"d left"):r.raw}</div>
+  </div>`;
+}
+let dragId=null;
+function wireBoard(){
+  $$("#board .pcard").forEach(card=>{
+    card.onclick=()=>openDetail(card.dataset.id);
+    card.ondragstart=e=>{dragId=card.dataset.id;card.classList.add("dragging");e.dataTransfer.effectAllowed="move";};
+    card.ondragend=()=>{card.classList.remove("dragging");dragId=null;$$("#board .col").forEach(c=>c.classList.remove("dragover"));};
+  });
+  $$("#board .col").forEach(col=>{
+    col.ondragover=e=>{e.preventDefault();col.classList.add("dragover");};
+    col.ondragleave=()=>col.classList.remove("dragover");
+    col.ondrop=e=>{e.preventDefault();col.classList.remove("dragover");
+      if(dragId){const r=DATA.find(x=>x.id===dragId);if(r&&r.stage!==col.dataset.stage){r.stage=col.dataset.stage;renderBoard();updateTabCounts();toast(`Moved to <b>${STAGES[col.dataset.stage][0]}</b>`);}}};
+  });
+}
+
+/* ==================================================================== */
+/*  TIER-1 PROFILES                                                      */
+/* ==================================================================== */
+const LOGO_COLORS=["#3b5bdb","#0b8a4a","#b3560c","#5b4cc4","#0b7285","#c2255c","#1971c2","#2b8a3e","#e8590c","#6741d9","#0c8599","#a61e4d"];
+function profileCard(c,idx){
+  const rows=DATA.filter(r=>r.op===c.code);
+  const open=rows.filter(r=>r._st==="open").length;
+  const fc=rows.filter(r=>r._st==="forecast").length;
+  const buckets=[...new Set(rows.map(r=>r.bucket))];
+  const naicsList=[...new Set(rows.map(r=>r.naics).filter(Boolean))];
+  const stMap={in:["b-open","Live feed"],map:["b-fcast","Monitored"],blk:["b-closed","Account-gated"]};
+  const[sc,sl]=stMap[c.st];
+  const color=LOGO_COLORS[idx%LOGO_COLORS.length];
+  const buys = buckets.length? buckets.slice(0,4).map(b=>`<span class="tag">${b}</span>`).join("")
+    : `<span class="tag">${c.prog}</span>`;
+  const naicsTags = naicsList.length? naicsList.slice(0,5).map(n=>`<span class="tag mono">${n}</span>`).join("") : `<span style="color:var(--faint);font-size:12px">—</span>`;
+  const canView = rows.length>0;
+  return `<div class="profcard">
+    <div class="ph">
+      <div class="plogo" style="background:${color}">${c.code.slice(0,2).toUpperCase()}</div>
+      <div style="min-width:0"><div class="pn">${c.n}</div><div class="ps">${c.s} · ${c.prog}</div></div>
+      <div class="stat"><span class="badge ${sc}">${sl}</span></div>
+    </div>
+    <div class="prow"><span class="k">Prime / M&O</span><span class="vv">${c.prime}</span></div>
+    <div class="prow"><span class="k">Where RFPs live</span><span class="vv">${c.f}</span></div>
+    <div class="prow"><span class="k">In radar now</span><span class="vv">${canView?`${open} open · ${fc} forecast`:"monitoring — 0 open"}</span></div>
+    <div class="prow"><span class="k">Subcontracts office</span><span class="vv" style="font-weight:600">${c.office}</span></div>
+    <div class="prow" style="border-bottom:1px solid var(--line-2)"><span class="k">Buys (seen)</span><span class="buys">${buys}</span></div>
+    ${naicsList.length?`<div class="prow"><span class="k">NAICS seen</span><span class="buys">${naicsTags}</span></div>`:""}
+    <div class="pfoot">${canView
+      ? `<button class="btn primary" data-viewop="${c.code}">View ${rows.length} opportunit${rows.length===1?"y":"ies"} →</button>`
+      : `<a class="btn" href="#" data-note="${c.st==="blk"?"Needs a supplier account — this is in your pile to register for.":"Monitored — routes to SAM.gov or posts on no fixed schedule."}">${c.st==="blk"?"Account required":"Monitoring only"}</a>`}</div>
+  </div>`;
+}
+function renderProfiles(){
+  const groups=[["in","Live feeds — public, no account","Feeding the radar right now"],
+    ["map","Monitored — public but nothing open today","Watched; many route to SAM.gov (Pile 1)"],
+    ["blk","Account-gated — your pile to register for","No public board we can crawl"]];
+  const wrap=$("#profiles"); wrap.innerHTML="";
+  let idx=0;
+  groups.forEach(([st,title,sub])=>{
+    const items=COVERAGE.filter(c=>c.st===st);
+    if(!items.length) return;
+    const g=document.createElement("div"); g.className="profgroup";
+    g.innerHTML=`<div class="gh"><span class="gt">${title}</span><span class="gc">${items.length} · ${sub}</span><span class="gline"></span></div>
+      <div class="profgrid">${items.map(c=>profileCard(c,idx++)).join("")}</div>`;
+    wrap.appendChild(g);
+  });
+  wrap.querySelectorAll("[data-viewop]").forEach(b=>b.onclick=()=>{
+    S.op=new Set([b.dataset.viewop]); switchView("opps"); syncChecks(); renderOpps();
+    document.querySelector('.fsec[data-sec="operator"]').classList.remove("collapsed");
+    window.scrollTo({top:0,behavior:"smooth"});
+  });
+  wrap.querySelectorAll("[data-note]").forEach(b=>b.onclick=e=>{e.preventDefault();toast(b.dataset.note);});
+}
+
+/* ==================================================================== */
+/*  SAVED SEARCHES + ALERTS                                              */
+/* ==================================================================== */
+let SAVED=[
+  {name:"Oak Ridge · Construction",apply:{q:"oak ridge",cat:["Construction"]}},
+  {name:"Closing this week",apply:{status:["open"],due:"7"}},
+  {name:"$5M+ forecasts",apply:{feed:"forecast",valLo:56}},
+];
+function renderSaved(){
+  const strip=$("#savedStrip");
+  strip.innerHTML=`<span class="lab">Saved searches</span>`+SAVED.map((s,i)=>
+    `<span class="savedchip" data-i="${i}"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.3 6.2 21l1.5-6.5L2 10l6.6-.6L12 3l3.4 6.4L22 10l-5.7 4.5L17.8 21z"/></svg>${s.name}<span class="x" data-del="${i}">✕</span></span>`).join("");
+  strip.querySelectorAll(".savedchip").forEach(c=>c.onclick=e=>{if(e.target.dataset.del!==undefined)return;applySaved(+c.dataset.i);});
+  strip.querySelectorAll("[data-del]").forEach(x=>x.onclick=e=>{e.stopPropagation();SAVED.splice(+x.dataset.del,1);renderSaved();});
+}
+function applySaved(i){
+  const a=SAVED[i].apply; resetState();
+  if(a.q){S.q=a.q;$("#gsearch").value=a.q;}
+  if(a.status)S.status=new Set(a.status);
+  if(a.cat)S.cat=new Set(a.cat);
+  if(a.feed){S.feed=a.feed;syncFeedSeg();}
+  if(a.due){S.due=a.due;syncDuePresets();}
+  if(a.valLo!=null){S.valLo=a.valLo;$("#valMin").value=a.valLo;}
+  if(a.valHi!=null){S.valHi=a.valHi;$("#valMax").value=a.valHi;}
+  updateSliderUI(); syncChecks(); switchView("opps"); renderOpps();
+  toast(`Applied saved search · <b>${SAVED[i].name}</b>`);
+}
+function saveCurrent(){
+  const parts=[];
+  if(S.q)parts.push(`"${S.q}"`);
+  S.cat.forEach(v=>parts.push(v));
+  S.op.forEach(v=>parts.push(v));
+  S.status.forEach(v=>parts.push(v));
+  if(valueActive())parts.push((posToUSD(S.valLo)<=0?"$0":fmtUSD(posToUSD(S.valLo)))+"+");
+  if(S.due)parts.push(S.due==="past"?"past due":"≤"+S.due+"d");
+  const name=parts.slice(0,3).join(" · ")||"All opportunities";
+  SAVED.push({name,apply:{q:S.q,status:[...S.status],cat:[...S.cat],feed:S.feed,due:S.due,valLo:S.valLo,valHi:S.valHi}});
+  renderSaved(); toast(`Saved search · <b>${name}</b> — we'll alert on new matches`);
+}
+const ALERTS=[
+  ["b-soon","⏰","HMIS · Z-401 Fire Alarm","New RFP — proposals due in 5 days"],
+  ["b-fcast","→","Y-12 · Electrical Modernization","Forecast advanced toward RFP · est. $10M"],
+  ["b-open","＋","CPCCo · Contact-Handled Waste W-245","New EOI posted at the Central Plateau prime"],
+  ["b-closed","✕","CPCCo · 324 Building Disposition","Solicitation closed Aug 17"],
+];
+function renderAlerts(){
+  $("#alertItems").innerHTML=ALERTS.map(([c,ic,t,s])=>{
+    const col=c==="b-soon"?"var(--soon)":c==="b-fcast"?"var(--fcast)":c==="b-open"?"var(--open)":"var(--closed)";
+    return `<div class="item"><span class="ic" style="background:${col}22;color:${col}">${ic}</span>
+      <span><div class="t">${t}</div><div class="s">${s}</div></span></div>`;
+  }).join("");
+}
+
+/* ==================================================================== */
+/*  TABS + WIRING                                                        */
+/* ==================================================================== */
+let CUR_VIEW="opps";
+function switchView(v){
+  CUR_VIEW=v;
+  $$(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.view===v));
+  $$(".view").forEach(el=>el.hidden = el.id!=="view-"+v);
+  if(v==="pipeline")renderBoard();
+  if(v==="profiles")renderProfiles();
+  syncURL();
+}
+// Shareable-URL state: bookmark or share a view / opportunity / theme (GovWin & HigherGov both do this).
+// Also lets us deep-link any state for review. Wrapped so a file:// double-click never errors.
+function syncURL(){
+  try{
+    const p=new URLSearchParams();
+    if(CUR_VIEW!=="opps")p.set("view",CUR_VIEW);
+    if(curDetailId)p.set("opp",curDetailId);
+    const th=document.documentElement.getAttribute("data-theme"); if(th)p.set("theme",th);
+    const s=p.toString();
+    history.replaceState(null,"",s?("?"+s):location.pathname.split("/").pop()||location.pathname);
+  }catch(e){/* file:// may block replaceState — harmless */}
+}
+function applyDeepLink(){
+  const p=new URLSearchParams(location.search);
+  const th=p.get("theme"); if(th==="dark"||th==="light")document.documentElement.setAttribute("data-theme",th);
+  const vmin=p.get("vmin"),vmax=p.get("vmax");
+  if(vmin!=null){S.valLo=Math.max(0,Math.min(100,+vmin||0));$("#valMin").value=S.valLo;}
+  if(vmax!=null){S.valHi=Math.max(0,Math.min(100,+vmax||100));$("#valMax").value=S.valHi;}
+  if(vmin!=null||vmax!=null){updateSliderUI();renderOpps();}
+  const v=p.get("view"); if(["pipeline","profiles","opps"].includes(v))switchView(v);
+  const o=p.get("opp"); if(o&&DATA.some(x=>x.id===o))openDetail(o);
+}
+function updateTabCounts(){
+  $("#tabCntOpps").textContent=DATA.length;
+  $("#tabCntPipe").textContent=DATA.filter(r=>r.stage).length;
+  $("#tabCntProf").textContent=COVERAGE.length;
+}
+function resetState(){
+  S.q="";$("#gsearch").value="";S.status.clear();S.cat.clear();S.setAside.clear();S.op.clear();
+  S.place.clear();S.naics.clear();S.due="";S.feed="all";S.valLo=0;S.valHi=100;
+  $("#valMin").value=0;$("#valMax").value=100;syncFeedSeg();syncDuePresets();updateSliderUI();syncChecks();
+}
+function toast(html){const t=$("#toast");t.innerHTML=`<span class="ok">✓</span> ${html}`;t.classList.add("show");
+  clearTimeout(toast._t);toast._t=setTimeout(()=>t.classList.remove("show"),2600);}
+
+function wire(){
+  // tabs
+  $$(".tab").forEach(t=>t.onclick=()=>switchView(t.dataset.view));
+  // global search
+  $("#gsearch").oninput=e=>{S.q=e.target.value.trim().toLowerCase();renderOpps();};
+  // feed segment
+  $$("#feedSeg button").forEach(b=>b.onclick=()=>{S.feed=b.dataset.feed;syncFeedSeg();renderOpps();});
+  // sort
+  $("#sortSel").onchange=e=>{S.sort=e.target.value;renderOpps();};
+  // due presets (toggle)
+  $$("#fDue .preset").forEach(b=>b.onclick=()=>{S.due=S.due===b.dataset.due?"":b.dataset.due;syncDuePresets();renderOpps();});
+  // collapsible sections
+  $$(".fsec > .lbl").forEach(l=>l.onclick=()=>l.parentElement.classList.toggle("collapsed"));
+  // operator filter box
+  $("#opFilter").oninput=e=>renderOpList(e.target.value);
+  // clear all
+  $("#clearAll").onclick=()=>{resetState();renderOpps();};
+  // value slider
+  const mn=$("#valMin"),mx=$("#valMax");
+  function onSlide(){let a=+mn.value,b=+mx.value; if(a>b){[a,b]=[b,a];} S.valLo=a;S.valHi=b; updateSliderUI();renderOpps();}
+  mn.oninput=()=>{if(+mn.value>+mx.value)mn.value=mx.value;onSlide();};
+  mx.oninput=()=>{if(+mx.value<+mn.value)mx.value=mn.value;onSlide();};
+  mn.onpointerdown=()=>{mn.style.zIndex=5;mx.style.zIndex=4;};
+  mx.onpointerdown=()=>{mx.style.zIndex=5;mn.style.zIndex=4;};
+  // est switch
+  const es=$("#estSwitch");
+  es.onclick=()=>{S.inclEst=!S.inclEst;es.setAttribute("aria-checked",S.inclEst);renderOpps();};
+  // save search
+  $("#saveSearchBtn").onclick=saveCurrent;
+  // mobile filters drawer
+  $("#openFilters").onclick=()=>$("#rail").classList.add("open");
+  $("#scrim").onclick=()=>{closeDetail();$("#rail").classList.remove("open");};
+  // bell
+  $("#bellBtn").onclick=e=>{e.stopPropagation();$("#bellPop").classList.toggle("open");};
+  $("#markread").onclick=e=>{e.stopPropagation();$("#bellCount").style.display="none";$("#bellPop").classList.remove("open");toast("Alerts marked read");};
+  document.addEventListener("click",e=>{
+    if(!$("#bellBtn").contains(e.target))$("#bellPop").classList.remove("open");
+    const pm=$("#pipeMenu"); if(pm&&!pm.contains(e.target))pm.classList.remove("open");
+  });
+  // theme toggle
+  $("#themeBtn").onclick=toggleTheme;
+  // esc closes detail
+  document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeDetail();$("#bellPop").classList.remove("open");}});
+}
+function toggleTheme(){
+  const root=document.documentElement;
+  const cur=root.getAttribute("data-theme");
+  const dark=cur? cur==="dark" : matchMedia("(prefers-color-scheme:dark)").matches;
+  root.setAttribute("data-theme",dark?"light":"dark");
+  syncURL();
+}
+
+/* ==================================================================== */
+/*  INIT                                                                 */
+/* ==================================================================== */
+$("#stamp").innerHTML=`<span class="livedot"></span>Live data refreshed <b>${FEED_REFRESHED}</b><br><span class="stampsub">${LIVE_COUNT} live rows · ${SEED_COUNT} curated forecasts · view-only public portals</span>`;
+$("#pipeStamp").innerHTML=`Snapshot <b>${SNAP_LABEL}</b>`;
+$("#snap3").textContent=SNAP_LABEL;
+buildRail(); renderSaved(); renderAlerts(); updateTabCounts(); updateSliderUI(); wire(); renderOpps(); applyDeepLink();
+</script>
+</body>
+</html>
