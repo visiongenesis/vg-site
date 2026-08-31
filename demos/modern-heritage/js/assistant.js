@@ -88,9 +88,20 @@
     fetch(ENDPOINT, {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify({ messages: history.slice(-12) })
+      body: JSON.stringify({ messages: history.slice(-12), stream: true })
     }).then(function (res) {
       if (!res.ok || !res.body) throw new Error('http ' + res.status);
+      var ctype = res.headers.get('content-type') || '';
+      if (ctype.indexOf('event-stream') === -1) {
+        // Engine answered as one JSON object instead of a stream.
+        return res.json().then(function (d) {
+          answer = d.reply || '';
+          if (!answer) throw new Error('empty');
+          if (typing) { typing.remove(); typing = null; }
+          el = bubble('bot', mdLite(answer));
+          return finish();
+        });
+      }
       var reader = res.body.getReader();
       var dec = new TextDecoder();
       var buf = '';
