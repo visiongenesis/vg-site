@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 216 144" role="img" aria-label="Super Girl shield">
+  <title>Super Girl</title>
+  <defs>
+    <linearGradient id="sgGold" x1="0" y1="0" x2=".35" y2="1">
+      <stop offset="0" stop-color="#fff6cf"/><stop offset=".2" stop-color="#f7d774"/><stop offset=".42" stop-color="#d4a437"/>
+      <stop offset=".55" stop-color="#8f6414"/><stop offset=".68" stop-color="#e9c25e"/><stop offset=".86" stop-color="#fff0b8"/><stop offset="1" stop-color="#c8952a"/>
+    </linearGradient>
+    <linearGradient id="sgShine" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+    <mask id="sgCut" maskUnits="userSpaceOnUse" x="0" y="0" width="216" height="144">
+      <rect width="216" height="144" fill="#fff"/>
+      <path d="M160 26 H80 L56 52 L132 62 L124 74 H70 L68 76 H66 L62 88 H140 L162 58 L88 48 L96 38 H154 Z" fill="#000"/>
+    </mask>
+    <filter id="sgGlow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="3.2"/></filter>
+  </defs>
+  <path d="M36 12 H180 L206 40 L108 134 L10 40 Z" fill="none" stroke="#ff2e88" stroke-width="7" stroke-linejoin="round" filter="url(#sgGlow)" opacity=".85"/>
+  <g mask="url(#sgCut)">
+    <path d="M36 12 H180 L206 40 L108 134 L10 40 Z" fill="url(#sgGold)"/>
+    <path d="M40 16 H176 L197 38 H19 Z" fill="url(#sgShine)"/>
+  </g>
+  <path d="M36 12 H180 L206 40 L108 134 L10 40 Z" fill="none" stroke="#ff2e88" stroke-width="3.2" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Register · Ken Chertow Gold Medal Training Camps</title>
+<link rel="icon" href="assets/logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.reg-hero{background:radial-gradient(120% 120% at 0% 100%,#0b2356 0%,var(--ink) 60%);padding:64px 0 120px}
+.reg-hero h1{font-size:clamp(56px,7vw,110px)}
+.reg-hero p{color:var(--text-dim);max-width:640px;margin-top:18px}
+.reg-body{background:var(--paper);color:var(--text-ink);padding:0 0 100px}
+.reg-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:32px;margin-top:-80px;align-items:start}
+.reg-form{background:#fff;padding:40px;box-shadow:0 30px 70px rgba(3,11,28,.18)}
+.form-section{margin-bottom:34px}
+.form-section h2{font-family:var(--display);font-size:32px;text-transform:uppercase;color:var(--navy);margin-bottom:18px}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px}
+.micro{font-size:14.5px;color:var(--text-ink-dim);margin:12px 0 0}
+fieldset{border:0;padding:0;margin:0 0 18px}
+legend{font-family:var(--cond);font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);margin-bottom:10px}
+.choice-group{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.choice{display:flex;gap:12px;align-items:flex-start;border:1.5px solid #b7c0d3;padding:16px;cursor:pointer}
+.choice:has(input:checked){border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red);background:#fff6f8}
+.choice b{display:block;font-family:var(--display);font-weight:400;font-size:22px;text-transform:uppercase;color:var(--ink)}
+.choice small{display:block;color:var(--text-ink-dim);font-size:14px}
+.choice input{margin-top:6px;accent-color:var(--red)}
+.summary{background:var(--ink);color:#fff;position:sticky;top:100px}
+.summary img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.summary .in-sum{padding:28px}
+.summary h2{font-family:var(--display);font-size:42px;text-transform:uppercase;line-height:1;margin:8px 0 8px}
+.summary p{color:var(--text-dim);font-size:15.5px}
+.sum-rows{border-top:1px solid var(--line);margin-top:18px}
+.sum-rows div{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--line)}
+.sum-rows b{font-family:var(--display);font-weight:400;font-size:26px;color:var(--gold)}
+.fit-note{background:#fff3cd;border-left:4px solid var(--gold);padding:14px 16px;margin-top:16px;color:var(--text-ink)}
+.confirm{background:#fff;padding:44px;box-shadow:0 30px 70px rgba(3,11,28,.18);margin-top:-80px}
+.confirm h2{font-family:var(--display);font-size:52px;text-transform:uppercase;color:var(--navy);line-height:1}
+.draft{background:var(--paper);padding:14px 16px;margin-top:14px}
+body.sg .reg-hero{background:radial-gradient(120% 120% at 100% 0%,#3a0a2a 0%,var(--ink) 60%);border-bottom:4px solid var(--pink)}
+body.sg .kicker{color:var(--pink)} body.sg .kicker::before{background:var(--pink)}
+body.sg .reg-form .btn,body.sg .confirm .btn{background:var(--pink);color:#12030b}
+@media (max-width:900px){.reg-grid{grid-template-columns:1fr}.summary{position:static;order:-1}}
+@media (max-width:620px){.fields,.choice-group{grid-template-columns:1fr}.reg-form,.confirm{padding:24px 18px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav"><div class="wrap">
+  <a class="brand" id="home-link" href="index.html" aria-label="Back to the camps home page"><img src="assets/logo.png" alt="" width="52" height="52"><span><b id="brand-name">KEN CHERTOW</b><small id="brand-sub">GOLD MEDAL TRAINING CAMPS</small></span></a>
+  <a class="btn btn-ghost" id="back-link" href="index.html#find">← Back to camps</a>
+</div></header>
+
+<main id="main">
+<div id="checkout-content">
+  <section class="reg-hero"><div class="wrap">
+    <div class="checkout-title" tabindex="-1">
+      <div class="kicker" id="reg-kicker">Register</div>
+      <h1 class="display">Save your spot.</h1>
+      <p>This is a working preview. Nothing is submitted and no payment is taken. Sample details are filled in so you can try it.</p>
+    </div>
+  </div></section>
+  <div class="reg-body"><div class="wrap reg-grid">
+    <form class="reg-form" id="registration-form">
+      <section class="form-section">
+        <h2>1. Camper and parent</h2>
+        <div class="fields">
+          <div class="field"><label for="first">Camper's first name</label><input id="first" name="first" autocomplete="off" value="Alex" required></div>
+          <div class="field"><label for="last">Camper's last name</label><input id="last" name="last" autocomplete="off" value="Taylor" required></div>
+          <div class="field"><label for="camper-grade">Grade next fall</label><select id="camper-grade" required><option value="">Choose grade</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option selected>9</option><option>10</option><option>11</option><option>12</option></select></div>
+          <div class="field"><label for="guardian">Parent / guardian name</label><input id="guardian" name="guardian" autocomplete="off" value="Casey Taylor" required></div>
+          <div class="field"><label for="email">Parent / guardian email</label><input id="email" type="email" autocomplete="off" value="casey@example.com" required></div>
+          <div class="field"><label for="phone">Parent / guardian phone</label><input id="phone" name="phone" type="tel" autocomplete="off" value="202-555-0142" required></div>
+        </div>
+        <p class="micro">Medical, insurance and other camper details come after payment.</p>
+      </section>
+      <section class="form-section">
+        <h2>2. Camp and payment</h2>
+        <div class="field" style="margin-bottom:20px"><label for="checkout-venue">Camp location</label><select id="checkout-venue" required><option value="">Choose a location</option><option value="pa">Pennsylvania</option><option value="oh">Ohio</option></select></div>
+        <fieldset><legend>Stay</legend><div class="choice-group">
+          <label class="choice"><input type="radio" name="housing" value="resident" checked><span><b>Resident</b><small>Hotel, three meals a day, supervision</small></span></label>
+          <label class="choice"><input type="radio" name="housing" value="commuter"><span><b>Commuter</b><small>Training and meals, home each night</small></span></label>
+        </div></fieldset>
+        <fieldset><legend>Payment</legend><div class="choice-group">
+          <label class="choice"><input type="radio" name="plan" value="full" checked><span><b>Pay in full</b><small>One payment today</small></span></label>
+          <label class="choice"><input type="radio" name="plan" value="split"><span><b>Split 50/50</b><small>Half today, half later</small></span></label>
+        </div></fieldset>
+      </section>
+      <p class="fit-note" id="fit-note" hidden></p>
+      <button class="btn" type="submit">Continue to payment <span class="arr" aria-hidden="true">→</span></button>
+    </form>
+    <aside class="summary" aria-label="Your camp">
+      <img id="summary-image" src="assets/img/camp-supergold.jpg" alt="Wrestlers training at a past camp" width="900" height="600">
+      <div class="in-sum">
+        <span class="tag">2027 pricing opens soon</span>
+        <h2 id="summary-name">Super Gold</h2>
+        <p id="summary-details">12 days</p>
+        <div class="sum-rows">
+          <div><span>Camp fee</span><b id="summary-total">$0</b></div>
+          <div><span>Due today</span><b id="summary-due">$0</b></div>
+          <div><span>Due later</span><b id="summary-later">$0</b></div>
+        </div>
+        <p id="summary-plan" style="margin-top:14px"></p>
+      </div>
+    </aside>
+  </div></div>
+</div>
+
+<div id="confirmation" hidden tabindex="-1">
+  <section class="reg-hero"><div class="wrap"><div class="kicker">Spot saved (preview)</div><h1 class="display">You're in.</h1></div></section>
+  <div class="reg-body"><div class="wrap"><div class="confirm">
+    <h2 id="confirmation-camp"></h2>
+    <p id="confirmation-amount" style="margin-top:12px"></p>
+    <form id="post-payment-form">
+      <h3 class="form-section" style="font-family:var(--display);font-size:26px;text-transform:uppercase;color:var(--navy);margin:26px 0 14px">Emergency contact</h3>
+      <label style="display:flex;gap:10px;margin-bottom:14px"><input type="checkbox" id="same-contact"> Same as parent / guardian</label>
+      <div class="fields" id="emergency-fields">
+        <div class="field"><label for="emergency-name">Name</label><input id="emergency-name" autocomplete="off"></div>
+        <div class="field"><label for="emergency-phone">Phone</label><input id="emergency-phone" type="tel" autocomplete="off"></div>
+      </div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:22px"><button class="btn" type="submit">Save details</button><button class="btn btn-navy" type="button" id="restart">Start over</button></div>
+      <p class="draft" id="draft-notice" hidden>Saved in this preview only. Nothing was sent.</p>
+    </form>
+  </div></div></div>
+</div>
+</main>
+
+<footer class="foot"><div class="wrap"><div class="fine"><span>© Ken Chertow Wrestling</span><span>Design preview. Photo permissions pending.</span></div></div></footer>
+
+<script src="register.js"></script>
+</body>
+</html>
