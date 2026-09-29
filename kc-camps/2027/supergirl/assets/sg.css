@@ -203,7 +203,7 @@ ul,ol{margin:0;padding:0;list-style:none}
 .coach p{font-size:16px;color:var(--text);margin:0}
 .c-type{grid-column:span 2;padding:26px 24px;border-top:6px solid var(--pink)}
 .c-type .yr{margin-bottom:18px}
-.c-type .yr-long{white-space:nowrap;font-size:11px;letter-spacing:.08em;padding:9px 9px}
+.c-type .yr-long{white-space:normal;max-width:calc(100% - 8px);box-sizing:border-box;line-height:1.2;font-size:11px;letter-spacing:.08em;padding:9px 9px}
 .c-type h3{font-size:34px}
 .roster{grid-column:1 / -1;display:grid;grid-template-columns:260px 1fr;gap:28px;background:var(--navy);padding:24px;align-items:center}
 .roster figure{height:280px;overflow:hidden}
@@ -636,17 +636,13 @@ ul,ol{margin:0;padding:0;list-style:none}
 
 /* Round 4 photos (Ryan's 9/29 SuperGirl photos) */
 .tile-b img{object-position:50% 5%}
-.history{grid-template-columns:minmax(0,540px) 1fr}
-@media (max-width:1280px){.history{grid-template-columns:minmax(0,440px) 1fr}}
-@media (max-width:1024px){.history{grid-template-columns:minmax(0,360px) 1fr}}
-@media (max-width:760px){.history{grid-template-columns:1fr}.history figure{max-width:calc(100% - 14px)}}
 .tile-a img{object-position:55% 30%}
 .flagship img{object-position:50% 0%}
 @media (min-width:761px) and (max-width:1024px){.flagship figure{height:auto;aspect-ratio:1.15}}
 
 /* Round 4b: Jenny action photo (upscaled 2x, Ryan's one-photo exception), history strip label */
-.jw-photo img{object-position:50% 40%}
-@media (max-width:760px){.jw-photo{aspect-ratio:4/5}}
+.jw-photo img{object-position:50% 100%}
+@media (max-width:760px){.jw-photo{aspect-ratio:2/3}}
 .tl b{white-space:nowrap}
 .history .tl{grid-template-columns:1.3fr repeat(4,1fr)}
 @media (max-width:1024px){.history .tl{grid-template-columns:1fr}}
@@ -654,8 +650,20 @@ ul,ol{margin:0;padding:0;list-style:none}
 .camp-crowd{margin:80px 0 0;clip-path:polygon(2.5% 0,100% 0,97.5% 100%,0 100%);background:var(--ink)}
 .camp-crowd img{display:block;width:100%;height:auto}
 @media (max-width:760px){.camp-crowd{margin-top:56px}}
-@media (max-width:1360px){.c-type .yr-long{white-space:normal;max-width:100%;line-height:1.15}}
 
 /* Round 4c: hero cutout shadow moved from the masked image to its figure. On the image itself Chrome drew a faint dark box around the whole picture (also present with the old file). */
 .hero-art .hero-main{filter:drop-shadow(0 10px 26px rgba(0,0,0,.5))}
 .hero-art .hero-main img{filter:none}
+
+/* Round 5: past-camp group photo under the price tile (was the history strip photo) */
+.camp-past{position:relative;margin:76px 0 0;border:6px solid var(--white);box-shadow:0 26px 60px rgba(0,0,0,.5);background:var(--ink)}
+.camp-past img{display:block;width:100%;height:auto}
+.camp-past figcaption{position:absolute;left:-6px;bottom:-18px;background:var(--pink);color:var(--ink);font:800 12px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;padding:10px 14px;transform:skewX(-10deg)}
+@media (max-width:760px){.camp-past{margin:56px calc(-1 * var(--gut)) 0;border-left:0;border-right:0;box-shadow:none}.camp-past figcaption{left:var(--gut);bottom:-18px}}
+
+/* Round 5: Kylie (past coaches) sits a little left; the file's left 150px was trimmed. Frame is only 225-256px wide on desktop, so position is tuned per range: shoe stays whole, hair not cropped at 1440. Bottom-anchored so the shoes never clip when the frame is wide (tablet). */
+.c-photo img.kylie-stance{object-position:45% 100%}
+@media (min-width:1025px) and (max-width:1360px){.c-photo img.kylie-stance{object-position:39% 100%}}
+/* Header: FAQ link added. Keep every link on one line and tighten spacing on small desktops. */
+.menu a:not(.btn){white-space:nowrap}
+@media (min-width:761px) and (max-width:1100px){.menu{gap:14px}.menu a:not(.btn){font-size:13px;letter-spacing:.06em}}

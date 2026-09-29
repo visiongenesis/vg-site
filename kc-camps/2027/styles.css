@@ -701,6 +701,62 @@ section{position:relative}
 .nav .brand small{white-space:nowrap}
 @media (min-width:1261px){.navlinks{gap:22px}}
 
+/* ===== Round 5 layout (Sept 29) ===== */
+/* R5-11 hero sell-out line: a full-width gold banner along the bottom of the hero; the hero photos stop above it */
+.hero-banner{position:relative;z-index:4;margin:0;background:var(--gold);color:var(--ink);min-height:60px;display:flex;align-items:center}
+.hero-banner .wrap{display:flex;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px}
+.hero-banner .wrap::before{content:"\2605";flex:none;font-size:16px;line-height:1}
+.hero-banner .hb-t{font-family:var(--cond);font-style:italic;font-weight:500;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(17px,1.65vw,25px);line-height:1.25}
+.hero-banner b{font-weight:700}
+@media (min-width:981px){.hero-media{bottom:60px}.hero-copy{padding-bottom:64px}}
+@media (max-width:980px){.hero-banner{order:3}.hero-copy{padding-bottom:36px}}
+/* R5-7 Intensity quote tile: real right margin; "a" ends the next-to-last line and "champion." gets the last line */
+.wall .t-q1{padding:22px 26px 22px 22px}
+.wall .t-q1 .display{font-size:clamp(20px,2vw,30px);overflow-wrap:normal}
+@media (max-width:980px){.wall .t-q1 .display{font-size:clamp(24px,3.4vw,32px)}}
+@media (max-width:620px){.wall .t-q1{padding:20px 22px 20px 18px}.wall .t-q1 .display{font-size:24px}}
+/* R5-6 "Hard work" tile: headline capped so the button always fits (it was cut off on screens wider than about 1550px) */
+.wall .t-q2{padding:36px 40px;gap:16px}
+.wall .t-q2 .display{font-size:clamp(40px,4.6vw,68px)}
+.wall .t-q2 .row p{font-size:16px}
+@media (max-width:620px){.wall .t-q2{padding:26px 22px}.wall .t-q2 .display{font-size:40px}}
+/* R5-4 Find your camp: heading + finder on the left; fees box on the right, raised so its SuperKid row ends level with
+   the bottom of the finder box; the fee notes sit in one navy tile under both columns */
+.find-grid{display:grid;grid-template-columns:1.35fr 1fr;grid-template-areas:"head prices" "card prices" "notes notes";column-gap:40px;align-items:start}
+.find-head{grid-area:head;padding-bottom:30px}
+.find-head .h2{font-size:clamp(52px,5.6vw,88px)}
+.find-head .lede{margin:16px 0 0}
+.find-grid .finder-card{grid-area:card}
+.find-grid .prices{grid-area:prices;align-self:end;padding:30px 32px 0}
+.find-grid .prices h3{margin-bottom:16px}
+.find-grid .ptable tbody tr:last-child td{padding-bottom:22px}
+.fee-notes{grid-area:notes;margin-top:28px;background:var(--navy);color:#fff;border-top:4px solid var(--gold);padding:24px 32px 26px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px 36px}
+.fee-notes .note{margin:0;font-size:14.5px;line-height:1.5;color:#dfe5f0}
+.fee-notes .note b{color:#fff}
+.fee-notes .note.demand{margin:0;max-width:none;color:#fff;font-weight:600}
+@media (max-width:1180px){.fee-notes{grid-template-columns:1fr 1fr}}
+@media (max-width:980px){.find-grid{grid-template-columns:1fr;grid-template-areas:"head" "card" "prices" "notes";row-gap:24px}.find-head{padding-bottom:0}.find-grid .prices{align-self:stretch}.fee-notes{margin-top:0}}
+@media (max-width:620px){.find-grid .prices{padding:26px 20px 0}.fee-notes{grid-template-columns:1fr;padding:22px 20px}}
+/* R5-1 Ryan's testimonial in two paragraphs (same type as before) */
+.voice-ryan .vq p{margin:0;font-size:18.5px;font-weight:500;line-height:1.55}
+.voice-ryan .vq p+p{margin-top:14px}
+@media (max-width:620px){.voice-ryan .vq p{font-size:17px}}
+/* R5-2 closing band: the arena photo is a borderless, feathered backdrop again (round-1 feel), bigger and brighter,
+   filling the right of the band. r5-final-arena.jpg = 4x Real-ESRGAN upscale of the 736px original, saved at 2200px. */
+.final-bg{background-image:url(assets/img/r5-final-arena.jpg)}
+.final-arena .final-ph{position:absolute;top:0;right:0;bottom:0;width:70%;max-width:none;margin:0;border:0;box-shadow:none;background:none;z-index:1;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 42%),linear-gradient(180deg,transparent 0%,#000 14%,#000 86%,transparent 100%);-webkit-mask-composite:source-in;
+  mask-image:linear-gradient(90deg,transparent 0%,#000 42%),linear-gradient(180deg,transparent 0%,#000 14%,#000 86%,transparent 100%);mask-composite:intersect}
+.final-arena .final-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 55%;filter:saturate(1.1) contrast(1.06)}
+.final-arena::after{background:linear-gradient(90deg,rgba(3,11,28,.92) 0%,rgba(3,11,28,.72) 30%,rgba(3,11,28,.12) 62%,rgba(3,11,28,0) 100%)}
+@media (max-width:980px){
+  .final-arena{flex-direction:column;align-items:stretch;padding-top:0}
+  .final-arena .final-ph{position:relative;width:100%;height:auto;aspect-ratio:4/3;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 12%,#000 62%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 12%,#000 62%,transparent 100%)}
+  .final-arena .final-grid{margin-top:-70px}
+  .final-arena::after{background:rgba(3,11,28,.2)}
+}
+
 /* R4 video section (9/29): three vertical reels. Desktop: side by side. Phone: swipe row inside the section, page never scrolls sideways. */
 .reels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;max-width:1000px;margin:0 auto}
 .reel{margin:0;min-width:0}
@@ -731,3 +787,8 @@ section{position:relative}
 .vid-side .pf img{display:block;width:100%;height:auto}
 .vid-side .pf figcaption{margin-top:8px;color:var(--text-dim)}
 @media (max-width:760px){.mat-row{grid-template-columns:1fr 1fr;gap:8px;margin:20px 0 40px}.mat-row figure:first-child{grid-column:1 / -1}.vid-side{justify-self:stretch;max-width:none}}
+
+
+/* R5 photos (2026-09-29): Kylie centered more; Zain keeps his fist (right) and as much of his elbow (left) as the source has. Drawn image width on desktop = tile height 640 x 0.8 = 512px. */
+.t-kylie img{object-position:75% 30%}
+@media (min-width:981px){.t-zain img{object-position:right -96px top 20%}}

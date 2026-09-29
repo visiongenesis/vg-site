@@ -47,8 +47,8 @@
   <div class="hero-media">
     <!-- Ken hero photo. Alternates: swap the filename for r2-ken-olympic-color.jpg or r2-ken-olympic-selective-both.jpg -->
     <figure class="hm hm-ken"><img src="assets/img/r2-ken-olympic-selective.jpg" alt="Ken Chertow lifting an opponent during a match in his U.S.A. singlet" width="1506" height="1800"><figcaption>Ken Chertow · U.S.A. Olympian</figcaption></figure>
-    <figure class="hm hm-crowd"><img src="assets/img/r4-hero-yellow-shirt-demo.jpg" alt="A coach demonstrating a move on a camper in a yellow Chertow shirt while campers watch" width="1800" height="1200"></figure>
-    <figure class="hm hm-action"><img src="assets/img/r4-hero-coach-demo.jpg" alt="A camp coach demonstrating a single-leg on a young wrestler while campers watch" width="807" height="918"></figure>
+    <figure class="hm hm-crowd"><img src="assets/img/r4-hero-yellow-shirt-demo.jpg" alt="Zain Retherford demonstrating a move on a camper in a yellow Chertow shirt while campers watch" width="2220" height="1480"></figure>
+    <figure class="hm hm-action"><img src="assets/img/r4-hero-coach-demo.jpg" alt="Pat Glory demonstrating a single-leg on a young wrestler while campers watch" width="807" height="918"></figure>
   </div>
   <div class="wrap hero-copy">
     <div class="kicker">U.S.A. Olympian · 3X NCAA All-American · Penn State</div>
@@ -58,8 +58,9 @@
       <a class="btn" href="#find">Find your camp <span class="arr" aria-hidden="true">→</span></a>
       <a class="btn btn-ghost" href="#video"><span class="play" aria-hidden="true"></span> Watch camp video</a>
     </div>
-    <p class="demand">Most Gold Medal summer camps sell out quickly.</p>
   </div>
+  <!-- R5-11 sell-out banner across the bottom of the hero -->
+  <p class="hero-banner"><span class="wrap"><span class="hb-t"><b>Reserve your spot at 2027 camp now.</b> Our Gold Medal summer camps sell out quickly.</span></span></p>
 </section>
 
 <!-- TICKER -->
@@ -85,7 +86,7 @@
       <figure class="tile t-helen" data-reveal><img src="assets/img/helen.jpg" alt="Helen Maroulis holding the American flag after her Olympic final" width="1200" height="858"><figcaption><span class="nm">Helen Maroulis</span><span class="cr">Olympic Champion · 3 Olympic Medals</span><span class="qt">“One of our early female campers. She wrestled with mostly boys.”</span></figcaption></figure>
       <figure class="tile t-kylie" data-reveal><img src="assets/img/kylie.jpg" alt="Kylie Welker roaring during her entrance to the mat" width="1125" height="1500"><figcaption><span class="nm">Kylie Welker</span><span class="cr">2026 NCAA Champion · 2X U23 World Champion</span><span class="qt">“She came to our camps as a young wrestler.” Past SuperGirl featured clinician.</span></figcaption></figure>
       <figure class="tile t-ava" data-reveal><img src="assets/img/ava.jpg" alt="Ava Rose wrestling in a high school match" width="800" height="520"><figcaption><span class="nm">Ava Rose</span><span class="cr">2X NJ State Champion · Iowa</span><span class="qt">“One of the youngest ever in SuperGold.”</span></figcaption></figure>
-      <div class="tile qtile t-q1" data-reveal><small class="gold">Ken Chertow</small><p class="display">Intensity: that's what it takes to become a champion.</p></div>
+      <div class="tile qtile t-q1" data-reveal><small class="gold">Ken Chertow</small><p class="display">Intensity: that's what it takes to become a<br>champion.</p></div>
       <figure class="tile t-abe" data-reveal><img src="assets/img/abe-korbin.jpg" alt="Sanshiro Abe and Korbin Kiessling standing together at camp" width="1050" height="1400"><figcaption><span class="nm">Abe &amp; Kiessling</span><span class="cr">Lightweight standouts</span><span class="qt">Sanshiro “Sonny” Abe: NCAA Champion at Penn State, Olympian for Japan. Korbin Kiessling: 4X USA Wrestling Triple Crown winner.</span></figcaption></figure>
       <figure class="tile t-med" data-reveal><img src="assets/img/medalists.jpg" alt="Gold graphic reading Congrats to our campers, featuring David Taylor, Helen Maroulis and Zain Retherford" width="1080" height="1080"></figure>
       <div class="tile t-medcap">David Taylor, Helen Maroulis and Zain Retherford</div>
@@ -179,11 +180,12 @@
 <!-- FINDER + PRICES (white) -->
 <section class="sec on-light" id="find" aria-labelledby="find-h">
   <div class="wrap">
-    <div class="sec-head">
-      <div><div class="kicker">Four questions</div><h2 class="display h2" id="find-h" style="color:var(--navy)">Find your camp.</h2></div>
-      <p class="lede">Tell us your wrestler's grade and where they are right now. We'll point you to a starting camp.</p>
-    </div>
-    <div class="finder-grid-2">
+    <!-- R5-4: heading + finder on the left, fees box beside them (its SuperKid row ends level with the finder box), notes in one tile underneath -->
+    <div class="find-grid">
+      <div class="find-head">
+        <div class="kicker">Four questions</div><h2 class="display h2" id="find-h" style="color:var(--navy)">Find your camp.</h2>
+        <p class="lede">Tell us your wrestler's grade and where they are right now. We'll point you to a starting camp.</p>
+      </div>
       <div class="finder-card">
         <div id="camp-finder"></div>
         <noscript><p>Turn on JavaScript to use the camp finder, or <a href="register.html">go straight to registration</a>.</p></noscript>
@@ -201,11 +203,13 @@
             <tr><td>SuperKid<small>12 days</small></td><td>$2,150</td><td>$1,900</td></tr>
           </tbody>
         </table>
+      </aside>
+      <div class="fee-notes" role="group" aria-label="Camp fee notes">
         <p class="note fc-note"><span class="ast" aria-hidden="true">*</span> Future Champions resident price includes a hotel room for a parent and child.</p>
         <p class="note">Resident campers get four-star hotel accommodations, three meals a day and supervision. Commuters get the training and meals.</p>
         <p class="note"><b>Returning families:</b> lock in 2026 prices through Dec 15, with half down and the balance in April.</p>
         <p class="note demand">Spots go fast. Most Gold Medal camps sell out every summer.</p>
-      </aside>
+      </div>
     </div>
   </div>
 </section>
@@ -243,7 +247,7 @@
         <figure class="rs" data-reveal><img src="assets/img/r2-life-session.jpg" alt="The whole camp seated around the mat, watching a technique demonstration" width="1800" height="1200"><figcaption><span class="n">3</span><b>Daily sessions</b><span class="sub">Learn. Drill. Compete. Repeat.</span></figcaption></figure>
         <figure class="rs" data-reveal><img src="assets/img/r2-life-drill.jpg" alt="A coach and a camper locked up in a drill" width="1800" height="1200"><figcaption><span class="n">70+</span><b>Hours</b><span class="sub">Nearly a season's worth of mat time</span></figcaption></figure>
         <figure class="rs solid" data-reveal><figcaption><span class="n">3</span><b>Meals together</b><span class="sub">A hot breakfast buffet to start the day, and an optional “fourth meal” to end it.</span></figcaption></figure>
-        <figure class="rs" data-reveal><img style="object-position:28% 50%" src="assets/img/r2-life-coach.jpg" alt="A coach on the mat with young campers during a session" width="1800" height="1200"><figcaption><span class="n">1</span><b>Guest speaker</b><span class="sub">Every evening, on mindset, recovery, motivation, discipline or nutrition.</span></figcaption></figure>
+        <figure class="rs" data-reveal><img style="object-position:58% 0%" src="assets/img/r5-guest-speaker-wade.jpg" alt="Wade Schalles standing and talking to campers seated on the mat" width="900" height="900"><figcaption><span class="n">1</span><b>Guest speaker</b><span class="sub">Every evening, on mindset, recovery, motivation, discipline or nutrition.</span></figcaption></figure>
         <figure class="rs" data-reveal><img src="assets/img/r2-life-champs.jpg" alt="A staff member posing with a camper in front of the Ken Chertow backdrop" width="1800" height="1200"><figcaption><span class="n">12</span><b>Days</b><span class="sub">Small-group instruction with world-class coaches</span></figcaption></figure>
         <figure class="rs solid g" data-reveal><figcaption><span class="n">8:1</span><b>Staff to campers</b><span class="sub">Highly supervised. Coaches get to know your wrestler and what they need to excel.</span></figcaption></figure>
       </div>
@@ -489,7 +493,7 @@
         <figure class="vf-whole"><img src="assets/img/ross-team.jpg" alt="Coach Ross Brooks's team with camp staff in Chertow gear" width="1303" height="720"></figure>
         <blockquote><q>Thankful for the relationships, and everyone pouring into me &amp; my team to get us ready for the season.</q><cite>Ross Brooks<small>Coach, after two weeks at camp with his team, July 2026</small></cite></blockquote>
       </div>
-      <blockquote class="voice wide voice-ryan" data-reveal><q>I attended Ken's camps in the '90s with my brothers. A small crew of East Tennessee wrestlers made the trip every summer, and the results the next season were unmistakable. Ken's training system made its mark: that crew went on to win multiple state medals and state championships, all the way to an NCAA national title in 2002. It's why I make the drive every summer now with my two sons, Baylor (11) and Connor (9). I know what they're getting and how much they'll improve, and this year we're looking at the boys' first SuperKid experience.</q><cite>Ryan Dix<small>Former camper, college wrestler and parent</small></cite></blockquote>
+      <blockquote class="voice wide voice-ryan" data-reveal><div class="vq"><p>“I attended Ken's camps in the '90s with my brother and a small crew of East Tennessee wrestlers that made the trip every summer. The results the next season were unmistakable. Ken's training system made its mark: that crew went on to win multiple state medals and state championships, all the way to an NCAA national title in 2002.</p><p>It's why I make the drive every summer now with my two sons, Baylor (11) and Connor (9). I know what they're getting and how much they'll improve, and this year we're looking at the boys' first SuperKid experience.”</p></div><cite>Ryan Dix<small>Former camper, college wrestler and parent</small></cite></blockquote>
       <blockquote class="voice" data-reveal><q>Ken got me to Clemson and without him I wouldn't have had such great opportunities.</q><cite>Bob Taylor<small>Former camper</small></cite></blockquote>
       <blockquote class="voice" data-reveal><q>It is obvious that Ken cares about these kids and has such a positive influence on their wrestling careers.</q><cite>Jeff Fellows<small>On Paxton's camp experience</small></cite></blockquote>
       <blockquote class="voice wide" data-reveal><q>She was so amazing with the girls. They adored her and loved her sessions.</q><cite>Kristel Marie Hill<small>On Kylie Welker coaching at SuperGirl</small></cite></blockquote>
@@ -537,15 +541,15 @@
 <!-- FINAL CTA -->
 <section class="final final-arena" aria-labelledby="final-h">
   <div class="final-bg" aria-hidden="true"></div>
+  <!-- R5-2: arena photo is a feathered backdrop again (no frame), filling the right of the band. Upscaled 4x (Real-ESRGAN) from the 736px original. -->
+  <figure class="final-ph"><img src="assets/img/r5-final-arena.jpg" alt="A packed arena watching a wrestling match on the center mat" width="2200" height="1174" loading="lazy"></figure>
   <div class="wrap final-grid">
     <div>
       <div class="kicker">Ken Chertow</div>
       <h2 class="display" id="final-h">Champions rise to the occasion <span class="gold">when it matters&nbsp;most.</span></h2>
       <div class="hero-ctas"><a class="btn" href="#find">Find your camp <span class="arr" aria-hidden="true">→</span></a><a class="btn btn-pink" href="supergirl/">Visit SuperGirl <span class="arr" aria-hidden="true">→</span></a></div>
       <p class="demand">Most camps fill quickly each summer. Reserve your wrestler's spot early.</p>
-    </div>
-    <figure class="final-ph"><img src="assets/img/r3-final-arena.jpg" alt="A packed arena watching a wrestling match on the center mat" width="736" height="393"></figure>
-  </div>
+    </div>  </div>
 </section>
 
 </main>
