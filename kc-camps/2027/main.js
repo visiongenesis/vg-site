@@ -1,5 +1,5 @@
 'use strict';
-/* Main site behaviour: menu, camp finder (logic adapted from the Sept 28 demo app.js), click-to-load video, progressive reveal. */
+/* Main site behaviour: menu, camp finder (logic adapted from the Sept 28 demo app.js), progressive reveal. */
 (function(){
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -14,8 +14,8 @@
 
   /* camp finder */
   const camps = {
-    supergold:{name:'Super Gold', len:'12 days'},
-    supergirl:{name:'Super Girl', len:'12 days'},
+    supergold:{name:'SuperGold', len:'12 days'},
+    supergirl:{name:'SuperGirl', len:'12 days'},
     gold:{name:'Gold Medal Training Camp', len:'6 days'},
     technique:{name:'Technique Camp', len:'4 days'},
     girlstech:{name:'Girls Technique', len:'4 days'},
@@ -27,7 +27,7 @@
       <div class="fields">
         <div class="field"><label for="grade">Grade next fall</label><select id="grade" required><option value="">Choose grade</option>${Array.from({length:12},(_,i)=>`<option value="${i+1}">Grade ${i+1}</option>`).join('')}</select></div>
         <div class="field"><label for="readiness">Where are they now?</label><select id="readiness" required><option value="">Choose one</option><option value="new">Newer: building a foundation</option><option value="building">Developing: wants a full week</option><option value="intensive">Committed: ready for 12 days</option></select></div>
-        <div class="field"><label for="program">Camp for</label><select id="program"><option value="boys">Boys and youth camps</option><option value="girls">Girls camps (Super Girl)</option></select></div>
+        <div class="field"><label for="program">Camp for</label><select id="program"><option value="boys">Boys and youth camps</option><option value="girls">Girls camps (SuperGirl)</option></select></div>
         <div class="field"><label for="venue">Location</label><select id="venue"><option value="either">Pennsylvania or Ohio</option><option value="pa">Pennsylvania</option><option value="oh">Ohio</option></select></div>
       </div>
       <div class="finder-bottom"><p>We'll suggest a starting camp. Ken's team confirms every placement.</p><button class="btn" type="submit">Show my camp <span class="arr" aria-hidden="true">→</span></button></div>
@@ -57,15 +57,6 @@
       res.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'nearest'});
     });
   }
-
-  /* click-to-load YouTube */
-  const main = document.querySelector('.vid-main');
-  document.querySelectorAll('[data-yt]').forEach(b => b.addEventListener('click', () => {
-    const id = b.dataset.yt;
-    main.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0" title="Ken Chertow video" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
-    main.removeAttribute('data-yt'); main.style.cursor = 'default';
-    if (b !== main) main.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'center'});
-  }, {once: b === main}));
 
   /* keep headings from ending on a lone word */
   document.querySelectorAll('h2,h3,.qtile .display,.t-q2 .display,.kenq blockquote').forEach(h => {

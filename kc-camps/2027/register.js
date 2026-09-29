@@ -5,9 +5,9 @@
   const params = new URLSearchParams(location.search);
   const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
   const camps = {
-    supergold:{name:'Super Gold',days:'12 days',commuter:1900,resident:2150,photo:'camp-supergold.jpg',min:8,max:12},
+    supergold:{name:'SuperGold',days:'12 days',commuter:1900,resident:2150,photo:'camp-supergold.jpg',min:8,max:12},
     superkid:{name:'SuperKid',days:'12 days',commuter:1900,resident:2150,photo:'r2-camp-superkid.jpg',min:1,max:12},
-    supergirl:{name:'Super Girl',days:'12 days',commuter:1900,resident:2150,photo:'camp-girls.jpg',min:4,max:12},
+    supergirl:{name:'SuperGirl',days:'12 days',commuter:1900,resident:2150,photo:'camp-girls.jpg',min:4,max:12},
     gold:{name:'Gold Medal Training Camp',days:'6 days',commuter:950,resident:1050,photo:'camp-gold.jpg',min:4,max:12},
     technique:{name:'Technique Camp',days:'4 days',commuter:700,resident:775,photo:'camp-technique.jpg',min:4,max:12},
     girlstech:{name:'Girls Technique',days:'4 days',commuter:700,resident:775,photo:'camp-girls.jpg',min:4,max:12},
@@ -20,12 +20,12 @@
 
   if (girls) {
     document.body.classList.add('sg');
-    document.querySelector('#brand-name').textContent = 'SUPER GIRL';
+    document.querySelector('#brand-name').textContent = 'SUPERGIRL';
     document.querySelector('#brand-sub').textContent = 'A KEN CHERTOW GOLD MEDAL TRAINING CAMP';
     document.querySelector('#home-link').href = 'supergirl/';
     document.querySelector('#back-link').href = 'supergirl/';
-    document.querySelector('#back-link').textContent = '← Back to Super Girl';
-    document.querySelector('#reg-kicker').textContent = 'Register · Super Girl';
+    document.querySelector('#back-link').textContent = '← Back to SuperGirl';
+    document.querySelector('#reg-kicker').textContent = 'Register · SuperGirl';
   }
 
   const placeName = v => ({pa:'Pennsylvania', oh:'Ohio'}[v] || 'Choose a location');

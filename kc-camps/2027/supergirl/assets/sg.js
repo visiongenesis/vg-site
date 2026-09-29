@@ -2,7 +2,7 @@
    (The same text sits in the HTML as a no-JS fallback.) */
 var SG_CAMP_DATES={pa:"July 11\u201322, 2027",oh:"June 19\u201324, 2027"};
 (function(){[].forEach.call(document.querySelectorAll('[data-camp-date]'),function(el){var v=SG_CAMP_DATES[el.getAttribute('data-camp-date')];if(v)el.textContent=v;});})();
-/* Super Girl: menu toggle + progressive scroll reveal. Content is fully visible without JS. */
+/* SuperGirl: menu toggle + progressive scroll reveal. Content is fully visible without JS. */
 (function(){
   var btn=document.querySelector('.menu-btn'), menu=document.getElementById('menu');
   if(btn&&menu){
