@@ -555,3 +555,12 @@ section{position:relative}
 
 .star-grid .star.cta{grid-column:span 3}
 @media (max-width:980px){.star-grid .star.cta{grid-column:auto}}
+
+/* R 9/29: hero never clips its copy (buttons were hidden under the ticker on shorter/narrower windows) */
+.hero{height:auto;min-height:clamp(700px,92vh,920px)}
+.hero-copy{height:auto;min-height:clamp(700px,92vh,920px);padding-top:48px;padding-bottom:84px}
+@media (max-width:980px){.hero-copy{min-height:0;padding-top:0;padding-bottom:64px}}
+
+/* R 9/29: keep nav on one line between tablet and wide desktop */
+.navlinks a{white-space:nowrap}
+@media (min-width:981px) and (max-width:1260px){.navlinks{gap:16px}.navlinks a{font-size:13px;letter-spacing:.08em}.navlinks .btn{padding-left:16px;padding-right:16px}.brand small{display:none}}
