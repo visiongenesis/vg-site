@@ -110,7 +110,7 @@
 
     var frame = wrap.querySelector('#kcacFrame');
     function openCoach() {
-      if (!frame.src) frame.src = COACH_URL; // lazy: load the assistant only on first open
+      if (!frame.src) frame.src = COACH_URL + '#kcac'; // lazy: load the assistant only on first open; #kcac tells it the panel's close button overlays its top-right corner
       stopRotation();
       btn.classList.remove('kcac-swap');
       label.textContent = 'Ask Coach';

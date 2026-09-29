@@ -53,6 +53,8 @@
   .findcamp{color:#1b1300;background:var(--gold);box-shadow:0 8px 20px -12px rgba(242,183,5,.7)}
   .findcamp:hover{background:var(--goldSoft)}
   @media (max-width:390px){ .hdr-cta a{font-size:10px;padding:5px 8px} .h-txt p{font-size:11px} }
+  /* Site widget (embed.js) loads this page as #kcac and floats its own 30px close button over the top-right corner; keep the header buttons clear of it. */
+  html.kcac header{padding-right:46px}
 
   #chat{flex:1;overflow-y:auto;overflow-x:hidden;padding:20px 15px 8px;position:relative;z-index:1;-webkit-overflow-scrolling:touch}
   .wrap{max-width:680px;margin:0 auto;display:flex;flex-direction:column;gap:13px}
@@ -115,6 +117,7 @@
   .foot-note a{color:var(--gold);text-decoration:none;font-weight:600}
   .foot-note a.vg{color:#67748e;text-decoration:underline;font-weight:500}
 </style>
+<script>if(/(^|[#&])kcac($|&)/.test(location.hash))document.documentElement.classList.add('kcac');</script>
 </head>
 <body class="grain">
 <header>
