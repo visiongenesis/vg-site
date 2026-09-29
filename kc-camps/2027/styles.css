@@ -570,3 +570,78 @@ section{position:relative}
 /* R 9/29: keep nav on one line between tablet and wide desktop */
 .navlinks a{white-space:nowrap}
 @media (min-width:981px) and (max-width:1260px){.navlinks{gap:16px}.navlinks a{font-size:13px;letter-spacing:.08em}.navlinks .btn{padding-left:16px;padding-right:16px}.brand small{display:none}}
+
+
+/* ===== Round 3 (Sept 29): Ryan's audio checklist ===== */
+/* #5 congrats caption: names only */
+.t-medcap{font-family:var(--cond);font-weight:500;text-transform:uppercase;letter-spacing:.1em;font-size:15px;line-height:1.35;color:#fff}
+/* #3 girls action photo, hero bottom right */
+.hm-action img{object-position:42% 60%}
+/* #6 lede lead-in */
+.lede b{color:#fff;font-weight:700}
+/* #7 SuperGold "Tell me more" */
+.flag-foot{justify-content:flex-start;gap:14px}
+.more-toggle[hidden],.sg-more[hidden]{display:none}
+.more-toggle .chev{width:9px;height:9px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:translateY(-3px) rotate(45deg);transition:transform .2s}
+.more-toggle[aria-expanded=true] .chev{transform:translateY(2px) rotate(-135deg)}
+.sg-more{border-top:1px solid var(--line);padding-top:20px;margin:0 0 26px}
+.sg-more p{font-size:16px;line-height:1.6}
+.sg-more .sg-close{color:#fff;font-weight:700;font-size:17.5px;margin:0;border-left:4px solid var(--gold);padding-left:14px}
+/* #8 What your wrestler will gain */
+.gain{background:var(--ink);border-top:4px solid var(--gold);padding:44px 52px 50px;margin-bottom:28px;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+.gain .kicker{margin-bottom:14px}
+.gain h3{font-size:clamp(34px,4.2vw,60px);line-height:.95;margin-bottom:32px}
+.gain-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:30px 40px}
+.gain-list li{border-top:1px solid var(--line);padding-top:18px}
+.gain-list b{display:block;font-family:var(--display);font-weight:400;font-size:26px;line-height:1.05;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.gain-list span{display:block;font-size:15.5px;line-height:1.55;color:var(--text-dim)}
+/* #15 parents heading */
+.h2.fam-h{font-size:clamp(46px,5.2vw,80px);line-height:.92}
+.fam-h .gold{display:block}
+/* #21 stat panels: strict three-row grid (number / label / small line), shared baselines via subgrid */
+.rhythm-strip{grid-template-columns:repeat(6,1fr);grid-template-rows:minmax(110px,1fr) auto auto auto;row-gap:0;column-gap:8px;height:auto;min-height:390px}
+.rhythm-strip>.rs{grid-row:1 / span 4;display:grid;grid-template-rows:subgrid;justify-content:stretch}
+.rhythm-strip .rs figcaption{grid-row:2 / span 3;display:grid;grid-template-rows:subgrid;align-items:start;padding:0 16px 18px}
+.rhythm-strip .rs .n{margin:0 0 10px}
+.rhythm-strip .rs b{font-size:22px;margin:0 0 8px}
+.rhythm-strip .rs .sub{margin:0;font-size:14px;line-height:1.4}
+/* #23 venue cards: identical format, titles on one line */
+.nv h3{white-space:nowrap;font-size:clamp(24px,2.6vw,38px)}
+/* #29 long testimonial */
+.voice-ryan q{font-size:18.5px;font-weight:500;line-height:1.55}
+/* #36 closing band: 736px arena photo shown at or below native size; a blurred, darkened copy fills the band */
+.final-arena{min-height:0;padding:clamp(80px,9vw,130px) 0}
+.final-arena::before{display:none}
+.final-bg{position:absolute;inset:-40px;background:url(assets/img/r3-final-arena.jpg) center/cover no-repeat;filter:blur(16px) brightness(.32) saturate(1.15);z-index:0}
+.final-arena::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(3,11,28,.9) 0%,rgba(3,11,28,.55) 55%,rgba(3,11,28,.4) 100%)}
+.final-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
+.final-arena h2{font-size:clamp(48px,5.4vw,92px);max-width:none}
+.final-ph{margin:0;justify-self:end;width:100%;max-width:640px;border:3px solid var(--gold);box-shadow:0 30px 70px rgba(0,0,0,.6);background:#000}
+.final-ph img{width:100%;height:auto}
+@media (max-width:1180px){
+  .rhythm-strip{grid-template-columns:repeat(3,1fr);grid-template-rows:repeat(2,minmax(120px,1fr) auto auto auto 8px);min-height:0}
+  .rhythm-strip>.rs:nth-child(n+4){grid-row:6 / span 4}
+}
+@media (max-width:980px){
+  .gain-list{grid-template-columns:1fr 1fr}
+  .final-grid{grid-template-columns:1fr;gap:40px}
+  .final-ph{justify-self:start}
+}
+@media (max-width:620px){
+  .gain{padding:30px 22px 34px}
+  .gain-list{grid-template-columns:1fr;gap:22px}
+  .gain h3{font-size:36px}
+  .flag-foot .btn{width:100%;justify-content:center}
+  .rhythm-strip{grid-template-columns:1fr 1fr;grid-template-rows:repeat(3,minmax(100px,1fr) auto auto auto 8px)}
+  .rhythm-strip>.rs:nth-child(n+3){grid-row:6 / span 4}
+  .rhythm-strip>.rs:nth-child(n+5){grid-row:11 / span 4}
+  .rhythm-strip .rs figcaption{padding:0 12px 14px}
+  .rhythm-strip .rs b{font-size:19px}
+  .rhythm-strip .rs .sub{font-size:13px}
+  .nv h3{font-size:clamp(20px,6.4vw,30px)}
+  .voice-ryan q{font-size:17px}
+  .final-arena h2{font-size:clamp(40px,11vw,56px)}
+}
+
+/* R3: camp-card meta never runs together on phones */
+.camp-b .meta{gap:12px}

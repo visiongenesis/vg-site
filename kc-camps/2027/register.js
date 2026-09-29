@@ -1,12 +1,12 @@
 'use strict';
 /* Registration preview. Behaviour kept from the Sept 28 demo checkout (app.js "checkout" branch); prices from the 2027 candidate card.
-   Accepts ?camp=<id>, ?program=supergirl, ?location=pa|oh, ?grade=1-12. Nothing is submitted anywhere. */
+   Accepts ?camp=<id> (or ?program=superkid), ?program=supergirl, ?location=pa|oh, ?grade=1-12. Nothing is submitted anywhere. */
 (function(){
   const params = new URLSearchParams(location.search);
   const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
   const camps = {
     supergold:{name:'SuperGold',days:'12 days',commuter:1900,resident:2150,photo:'camp-supergold.jpg',min:8,max:12},
-    superkid:{name:'SuperKid',days:'12 days',commuter:1900,resident:2150,photo:'r2-camp-superkid.jpg',min:1,max:12},
+    superkid:{name:'SuperKid',days:'12 days',commuter:1900,resident:2150,photo:'r2-camp-superkid.jpg',min:4,max:7},
     supergirl:{name:'SuperGirl',days:'12 days',commuter:1900,resident:2150,photo:'camp-girls.jpg',min:4,max:12},
     gold:{name:'Gold Medal Training Camp',days:'6 days',commuter:950,resident:1050,photo:'camp-gold.jpg',min:4,max:12},
     technique:{name:'Technique Camp',days:'4 days',commuter:700,resident:775,photo:'camp-technique.jpg',min:4,max:12},
@@ -14,7 +14,7 @@
     future:{name:'Future Champions',days:'Parent-child camp',commuter:650,resident:1075,photo:'camp-future.jpg',min:1,max:3}
   };
   const girls = params.get('program') === 'supergirl' || params.get('site') === 'girls';
-  let id = Object.hasOwn(camps, params.get('camp')) ? params.get('camp') : (girls ? 'supergirl' : 'supergold');
+  let id = Object.hasOwn(camps, params.get('camp')) ? params.get('camp') : (girls ? 'supergirl' : Object.hasOwn(camps, params.get('program')) ? params.get('program') : 'supergold');
   if (girls && ['supergold','technique'].includes(id)) id = id === 'supergold' ? 'supergirl' : 'girlstech';
   const camp = camps[id];
 
@@ -38,7 +38,7 @@
   details(); venueSel.addEventListener('change', details);
 
   const g = Number(params.get('grade'));
-  document.querySelector('#camper-grade').value = String(Number.isInteger(g) && g >= 1 && g <= 12 ? g : id === 'future' ? 2 : 9);
+  document.querySelector('#camper-grade').value = String(Number.isInteger(g) && g >= 1 && g <= 12 ? g : id === 'future' ? 2 : id === 'superkid' ? 5 : 9);
 
   const form = document.querySelector('#registration-form');
   let total = camp.resident, due = total;

@@ -15,6 +15,7 @@
   /* camp finder */
   const camps = {
     supergold:{name:'SuperGold', len:'12 days'},
+    superkid:{name:'SuperKid', len:'12 days'},
     supergirl:{name:'SuperGirl', len:'12 days'},
     gold:{name:'Gold Medal Training Camp', len:'6 days'},
     technique:{name:'Technique Camp', len:'4 days'},
@@ -39,20 +40,27 @@
       const r = document.querySelector('#readiness').value;
       const girls = document.querySelector('#program').value === 'girls';
       const venue = document.querySelector('#venue').value;
+      /* Placement rules (Ryan, Sept 29): grades 1-3 Future Champions; committed = 12 days (SuperKid grades 4-7,
+         SuperGold grade 8+, SuperGirl for girls); developing = 6-day Gold Medal Training Camp; newer = 4-day Technique. */
+      const twelve = r === 'intensive';
       let id;
       if (grade <= 3) id = 'future';
-      else if (grade <= 7) id = r === 'new' ? (girls ? 'girlstech' : 'technique') : 'gold';
-      else id = r === 'intensive' ? (girls ? 'supergirl' : 'supergold') : r === 'new' ? (girls ? 'girlstech' : 'technique') : 'gold';
+      else if (twelve) id = girls ? 'supergirl' : grade <= 7 ? 'superkid' : 'supergold';
+      else if (r === 'new') id = girls ? 'girlstech' : 'technique';
+      else id = 'gold';
       const why = grade <= 3 ? 'For the youngest wrestlers, start with a parent alongside.'
-        : grade <= 7 ? (r === 'new' ? 'Four days of fundamentals is the right first step.' : 'A full training week suits a younger wrestler who is ready for more.')
-        : r === 'intensive' ? 'Twelve days gives a committed wrestler time for skills to stick.'
-        : r === 'new' ? 'Four days of fundamentals is the right first step.' : 'A full training week builds on what they already know.';
+        : id === 'superkid' ? 'Twelve days built for younger wrestlers who are ready to commit.'
+        : twelve ? 'Twelve days gives a committed wrestler time for skills to stick.'
+        : r === 'new' ? 'Four days of fundamentals is the right first step.'
+        : grade <= 7 ? 'A full training week suits a younger wrestler who is ready for more.'
+        : 'A full training week builds on what they already know.';
       const c = camps[id];
+      const title = girls && id === 'gold' ? 'Gold Medal Training Camp for girls' : c.name;
       const place = venue === 'pa' ? 'Pennsylvania' : venue === 'oh' ? 'Ohio' : 'Pennsylvania or Ohio';
       const q = new URLSearchParams({camp:id, location:venue, grade:String(grade)});
       if (girls) q.set('program','supergirl');
       const res = document.querySelector('#finder-result');
-      res.innerHTML = `<div><div class="eyebrow">Your starting camp · ${place}</div><h3>${c.name}</h3><p>${c.len}. ${why}</p></div><a class="btn" href="register.html?${q}">Register <span class="arr" aria-hidden="true">→</span></a>`;
+      res.innerHTML = `<div><div class="eyebrow">Your starting camp · ${place}</div><h3>${title}</h3><p>${c.len}. ${why}</p></div><a class="btn" href="register.html?${q}">Register <span class="arr" aria-hidden="true">→</span></a>`;
       res.hidden = false; res.focus({preventScroll:true});
       res.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'nearest'});
     });
