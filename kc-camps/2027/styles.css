@@ -792,3 +792,9 @@ section{position:relative}
 /* R5 photos (2026-09-29): Kylie centered more; Zain keeps his fist (right) and as much of his elbow (left) as the source has. Drawn image width on desktop = tile height 640 x 0.8 = 512px. */
 .t-kylie img{object-position:75% 30%}
 @media (min-width:981px){.t-zain img{object-position:right -96px top 20%}}
+/* R6 video: 4 vertical reels (Ryan's camp-day reel leftmost) + one wide video underneath */
+@media (min-width:761px){.reels{grid-template-columns:repeat(4,minmax(0,1fr));max-width:1180px;gap:24px}}
+.reel-wide{max-width:1180px;margin:40px auto 0}
+.reel-wide video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000;border:1px solid var(--line)}
+.reel-wide figcaption{margin-top:12px;font-family:var(--cond);font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:14px;color:#fff;text-align:center}
+@media (max-width:760px){.reel-wide{margin-top:26px}}
