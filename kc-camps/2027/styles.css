@@ -645,3 +645,89 @@ section{position:relative}
 
 /* R3: camp-card meta never runs together on phones */
 .camp-b .meta{gap:12px}
+
+/* ===== Round 4 (Sept 29) ===== */
+/* R4 #3 camp-demand line: one calm line, never shouting */
+.demand{display:flex;gap:10px;align-items:baseline;margin:20px 0 0;font-size:15px;line-height:1.45;color:var(--text-dim);max-width:600px}
+.demand::before{content:"\2605";color:var(--gold);flex:none;font-size:13px}
+.locs+.demand{margin-top:18px}
+.prices .note.demand{margin-top:14px}
+/* R4 #4 + #5: gain points as cards (same tokens as the .care cards) */
+.gain-cards{gap:14px}
+.gain-cards li{border:1px solid var(--line);border-top:3px solid var(--red);background:rgba(255,255,255,.035);padding:22px 24px 24px}
+.why12{margin-top:80px}
+.why12-h{display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:end;margin-bottom:28px}
+.why12-h .lede{justify-self:end;margin:0}
+.why12-h .kicker{margin-bottom:14px}
+.why12-list{grid-template-columns:repeat(4,1fr)}
+/* R4 FAQ page link */
+.faq-more{margin:28px 0 0}
+@media (max-width:1180px){.why12-list{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:980px){.why12-h{grid-template-columns:1fr;gap:18px}.why12-h .lede{justify-self:start}}
+@media (max-width:620px){.why12-list,.gain-cards{grid-template-columns:1fr}.gain-cards li{padding:20px 20px 22px}.why12{margin-top:60px}}
+/* R4 #11 + #13: every split heading/copy header centers the heading on the copy */
+.sec-head{align-items:center}
+.why12-h{align-items:center}
+/* R4 #12 family collage: fills the column from the top (Ken & Beth wide on top, two portraits under it) */
+.life-top{align-items:start}
+.kb{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.kb figure{position:relative;left:auto;top:auto;right:auto;bottom:auto;width:auto;height:auto;border:0;box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.kb .a{grid-column:1 / -1;aspect-ratio:3/2}
+.kb .b,.kb .c{aspect-ratio:2/3}
+.kb .b img,.kb .c img{object-position:50% 0%}
+/* R4 #17 staff family photo, shown at or below its 1422px native width */
+.fam-wide{margin:56px auto 0;max-width:1422px}
+.fam-wide img{width:100%;height:auto}
+.fam-wide figcaption{font-family:var(--cond);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim);margin-top:10px}
+/* R4 #16 hero panels: crops that show the action */
+.hm-crowd img{object-position:66% 40%}
+.hm-action img{object-position:59% 50%}
+/* R4 #15 pricing asterisk */
+.ptable .ast{color:var(--gold);font-size:.8em;vertical-align:super;margin-left:1px}
+.prices .fc-note{margin-top:14px}
+.fc-note .ast{color:var(--gold);font-weight:700}
+@media (max-width:620px){.kb{height:auto}.fam-wide{margin-top:40px}}
+/* R4 #12 fix: beat the older absolute-position rules (.kb .a / .kb .b) */
+.kb>figure.a,.kb>figure.b,.kb>figure.c,.kb>figure.d{position:relative;left:auto;top:auto;right:auto;bottom:auto;width:auto;height:auto;border:0}
+.kb>figure.a{grid-column:1 / -1;aspect-ratio:3/2}
+.kb>figure.b,.kb>figure.c{aspect-ratio:2/3}
+.kb>figure.d{grid-column:1 / -1;aspect-ratio:1200/738}
+/* R4 #18a hero bottom-right: keep both girls and the standing camper in frame */
+.hm-action img{object-position:20% 50%}
+/* R4 #19 Ava Rose tile: caption moves to the top-right corner so the wrestlers stay clear */
+.wall .t-ava figcaption{top:0;bottom:auto;left:0;right:0;text-align:right;padding:20px 22px 90px 38%;background:radial-gradient(130% 110% at 100% 0%,rgba(3,11,28,.95) 0%,rgba(3,11,28,.72) 36%,rgba(3,11,28,0) 68%)}
+@media (max-width:620px){.wall .t-ava figcaption{padding:14px 14px 60px 30%}.wall .t-ava .qt{display:none}}
+/* R4 nav: 8 items; keep the logo tagline on one line and match faq.html's header */
+.nav .brand small{white-space:nowrap}
+@media (min-width:1261px){.navlinks{gap:22px}}
+
+/* R4 video section (9/29): three vertical reels. Desktop: side by side. Phone: swipe row inside the section, page never scrolls sideways. */
+.reels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;max-width:1000px;margin:0 auto}
+.reel{margin:0;min-width:0}
+.reel video{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover;background:#000;border:1px solid var(--line)}
+.reel figcaption{margin-top:12px;font-family:var(--cond);font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:14px;color:#fff;text-align:center}
+@media (max-width:760px){.reels{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:72%;gap:14px;max-width:none;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding-bottom:10px}.reel{scroll-snap-align:start}}
+/* R4 hero bottom-right = Ryan's coach demo photo (r4-hero-coach-demo.jpg). At desktop the bottom row is made shorter
+   (1.6fr/1fr) so the slot is wide enough to keep both the coach's and the boy's heads in frame. Revert = delete these two lines. */
+.hm-action img{object-position:50% 0%}
+/* R4 herofix (09-29): the fixed "Ask Coach" button sat on the coach's face at first load (e.g. 1280x900). The tile is now a fixed
+   shape (width x 0.74, full image width, top-aligned so both heads stay in) and the crowd tile above takes the rest of the column,
+   which put the coach's face below the button but pushed Ryan's photo below the fold. REVERTED by coordinator: Ryan's photo must show on first load; the floating button may overlap part of it at some laptop heights. */
+@media (min-width:981px){.hero-media{grid-template-rows:1.6fr 1fr}}
+
+/* R4 photos2 (09-29): new photos from Ryan. Hero top-right, coaches mat row, staff-row photo, video side photo. */
+.hm-crowd img{object-position:50% 50%}
+.hm-action img{transform-origin:50% 0}
+.mat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:28px 0 56px}
+.mat-row figure{margin:0;position:relative;overflow:hidden;aspect-ratio:3/2}
+.mat-row img{width:100%;height:100%;object-fit:cover}
+.mat-row figcaption,.vid-side .pf figcaption{font-family:var(--cond);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase}
+.mat-row figcaption{position:absolute;left:10px;bottom:10px;background:rgba(3,11,28,.75);padding:5px 10px}
+.staff-row figure.kpz{display:flex;flex-direction:column}
+.staff-row figure.kpz img{flex:1 1 auto;height:auto;min-height:0;object-position:50% 30%}
+.staff-row figure.kpz figcaption{margin-top:10px;font-family:var(--cond);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-dim)}
+.vid-side{justify-self:end;max-width:460px}
+.vid-side .pf{margin:20px 0 0}
+.vid-side .pf img{display:block;width:100%;height:auto}
+.vid-side .pf figcaption{margin-top:8px;color:var(--text-dim)}
+@media (max-width:760px){.mat-row{grid-template-columns:1fr 1fr;gap:8px;margin:20px 0 40px}.mat-row figure:first-child{grid-column:1 / -1}.vid-side{justify-self:stretch;max-width:none}}

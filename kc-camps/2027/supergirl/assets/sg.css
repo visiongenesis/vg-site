@@ -622,3 +622,40 @@ ul,ol{margin:0;padding:0;list-style:none}
   .hero-inset{width:42%;bottom:6px}
   .hero-tag{width:230px;padding:14px 18px 12px}
 }
+
+/* ===== Round 4 (Sept 29) ===== */
+.sg-demand{font-size:15px;font-weight:600;color:var(--muted);margin:16px 0 0}
+.sg-demand::before{content:"\2605";color:var(--gold);margin-right:8px}
+.final .sg-demand{color:var(--ink);margin-top:18px}
+.final .sg-demand::before{color:var(--ink)}
+.faq-all{margin:22px 0 0}
+.faq-all a{font:800 13px/1 var(--body);letter-spacing:.14em;text-transform:uppercase;color:var(--pink-d);text-decoration:none}
+.faq-all a:hover{text-decoration:underline}
+.prices .ast{font-size:.6em;vertical-align:super;margin-left:2px}
+.p-note .ast{color:var(--pink-d);font-weight:800;margin-right:2px}
+
+/* Round 4 photos (Ryan's 9/29 SuperGirl photos) */
+.tile-b img{object-position:50% 5%}
+.history{grid-template-columns:minmax(0,540px) 1fr}
+@media (max-width:1280px){.history{grid-template-columns:minmax(0,440px) 1fr}}
+@media (max-width:1024px){.history{grid-template-columns:minmax(0,360px) 1fr}}
+@media (max-width:760px){.history{grid-template-columns:1fr}.history figure{max-width:calc(100% - 14px)}}
+.tile-a img{object-position:55% 30%}
+.flagship img{object-position:50% 0%}
+@media (min-width:761px) and (max-width:1024px){.flagship figure{height:auto;aspect-ratio:1.15}}
+
+/* Round 4b: Jenny action photo (upscaled 2x, Ryan's one-photo exception), history strip label */
+.jw-photo img{object-position:50% 40%}
+@media (max-width:760px){.jw-photo{aspect-ratio:4/5}}
+.tl b{white-space:nowrap}
+.history .tl{grid-template-columns:1.3fr repeat(4,1fr)}
+@media (max-width:1024px){.history .tl{grid-template-columns:1fr}}
+.final-copy .sg-demand{margin-bottom:0}
+.camp-crowd{margin:80px 0 0;clip-path:polygon(2.5% 0,100% 0,97.5% 100%,0 100%);background:var(--ink)}
+.camp-crowd img{display:block;width:100%;height:auto}
+@media (max-width:760px){.camp-crowd{margin-top:56px}}
+@media (max-width:1360px){.c-type .yr-long{white-space:normal;max-width:100%;line-height:1.15}}
+
+/* Round 4c: hero cutout shadow moved from the masked image to its figure. On the image itself Chrome drew a faint dark box around the whole picture (also present with the old file). */
+.hero-art .hero-main{filter:drop-shadow(0 10px 26px rgba(0,0,0,.5))}
+.hero-art .hero-main img{filter:none}
