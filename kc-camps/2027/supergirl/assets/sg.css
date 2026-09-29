@@ -678,9 +678,13 @@ ul,ol{margin:0;padding:0;list-style:none}
 /* SG6: keep the three camp cards side by side on laptops (was 2+1 under 1360px) */
 @media (min-width:1100px){.camp-row{grid-template-columns:repeat(3,1fr)}.camp-row .camp-card:last-child{grid-column:auto}}
 @media (min-width:1100px) and (max-width:1439px){.camp-card{padding:30px 26px 26px}.camp-card h3+p{font-size:15px}.camp-card .chips li{font-size:11px;padding:8px 10px}}
-/* SG6: Kylie flag photo in the hero about 50% larger (Ryan: fine to overlap the SuperGirl shield) */
-.hero-art .hero-inset{width:60%}
-@media (max-width:760px){.hero-art .hero-inset{width:64%}}
+/* Round 7 (Ryan 9/29): flag photo back to its smaller pre-round-6 size; hero = heart-hands Kylie cutout, bigger, so the heart reaches the top of the shield */
+.hero-art .hero-inset{width:40%}
+@media (max-width:760px){.hero-art .hero-inset{width:42%}}
+.hero-art .hero-main{height:690px}
+@media (max-width:1280px){.hero-art .hero-main{height:620px}}
+@media (max-width:1024px){.hero-art .hero-main{top:16px;height:600px}}
+@media (max-width:760px){.hero-art .hero-main{top:6px;height:470px}}
 .pp-stack{position:relative}
 /* Nicole Woody headshot (Ryan 9/29), top-right of her pink card beside the "4x" */
 .rm-nicole{position:relative}
