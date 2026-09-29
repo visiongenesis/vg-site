@@ -147,7 +147,16 @@ ul,ol{margin:0;padding:0;list-style:none}
 .rm-helen>img{object-position:50% 30%}
 .rm-nicole{grid-area:nicole}
 .rm-medal{grid-area:medal}
-.rm-medal>img{object-position:50% 32%}
+.rm-medal>img{object-position:50% 0%} /* crop audit 9/29: Helen's hair/forehead whole (was 32%) */
+/* crop audit 9/29: at desktop the caption overlay sat on Helen's mouth/chin once her whole head was in frame.
+   Caption moves to a side panel (same pattern as the Belgium card); the photo column matches the photo's shape, so head and medal both show. */
+@media (min-width:1025px){
+  .rm-medal{display:grid;grid-template-columns:.95fr 1.05fr}
+  .rm-medal>img{position:static;grid-column:2;grid-row:1;height:100%;min-height:0}
+  .rm-medal>.rm-txt{position:static;grid-column:1;grid-row:1;padding:24px 20px;background:var(--ink);border-right:4px solid var(--pink);display:flex;flex-direction:column;justify-content:flex-end}
+  .rm-medal>.rm-txt h3{font-size:clamp(26px,2.1vw,31px)}
+  .rm-medal:hover>img{transform:none}
+}
 .rm-kylie{grid-area:kylie}
 .rm-kylie>img{object-position:50% 25%}
 .rm-belg{grid-area:belg}
