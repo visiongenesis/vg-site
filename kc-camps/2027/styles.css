@@ -888,3 +888,31 @@ section{position:relative}
 @media (max-width:340px){.story,.flagship{grid-template-columns:minmax(0,1fr)}.story>*,.flagship>*{min-width:0}.creds b{font-size:24px}.gain-list b{font-size:20px}.gain-list span{overflow-wrap:break-word}.flag-body{padding-left:16px;padding-right:16px}.story-photos>*,.creds>*,.flag-body *{min-width:0}.flag-body h3{font-size:clamp(40px,15vw,64px)}.creds b{font-size:22px}}
 /* 320px: add-on card titles are unbreakable (no-break spaces) and were 27px wider than the screen */
 @media (max-width:340px){.addon-b{font-size:15.3px;overflow-wrap:anywhere}}
+
+/* R8 legends17 (09-30): 17 big legend tiles + closing banner. 4-up: rows 1-4 full, row 5 = 17th tile + banner spanning the other 3.
+   3-up and 2-up: banner is one slot (17+1 = 18 fills 6 rows / 9 rows). Revert = delete this block and the .coach-cta link + 5 tiles. */
+.coach-cta{display:flex;flex-direction:column;justify-content:flex-end;gap:12px;grid-column:span 3;min-width:0;padding:30px 34px;background:var(--gold);color:var(--ink);text-decoration:none;transition:transform .3s}
+.coach-cta:hover{transform:translateY(-6px)}
+.coach-cta small{font-family:var(--cond);font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase}
+.coach-cta b{font-family:var(--display);font-weight:400;font-size:clamp(34px,3.6vw,54px);line-height:1;text-transform:uppercase;max-width:20ch}
+.coach-cta em{font-style:normal;font-family:var(--cond);font-weight:600;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--navy)}
+@media (max-width:1180px){.coach-cta{grid-column:auto;padding:18px 14px;gap:8px}.coach-cta small{font-size:12px}.coach-cta b{font-size:24px;max-width:none}.coach-cta em{font-size:13px}}
+@media (max-width:620px){.coach-cta{padding:14px 12px}.coach-cta b{font-size:19px}.coach-cta em{font-size:12px}}
+@media (max-width:400px){.coach-cta b{font-size:clamp(14px,4.7vw,18px)}}
+/* R8 legends17: photo credit links sit inline in the footer fine print */
+.foot .fine a{display:inline;margin:0;color:inherit;text-decoration:underline}
+
+/* R8 staff6 (09-30, Ryan): small staff tiles 6 across on desktop (24 coaches = 4 full rows, no stragglers), 4 across on tablets, 3 on phones.
+   Every row is the same height, so every text box is the same size. The gold "Lineup announced soon" strip sits in its own container
+   (.staff-cta) right below, so it keeps its own height. Feature tiles get equal rows too from tablet width up.
+   Revert = delete this block, drop the staff-tiles class, and move the strip back inside the tile grid. */
+.star-grid.tier-grid.staff-tiles{grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:1fr;margin-bottom:14px}
+@media (max-width:980px){.star-grid.tier-grid.staff-tiles{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (max-width:620px){.star-grid.tier-grid.staff-tiles{grid-template-columns:repeat(3,minmax(0,1fr));margin-bottom:8px}}
+@media (min-width:621px){.star-grid.feat-grid{grid-auto-rows:1fr}}
+/* R8 same-size rule (09-30, Ryan: "keep these things the same size"): in every tile grid, each row is as tall as the tallest row,
+   so the text boxes match. Legends small row on tablets moves from flex to an 8-column grid so its last 2 tiles stay centered. */
+.coach-grid{grid-auto-rows:1fr}
+.star-grid.leg-more{grid-auto-rows:1fr}
+@media (min-width:621px) and (max-width:980px){.star-grid.leg-more{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:14px}.star-grid.leg-more .star{grid-column:span 2}.star-grid.leg-more .star:nth-child(5):nth-last-child(2){grid-column:3/5}}
+@media (max-width:620px){.star-grid.feat-grid{grid-template-rows:repeat(4,1fr) auto}}
