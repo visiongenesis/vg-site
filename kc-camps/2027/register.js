@@ -3,14 +3,14 @@
    Accepts ?camp=<id> (or ?program=superkid), ?program=supergirl, ?location=pa|oh, ?grade=1-12. Nothing is submitted anywhere. */
 (function(){
   const params = new URLSearchParams(location.search);
-  const money = n => n == null ? 'TBA' : new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
+  const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
   const camps = {
     supergold:{name:'SuperGold',days:'12 days',commuter:1900,resident:2150,photo:'camp-supergold.jpg',min:8,max:12},
     superkid:{name:'SuperKid',days:'12 days',commuter:1900,resident:2150,photo:'r2-camp-superkid.jpg',min:4,max:7},
     supergirl:{name:'SuperGirl',days:'12 days',commuter:1900,resident:2150,photo:'camp-girls.jpg',min:4,max:12},
     gold:{name:'Gold Medal Training Camp',days:'6 days',commuter:950,resident:1050,photo:'camp-gold.jpg',min:4,max:12},
     kids:{name:'Kids Training Camp',days:'6 days · about ages 10 to 12',commuter:950,resident:1050,photo:'r2-staff-moment.jpg',min:4,max:7},
-    fiveday:{name:'5-Day Camp',days:'5 days · Pennsylvania, July 18–22',commuter:null,resident:950,photo:'r2-life-coach.jpg',min:4,max:12},
+    fiveday:{name:'5-Day Camp',days:'5 days · Pennsylvania, July 18–22',commuter:875,resident:950,photo:'r2-life-coach.jpg',min:4,max:12},
     technique:{name:'Technique Camp',days:'4 days',commuter:700,resident:775,photo:'camp-technique.jpg',min:4,max:12},
     girlstech:{name:'Girls Technique Camp',days:'4 days',commuter:700,resident:775,photo:'camp-girls.jpg',min:4,max:12},
     future:{name:'Future Champions',days:'Parent-child camp',commuter:650,resident:1075,photo:'camp-future.jpg',min:1,max:3}
@@ -47,11 +47,11 @@
   let total = camp.resident, due = total;
   function update(){
     const housing = form.elements.housing.value, plan = form.elements.plan.value;
-    total = camp[housing]; due = total == null ? null : plan === 'split' ? total / 2 : total;
+    total = camp[housing]; due = plan === 'split' ? total / 2 : total;
     document.querySelector('#summary-total').textContent = money(total);
     document.querySelector('#summary-due').textContent = money(due);
-    document.querySelector('#summary-later').textContent = money(total == null ? null : total - due);
-    document.querySelector('#summary-plan').textContent = total == null ? 'Price to be announced. Ken\'s team will confirm your fee before anything is charged.' : plan === 'split' ? 'The second half is charged automatically later. Date to be set with 2027 registration.' : 'Paid in full. Nothing due later.';
+    document.querySelector('#summary-later').textContent = money(total - due);
+    document.querySelector('#summary-plan').textContent = plan === 'split' ? 'The second half is charged automatically later. Date to be set with 2027 registration.' : 'Paid in full. Nothing due later.';
   }
   form.addEventListener('change', update); update();
 
@@ -67,7 +67,7 @@
     document.querySelector('#checkout-content').hidden = true;
     const ok = document.querySelector('#confirmation'); ok.hidden = false;
     document.querySelector('#confirmation-camp').textContent = `${camp.name} · ${camp.days}`;
-    document.querySelector('#confirmation-amount').textContent = total == null ? 'Price to be announced. Nothing is charged in this preview.' : `${money(due)} today in this preview; ${money(total - due)} later.`;
+    document.querySelector('#confirmation-amount').textContent = `${money(due)} today in this preview; ${money(total - due)} later.`;
     document.querySelector('#emergency-name').value = form.elements.guardian.value;
     document.querySelector('#emergency-phone').value = form.elements.phone.value;
     document.querySelector('#same-contact').checked = true;
