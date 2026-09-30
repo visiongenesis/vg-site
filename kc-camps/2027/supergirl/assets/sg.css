@@ -715,3 +715,35 @@ ul,ol{margin:0;padding:0;list-style:none}
 .staff-action img.sticker{position:absolute;z-index:2;width:150px;height:auto;left:-72px;top:-60px;transform:rotate(-12deg);pointer-events:none;filter:drop-shadow(0 12px 16px rgba(0,0,0,.45)) drop-shadow(0 2px 3px rgba(0,0,0,.35))}
 @media (max-width:1024px){.staff-action img.sticker{width:120px;left:-18px;top:-56px}}
 @media (max-width:760px){.staff-action img.sticker{width:84px;left:-6px;top:-46px;transform:rotate(-10deg)}}
+
+/* ===== R8P (Ryan 9/30): "For the grown-ups" photo column = one designed mosaic, as long as the right column =====
+   Top: Beth + the Beth-and-daughter overlay (overlay dropped a little lower). Below: a staggered two-column "brick"
+   of four girls photos (two action, two smiling pairs) with a full-width group photo at the bottom.
+   Desktop (2 columns): the photo column stretches to the right column's height and the mosaic fills what is left,
+   so both columns end together at any desktop width. Tablet/phone (1 column): the mosaic gets its own fixed shape. */
+.par-grid{align-items:stretch}
+.par-photos{display:flex;flex-direction:column;padding-bottom:0}
+.pp-2{bottom:-44px}
+.pp-mosaic{flex:1 1 0px;min-height:560px;margin-top:74px;display:grid;gap:14px;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  grid-template-rows:minmax(0,3fr) minmax(0,1fr) minmax(0,3fr) minmax(0,3.2fr);
+  grid-template-areas:"a a a b b b" "c c c b b b" "c c c d d d" "e e e e e e"}
+.pp-mosaic figure{margin:0;min-height:0;min-width:0;overflow:hidden;background:#dfe1ea;box-shadow:0 18px 36px rgba(17,20,43,.18)}
+.pp-mosaic img{display:block;width:100%;height:100%;object-fit:cover}
+.pm-a{grid-area:a}.pm-a img{object-position:50% 30%}
+.pm-b{grid-area:b}.pm-b img{object-position:50% 22%}
+.pm-c{grid-area:c}.pm-c img{object-position:50% 24%}
+.pm-d{grid-area:d}.pm-d img{object-position:52% 62%}
+.pm-e{grid-area:e;border-bottom:6px solid var(--pink-d)}.pm-e img{object-position:50% 16%}
+@media (max-width:1024px){
+  .par-grid{align-items:start}
+  .pp-mosaic{flex:none;min-height:0;aspect-ratio:5/7}
+}
+@media (max-width:760px){
+  .par-photos{padding-bottom:0}
+  .pp-2{bottom:-28px}
+  .pp-mosaic{margin-top:50px;gap:10px;aspect-ratio:4/5}
+}
+/* R8 (9/30): small phones (<=380px): the price table fits the screen (it was 12px too wide at 320) */
+@media (max-width:380px){.prices{padding-left:14px;padding-right:14px}.prices table th,.prices table td{padding-left:3px;padding-right:3px}.prices table tbody td:nth-child(n+2){font-size:17px}.prices table th{letter-spacing:.04em;font-size:11px}.prices .p-head h3{font-size:36px}}
+@media (max-width:760px){.camp-past figcaption{right:auto;max-width:calc(100% - var(--gut) - 18px);line-height:1.25}}
