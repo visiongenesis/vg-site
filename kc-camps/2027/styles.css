@@ -419,7 +419,7 @@ section{position:relative}
   .topbar a{margin-left:14px}
   .hero-media{height:400px;grid-template-columns:1.1fr 1fr}
   .hero h1{font-size:clamp(44px,12.5vw,64px);line-height:1}
-  .wall .tile:not(.t-zain):not(.t-helen):not(.t-ava) .qt{display:none}
+  .wall .tile:not(.t-zain):not(.t-helen):not(.t-ava):not(.t-trent) .qt{display:none}
   .loc{flex-direction:column;gap:4px}
   .hero-ctas .btn{width:100%;justify-content:center}
   .wall .qtile .display{font-size:24px}
@@ -800,15 +800,11 @@ section{position:relative}
 @media (max-width:760px){.reel-wide{margin-top:26px}}
 
 /* ===== Round 8 (Ken's feedback) ===== */
-/* C2: Trent Hidlay text tile; the closing tile moves to its own full-width row */
-.t-trent{grid-column:7/13;grid-row:11/15;background:linear-gradient(135deg,#0a2a66,var(--ink));border-left:4px solid var(--gold);padding:36px 40px;display:flex;flex-direction:column;justify-content:space-between;gap:14px}
-.t-trent small{font-family:var(--cond);letter-spacing:.14em;text-transform:uppercase;font-size:13px}
-.t-trent .display{font-size:clamp(40px,4.6vw,68px);line-height:.95;margin:0}
-.t-trent .cr{font-family:var(--cond);font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:10px 0 10px}
-.t-trent .qt{color:#e3e8f2;font-size:16px;line-height:1.5;max-width:52ch;margin:0}
+/* C2: Trent Hidlay photo tile (photo from Ryan 9/30; was a text tile); the closing tile moves to its own full-width row */
+.t-trent{grid-column:7/13;grid-row:11/15} .t-trent img{object-position:50% 22%}
+.t-trent .qt{max-width:60ch}
 .wall .t-q2{grid-column:1/13;grid-row:15/18}
-@media (max-width:980px){.wall .t-trent{grid-column:1/3!important;aspect-ratio:auto}}
-@media (max-width:620px){.wall .t-trent{padding:24px 22px}.t-trent .display{font-size:40px}}
+@media (max-width:980px){.wall .t-trent{grid-column:1/3!important;aspect-ratio:4/5}.wall .t-trent img{object-position:50% 20%}}
 /* A3: TBA cells in the fee table */
 .ptable td.tba{color:var(--text-dim);font-weight:500}
 /* C4: two coach tiers. Featured (9 + the 2027 tile) = 5 across, bigger cards; camp staff (21) = 7 across on desktop, 3 on tablet, so rows come out whole */
@@ -916,3 +912,6 @@ section{position:relative}
 .star-grid.leg-more{grid-auto-rows:1fr}
 @media (min-width:621px) and (max-width:980px){.star-grid.leg-more{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:14px}.star-grid.leg-more .star{grid-column:span 2}.star-grid.leg-more .star:nth-child(5):nth-last-child(2){grid-column:3/5}}
 @media (max-width:620px){.star-grid.feat-grid{grid-template-rows:repeat(4,1fr) auto}}
+/* R8 (Ryan 9/30): the hero's gold sell-out banner repeats at the bottom of the camps section, flush against the finder below */
+#camps{padding-bottom:0}
+.camps-banner{margin-top:clamp(40px,5vw,64px)}
