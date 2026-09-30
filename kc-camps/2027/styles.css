@@ -915,3 +915,41 @@ section{position:relative}
 /* R8 (Ryan 9/30): the hero's gold sell-out banner repeats at the bottom of the camps section, flush against the finder below */
 #camps{padding-bottom:0}
 .camps-banner{margin-top:clamp(40px,5vw,64px)}
+
+/* ===== R8 (Ryan 9/30 AM) ===== */
+/* Family section: photos and intro end about level; the group photo + the six care tiles form one band underneath, every row the same height */
+@media (min-width:1181px){.kb>figure.b,.kb>figure.c{aspect-ratio:1/1}}
+.care.care-wide{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1fr;gap:14px;margin:48px 0 0}
+.care.care-wide li.care-ph{grid-column:span 2;padding:0;border:0;background:var(--ink-2);position:relative;overflow:hidden;min-height:240px}
+.care-ph figure{margin:0;position:absolute;inset:0}
+.care-ph img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
+.care-ph figcaption{position:absolute;left:12px;bottom:10px;font-family:var(--cond);font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;background:rgba(3,11,28,.75);padding:5px 10px}
+@media (max-width:980px){.care.care-wide{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto;grid-template-rows:auto repeat(3,1fr)}.care.care-wide li.care-ph{grid-column:1/-1;aspect-ratio:1200/738;min-height:0}}
+@media (max-width:620px){.care.care-wide{grid-template-columns:minmax(0,1fr);grid-template-rows:auto repeat(6,1fr)}}
+/* Day-at-camp photo tiles: lighter shade so the photos show; darker only where the words sit */
+.rs::after{background:linear-gradient(0deg,rgba(3,11,28,.9) 0%,rgba(3,11,28,.7) 42%,rgba(3,11,28,.3) 72%,rgba(3,11,28,.08) 100%)}
+.rs:not(.solid) .n{text-shadow:0 2px 18px rgba(0,0,0,.65)}
+.rs:not(.solid) b,.rs:not(.solid) .sub{text-shadow:0 1px 10px rgba(0,0,0,.6)}
+/* Fee notes: three blocks with icons, then a gold band. The Future Champions note now sits in the price card (italic third line). */
+.ptable .fc-inc{font-style:italic}
+.fee-notes.fn-v2{display:block;padding:0}
+.fn-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 36px;padding:26px 32px 24px}
+.fee-notes .note.fn{display:flex;gap:14px;align-items:flex-start}
+.fn-ic{flex:none;width:30px;height:30px;color:var(--gold);margin-top:1px}
+.fn-gold{margin:0;background:var(--gold);color:var(--ink);padding:18px 32px;display:flex;gap:12px;align-items:baseline;font-size:15.5px;line-height:1.45}
+.fn-gold::before{content:"\2605";flex:none;font-size:15px}
+.fn-gold b{font-family:var(--cond);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:19px;margin-right:4px}
+@media (max-width:700px){.fn-grid{grid-template-columns:minmax(0,1fr);padding:22px 20px}.fn-gold{padding:16px 20px}}
+/* R8 9/30 AM follow-ups: band tiles a touch smaller so rows carry less empty space; 2 across below 1180px; gold band = bold line over one sentence */
+.care.care-wide li:not(.care-ph){padding:16px 18px}
+.care.care-wide li b{font-size:22px}
+.care.care-wide li span{font-size:14.5px;line-height:1.45}
+@media (max-width:1180px){.care.care-wide{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:auto;grid-template-rows:auto repeat(3,1fr)}.care.care-wide li.care-ph{grid-column:1/-1;aspect-ratio:1200/738;min-height:0}}
+@media (max-width:620px){.care.care-wide{grid-template-columns:minmax(0,1fr);grid-template-rows:auto repeat(6,1fr)}}
+.fn-gold b{display:block;margin:0 0 2px}
+/* Price card keeps its old height with the new Future Champions line (Ryan 9/30: don't make the block bigger) */
+.find-grid .ptable tbody td{padding-top:12.5px;padding-bottom:12.5px}
+.find-grid .ptable tbody tr:last-child td{padding-bottom:19.5px}
+@media (max-width:1180px){.find-grid .ptable tbody td{padding-top:11px;padding-bottom:11px}.find-grid .ptable tbody tr:last-child td{padding-bottom:18px}}
+@media (max-width:980px){.find-grid .ptable tbody td{padding-top:13.5px;padding-bottom:13.5px}.find-grid .ptable tbody tr:last-child td{padding-bottom:20.5px}}
+@media (max-width:620px){.find-grid .ptable tbody td{padding-top:11px;padding-bottom:11px}.find-grid .ptable tbody tr:last-child td{padding-bottom:18px}}
