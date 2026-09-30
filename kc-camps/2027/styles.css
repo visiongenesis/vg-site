@@ -862,6 +862,8 @@ section{position:relative}
 /* Legends 3x3: nine big tiles, 3 across at desktop and 900. Phones: 2 across, the 9th (Rulon Gardner) spans both columns, photo left / text right */
 .coach-grid{grid-template-columns:repeat(3,1fr)}
 @media (min-width:621px) and (max-width:980px){.coach-grid{grid-template-columns:repeat(3,1fr);gap:14px}.coach h3{font-size:22px;padding:14px 14px 4px}.coach p{padding:0 14px 16px;font-size:14px}}
-@media (max-width:620px){.coach-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.coach-grid .coach h3{overflow-wrap:anywhere}
+@media (max-width:620px){.coach-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.coach-grid .coach h3{font-size:19px;overflow-wrap:break-word}
 .coach-grid .coach:last-child:nth-child(odd){grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
 .coach-grid .coach:last-child:nth-child(odd) .ph{grid-row:1/3}}
+@media (max-width:370px){.coach-grid .coach h3{font-size:17px;padding:12px 10px 4px}.coach-grid .coach p{padding:0 10px 14px;font-size:13px}}
+@media (max-width:340px){.coach-grid .coach h3{font-size:15px}}
