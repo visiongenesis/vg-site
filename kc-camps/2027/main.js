@@ -30,7 +30,7 @@
       <div class="fields">
         <div class="field"><label for="grade">Grade next fall</label><select id="grade" required><option value="">Choose grade</option>${Array.from({length:12},(_,i)=>`<option value="${i+1}">Grade ${i+1}</option>`).join('')}</select></div>
         <div class="field"><label for="readiness">Where are they now?</label><select id="readiness" required><option value="">Choose one</option><option value="new">Newer: building a foundation</option><option value="building">Developing: wants a full week</option><option value="intensive">Committed: ready for 12 days</option></select></div>
-        <div class="field"><label for="program">Camp for</label><select id="program"><option value="boys">Teen Boys</option><option value="girls">Teen Girls</option><option value="youth">Youth</option></select></div>
+        <div class="field"><label for="program">Camp for</label><select id="program"><option value="boys">Teen Boys</option><option value="girls">Teen Girls</option><option value="youth">Youth Boys and Girls</option></select></div>
         <div class="field"><label for="venue">Location</label><select id="venue"><option value="either">Pennsylvania or Ohio</option><option value="pa">Pennsylvania</option><option value="oh">Ohio</option></select></div>
       </div>
       <div class="finder-bottom"><p>We'll suggest a starting camp. Ken's team confirms every placement.</p><button class="btn" type="submit">Show my camp <span class="arr" aria-hidden="true">→</span></button></div>
