@@ -18,8 +18,10 @@
     superkid:{name:'SuperKid', len:'12 days'},
     supergirl:{name:'SuperGirl', len:'12 days'},
     gold:{name:'Gold Medal Training Camp', len:'6 days'},
+    kids:{name:'Kids Training Camp', len:'6 days'},
+    fiveday:{name:'5-Day Camp', len:'5 days, Pennsylvania only'},
     technique:{name:'Technique Camp', len:'4 days'},
-    girlstech:{name:'Girls Technique', len:'4 days'},
+    girlstech:{name:'Girls Technique Camp', len:'4 days'},
     future:{name:'Future Champions', len:'Parent-child camp'}
   };
   const host = document.querySelector('#camp-finder');
@@ -28,7 +30,7 @@
       <div class="fields">
         <div class="field"><label for="grade">Grade next fall</label><select id="grade" required><option value="">Choose grade</option>${Array.from({length:12},(_,i)=>`<option value="${i+1}">Grade ${i+1}</option>`).join('')}</select></div>
         <div class="field"><label for="readiness">Where are they now?</label><select id="readiness" required><option value="">Choose one</option><option value="new">Newer: building a foundation</option><option value="building">Developing: wants a full week</option><option value="intensive">Committed: ready for 12 days</option></select></div>
-        <div class="field"><label for="program">Camp for</label><select id="program"><option value="boys">Boys and youth camps</option><option value="girls">Girls camps (SuperGirl)</option></select></div>
+        <div class="field"><label for="program">Camp for</label><select id="program"><option value="boys">Teen Boys</option><option value="girls">Teen Girls</option><option value="youth">Youth</option></select></div>
         <div class="field"><label for="venue">Location</label><select id="venue"><option value="either">Pennsylvania or Ohio</option><option value="pa">Pennsylvania</option><option value="oh">Ohio</option></select></div>
       </div>
       <div class="finder-bottom"><p>We'll suggest a starting camp. Ken's team confirms every placement.</p><button class="btn" type="submit">Show my camp <span class="arr" aria-hidden="true">→</span></button></div>
@@ -47,20 +49,22 @@
       if (grade <= 3) id = 'future';
       else if (twelve) id = girls ? 'supergirl' : grade <= 7 ? 'superkid' : 'supergold';
       else if (r === 'new') id = girls ? 'girlstech' : 'technique';
-      else id = 'gold';
+      else id = (!girls && grade >= 4 && grade <= 7) ? 'kids' : 'gold';
       const why = grade <= 3 ? 'For the youngest wrestlers, start with a parent alongside.'
         : id === 'superkid' ? 'Twelve days built for younger wrestlers who are ready to commit.'
+        : id === 'kids' ? 'A full training week built for wrestlers about ages 10 to 12.'
         : twelve ? 'Twelve days gives a committed wrestler time for skills to stick.'
         : r === 'new' ? 'Four days of fundamentals is the right first step.'
         : grade <= 7 ? 'A full training week suits a younger wrestler who is ready for more.'
         : 'A full training week builds on what they already know.';
       const c = camps[id];
-      const title = girls && id === 'gold' ? 'Gold Medal Training Camp for girls' : c.name;
+      const title = girls && id === 'gold' ? 'Girls Gold Medal Camp' : c.name;
+      const five = ['gold','kids','technique','girlstech'].includes(id) && venue !== 'oh' ? ' Also offered: a 5-day camp in Pennsylvania, July 18–22.' : '';
       const place = venue === 'pa' ? 'Pennsylvania' : venue === 'oh' ? 'Ohio' : 'Pennsylvania or Ohio';
       const q = new URLSearchParams({camp:id, location:venue, grade:String(grade)});
       if (girls) q.set('program','supergirl');
       const res = document.querySelector('#finder-result');
-      res.innerHTML = `<div><div class="eyebrow">Your starting camp · ${place}</div><h3>${title}</h3><p>${c.len}. ${why}</p></div><a class="btn" href="register.html?${q}">Register <span class="arr" aria-hidden="true">→</span></a>`;
+      res.innerHTML = `<div><div class="eyebrow">Your starting camp · ${place}</div><h3>${title}</h3><p>${c.len}. ${why}${five}</p></div><a class="btn" href="register.html?${q}">Register <span class="arr" aria-hidden="true">→</span></a>`;
       res.hidden = false; res.focus({preventScroll:true});
       res.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'nearest'});
     });

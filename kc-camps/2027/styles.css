@@ -798,3 +798,40 @@ section{position:relative}
 .reel-wide video{display:block;width:100%;height:auto;aspect-ratio:16/9;background:#000;border:1px solid var(--line)}
 .reel-wide figcaption{margin-top:12px;font-family:var(--cond);font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:14px;color:#fff;text-align:center}
 @media (max-width:760px){.reel-wide{margin-top:26px}}
+
+/* ===== Round 8 (Ken's feedback) ===== */
+/* C2: Trent Hidlay text tile; the closing tile moves to its own full-width row */
+.t-trent{grid-column:7/13;grid-row:11/15;background:linear-gradient(135deg,#0a2a66,var(--ink));border-left:4px solid var(--gold);padding:36px 40px;display:flex;flex-direction:column;justify-content:space-between;gap:14px}
+.t-trent small{font-family:var(--cond);letter-spacing:.14em;text-transform:uppercase;font-size:13px}
+.t-trent .display{font-size:clamp(40px,4.6vw,68px);line-height:.95;margin:0}
+.t-trent .cr{font-family:var(--cond);font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:10px 0 10px}
+.t-trent .qt{color:#e3e8f2;font-size:16px;line-height:1.5;max-width:52ch;margin:0}
+.wall .t-q2{grid-column:1/13;grid-row:15/18}
+@media (max-width:980px){.wall .t-trent{grid-column:1/3!important;aspect-ratio:auto}}
+@media (max-width:620px){.wall .t-trent{padding:24px 22px}.t-trent .display{font-size:40px}}
+/* A3: TBA cells in the fee table */
+.ptable td.tba{color:var(--text-dim);font-weight:500}
+/* C4: two coach tiers. Featured (9 + the 2027 tile) = 5 across, bigger cards; camp staff (21) = 7 across on desktop, 3 on tablet, so rows come out whole */
+.star-grid.tier-grid{grid-template-columns:repeat(7,1fr)}
+.star-grid.feat-grid{grid-template-columns:repeat(5,1fr)}
+.tier-grid .star.cta{grid-column:auto}
+.feat-grid{margin-bottom:0}
+.stars-head.staff-head{margin-top:56px}
+@media (max-width:1180px){.star-grid.tier-grid{grid-template-columns:repeat(3,1fr)}.star-grid.feat-grid{grid-template-columns:repeat(5,1fr)}}
+@media (max-width:980px){.star-grid.feat-grid{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:620px){.star-grid.tier-grid,.star-grid.feat-grid{grid-template-columns:repeat(2,1fr)}.stars-head.staff-head{margin-top:40px}}
+/* B9: the 2025 staff photo carries Ken's caption under the photo */
+.staff-hero figcaption{position:static;display:block;text-transform:none;letter-spacing:.02em;font-size:17px;line-height:1.4;padding:12px 18px}
+/* C3: legends after moving Chelsea and the Stouts to staff, plus campers who became college coaches */
+.leg-more{grid-template-columns:repeat(6,1fr)}
+@media (max-width:980px){.leg-more{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:620px){.leg-more{grid-template-columns:repeat(2,1fr)}}
+.leg-campers{margin-top:28px;padding:28px 30px;border:1px solid var(--line);border-left:4px solid var(--gold);background:rgba(255,255,255,.03)}
+.leg-campers .kicker{margin-bottom:10px}
+.leg-campers .lc-lede{margin:0 0 18px;color:var(--text-dim);font-size:16px}
+.lc-list{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.lc-list li{border-top:3px solid var(--red);padding-top:12px}
+.lc-list b{display:block;font-family:var(--display);font-weight:400;font-size:clamp(22px,2.2vw,30px);line-height:1;text-transform:uppercase}
+.lc-list span{display:block;margin-top:6px;font-family:var(--cond);font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+@media (max-width:980px){.lc-list{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:620px){.leg-campers{padding:22px 20px}}
