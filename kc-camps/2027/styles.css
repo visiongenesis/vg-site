@@ -966,3 +966,9 @@ section{position:relative}
 .faq-wide .faq-note{grid-area:p;margin:0 0 10px}
 .faq-2{display:grid;grid-template-columns:1fr 1fr;gap:0 56px;align-items:start}
 @media (max-width:980px){.faq-wide .faq-head{grid-template-columns:1fr;grid-template-areas:"k" "h" "p";row-gap:14px}.faq-2{grid-template-columns:1fr}.faq-2 .faq:first-child details:last-child{border-bottom:0}}
+/* R8 (Ryan 9/30): the gold spots-go-fast band uses the same type as the sell-out banner; text in both mid-page bars centered */
+.fn-gold{justify-content:center;align-items:center;text-align:center;padding:20px 32px;font-family:var(--cond);font-style:italic;font-weight:500;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(17px,1.65vw,25px);line-height:1.25}
+.fn-gold b{display:inline;font-size:inherit;margin:0 4px 0 0}
+.fn-gold::before{font-size:16px;line-height:1}
+.camps-banner .wrap{justify-content:center;text-align:center}
+@media (max-width:700px){.fn-gold{padding:16px 20px}}
