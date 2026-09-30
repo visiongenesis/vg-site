@@ -835,12 +835,11 @@ section{position:relative}
 .lc-list span{display:block;margin-top:6px;font-family:var(--cond);font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
 @media (max-width:980px){.lc-list{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:620px){.leg-campers{padding:22px 20px}}
-/* R8b: Legends bottom row now has 7 cards (Rulon Gardner). 7 across on wide desktop, 4 on mid, 2 on phones with the 7th card as a full-width photo+text row */
-.star-grid.leg-more{grid-template-columns:repeat(7,1fr)}
-@media (max-width:1180px){.star-grid.leg-more{grid-template-columns:repeat(4,1fr)}}
-@media (max-width:620px){.star-grid.leg-more{grid-template-columns:repeat(2,1fr)}
-.star-grid.leg-more .star:nth-child(7){grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;align-items:start}
-.star-grid.leg-more .star:nth-child(7) .ph{grid-row:1/3}}
+/* Legends 3x3 (Rulon Gardner moved into the big tiles): bottom row has 6 cards. 6 across on desktop, 3 x 2 at 900, 2 x 3 on phones, so no orphan anywhere */
+.star-grid.leg-more{grid-template-columns:repeat(6,1fr)}
+@media (min-width:1181px){.star-grid.leg-more h4{font-size:19px}.star-grid.leg-more p{font-size:13.5px}}
+@media (max-width:1180px){.star-grid.leg-more{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:620px){.star-grid.leg-more{grid-template-columns:repeat(2,1fr)}}
 
 /* R8 final: one "2026 All-Star Staff" section. Big tiles for featured coaches, smaller tiles for everyone else. Tile size is the only tier cue. */
 .star-grid.feat-grid{grid-template-columns:repeat(3,1fr);margin-bottom:14px}
@@ -859,3 +858,10 @@ section{position:relative}
    Phones: a band would hide most of a phone-size photo, so the caption stays below and the photo's bottom strip (feet row) is cropped instead. */
 .staff-hero figcaption{position:absolute;left:0;right:auto;top:auto;bottom:0;margin:0;min-height:15%;min-width:22%;display:flex;align-items:center}
 @media (max-width:620px){.staff-hero figcaption{position:static;min-height:0;min-width:0}.staff-hero img{aspect-ratio:2048/630;object-fit:cover;object-position:50% 0}}
+
+/* Legends 3x3: nine big tiles, 3 across at desktop and 900. Phones: 2 across, the 9th (Rulon Gardner) spans both columns, photo left / text right */
+.coach-grid{grid-template-columns:repeat(3,1fr)}
+@media (min-width:621px) and (max-width:980px){.coach-grid{grid-template-columns:repeat(3,1fr);gap:14px}.coach h3{font-size:22px;padding:14px 14px 4px}.coach p{padding:0 14px 16px;font-size:14px}}
+@media (max-width:620px){.coach-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.coach-grid .coach h3{overflow-wrap:anywhere}
+.coach-grid .coach:last-child:nth-child(odd){grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-items:start}
+.coach-grid .coach:last-child:nth-child(odd) .ph{grid-row:1/3}}
