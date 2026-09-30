@@ -841,3 +841,13 @@ section{position:relative}
 @media (max-width:620px){.star-grid.leg-more{grid-template-columns:repeat(2,1fr)}
 .star-grid.leg-more .star:nth-child(7){grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;align-items:start}
 .star-grid.leg-more .star:nth-child(7) .ph{grid-row:1/3}}
+
+/* R8 final: one "2026 All-Star Staff" section. Big tiles for featured coaches, smaller tiles for everyone else. Tile size is the only tier cue. */
+.star-grid.feat-grid{grid-template-columns:repeat(3,1fr);margin-bottom:14px}
+.star-grid.tier-grid:not(.feat-grid){grid-template-columns:repeat(7,1fr)}
+.feat-grid .star h4{font-size:26px;padding:16px 16px 6px}
+.feat-grid .star p{font-size:15px;padding:0 16px 18px}
+.tier-grid:not(.feat-grid) .star.cta{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 18px;padding:16px 22px;min-height:0}
+@media (max-width:1180px){.star-grid.feat-grid{grid-template-columns:repeat(3,1fr)}.star-grid.tier-grid:not(.feat-grid){grid-template-columns:repeat(5,1fr)}}
+@media (max-width:980px){.star-grid.feat-grid{grid-template-columns:repeat(3,1fr)}.star-grid.tier-grid:not(.feat-grid){grid-template-columns:repeat(4,1fr)}.feat-grid .star h4{font-size:20px;padding:12px 12px 4px}.feat-grid .star p{font-size:13.5px;padding:0 12px 14px}}
+@media (max-width:620px){.star-grid.feat-grid{grid-template-columns:repeat(2,1fr)}.star-grid.tier-grid:not(.feat-grid){grid-template-columns:repeat(3,1fr);gap:8px}.feat-grid .star h4{font-size:18px;padding:10px 10px 3px}.feat-grid .star p{font-size:12.5px;padding:0 10px 12px}.tier-grid:not(.feat-grid) .star h4{font-size:13.5px;padding:8px 7px 3px}.tier-grid:not(.feat-grid) .star p{font-size:11px;padding:0 7px 9px}.tier-grid:not(.feat-grid) .star.cta{padding:14px 16px}}
