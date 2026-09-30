@@ -835,3 +835,9 @@ section{position:relative}
 .lc-list span{display:block;margin-top:6px;font-family:var(--cond);font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
 @media (max-width:980px){.lc-list{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:620px){.leg-campers{padding:22px 20px}}
+/* R8b: Legends bottom row now has 7 cards (Rulon Gardner). 7 across on wide desktop, 4 on mid, 2 on phones with the 7th card as a full-width photo+text row */
+.star-grid.leg-more{grid-template-columns:repeat(7,1fr)}
+@media (max-width:1180px){.star-grid.leg-more{grid-template-columns:repeat(4,1fr)}}
+@media (max-width:620px){.star-grid.leg-more{grid-template-columns:repeat(2,1fr)}
+.star-grid.leg-more .star:nth-child(7){grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;align-items:start}
+.star-grid.leg-more .star:nth-child(7) .ph{grid-row:1/3}}

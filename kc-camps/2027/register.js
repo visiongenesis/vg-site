@@ -9,7 +9,7 @@
     superkid:{name:'SuperKid',days:'12 days',commuter:1900,resident:2150,photo:'r2-camp-superkid.jpg',min:4,max:7},
     supergirl:{name:'SuperGirl',days:'12 days',commuter:1900,resident:2150,photo:'camp-girls.jpg',min:4,max:12},
     gold:{name:'Gold Medal Training Camp',days:'6 days',commuter:950,resident:1050,photo:'camp-gold.jpg',min:4,max:12},
-    kids:{name:'Kids Training Camp',days:'6 days · about ages 10 to 12',commuter:null,resident:null,photo:'r2-staff-moment.jpg',min:4,max:7},
+    kids:{name:'Kids Training Camp',days:'6 days · about ages 10 to 12',commuter:950,resident:1050,photo:'r2-staff-moment.jpg',min:4,max:7},
     fiveday:{name:'5-Day Camp',days:'5 days · Pennsylvania, July 18–22',commuter:null,resident:950,photo:'r2-life-coach.jpg',min:4,max:12},
     technique:{name:'Technique Camp',days:'4 days',commuter:700,resident:775,photo:'camp-technique.jpg',min:4,max:12},
     girlstech:{name:'Girls Technique Camp',days:'4 days',commuter:700,resident:775,photo:'camp-girls.jpg',min:4,max:12},
