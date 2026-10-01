@@ -1173,3 +1173,15 @@ body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none
   .leg-all .leg-more .star h4{grid-column:2;grid-row:1;font-size:16px;padding:12px 10px 3px}
   .leg-all .leg-more .star p{grid-column:2;grid-row:2;font-size:12.5px;padding:0 10px 10px;align-self:start}
 }
+
+/* R10b G78 (10-01): 5-Day family price note sits directly under its row, one line, inside the price card. */
+.ptable .fam-main td{border-bottom:0}
+.ptable .fam-row td{border-top:0;text-align:left;font-weight:400;font-style:italic;font-size:12.5px;line-height:1.3;color:var(--text-dim);padding:0 0 9px}
+.find-grid .ptable tbody .fam-main td{padding-bottom:3px}
+.find-grid .ptable tbody .fam-row td{padding-top:0;padding-bottom:7px}
+.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main) td{padding-top:11.5px;padding-bottom:11.5px}
+.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main):last-child td{padding-bottom:18.5px}
+.find-grid .ptable tbody .fam-main td{padding-top:11.5px}
+@media (max-width:1180px){.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main) td{padding-top:10px;padding-bottom:10px}.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main):last-child td{padding-bottom:17px}.find-grid .ptable tbody .fam-main td{padding-top:10px}}
+@media (max-width:980px){.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main) td{padding-top:12.5px;padding-bottom:12.5px}.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main):last-child td{padding-bottom:19.5px}.find-grid .ptable tbody .fam-main td{padding-top:12.5px}}
+@media (max-width:620px){.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main) td{padding-top:10px;padding-bottom:10px}.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main):last-child td{padding-bottom:17px}.find-grid .ptable tbody .fam-main td{padding-top:10px}}
