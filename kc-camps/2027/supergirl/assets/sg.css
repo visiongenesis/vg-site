@@ -750,3 +750,11 @@ ul,ol{margin:0;padding:0;list-style:none}
 
 /* G70 (10/1): Ask Coach floating button: slightly rounded corners, matching the main site */
 #kcacBtn{border-radius:6px!important}
+
+/* R10 G71 (10-01): Register entry on the SuperGirl page, mirrors the main site (nav link + floating "Register now") */
+.menu a.nav-reg{color:var(--pink)!important;border-bottom:2px solid var(--pink);padding-bottom:4px}
+.reg-fab{position:fixed;left:22px;bottom:22px;z-index:60;display:flex;align-items:center;gap:10px;min-height:50px;background:var(--pink);color:#fff;font:700 14px/1 var(--body);letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:14px 20px 14px 16px;border-radius:6px;box-shadow:0 14px 34px -10px rgba(255,46,136,.75);transition:transform .2s}
+.reg-fab:hover{transform:translateY(-2px) scale(1.03)}
+.reg-fab:focus-visible{outline:3px solid #fff;outline-offset:3px}
+body:has(.menu-btn[aria-expanded="true"]) .reg-fab{display:none}
+@media (max-width:420px){.reg-fab{left:12px;bottom:12px;font-size:13px;padding:12px;min-height:46px}}

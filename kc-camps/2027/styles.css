@@ -1154,3 +1154,22 @@ body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none
 .psu-logo{display:block;height:104px;width:auto;margin:0 0 14px}
 @media (min-width:981px){.psu-in{grid-template-columns:auto 42fr 52fr;gap:36px}.psu-logo{height:136px;margin:0}}
 @media (min-width:981px){.psu-em{display:block}}
+
+/* R10 G74 (10-01): Legends closing block. Desktop 4-up: row 5 = Brandon Slay | narrow gold banner | the four small tiles as a 2x2 group (same row height).
+   .leg-all is a 4-col grid and .coach-grid dissolves into it, so everything shares one row height. Below 1181 the old layouts apply. */
+.leg-all .leg-more{margin-top:14px}
+.coach-cta b{text-wrap:balance}
+@media (min-width:981px) and (max-width:1180px){.leg-all .leg-more{grid-template-columns:repeat(4,minmax(0,1fr))}.leg-all .leg-more .star:first-child{grid-column-start:auto}}
+@media (min-width:1181px){
+  .leg-all{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1fr;gap:20px;margin-bottom:56px}
+  .leg-all .coach-grid{display:contents}
+  .leg-all .coach-cta{grid-column:span 1;padding:26px 24px}
+  .leg-all .coach-cta b{font-size:clamp(27px,2.3vw,34px);max-width:none}
+  .leg-all .leg-more{grid-column:span 2;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:14px;margin:0}
+  .leg-all .leg-more .star:first-child{grid-column-start:auto}
+  .leg-all .leg-more .star{display:grid;grid-template-columns:42% 1fr;grid-template-rows:auto 1fr;align-items:start;align-content:start}
+  .leg-all .leg-more .star .ph{grid-column:1;grid-row:1/3;align-self:stretch;aspect-ratio:auto;min-height:0}
+  .leg-all .leg-more .star .ph img{position:absolute;inset:0}
+  .leg-all .leg-more .star h4{grid-column:2;grid-row:1;font-size:16px;padding:12px 10px 3px}
+  .leg-all .leg-more .star p{grid-column:2;grid-row:2;font-size:12.5px;padding:0 10px 10px;align-self:start}
+}
