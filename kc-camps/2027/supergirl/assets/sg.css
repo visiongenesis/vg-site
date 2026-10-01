@@ -747,3 +747,6 @@ ul,ol{margin:0;padding:0;list-style:none}
 /* R8 (9/30): small phones (<=380px): the price table fits the screen (it was 12px too wide at 320) */
 @media (max-width:380px){.prices{padding-left:14px;padding-right:14px}.prices table th,.prices table td{padding-left:3px;padding-right:3px}.prices table tbody td:nth-child(n+2){font-size:17px}.prices table th{letter-spacing:.04em;font-size:11px}.prices .p-head h3{font-size:36px}}
 @media (max-width:760px){.camp-past figcaption{right:auto;max-width:calc(100% - var(--gut) - 18px);line-height:1.25}}
+
+/* G70 (10/1): Ask Coach floating button: slightly rounded corners, matching the main site */
+#kcacBtn{border-radius:6px!important}

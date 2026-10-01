@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=r8y">
+<link rel="stylesheet" href="styles.css?v=r8z">
 <!-- CAMP DATES: keep these two values the same as in index.html. Every date span on this page is filled from them. -->
 <script>window.CAMP_DATES={pa:"July 11–22, 2027",pa5:"July 18–22, 2027",oh:"June 19–24, 2027"};</script>
 <style>
@@ -61,6 +61,7 @@
 .faq-final .lede{margin:0 0 32px;max-width:640px}
 .faq-final .lede a{color:#fff;font-weight:700}
 @media (max-width:980px){.fgroup{grid-template-columns:1fr}.ghead{position:static}.ghead h2{font-size:clamp(26px,7vw,52px)}}
+@media (max-width:420px){.fgroup{grid-template-columns:minmax(0,1fr)}.ghead h2{white-space:normal;text-wrap:balance}}
 @media (max-width:600px){.qa .ans{padding-right:0;font-size:16.5px}.qa summary{font-size:19px;gap:14px}.qa summary::after{width:30px;height:30px;font-size:20px}.jump a{font-size:14px;padding:8px 14px}}
 @media (prefers-reduced-motion:reduce){.qa summary::after{transition:none}}
 </style>
@@ -124,7 +125,7 @@
     </div>
     <div class="qa">
         <details id="pick-a-camp"><summary>How do I pick the&nbsp;right&nbsp;camp?</summary><div class="ans">
-<p>Start with your wrestler's grade and experience. Future Champions is for grades 1–3, with a parent alongside. Newer wrestlers do well at the 4-day Technique Camp. The 6-day Gold Medal Training Camp is a full week for developing wrestlers. Kids Training Camp is its own 6-day camp for wrestlers about ages 10 to 12, and there is a 5-day camp in Pennsylvania, July 18–22, 2027.</p>
+<p>Start with your wrestler's grade and experience. Future Champions is for grades 1–3, with a parent alongside. Newer wrestlers do well at the 4-day Technique Camp. The 6-day Gold Medal Training Camp is a full week for developing wrestlers. Kids Training Camp is its own 6-day camp for wrestlers ages 9 to 12, and there is a 5-day camp in Pennsylvania, July 18–22, 2027.</p>
 <p>For committed wrestlers, the 12-day camps are the most complete training we offer: SuperKid for wrestlers entering grades 4–7, SuperGold for teens and SuperGirl for girls. Over two weeks, structured training and daily discipline help them grow as wrestlers, as competitors and as people.</p>
 <p>The <a href="index.html#find">camp finder</a> gives you a starting point, and Ken's team confirms every placement.</p>
 </div></details>
@@ -132,7 +133,7 @@
 <p>Camps run 12, 6 or 4 days.</p>
 <ul>
 <li><b>Teens:</b> SuperGold (12 days), the Gold Medal Training Camp (6 days) or the Technique Camp (4 days).</li>
-<li><b>Grades 4–7:</b> SuperKid (12 days), the 6-day Kids Training Camp (about ages 10 to 12), or the same 6-day and 4-day camps.</li>
+<li><b>Grades 4–7:</b> SuperKid (12 days), the 6-day Kids Training Camp (ages 9 to 12), or the same 6-day and 4-day camps.</li>
 <li><b>Grades 1–3:</b> Future Champions, a 4-day camp. A parent is required to attend with their child.</li>
 <li><b>5-day option:</b> a 5-day camp in Pennsylvania, July 18–22, 2027.</li>
 <li><b>Girls:</b> the 12-day SuperGirl camp, plus the 6-day Girls Gold Medal Camp and the 4-day Girls Technique Camp.</li>
@@ -175,7 +176,7 @@
 <tr><td>Technique Camp<small>4 days</small></td><td>$775</td><td>$700</td></tr>
 <tr><td>5-Day Camp<small>5 days · Pennsylvania, July 18–22</small></td><td>$950</td><td>$850</td></tr>
 <tr><td>Gold Medal Training Camp<small>6 days</small></td><td>$1,050</td><td>$950</td></tr>
-<tr><td>Kids Training Camp<small>6 days · about ages 10–12</small></td><td>$1,050</td><td>$950</td></tr>
+<tr><td>Kids Training Camp<small>6 days · ages 9–12</small></td><td>$1,050</td><td>$950</td></tr>
 <tr><td>Future Champions<small>Parent-child · 4 days</small></td><td>$1,075</td><td>$650</td></tr>
 <tr><td>SuperGold<small>12 days</small></td><td>$2,150</td><td>$1,900</td></tr>
 <tr><td>SuperGirl<small>12 days · girls</small></td><td>$2,150</td><td>$1,900</td></tr>
@@ -344,11 +345,11 @@
         <details id="dinner-out"><summary>Can I take my child out for dinner&nbsp;during&nbsp;camp?</summary><div class="ans">
 <p>Yes. If your wrestler is a commuter, you don't need to let us know. If they're a resident camper, sign them out at the camp store first.</p>
 </div></details>
-        <details id="airport"><summary>Do you provide transportation to and from&nbsp;the&nbsp;airport?</summary><div class="ans">
+        <details id="airport"><summary>Do you provide transportation to and from the airport?</summary><div class="ans">
 <p>Yes. We provide rides to and from the Harrisburg airport for the Pennsylvania camp and the Cincinnati airport for the Ohio camp. You can choose this option when you register your wrestler.</p>
 <p>Email <a href="mailto:camps@kenchertow.com">camps@kenchertow.com</a> for the 2027 fee and payment deadline.</p>
 </div></details>
-        <details id="arrange-transport"><summary>How do I make&nbsp;transportation&nbsp;arrangements?</summary><div class="ans">
+        <details id="arrange-transport"><summary>How do I make transportation arrangements?</summary><div class="ans">
 <p>Email Beth at <a href="mailto:beth@kenchertow.com">beth@kenchertow.com</a>. She needs your wrestler's name, their cell phone number (we give it to the shuttle driver for pickup) and the flight itinerary. If a flight changes, please let her know.</p>
 </div></details>
         <details id="july-4"><summary>Is there a July&nbsp;4th&nbsp;celebration?</summary><div class="ans">
@@ -390,6 +391,7 @@
 /* FAQ page: a link to a question (faq.html#bed-buyout) opens that answer. */
 (function(){function openHash(){var id=decodeURIComponent(location.hash.slice(1));if(!id)return;var el=document.getElementById(id);if(el&&el.tagName==='DETAILS'){el.open=true;}}openHash();window.addEventListener('hashchange',openHash);})();
 </script>
+<a class="reg-fab" href="register.html">Register now <span aria-hidden="true">→</span></a>
 <script src="main.js?v=r8y"></script>
 <script src="https://visiongenesisai.com/kc-camps/embed.js" async></script>
 </body>

@@ -501,6 +501,9 @@ section{position:relative}
 .oly .nm{display:block;font-family:var(--display);font-size:clamp(34px,4.2vw,62px);line-height:.92;text-transform:uppercase}
 .oly .cr{display:block;font-family:var(--cond);font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:10px 0 6px}
 .oly .qt{display:block;font-size:15px;line-height:1.45;color:#e3e8f2;max-width:44ch}
+.tile .cr + .cr,.oly .cr + .cr{margin-top:-3px}
+@media(max-width:420px){.oly{aspect-ratio:4/5}}
+@media(max-width:340px){.oly{aspect-ratio:3/4}}
 /* All-star + legends small cards */
 .stars-head{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:80px 0 26px}
 .stars-head .tag{margin:0}
@@ -704,10 +707,11 @@ section{position:relative}
 /* ===== Round 5 layout (Sept 29) ===== */
 /* R5-11 hero sell-out line: a full-width gold banner along the bottom of the hero; the hero photos stop above it */
 .hero-banner{position:relative;z-index:4;margin:0;background:var(--gold);color:var(--ink);min-height:60px;display:flex;align-items:center}
-.hero-banner .wrap{display:flex;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px}
+.hero-banner .wrap{display:flex;align-items:center;justify-content:center;text-align:center;gap:14px;padding-top:12px;padding-bottom:12px}
 .hero-banner .wrap::before{content:"\2605";flex:none;font-size:16px;line-height:1}
 .hero-banner .hb-t{font-family:var(--cond);font-style:italic;font-weight:500;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(17px,1.65vw,25px);line-height:1.25}
 .hero-banner b{font-weight:700}
+@media (max-width:600px){.hero-banner .hb-t{text-wrap:balance}}
 @media (min-width:981px){.hero-media{bottom:60px}.hero-copy{padding-bottom:64px}}
 @media (max-width:980px){.hero-banner{order:3}.hero-copy{padding-bottom:36px}}
 /* R5-7 Intensity quote tile: real right margin; "a" ends the next-to-last line and "champion." gets the last line */
@@ -969,7 +973,7 @@ section{position:relative}
 /* R8 (Ryan 9/30): the gold spots-go-fast band uses the same type as the sell-out banner; text in both mid-page bars centered */
 .fn-gold{justify-content:center;align-items:center;text-align:center;padding:20px 32px;font-family:var(--cond);font-style:italic;font-weight:500;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(17px,1.65vw,25px);line-height:1.25}
 .fn-gold b{display:inline;font-size:inherit;margin:0 4px 0 0}
-.fn-gold::before{font-size:16px;line-height:1}
+.fn-gold::before{content:none;display:none} /* G45: no star on the spots-go-fast band */
 .camps-banner .wrap{justify-content:center;text-align:center}
 @media (max-width:700px){.fn-gold{padding:16px 20px}}
 
@@ -994,3 +998,159 @@ section{position:relative}
 /* R8 (9/30): add-on cards pushed the page 7px sideways at 981-989px (the "Nutrition Coaching" heading can't wrap); equal columns + smaller heading there */
 @media (min-width:981px){.addon-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (min-width:981px) and (max-width:1120px){.addon-b{padding:24px}.addon-b h3{font-size:clamp(26px,2.85vw,32px)}}
+
+/* G48 coaching tree: 7 smaller photo tiles under the 4 lead tiles (replaces G47 text-only list) */
+.lc-list.lc-photos-sm{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:22px}
+.lc-list.lc-photos-sm li{box-sizing:border-box;flex:0 0 calc((100% - 36px)/4);min-width:0}
+.lc-list.lc-photos-sm .lc-ph{margin-bottom:10px}
+.lc-list.lc-photos-sm b{font-size:clamp(18px,2.6vw,24px);line-height:1.05}
+.lc-list.lc-photos-sm span{font-size:12px;letter-spacing:.06em}
+@media (min-width:981px){.lc-list.lc-photos-sm{flex-wrap:nowrap}.lc-list.lc-photos-sm li{flex:1 1 0}.lc-list.lc-photos-sm b{font-size:clamp(14px,1.45vw,21px);white-space:nowrap}.lc-list.lc-photos-sm span{font-size:11px;letter-spacing:.05em;white-space:nowrap}}
+@media (max-width:620px){.lc-list.lc-photos-sm{gap:10px}.lc-list.lc-photos-sm li{flex:0 0 calc((100% - 20px)/3)}.lc-list.lc-photos-sm b{font-size:16px}.lc-list.lc-photos-sm span{font-size:10px;letter-spacing:.04em}}
+
+/* G50 (10/1): Ava Rose and Ashley Iliff Gocklin swap places on the wall. Ashley takes Ava's old slot (desktop 3x3 near-square; tablet/phone full width 3:2)
+   with her wide, uncropped photo; Ava takes Ashley's old tall slot (desktop 3x4; tablet/phone half tile 3:4), cropped to both wrestlers' faces. */
+@media (min-width:981px){.t-ava{grid-row:15/19}.t-ashley{grid-row:4/7}}
+.t-ava img{object-position:76% 50%}
+.t-ashley img{object-position:75% 30%}
+@media (max-width:980px){.wall .t-ava{grid-column:auto!important;aspect-ratio:3/4}.wall .t-ashley{grid-column:1/3!important;aspect-ratio:3/2}}
+/* G50b: no dangling "IOWA" on Ava's credential line in her tall slot */
+.wall .t-ava .cr,.wall .t-ava .qt{text-wrap:balance}
+@media (max-width:340px){.wall .t-ava figcaption{padding-left:18%}.wall .t-ava .cr{letter-spacing:.06em}}
+
+/* G51 (10/1): Taina Fernandez joins the new-athlete zone. Desktop: a new 3-row band under Nicole/Ava/Toccara: Taina wide (6 cols x 3 rows,
+   smaller than Zain 4x6 and Trent 6x4) on the left, the closing "Hard work" tile beside her on the right (two-line headline sized to the tile).
+   Tablet/phone (2 columns): Taina full width 8:5 just before the closing tile, so both hands and the flag's stars stay in frame. */
+@media (min-width:981px){
+  .t-taina{grid-column:1/7;grid-row:19/22}
+  .wall .t-q2{grid-column:7/13;grid-row:19/22;padding:30px 34px;gap:14px;container-type:inline-size}
+  .wall .t-q2 .display{font-size:11.2cqi}
+  .t-taina figcaption{padding-top:44px}
+}
+.t-taina img{object-position:50% 30%}
+.wall .t-taina .cr,.wall .t-taina .qt{text-wrap:balance}
+@media (max-width:980px){.wall .t-taina{grid-column:1/3!important;aspect-ratio:8/5}}
+
+/* G54 (10/1): desktop row Nicole | Ava | Toccara re-balanced. Ava 3 -> 4 columns, Toccara 5 -> 4 columns; Nicole and the row height unchanged.
+   Rows are a fixed 100px, so each photo renders at a fixed scale: anchor Ava's crop on the right (bottom wrestler's pink headgear and hair
+   stay in frame at every desktop width; the extra width shows more of the other wrestler's legs), anchor Toccara's crop on the left (both
+   heads and upper bodies stay; the narrower tile drops the right edge of the frame). Tablet/phone: Ava and Toccara are not in the same row
+   there, so nothing changes below 981px.
+   Taina: photo brightened (gamma 0.84 copy, r8z2-) and the caption gradient lightened on the upper part of the tile. */
+@media (min-width:981px){
+  .t-ava{grid-column:5/9}
+  .t-toccara{grid-column:9/13}
+  .t-ava img{object-position:right -116px center}
+  .t-toccara img{object-position:left -20px center}
+}
+.wall .t-toccara .cr,.wall .t-toccara .qt{text-wrap:balance}
+.wall .t-taina figcaption{background:linear-gradient(0deg,rgba(3,11,28,.95) 0%,rgba(3,11,28,.78) 38%,rgba(3,11,28,.32) 70%,rgba(3,11,28,0) 100%)}
+
+/* G52 (owner): SuperGirl card footer = one big pink pill that leads to the SuperGirl site */
+.camp.sgc .sg-pill{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:10px;white-space:nowrap;box-sizing:border-box;min-height:46px;padding:0 10px;border-radius:999px;background:var(--pink);color:#12030b;font-family:var(--cond);font-weight:700;font-size:clamp(12px,3.9vw,16px);letter-spacing:.06em;text-transform:uppercase;line-height:1;transition:transform .2s,background .2s,box-shadow .2s}
+.camp.sgc .sg-pill .arr{transition:transform .2s}
+.camp.sgc:hover .sg-pill,.camp.sgc:focus-visible .sg-pill{background:#ff4d9b;transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,46,136,.45)}
+.camp.sgc:hover .sg-pill .arr,.camp.sgc:focus-visible .sg-pill .arr{transform:translateX(4px)}
+@media (min-width:981px){.camp.sgc .sg-pill{min-height:52px;font-size:17px;letter-spacing:.08em;padding:0 16px}}
+@media (max-width:360px){.camp.sgc .sg-pill{letter-spacing:.03em;gap:6px;padding:0 6px}}
+
+/* G55 — weight training block inside #life (owner brief 2026-10-01). Square block: copy beside photos on desktop; stacked below 981px. */
+.lift{margin-top:80px;display:grid;gap:28px}
+.lift-copy .kicker{margin-bottom:16px}
+.lift-copy .h3{margin:0}
+.lift-copy .lede{margin:18px 0 0}
+.lift-parents{display:inline-block;margin:22px 0 0;padding:10px 16px;border-left:4px solid var(--gold);background:rgba(242,183,5,.12);font-family:var(--cond);font-weight:600;font-size:17px;letter-spacing:.06em;text-transform:uppercase;color:#fff}
+.lift-ph{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;aspect-ratio:4/3}
+.lp{position:relative;margin:0;overflow:hidden;background:var(--ink-2);min-height:0}
+.lp.lp-wide{grid-column:1 / -1}
+.lp img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.lp figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 9px;background:linear-gradient(to top,rgba(3,11,28,.82),rgba(3,11,28,0));font-family:var(--cond);font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:#fff;line-height:1.25}
+@media (min-width:981px){
+  .lift{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:48px;align-items:center}
+  .lift-ph{grid-template-rows:repeat(2,clamp(200px,15.5vw,270px));aspect-ratio:auto}
+  .lp figcaption{font-size:13px;padding:30px 14px 11px}
+}
+
+/* G56 mat-row captions: balanced wrap, inset like the left chip */
+@media (min-width:761px){
+  .mat-row figcaption{max-width:calc(100% - 20px);text-wrap:balance;line-height:1.3}
+}
+/* phones: 2-up photos are ~110px tall, a long chip cannot fit on them, so the 2nd/3rd chips sit under their photo (photo size unchanged) */
+@media (max-width:760px){
+  .mat-row figure:nth-child(n+2){aspect-ratio:auto;overflow:visible}
+  .mat-row figure:nth-child(n+2) img{height:auto;aspect-ratio:3/2}
+  .mat-row figure:nth-child(n+2) figcaption{position:static;display:block;max-width:none;font-size:11px;letter-spacing:.08em;line-height:1.3;text-wrap:balance;padding:6px 8px}
+}
+
+/* G57: avoid one-word last lines */
+.feat-grid .star p,.nook-venues .nv li{text-wrap:pretty}
+@media (max-width:400px){.nook-venues .nv li{text-wrap:balance}}
+/* G58 */
+.staff-tiles .star p,.feat-grid .star p{text-wrap:pretty}
+.star h4,.star p{overflow-wrap:anywhere}
+.staff-tiles .star h4{text-wrap:balance}
+@media (max-width:340px){.staff-tiles .star h4{font-size:14px}}
+
+/* G61 (10/1): 30 staff tiles = 5 across on tablets so the last row is full (4 across left 2 stragglers) */
+@media (min-width:621px) and (max-width:980px){.star-grid.tier-grid.staff-tiles{grid-template-columns:repeat(5,minmax(0,1fr))}}
+
+/* G63 (10/1): legends small row is 4 tiles (Glory, Amos, Welker, Robles): centered on desktop, 2x2 on phones */
+@media (min-width:981px){.star-grid.leg-more .star:first-child{grid-column-start:2}}
+@media (max-width:620px){.star-grid.leg-more{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* G64: Penn State Olympians band (type only, no marks) */
+.psu-band{background:#041E42;color:#fff;border-top:2px solid #fff;border-bottom:2px solid #fff;padding:26px 0}
+.psu-in{display:block}
+.psu-kick{font-family:var(--cond);font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:#96BEE6;margin-bottom:8px}
+.psu-head{font-family:var(--display);font-weight:400;font-size:clamp(22px,5.6vw,30px);line-height:1.08;text-transform:uppercase;margin:0;text-wrap:balance;color:#fff}
+.psu-em{color:#96BEE6}
+.psu-copy{font-family:var(--body);font-size:15px;line-height:1.5;color:#fff;margin:14px 0 0;max-width:62ch}
+@media (min-width:981px){
+  .psu-band{padding:24px 0}
+  .psu-in{display:grid;grid-template-columns:45fr 55fr;gap:40px;align-items:center}
+  .psu-head{font-size:clamp(24px,2.3vw,32px)}
+  .psu-copy{margin:0;font-size:15px;max-width:none}
+}
+
+/* G65: floating buttons. Ask Coach (injected by embed.js) gets small corners; Register now mirrors it bottom-left. */
+#kcacBtn{border-radius:6px!important}
+.reg-fab{position:fixed;left:22px;bottom:22px;z-index:2147482997;display:flex;align-items:center;gap:10px;min-height:50px;
+  background:var(--gold);color:var(--ink);border:0;font-family:Oswald,Arial,sans-serif;text-transform:uppercase;text-decoration:none;
+  letter-spacing:.1em;font-size:14px;font-weight:600;line-height:1;padding:14px 20px 14px 16px;border-radius:6px;
+  box-shadow:0 14px 34px -10px rgba(242,183,5,.75);transition:transform .2s,box-shadow .2s}
+.reg-fab:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 18px 40px -10px rgba(242,183,5,.85)}
+.reg-fab:focus-visible,#kcacBtn:focus-visible{outline:3px solid #fff;outline-offset:3px;box-shadow:0 0 0 6px var(--navy)}
+body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none}
+@media (max-width:420px){
+  .reg-fab,#kcacBtn{bottom:12px!important;font-size:13px!important;letter-spacing:.06em!important;padding:12px 12px 12px 12px!important;gap:7px!important;min-height:46px}
+  .reg-fab{left:12px!important}
+  #kcacBtn{right:12px!important}
+}
+.foot{padding-bottom:104px}
+
+/* G67: Jimmy Matas testimonial with expandable full story */
+.voice-matas q{font-size:18.5px;font-weight:500;line-height:1.55}
+@media (max-width:620px){.voice-matas q{font-size:17px}}
+.vmore{margin-top:20px;border-top:1px solid var(--line);padding-top:14px}
+.vmore summary{list-style:none;display:inline-flex;align-items:center;gap:10px;cursor:pointer;min-height:44px;font-family:var(--cond);font-weight:600;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.vmore summary::-webkit-details-marker{display:none}
+.vmore summary:hover{color:#fff}
+.vmore summary:focus-visible{outline:3px solid var(--gold);outline-offset:4px}
+.vm-chev{transition:transform .2s}
+.vmore[open] .vm-chev{transform:rotate(180deg)}
+.vm-close{display:none}
+.vmore[open] .vm-open{display:none}
+.vmore[open] .vm-close{display:inline}
+.vm-body{margin-top:10px;max-width:72ch}
+.vm-body p{margin:0 0 14px;font-size:16.5px;line-height:1.6;color:var(--text-dim)}
+@media (min-width:981px){.vm-body{columns:2;column-gap:44px;max-width:none}.vm-body p{break-inside:avoid-column}}
+
+/* G68 (10/1): long testimonials show a shorter version on phones */
+.voice .q-phone{display:none}
+@media (max-width:620px){.voice .q-desk{display:none}.voice .q-phone{display:block}}
+
+/* G69 (10/1): Penn State Wrestling mark at the left of the band (permission confirmed by Ryan 10/1); band navy matched to the mark */
+.psu-band{background:#01213F}
+.psu-logo{display:block;height:104px;width:auto;margin:0 0 14px}
+@media (min-width:981px){.psu-in{grid-template-columns:auto 42fr 52fr;gap:36px}.psu-logo{height:136px;margin:0}}
+@media (min-width:981px){.psu-em{display:block}}
