@@ -1185,3 +1185,38 @@ body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none
 @media (max-width:1180px){.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main) td{padding-top:10px;padding-bottom:10px}.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main):last-child td{padding-bottom:17px}.find-grid .ptable tbody .fam-main td{padding-top:10px}}
 @media (max-width:980px){.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main) td{padding-top:12.5px;padding-bottom:12.5px}.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main):last-child td{padding-bottom:19.5px}.find-grid .ptable tbody .fam-main td{padding-top:12.5px}}
 @media (max-width:620px){.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main) td{padding-top:10px;padding-bottom:10px}.find-grid .ptable tbody tr:not(.fam-row):not(.fam-main):last-child td{padding-bottom:17px}.find-grid .ptable tbody .fam-main td{padding-top:10px}}
+
+/* ===== G81 (spec 10/1): grade-based lineup ===== */
+/* Camp cards: 8 cards = two rows of 4 on desktop, four rows of 2 on tablet, one column on phones. Every row as tall as the tallest card. */
+@media (min-width:1181px){.camp-grid{grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-rows:1fr}.camp-grid>.camp,.camp-grid>.camp:nth-child(n+4){grid-column:auto}.camp-grid .camp-b{padding:22px 20px 24px}.camp-grid .camp-b h3{font-size:clamp(25px,2.05vw,30px)}.camp-grid .camp-b p{font-size:15px}}
+@media (min-width:621px) and (max-width:1180px){.camp-grid{grid-auto-rows:1fr}.camp-grid>.camp:last-child{grid-column:auto}}
+.camp-grid .camp-b h3{text-wrap:balance}
+/* Find-your-camp: chooser beside the heading on wide screens; the price card runs full width under both */
+@media (min-width:1181px){.find-grid.fg81{grid-template-columns:minmax(0,5fr) minmax(0,8fr);grid-template-areas:"head card" "prices prices" "notes notes";row-gap:28px}.find-grid.fg81 .find-head{align-self:start}.find-grid.fg81 .prices{align-self:stretch;padding:30px 34px 26px}}
+@media (max-width:1180px){.find-grid.fg81{grid-template-columns:minmax(0,1fr);grid-template-areas:"head" "card" "prices" "notes";row-gap:24px}.find-grid.fg81 .prices{align-self:stretch;padding:28px 28px 24px}}
+@media (max-width:620px){.find-grid.fg81 .prices{padding:24px 16px 20px}}
+.finder.fv2 .fields{grid-template-columns:minmax(0,1fr);align-items:end}
+@media (min-width:621px){.finder.fv2 .fields{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.finder-result.fr-v2{display:block}
+.finder-result.fr-v2[hidden]{display:none}
+.fr-list{list-style:none;margin:10px 0 0;padding:0}
+.fr-list li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px 20px;align-items:center;padding:16px 0;border-top:1px solid var(--line)}
+.finder-result .fr-list h3{font-size:26px;margin:0 0 6px;text-wrap:balance}
+.fr-meta{font-family:var(--cond);letter-spacing:.08em;text-transform:uppercase;font-size:14px!important;color:var(--gold)!important}
+.fr-price{color:#fff!important;font-weight:600;font-size:15.5px!important}
+.fr-note{margin:12px 0 0!important;font-size:15px!important}
+.fr-girls{margin:12px 0 0!important;padding-top:12px;border-top:1px solid var(--line);font-size:15px!important;color:#fff!important}
+.fr-girls a{color:var(--gold);font-weight:600;white-space:nowrap}
+@media (max-width:620px){.fr-list li{grid-template-columns:minmax(0,1fr)}.fr-list .btn{justify-self:start}.finder-result.fr-v2{padding:22px 18px}.finder-result .fr-list h3{font-size:22px}}
+/* Price card v2: Camp | Who | Pennsylvania dates | Resident | Commuter; phones fold who + dates under the camp name */
+.pv2 .ptable th.pw,.pv2 .ptable th.pd{text-align:left}
+.pv2 .ptable td.pw,.pv2 .ptable td.pd{text-align:left;font-weight:500;color:var(--text-dim);font-size:14.5px}
+.pv2 .ptable td:first-child .pm{display:none}
+.pv2 .ptable .rs{display:block;font-size:11.5px;font-weight:400;color:var(--text-dim);line-height:1.2}
+.pv2 .pfoot .note{font-size:14px;margin:12px 0 0}
+@media (min-width:981px){.pv2 .ptable td:first-child{width:30%}.pv2 .ptable td.pw{width:22%}.pv2 .ptable td.pd{width:22%}.pv2 .pfoot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 28px}}
+@media (max-width:620px){.pv2 .ptable .pw,.pv2 .ptable .pd{display:none}.pv2 .ptable td:first-child .pm{display:block}.pv2 .ptable .rs{font-size:10.5px}}
+/* G81 fixes after screenshot review: price notes plain text; camp-card footers never split a date; SuperGirl pill fits 4-across; chooser selects fit */
+.pv2 .ptable .rs{background:none!important;box-shadow:none!important;border:0!important;padding:0!important;margin:2px 0 0!important;width:auto!important;height:auto!important;text-align:right;color:var(--text-dim)!important;letter-spacing:0;text-transform:none}
+@media (min-width:1181px){.camp-grid .camp-b .meta{font-size:12px;letter-spacing:.07em;gap:10px}.camp-grid .camp-b .meta span{white-space:nowrap}.camp.sgc .sg-pill{font-size:14px;letter-spacing:.04em;padding:0 10px}.find-grid.fg81{grid-template-columns:minmax(0,4fr) minmax(0,9fr)}.finder.fv2 .fields{grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,1fr);gap:18px 14px}.finder.fv2 .field select{font-size:15.5px;padding:13px 10px}}
+@media (min-width:621px) and (max-width:1180px){.finder.fv2 .fields{grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,1fr)}}

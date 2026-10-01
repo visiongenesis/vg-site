@@ -12,59 +12,79 @@
     document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
   }
 
-  /* camp finder */
-  const camps = {
-    supergold:{name:'SuperGold', len:'12 days'},
-    superkid:{name:'SuperKid', len:'12 days'},
-    supergirl:{name:'SuperGirl', len:'12 days'},
-    gold:{name:'Gold Medal Training Camp', len:'6 days'},
-    kids:{name:'Kids Training Camp', len:'6 days'},
-    fiveday:{name:'5-Day Camp', len:'5 days, Pennsylvania only'},
-    technique:{name:'Technique Camp', len:'4 days'},
-    girlstech:{name:'Girls Technique Camp', len:'4 days'},
-    future:{name:'Future Champions', len:'Parent-child camp'}
+  /* camp chooser (G81, spec 10/1): grade entering fall 2027 + skill level + location -> every matching camp */
+  const CAMPS = {
+    supergold:{name:'SuperGold', len:'12 days', pa:'July 11–22', oh:'', res:2150, com:1900, reg:'supergold', twelve:true},
+    superkid:{name:'SuperKid', len:'12 days', pa:'July 11–22', oh:'', res:2150, com:1900, reg:'superkid', twelve:true},
+    kids6:{name:'Kids Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1800, com:950, rn:'camper + parent', reg:'kids'},
+    kids5:{name:'Kids Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:1550, com:850, rn:'camper + parent', reg:'kids5', five:true},
+    future:{name:'Future Champions', len:'4 days, parent-child', pa:'July 11–14 or July 18–21', oh:'June 19–22', res:1075, com:650, rn:'parent + child room', reg:'future'},
+    gold6:{name:'Gold Medal Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1050, com:950, reg:'gold'},
+    gold5:{name:'Gold Medal Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:950, com:850, reg:'fiveday', five:true},
+    msgold6:{name:'Middle School Gold Medal Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1050, com:950, reg:'msgold'},
+    msgold5:{name:'Middle School Gold Medal Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:950, com:850, reg:'msgold5', five:true},
+    technique:{name:'Technique Camp', len:'4 days', pa:'July 11–14', oh:'June 19–22', res:775, com:700, reg:'technique'}
   };
+  const NOTES = {
+    overlap:"Third and fourth graders can pick either camp. It's your family's call whether your son or daughter wants the longer, more serious camp or the shorter one.",
+    parent:'Campers entering a grade below 6th need a parent staying with them to be a resident camper.',
+    rooming:'7th and 8th graders can choose SuperKid or SuperGold. The difference is mostly who they room with: middle schoolers or teens.',
+    ohio12:'The 12-day camps run in Pennsylvania only, July 11–22.'
+  };
+  const GIRLS = {
+    sg12:"Girls: SuperGirl is the 12-day girls' camp.",
+    same:"Girls: the same camp runs as a girls' camp.",
+    coed:'Girls: this camp is for boys and girls together.'
+  };
+  function choose(grade, skill, loc){
+    let ids = [], notes = [];
+    if (grade <= 2) ids = ['future'];
+    else if (grade <= 4) { ids = skill === 'new' ? ['future'] : ['kids6','kids5']; notes.push('overlap'); }
+    else if (grade === 5) { ids = ['kids6','kids5']; if (skill === 'serious') { ids.push('superkid'); notes.push('parent'); } }
+    else if (grade <= 8) {
+      if (skill === 'new') ids = ['technique'];
+      else if (skill === 'dev') ids = ['msgold6','msgold5'];
+      else { ids = ['superkid']; if (grade >= 7) { ids.push('supergold'); notes.push('rooming'); } }
+    }
+    else ids = skill === 'new' ? ['technique'] : skill === 'dev' ? ['gold6','gold5'] : ['supergold'];
+    if (loc === 'oh') {
+      const had12 = ids.some(id => CAMPS[id].twelve);
+      ids = ids.filter(id => !CAMPS[id].twelve && !CAMPS[id].five);
+      if (!ids.length) ids = [grade <= 8 ? 'msgold6' : 'gold6'];
+      notes = notes.filter(n => n !== 'rooming' && n !== 'parent');
+      if (had12) notes.push('ohio12');
+    }
+    const girls = ids.some(id => CAMPS[id].twelve) ? 'sg12' : ids.some(id => /gold|technique/.test(id)) ? 'same' : 'coed';
+    return {ids, notes, girls};
+  }
+  window.KC_CHOOSE = choose;
+  const money = n => '$' + n.toLocaleString('en-US');
   const host = document.querySelector('#camp-finder');
   if (host) {
-    host.innerHTML = `<form class="finder" id="finder-form">
+    host.innerHTML = `<form class="finder fv2" id="finder-form">
       <div class="fields">
-        <div class="field"><label for="grade">Grade next fall</label><select id="grade" required><option value="">Choose grade</option>${Array.from({length:12},(_,i)=>`<option value="${i+1}">Grade ${i+1}</option>`).join('')}</select></div>
-        <div class="field"><label for="readiness">Where are they now?</label><select id="readiness" required><option value="">Choose one</option><option value="new">Newer: building a foundation</option><option value="building">Developing: wants a full week</option><option value="intensive">Committed: ready for 12 days</option></select></div>
-        <div class="field"><label for="program">Camp for</label><select id="program"><option value="boys">Teen Boys</option><option value="girls">Teen Girls</option><option value="youth">Youth Boys and Girls</option></select></div>
-        <div class="field"><label for="venue">Location</label><select id="venue"><option value="either">Pennsylvania or Ohio</option><option value="pa">Pennsylvania</option><option value="oh">Ohio</option></select></div>
+        <div class="field"><label for="grade">Grade in fall 2027</label><select id="grade" required><option value="">Choose grade</option>${Array.from({length:12},(_,i)=>`<option value="${i+1}">Grade ${i+1}</option>`).join('')}</select></div>
+        <div class="field"><label for="skill">Skill level</label><select id="skill" required><option value="">Choose one</option><option value="new">Newer to wrestling</option><option value="dev">Developing</option><option value="serious">Serious competitor</option></select></div>
+        <div class="field"><label for="venue">Location</label><select id="venue" required><option value="">Choose one</option><option value="pa">Pennsylvania</option><option value="oh">Ohio</option></select></div>
       </div>
-      <div class="finder-bottom"><p>We'll suggest a starting camp. Ken's team confirms every placement.</p><button class="btn" type="submit">Show my camp <span class="arr" aria-hidden="true">→</span></button></div>
+      <div class="finder-bottom"><p>We'll show every camp that fits. Ken's team confirms every placement.</p><button class="btn" type="submit">Show my camps <span class="arr" aria-hidden="true">→</span></button></div>
     </form>
-    <div id="finder-result" class="finder-result" role="status" tabindex="-1" hidden></div>`;
+    <div id="finder-result" class="finder-result fr-v2" role="status" tabindex="-1" hidden></div>`;
     document.querySelector('#finder-form').addEventListener('submit', e => {
       e.preventDefault();
       const grade = Number(document.querySelector('#grade').value);
-      const r = document.querySelector('#readiness').value;
-      const girls = document.querySelector('#program').value === 'girls';
-      const venue = document.querySelector('#venue').value;
-      /* Placement rules (Ryan, Sept 29): grades 1-3 Future Champions; committed = 12 days (SuperKid grades 4-7,
-         SuperGold grade 8+, SuperGirl for girls); developing = 6-day Gold Medal Training Camp; newer = 4-day Technique. */
-      const twelve = r === 'intensive';
-      let id;
-      if (grade <= 3) id = 'future';
-      else if (twelve) id = girls ? 'supergirl' : grade <= 7 ? 'superkid' : 'supergold';
-      else if (r === 'new') id = girls ? 'girlstech' : 'technique';
-      else id = (!girls && grade >= 4 && grade <= 7) ? 'kids' : 'gold';
-      const why = grade <= 3 ? 'For the youngest wrestlers, start with a parent alongside.'
-        : id === 'superkid' ? 'Twelve days built for younger wrestlers who are ready to commit.'
-        : id === 'kids' ? 'A full training week built for wrestlers about ages 10 to 12.'
-        : twelve ? 'Twelve days gives a committed wrestler time for skills to stick.'
-        : r === 'new' ? 'Four days of fundamentals is the right first step.'
-        : grade <= 7 ? 'A full training week suits a younger wrestler who is ready for more.'
-        : 'A full training week builds on what they already know.';
-      const c = camps[id];
-      const title = girls && id === 'gold' ? 'Girls Gold Medal Camp' : c.name;
-      const five = ['gold','kids','technique','girlstech'].includes(id) && venue !== 'oh' ? ' Also offered: a 5-day camp in Pennsylvania, July 18–22.' : '';
-      const place = venue === 'pa' ? 'Pennsylvania' : venue === 'oh' ? 'Ohio' : 'Pennsylvania or Ohio';
-      const q = new URLSearchParams({camp:id, location:venue, grade:String(grade)});
-      if (girls) q.set('program','supergirl');
+      const skill = document.querySelector('#skill').value;
+      const loc = document.querySelector('#venue').value;
+      const r = choose(grade, skill, loc);
+      const place = loc === 'oh' ? 'Ohio' : 'Pennsylvania';
+      const items = r.ids.map(id => {
+        const c = CAMPS[id];
+        const q = new URLSearchParams({camp:c.reg, location:loc, grade:String(grade)});
+        return `<li data-camp="${id}"><div><h3>${c.name}</h3><p class="fr-meta">${c.len} · ${loc === 'oh' ? c.oh : c.pa}, 2027</p><p class="fr-price">Resident ${money(c.res)}${c.rn ? ` (${c.rn})` : ''} · Commuter ${money(c.com)}</p></div><a class="btn" href="register.html?${q}">Register <span class="arr" aria-hidden="true">→</span></a></li>`;
+      }).join('');
+      const notes = r.notes.map(n => `<p class="fr-note">${NOTES[n]}</p>`).join('');
       const res = document.querySelector('#finder-result');
-      res.innerHTML = `<div><div class="eyebrow">Your starting camp · ${place}</div><h3>${title}</h3><p>${c.len}. ${why}${five}</p></div><a class="btn" href="register.html?${q}">Register <span class="arr" aria-hidden="true">→</span></a>`;
+      res.innerHTML = `<div class="eyebrow">Camps that fit · Grade ${grade} · ${place}</div><ul class="fr-list">${items}</ul>${notes}<p class="fr-girls">${GIRLS[r.girls]} <a href="supergirl/">Visit SuperGirl <span aria-hidden="true">→</span></a></p>`;
       res.hidden = false; res.focus({preventScroll:true});
       res.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'nearest'});
     });
