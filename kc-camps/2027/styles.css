@@ -937,7 +937,7 @@ section{position:relative}
 /* Fee notes: three blocks with icons, then a gold band. The Future Champions note now sits in the price card (italic third line). */
 .ptable .fc-inc{font-style:italic}
 .fee-notes.fn-v2{display:block;padding:0}
-.fn-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 36px;padding:26px 32px 24px}
+.fn-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 36px;padding:26px 32px 24px}
 .fee-notes .note.fn{display:flex;gap:14px;align-items:flex-start}
 .fn-ic{flex:none;width:30px;height:30px;color:var(--gold);margin-top:1px}
 .fn-gold{margin:0;background:var(--gold);color:var(--ink);padding:18px 32px;display:flex;gap:12px;align-items:baseline;font-size:15.5px;line-height:1.45}
