@@ -785,3 +785,6 @@ body:has(.menu-btn[aria-expanded="true"]) .reg-fab{display:none}
 @media (min-width:901px){.camp-row{grid-template-columns:repeat(3,1fr)}.camp-row .camp-card:last-child{grid-column:auto}}
 @media (min-width:901px) and (max-width:1099px){.camp-card{padding:26px 20px 24px}.camp-card h3{font-size:36px}.camp-card h3+p{font-size:14.5px}.camp-card .chips li{font-size:10.5px;padding:7px 8px}}
 @media (max-width:900px){.camp-row{grid-template-columns:1fr}.camp-row .camp-card:last-child{grid-column:auto}}
+
+/* G83: four small counselor tiles = two rows of two (no orphan) above phone width */
+@media (min-width:761px){.c-type-ph{grid-column:span 3}}
