@@ -1220,3 +1220,8 @@ body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none
 .pv2 .ptable .rs{background:none!important;box-shadow:none!important;border:0!important;padding:0!important;margin:2px 0 0!important;width:auto!important;height:auto!important;text-align:right;color:var(--text-dim)!important;letter-spacing:0;text-transform:none}
 @media (min-width:1181px){.camp-grid .camp-b .meta{font-size:12px;letter-spacing:.07em;gap:10px}.camp-grid .camp-b .meta span{white-space:nowrap}.camp.sgc .sg-pill{font-size:14px;letter-spacing:.04em;padding:0 10px}.find-grid.fg81{grid-template-columns:minmax(0,4fr) minmax(0,9fr)}.finder.fv2 .fields{grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,1fr);gap:18px 14px}.finder.fv2 .field select{font-size:15.5px;padding:13px 10px}}
 @media (min-width:621px) and (max-width:1180px){.finder.fv2 .fields{grid-template-columns:minmax(0,.8fr) minmax(0,1.3fr) minmax(0,1fr)}}
+
+/* G85: parent FAQ - 7 rows left, 6 rows + "See all" right; link sits under the right column */
+.faq-r .faq-more{margin:16px 0 0}
+@media (min-width:981px) and (max-width:1200px){.faq-2 summary{font-size:22px}.faq-2 details{padding:20px 0}}
+.leg-campers>.kicker{text-wrap:balance}
