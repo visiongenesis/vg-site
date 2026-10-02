@@ -861,3 +861,32 @@ body:has(.menu-btn[aria-expanded="true"]) .reg-fab{display:none}
 .prices .otable .pill{border-color:var(--pink-d,#d4136d);color:var(--ink)}
 @media (max-width:620px){.prices .otable td{font-size:14px}}
 .prices .p-head,.prices .p-sub,.prices .otable,.prices .p-note{grid-column:1/-1}
+
+/* ===== G110 (2026-10-02): live-audit fixes (LIVE-AUDIT-20261002.md). Appended block. ===== */
+/* #1 "PAST COACHES AT SUPERGIRL CAMPS." fits its column */
+.coach-head{min-width:0}
+#coaches-h{font-size:clamp(48px,5vw,72px)}
+/* #2 tablet header: switch to the Menu button below 920px (the full link row does not fit 761-919px) */
+@media (max-width:919px){
+  .menu-btn{display:inline-flex;align-items:center;gap:10px;margin-left:auto;background:transparent;border:2px solid rgba(255,255,255,.6);color:var(--white);font:800 13px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;padding:11px 14px;cursor:pointer}
+  .bars,.bars::before,.bars::after{display:block;width:18px;height:2px;background:currentColor;position:relative}
+  .bars::before,.bars::after{content:"";position:absolute;left:0}
+  .bars::before{top:-6px}.bars::after{top:6px}
+  .js .menu{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;align-items:stretch;gap:0;background:var(--ink);border-bottom:3px solid var(--pink);padding:8px var(--gut) 20px}
+  .js .menu.open{display:flex}
+  .js .menu a:not(.btn){padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12);font-size:15px}
+  .js .menu .btn{margin-top:16px}
+  html:not(.js) .menu-btn{display:none}
+  html:not(.js) .nav-in{flex-wrap:wrap;padding-bottom:12px}
+}
+/* #7 tiny text */
+.sc-tag,.staff-grid .sc-tag{font-size:13px}
+.nook figcaption,html body .nook figcaption{font-size:13px}
+/* #8 button labels stay on one line */
+.btn{white-space:nowrap}
+/* #9 Ask Coach: short label under 900px, never wraps */
+@media (max-width:899px){#kcacBtn{white-space:nowrap}#kcacBtn .kcac-label{font-size:0!important;letter-spacing:0!important}#kcacBtn .kcac-label::after{content:"Ask Coach";font-size:13px;letter-spacing:.06em}}
+/* #10 Ask Coach close: 44x44 tap area (icon unchanged) */
+#kcacClose{min-width:44px!important;min-height:44px!important;display:flex!important;align-items:center;justify-content:center}
+/* #3 floating Register: on desktop it waits until the hero has scrolled away (main.js/sg.js add .show), and sits in the right-hand stack above Ask Coach. Phones unchanged. */
+@media (min-width:900px){.reg-fab{left:auto!important;right:22px;bottom:88px}.fab-io .reg-fab:not(.show){opacity:0;visibility:hidden;pointer-events:none}.fab-io .reg-fab{transition:opacity .25s,visibility .25s,transform .2s,box-shadow .2s}}

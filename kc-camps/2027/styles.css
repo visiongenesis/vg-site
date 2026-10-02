@@ -1323,7 +1323,6 @@ body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none
 .ctabs [role=tab]:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 .cp-h{margin:14px 0 6px;font-family:var(--cond);font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy)}
 .cp-h span{font-weight:400;letter-spacing:.04em;text-transform:none;color:var(--text-dim);margin-left:6px}
-.ctabs:not([hidden])~.cpanel>.cp-h:first-child{display:none}
 .otable td{vertical-align:middle}
 .pill{display:inline-flex;align-items:center;justify-content:center;padding:7px 14px;border:2px solid var(--navy);border-radius:999px;font-weight:700;color:var(--navy);text-decoration:none;white-space:nowrap;line-height:1.1;transition:background .15s,color .15s}
 .pill:hover,.pill:focus-visible{background:var(--navy);color:#fff}
@@ -1387,3 +1386,35 @@ body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none
 /* G106 (2026-10-02) editor pass: no lone words or numbers on a last line; headings and short lines balance, paragraphs avoid a one-word last line */
 h1,h2,h3,h4,.display,.kicker,.lede,figcaption,figcaption span,.meta,.tlink,.btn,td,th,.where,.kcp h2,.kcp-o,.tag,.sc-tag,.hero-camps li{text-wrap:balance}
 p,li,dd,blockquote,.ans p,.kcp p{text-wrap:pretty}
+
+/* ===== G110 (2026-10-02): live-audit fixes (LIVE-AUDIT-20261002.md). Appended block. ===== */
+/* #1 "FIND YOUR CAMP." fits its column at every width; the period stays clear of the chooser panel */
+.find-head{min-width:0}
+.find-head .h2{font-size:clamp(52px,5.6vw,76px)}
+/* #4a Girls tab: both halves share column widths so Resident/Commuter line up */
+#panel-girls .otable{table-layout:fixed;width:100%}
+#panel-girls .otable th:nth-child(1){width:56%}#panel-girls .otable th:nth-child(2),#panel-girls .otable th:nth-child(3){width:22%}
+/* #5 phones: camp cards may shrink; the curriculum link may wrap (no sideways wiggle) */
+@media (max-width:620px){.camp-grid{grid-template-columns:minmax(0,1fr)}.camp{min-width:0}.tlink{white-space:normal}}
+/* #6 price pills: thumb-size */
+a.pill.reg-pill{min-height:44px}
+/* #7 tiny text */
+@media (max-width:980px){.star-grid .star p,.tier-grid:not(.feat-grid) .star p,.leg-all .leg-more .star p{font-size:13px}}
+.feat-grid .star p{font-size:15px}
+@media (max-width:980px){.feat-grid .star p{font-size:13.5px}}
+@media (max-width:620px){.feat-grid .star p{font-size:13px}}
+.lc-list.lc-photos li>span{font-size:12px}
+.pv2 .ptable .rs,.ptable small.rs,small.rs{font-size:13px}
+/* #8 button labels never leave the arrow alone on a line */
+.btn{white-space:nowrap}
+/* #12 thin text links: 40px+ tap height on phones (layout unchanged) */
+@media (max-width:620px){.topbar a{display:inline-block;padding-block:10px;margin-block:-10px}.tlink{padding-block:9px;margin-block:-9px 7px}.foot a:not(.fine a){padding-block:7px;margin-block:-7px 1px}}
+/* #9 Ask Coach: short label under 900px, never wraps */
+@media (max-width:899px){#kcacBtn{white-space:nowrap}#kcacBtn .kcac-label{font-size:0!important;letter-spacing:0!important}#kcacBtn .kcac-label::after{content:"Ask Coach";font-size:13px;letter-spacing:.06em}}
+/* #10 Ask Coach close: 44x44 tap area (icon unchanged) */
+#kcacClose{min-width:44px!important;min-height:44px!important;display:flex!important;align-items:center;justify-content:center}
+/* #3 floating Register: on desktop it waits until the hero has scrolled away (main.js/sg.js add .show), and sits in the right-hand stack above Ask Coach. Phones unchanged. */
+@media (min-width:900px){.reg-fab{left:auto!important;right:22px;bottom:88px}.fab-io .reg-fab:not(.show){opacity:0;visibility:hidden;pointer-events:none}.fab-io .reg-fab{transition:opacity .25s,visibility .25s,transform .2s,box-shadow .2s}}
+
+/* #7: the table caption rule above uses !important, so this one must too */
+.otable .rs{font-size:13px!important}

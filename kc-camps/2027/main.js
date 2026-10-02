@@ -144,3 +144,9 @@ var R=[[new RegExp(M+' (?=\\d)','g'),'$1\u00a0'],[/(\d)\u2013(\d)/g,'$1\u2060\u2
 function fx(root){if(!root)return;var w=document.createTreeWalker(root,4),n;while((n=w.nextNode())){var p=n.parentNode;if(p&&/^(SCRIPT|STYLE|TEXTAREA)$/.test(p.nodeName))continue;var t=n.nodeValue,u=t;for(var i=0;i<R.length;i++)u=u.replace(R[i][0],R[i][1]);if(u!==t)n.nodeValue=u;}}
 function go(){fx(document.body);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(x){if(x.nodeType===1)fx(x);else if(x.nodeType===3&&x.parentNode)fx(x.parentNode);});});}).observe(document.body,{childList:true,subtree:true});}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();})();
+
+/* G110 #3: floating Register shows on desktop only after the first screen (hero) has scrolled away. CSS gates it to >=900px. */
+(function(){function go(){var f=document.querySelector('.reg-fab');if(!f)return;var h=document.querySelector('main > section, main section, .hero');
+if(!h||!('IntersectionObserver' in window)){f.classList.add('show');return;}
+document.documentElement.classList.add('fab-io');
+new IntersectionObserver(function(es){es.forEach(function(e){f.classList.toggle('show',!e.isIntersecting);});},{threshold:0}).observe(h);}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();})();

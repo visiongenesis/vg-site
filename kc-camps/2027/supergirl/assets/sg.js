@@ -28,3 +28,9 @@ var SG_CAMP_DATES={pa:"July 11\u201322,\u00a02027",oh:"June 19\u201324,\u00a0202
   }
   window.addEventListener('scroll',arm,{passive:true,once:true});
 })();
+
+/* G110 #3: floating Register shows on desktop only after the first screen (hero) has scrolled away. CSS gates it to >=900px. */
+(function(){function go(){var f=document.querySelector('.reg-fab');if(!f)return;var h=document.querySelector('main > section, main section, .hero');
+if(!h||!('IntersectionObserver' in window)){f.classList.add('show');return;}
+document.documentElement.classList.add('fab-io');
+new IntersectionObserver(function(es){es.forEach(function(e){f.classList.toggle('show',!e.isIntersecting);});},{threshold:0}).observe(h);}if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();})();
