@@ -35,7 +35,7 @@
   const GMAP = {supergold:'supergirl', gold6:'ggold6', gold5:'ggold5', msgold6:'gmsgold6', msgold5:'gmsgold5', technique:'gtechnique'};
   const NOTES = {
     overlap:"Third and fourth graders can pick either camp. It's your family's call whether your son or daughter wants the longer, more serious camp or the shorter one.",
-    parent:'Campers entering a grade below 6th need a parent staying with them to be a resident camper.',
+    parent:'Campers entering 5th grade and below need a parent staying with them to be a resident camper.',
     rooming:'7th and 8th graders can choose SuperKid or SuperGold. The difference is mostly who they room with: middle schoolers or teens.',
     roomingG:'7th and 8th graders can choose SuperKid or SuperGirl. The difference is mostly who they room with: middle schoolers or teens.',
     ohio12:'The 12-day camps run in Pennsylvania only, July 11–22.'

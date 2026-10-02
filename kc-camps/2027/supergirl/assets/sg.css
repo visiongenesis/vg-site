@@ -813,3 +813,6 @@ body:has(.menu-btn[aria-expanded="true"]) .reg-fab{display:none}
 .hist-full{margin-top:30px;padding-top:26px;border-top:1px solid rgba(255,255,255,.18)}
 .hist-full .hist-notes{margin-top:8px;width:100%}
 .hist-close{margin-top:24px}
+
+/* G91a: keep "A camp of their own" on one line in the short timeline at desktop */
+@media (min-width:1181px){.history .tl.tl-s b{font-size:21px;white-space:nowrap}}
