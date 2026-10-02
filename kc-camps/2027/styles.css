@@ -309,7 +309,7 @@ section{position:relative}
 .voice-feature figure img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 /* crop audit 9/29: Ross Brooks team photo - whole team shown (cover cut people off both ends); blurred copy fills the frame */
 .voice-feature figure.vf-whole{overflow:hidden;background:var(--ink)}
-.voice-feature figure.vf-whole::before{content:"";position:absolute;inset:-24px;background:url(assets/img/ross-team.jpg) center/cover;filter:blur(18px) brightness(.5)}
+.voice-feature figure.vf-whole::before{content:"";position:absolute;inset:-24px;background:url(assets/img/ken-chertow-summer-wrestling-camp-coach-ross-brooks-team-with-staff.jpg) center/cover;filter:blur(18px) brightness(.5)}
 .voice-feature figure.vf-whole img{object-fit:contain}
 .voice-feature blockquote{margin:0;padding:48px;display:flex;flex-direction:column;justify-content:center}
 .voice-feature q{font-family:var(--display);font-size:clamp(34px,3.3vw,52px);text-transform:uppercase;line-height:1;quotes:"“" "”"}
@@ -615,7 +615,7 @@ section{position:relative}
 /* #36 closing band: 736px arena photo shown at or below native size; a blurred, darkened copy fills the band */
 .final-arena{min-height:0;padding:clamp(80px,9vw,130px) 0}
 .final-arena::before{display:none}
-.final-bg{position:absolute;inset:-40px;background:url(assets/img/r3-final-arena.jpg) center/cover no-repeat;filter:blur(16px) brightness(.32) saturate(1.15);z-index:0}
+.final-bg{position:absolute;inset:-40px;background:url(assets/img/ken-chertow-summer-wrestling-camp-final-arena-blur.jpg) center/cover no-repeat;filter:blur(16px) brightness(.32) saturate(1.15);z-index:0}
 .final-arena::after{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(3,11,28,.9) 0%,rgba(3,11,28,.55) 55%,rgba(3,11,28,.4) 100%)}
 .final-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
 .final-arena h2{font-size:clamp(48px,5.4vw,92px);max-width:none}
@@ -746,8 +746,8 @@ section{position:relative}
 .voice-ryan .vq p+p{margin-top:14px}
 @media (max-width:620px){.voice-ryan .vq p{font-size:17px}}
 /* R5-2 closing band: the arena photo is a borderless, feathered backdrop again (round-1 feel), bigger and brighter,
-   filling the right of the band. r5-final-arena.jpg = 4x Real-ESRGAN upscale of the 736px original, saved at 2200px. */
-.final-bg{background-image:url(assets/img/r5-final-arena.jpg)}
+   filling the right of the band. ken-chertow-summer-wrestling-camp-final-arena-crowd.jpg = 4x Real-ESRGAN upscale of the 736px original, saved at 2200px. */
+.final-bg{background-image:url(assets/img/ken-chertow-summer-wrestling-camp-final-arena-crowd.jpg)}
 .final-arena .final-ph{position:absolute;top:0;right:0;bottom:0;width:70%;max-width:none;margin:0;border:0;box-shadow:none;background:none;z-index:1;
   -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 42%),linear-gradient(180deg,transparent 0%,#000 14%,#000 86%,transparent 100%);-webkit-mask-composite:source-in;
   mask-image:linear-gradient(90deg,transparent 0%,#000 42%),linear-gradient(180deg,transparent 0%,#000 14%,#000 86%,transparent 100%);mask-composite:intersect}
@@ -767,7 +767,7 @@ section{position:relative}
 .reel video{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover;background:#000;border:1px solid var(--line)}
 .reel figcaption{margin-top:12px;font-family:var(--cond);font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:14px;color:#fff;text-align:center}
 @media (max-width:760px){.reels{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:72%;gap:14px;max-width:none;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding-bottom:10px}.reel{scroll-snap-align:start}}
-/* R4 hero bottom-right = Ryan's coach demo photo (r4-hero-coach-demo.jpg). At desktop the bottom row is made shorter
+/* R4 hero bottom-right = Ryan's coach demo photo (ken-chertow-summer-wrestling-camp-pat-glory-single-leg-demo.jpg). At desktop the bottom row is made shorter
    (1.6fr/1fr) so the slot is wide enough to keep both the coach's and the boy's heads in frame. Revert = delete these two lines. */
 .hm-action img{object-position:50% 0%}
 /* R4 herofix (09-29): the fixed "Ask Coach" button sat on the coach's face at first load (e.g. 1280x900). The tile is now a fixed
