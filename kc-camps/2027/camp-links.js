@@ -3,7 +3,7 @@
    MAIN_FORM = the form address (today: the PREVIEW address). Static buttons in the pages are generated from this
    table by site-tools/gen_register.py; at runtime every a[data-reg] is re-pointed from it too. */
 window.KC_REG = /*DATA*/{
- "MAIN_FORM": "https://register.kenchertow.com/preview/6a4e2b24ee49431a94cb6aa9c62dbb48",
+ "MAIN_FORM": "https://register.kenchertow.com/2027-camp-registration",
  "FOLLOWUP_FORM": "https://register.kenchertow.com/finish-your-registration",
  "FOLLOWUP_FORM_NOTE": "PLACEHOLDER - planned address, NOT published yet (FOR-WEBSITE-SESSION.md 16:00 note). Change FOLLOWUP_FORM and MAIN_FORM here only, then run site-tools/gen_register.py.",
  "STORE_KEY": "kc_followup_2027",
