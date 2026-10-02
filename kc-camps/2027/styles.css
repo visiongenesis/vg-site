@@ -1383,3 +1383,7 @@ body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none
 .cg86 .camp.sgc .camp-btns{margin-top:16px}
 .meta-ghost{visibility:hidden}
 @media (max-width:600px){.camp-b .meta.meta-ghost{display:none}}
+
+/* G106 (2026-10-02) editor pass: no lone words or numbers on a last line; headings and short lines balance, paragraphs avoid a one-word last line */
+h1,h2,h3,h4,.display,.kicker,.lede,figcaption,figcaption span,.meta,.tlink,.btn,td,th,.where,.kcp h2,.kcp-o,.tag,.sc-tag,.hero-camps li{text-wrap:balance}
+p,li,dd,blockquote,.ans p,.kcp p{text-wrap:pretty}

@@ -137,3 +137,10 @@
 
 /* Camp dates: one edit spot, window.CAMP_DATES in index.html <head> */
 (function(){var d=window.CAMP_DATES||{};document.querySelectorAll('[data-dates]').forEach(function(el){var v=d[el.getAttribute('data-dates')];if(v)el.textContent=v;});})();
+
+/* G106 editor pass: keep dates, ranges, "N days", grades and camp names from splitting across lines, including text the picker, table and date filler add later */
+(function(){var M='(January|February|March|April|May|June|July|August|September|October|November|December)';
+var R=[[new RegExp(M+' (?=\\d)','g'),'$1\u00a0'],[/(\d)\u2013(\d)/g,'$1\u2060\u2013\u2060$2'],[/(\d) (days?|DAYS?|nights?)\b/g,'$1\u00a0$2'],[/(\d)-(day)/g,'$1-\u2060$2'],[/\b(grades?|Grades?|GRADES?) (\d)/g,'$1\u00a0$2'],[/\b(Gold|Middle|High|Future|SuperGold|SuperGirl|Kids) (Medal|School|Champions|Middle|Training)\b/g,'$1\u00a0$2'],[/ (\u2192|\u00b7)/g,'\u00a0$1']];
+function fx(root){if(!root)return;var w=document.createTreeWalker(root,4),n;while((n=w.nextNode())){var p=n.parentNode;if(p&&/^(SCRIPT|STYLE|TEXTAREA)$/.test(p.nodeName))continue;var t=n.nodeValue,u=t;for(var i=0;i<R.length;i++)u=u.replace(R[i][0],R[i][1]);if(u!==t)n.nodeValue=u;}}
+function go(){fx(document.body);new MutationObserver(function(ms){ms.forEach(function(m){m.addedNodes.forEach(function(x){if(x.nodeType===1)fx(x);else if(x.nodeType===3&&x.parentNode)fx(x.parentNode);});});}).observe(document.body,{childList:true,subtree:true});}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',go);else go();})();

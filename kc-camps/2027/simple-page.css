@@ -101,3 +101,7 @@
 .sp-col :is(h1,h2,h3,h4,h5,h6) :is(strong,b){color:inherit;font-weight:inherit}
 .sp-col:not(.sp-wide) article h2,.sp-col:not(.sp-wide)>h2,.sp-col:not(.sp-wide)>h3,.sp-col:not(.sp-wide)>h4{font-size:clamp(24px,2.4vw,30px);margin-top:1.4em}
 .sp-quote blockquote h2{font-size:clamp(24px,2.8vw,34px)!important;margin:0!important}
+
+/* G106 (2026-10-02) editor pass: no lone words or numbers on a last line; headings and short lines balance, paragraphs avoid a one-word last line */
+h1,h2,h3,h4,.display,.kicker,.lede,figcaption,figcaption span,.meta,.tlink,.btn,td,th,.where,.kcp h2,.kcp-o,.tag,.sc-tag,.hero-camps li{text-wrap:balance}
+p,li,dd,blockquote,.ans p,.kcp p{text-wrap:pretty}
