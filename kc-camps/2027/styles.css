@@ -1269,3 +1269,9 @@ body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none
 .finder.fv2 .fields{grid-template-columns:minmax(0,1fr)}
 @media (min-width:621px){.finder.fv2 .fields{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (min-width:1181px){.finder.fv2 .fields{grid-template-columns:minmax(0,.7fr) minmax(0,.8fr) minmax(0,1.2fr) minmax(0,1fr);gap:18px 12px}}
+
+/* G93 technique link in camp cards */
+.tlink{display:block;align-self:flex-start;margin:-4px 0 16px;font-family:var(--cond);font-weight:600;font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);text-decoration:underline;text-underline-offset:3px;cursor:pointer}
+.tlink:hover,.tlink:focus-visible{color:#fff}
+.camp.sgc .tlink{color:var(--pink)}
+.camp-card .tlink,.fs-body .tlink{color:var(--pink);margin:0 0 14px}
