@@ -19,24 +19,29 @@
     kids6:{name:'Kids Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1800, com:950, rn:'camper + parent', reg:'kids'},
     kids5:{name:'Kids Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:1550, com:850, rn:'camper + parent', reg:'kids5', five:true},
     future:{name:'Future Champions', len:'4 days, parent-child', pa:'July 11–14 or July 18–21', oh:'June 19–22', res:1075, com:650, rn:'parent + child room', reg:'future'},
-    gold6:{name:'Gold Medal Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1050, com:950, reg:'gold'},
-    gold5:{name:'Gold Medal Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:950, com:850, reg:'fiveday', five:true},
+    gold6:{name:'High School Gold Medal Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1050, com:950, reg:'gold'},
+    gold5:{name:'High School Gold Medal Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:950, com:850, reg:'fiveday', five:true},
     msgold6:{name:'Middle School Gold Medal Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1050, com:950, reg:'msgold'},
     msgold5:{name:'Middle School Gold Medal Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:950, com:850, reg:'msgold5', five:true},
-    technique:{name:'Technique Camp', len:'4 days', pa:'July 11–14', oh:'June 19–22', res:775, com:700, reg:'technique'}
+    technique:{name:'Technique Camp', len:'4 days', pa:'July 11–14', oh:'June 19–22', res:775, com:700, reg:'technique'},
+    /* girls' versions: same dates and prices, own Register targets (G86) */
+    supergirl:{name:'SuperGirl', len:'12 days', pa:'July 11–22', oh:'', res:2150, com:1900, reg:'supergirl', gender:'girl'},
+    ggold6:{name:'Girls High School Gold Medal Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1050, com:950, reg:'gold', gender:'girl'},
+    ggold5:{name:'Girls High School Gold Medal Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:950, com:850, reg:'fiveday', gender:'girl'},
+    gmsgold6:{name:'Girls Middle School Gold Medal Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1050, com:950, reg:'msgold', gender:'girl'},
+    gmsgold5:{name:'Girls Middle School Gold Medal Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:950, com:850, reg:'msgold5', gender:'girl'},
+    gtechnique:{name:'Girls Technique Camp', len:'4 days', pa:'July 11–14', oh:'June 19–22', res:775, com:700, reg:'girlstech', gender:'girl'}
   };
+  const GMAP = {supergold:'supergirl', gold6:'ggold6', gold5:'ggold5', msgold6:'gmsgold6', msgold5:'gmsgold5', technique:'gtechnique'};
   const NOTES = {
     overlap:"Third and fourth graders can pick either camp. It's your family's call whether your son or daughter wants the longer, more serious camp or the shorter one.",
     parent:'Campers entering a grade below 6th need a parent staying with them to be a resident camper.',
     rooming:'7th and 8th graders can choose SuperKid or SuperGold. The difference is mostly who they room with: middle schoolers or teens.',
+    roomingG:'7th and 8th graders can choose SuperKid or SuperGirl. The difference is mostly who they room with: middle schoolers or teens.',
     ohio12:'The 12-day camps run in Pennsylvania only, July 11–22.'
   };
-  const GIRLS = {
-    sg12:"Girls: SuperGirl is the 12-day girls' camp.",
-    same:"Girls: the same camp runs as a girls' camp.",
-    coed:'Girls: this camp is for boys and girls together.'
-  };
-  function choose(grade, skill, loc){
+  function choose(grade, skill, loc, gender){
+    const girl = gender === 'girl';
     let ids = [], notes = [];
     if (grade <= 2) ids = ['future'];
     else if (grade <= 4) { ids = skill === 'new' ? ['future'] : ['kids6','kids5']; notes.push('overlap'); }
@@ -54,8 +59,10 @@
       notes = notes.filter(n => n !== 'rooming' && n !== 'parent');
       if (had12) notes.push('ohio12');
     }
-    const girls = ids.some(id => CAMPS[id].twelve) ? 'sg12' : ids.some(id => /gold|technique/.test(id)) ? 'same' : 'coed';
-    return {ids, notes, girls};
+    /* girls in grades 6-12 get the girls' camp named directly (own Register button); grades 1-5 camps are boys and girls together */
+    const swap = girl && grade >= 6;
+    if (swap) { ids = ids.map(id => GMAP[id] || id); notes = notes.map(n => n === 'rooming' ? 'roomingG' : n); }
+    return {ids, notes, girlsLink: swap};
   }
   window.KC_CHOOSE = choose;
   const money = n => '$' + n.toLocaleString('en-US');
@@ -63,6 +70,7 @@
   if (host) {
     host.innerHTML = `<form class="finder fv2" id="finder-form">
       <div class="fields">
+        <div class="field"><label for="gender">Wrestler</label><select id="gender" required><option value="">Choose one</option><option value="boy">Boy</option><option value="girl">Girl</option></select></div>
         <div class="field"><label for="grade">Grade in fall 2027</label><select id="grade" required><option value="">Choose grade</option>${Array.from({length:12},(_,i)=>`<option value="${i+1}">Grade ${i+1}</option>`).join('')}</select></div>
         <div class="field"><label for="skill">Skill level</label><select id="skill" required><option value="">Choose one</option><option value="new">Newer to wrestling</option><option value="dev">Developing</option><option value="serious">Serious competitor</option></select></div>
         <div class="field"><label for="venue">Location</label><select id="venue" required><option value="">Choose one</option><option value="pa">Pennsylvania</option><option value="oh">Ohio</option></select></div>
@@ -75,16 +83,17 @@
       const grade = Number(document.querySelector('#grade').value);
       const skill = document.querySelector('#skill').value;
       const loc = document.querySelector('#venue').value;
-      const r = choose(grade, skill, loc);
+      const gender = document.querySelector('#gender').value;
+      const r = choose(grade, skill, loc, gender);
       const place = loc === 'oh' ? 'Ohio' : 'Pennsylvania';
       const items = r.ids.map(id => {
         const c = CAMPS[id];
-        const q = new URLSearchParams({camp:c.reg, location:loc, grade:String(grade)});
+        const q = new URLSearchParams({camp:c.reg, gender, location:loc, grade:String(grade)});
         return `<li data-camp="${id}"><div><h3>${c.name}</h3><p class="fr-meta">${c.len} · ${loc === 'oh' ? c.oh : c.pa}, 2027</p><p class="fr-price">Resident ${money(c.res)}${c.rn ? ` (${c.rn})` : ''} · Commuter ${money(c.com)}</p></div><a class="btn" href="register.html?${q}">Register <span class="arr" aria-hidden="true">→</span></a></li>`;
       }).join('');
       const notes = r.notes.map(n => `<p class="fr-note">${NOTES[n]}</p>`).join('');
       const res = document.querySelector('#finder-result');
-      res.innerHTML = `<div class="eyebrow">Camps that fit · Grade ${grade} · ${place}</div><ul class="fr-list">${items}</ul>${notes}<p class="fr-girls">${GIRLS[r.girls]} <a href="supergirl/">Visit SuperGirl <span aria-hidden="true">→</span></a></p>`;
+      res.innerHTML = `<div class="eyebrow">Camps that fit · ${gender === 'girl' ? 'Girl' : 'Boy'} · Grade ${grade} · ${place}</div><ul class="fr-list">${items}</ul>${notes}${r.girlsLink ? '<p class="fr-girls">Want to see the girls\' program first? <a href="supergirl/">See the SuperGirl site <span aria-hidden="true">→</span></a></p>' : ''}`;
       res.hidden = false; res.focus({preventScroll:true});
       res.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'nearest'});
     });
