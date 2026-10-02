@@ -1374,3 +1374,12 @@ body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none
   .sg-band{display:grid;grid-template-columns:1fr auto;grid-template-areas:"k a" "w a" "l a";align-items:center;column-gap:12px;padding:16px 18px;margin:6px 0 14px}
   .sg-band .sgb-k{grid-area:k}.sg-band .sgb-w{grid-area:w;font-size:30px}.sg-band .sgb-l{grid-area:l;margin-top:4px}.sg-band .sgb-a{grid-area:a;margin:0;font-size:28px;align-self:center}
 }
+
+/* G105 (2026-10-02, Ryan): like elements share a line across every tile row. The paragraph grows to take the spare height, so the
+   technique link, the divider + meta line and Register stack from the tile bottom; a tile with no link leaves that slot empty.
+   The Girls tile carries an invisible meta line so its link and button sit level with the 12-day tile's. */
+.cg86 .camp-b>p{flex:1 0 auto}
+.cg86 .camp-b .meta{margin-top:0}
+.cg86 .camp.sgc .camp-btns{margin-top:16px}
+.meta-ghost{visibility:hidden}
+@media (max-width:600px){.camp-b .meta.meta-ghost{display:none}}
