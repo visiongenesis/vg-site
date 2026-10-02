@@ -1351,7 +1351,24 @@ body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none
 /* G101 2026-10-02: ONE Register button per camp tile (opens the picker in camp-links.js; JS off = link to Camp options) */
 .camp-b .camp-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
 .camp-b .camp-btns .btn{padding:13px 18px;font-size:15px;letter-spacing:.07em;flex:1 1 auto;justify-content:center}
-.camp.sgc .camp-btns{margin:auto 0 12px}
-.camp.sgc .camp-btns .reg-open-pink{background:transparent;color:var(--pink);box-shadow:inset 0 0 0 2px var(--pink)}
-.camp.sgc .camp-btns .reg-open-pink:hover{background:var(--pink);color:#12030b;box-shadow:0 12px 30px rgba(255,46,136,.35)}
-.camp.sgc .camp-btns+.sg-pill{margin-top:0}
+
+/* G103 2026-10-02: Girls tile - red Register button at the bottom like every tile; "Visit SuperGirl" is a hot-pink square on the photo
+   (lower right, clear of her face, the FOR HER shirt and the GIRLS label); on phones it becomes a full-width pink band above Register */
+.camp.sgc .camp-btns{margin-top:auto}
+.camp.sgc .tlink+.sg-band{margin-top:4px}
+.sg-box,.sg-band{display:flex;flex-direction:column;justify-content:center;background:var(--pink);color:#12030b;text-decoration:none;transition:transform .2s,box-shadow .2s,background .2s}
+.sg-box:hover,.sg-band:hover,.sg-box:focus-visible,.sg-band:focus-visible{background:#ff4d9b;box-shadow:0 14px 34px rgba(255,46,136,.5)}
+.sg-box:hover,.sg-box:focus-visible{transform:translateY(-3px)}
+.sgb-k{font-family:var(--cond);font-weight:600;font-size:12px;letter-spacing:.22em;text-transform:uppercase}
+.sgb-w{font-family:var(--display);font-size:34px;line-height:.95;text-transform:uppercase;letter-spacing:.01em;color:#12030b}
+.sgb-w b{font-weight:400;color:#fff}
+.sgb-l{font-family:var(--body);font-weight:600;font-size:13px;line-height:1.25;margin-top:6px}
+.sgb-a{font-size:22px;line-height:1;margin-top:auto;align-self:flex-end;transition:transform .2s}
+.sg-box:hover .sgb-a,.sg-band:hover .sgb-a{transform:translateX(4px)}
+.sg-box{position:absolute;z-index:2;right:22px;bottom:22px;width:clamp(150px,13vw,186px);aspect-ratio:1;padding:16px 16px 14px;box-shadow:0 18px 40px rgba(0,0,0,.45)}
+.sg-band{display:none}
+@media (max-width:600px){
+  .sg-box{display:none}
+  .sg-band{display:grid;grid-template-columns:1fr auto;grid-template-areas:"k a" "w a" "l a";align-items:center;column-gap:12px;padding:16px 18px;margin:6px 0 14px}
+  .sg-band .sgb-k{grid-area:k}.sg-band .sgb-w{grid-area:w;font-size:30px}.sg-band .sgb-l{grid-area:l;margin-top:4px}.sg-band .sgb-a{grid-area:a;margin:0;font-size:28px;align-self:center}
+}
