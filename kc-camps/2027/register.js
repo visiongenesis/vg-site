@@ -6,7 +6,7 @@
   const money = n => new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
   const camps = {
     supergold:{name:'SuperGold',days:'12 days · July 11–22',commuter:1900,resident:2150,photo:'camp-supergold.jpg',min:7,max:12},
-    superkid:{name:'SuperKid',days:'12 days · July 11–22 · entering grades 5–8',commuter:1900,resident:2150,photo:'r2-camp-superkid.jpg',min:5,max:8},
+    superkid:{name:'SuperKid',days:'12 days · July 11–22 · entering grades 6–8',commuter:1900,resident:2150,photo:'r2-camp-superkid.jpg',min:6,max:8},
     supergirl:{name:'SuperGirl',days:'12 days · July 11–22',commuter:1900,resident:2150,photo:'camp-girls.jpg',min:4,max:12},
     gold:{name:'High School Gold Medal Training Camp, 6-day',days:'6 days · July 11–16 (Ohio June 19–24)',commuter:950,resident:1050,photo:'camp-gold.jpg',min:6,max:12},
     msgold:{name:'Middle School Gold Medal Training Camp, 6-day',days:'6 days · July 11–16 (Ohio June 19–24) · entering grades 6–8',commuter:950,resident:1050,photo:'camp-future.jpg',min:6,max:8},

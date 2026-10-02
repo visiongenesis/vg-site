@@ -35,7 +35,6 @@
   const GMAP = {supergold:'supergirl', gold6:'ggold6', gold5:'ggold5', msgold6:'gmsgold6', msgold5:'gmsgold5', technique:'gtechnique'};
   const NOTES = {
     overlap:"Third and fourth graders can pick either camp. It's your family's call whether your son or daughter wants the longer, more serious camp or the shorter one.",
-    parent:'Campers entering 5th grade and below need a parent staying with them to be a resident camper.',
     rooming:'7th and 8th graders can choose SuperKid or SuperGold. The difference is mostly who they room with: middle schoolers or teens.',
     roomingG:'7th and 8th graders can choose SuperKid or SuperGirl. The difference is mostly who they room with: middle schoolers or teens.',
     ohio12:'The 12-day camps run in Pennsylvania only, July 11–22.'
@@ -45,7 +44,7 @@
     let ids = [], notes = [];
     if (grade <= 2) ids = ['future'];
     else if (grade <= 4) { ids = skill === 'new' ? ['future'] : ['kids6','kids5']; notes.push('overlap'); }
-    else if (grade === 5) { ids = ['kids6','kids5']; if (skill === 'serious') { ids.push('superkid'); notes.push('parent'); } }
+    else if (grade === 5) { ids = ['kids6','kids5']; }
     else if (grade <= 8) {
       if (skill === 'new') ids = ['technique'];
       else if (skill === 'dev') ids = ['msgold6','msgold5'];
@@ -56,7 +55,7 @@
       const had12 = ids.some(id => CAMPS[id].twelve);
       ids = ids.filter(id => !CAMPS[id].twelve && !CAMPS[id].five);
       if (!ids.length) ids = [grade <= 8 ? 'msgold6' : 'gold6'];
-      notes = notes.filter(n => n !== 'rooming' && n !== 'parent');
+      notes = notes.filter(n => n !== 'rooming' && n !== 'roomingG');
       if (had12) notes.push('ohio12');
     }
     /* girls in grades 6-12 get the girls' camp named directly (own Register button); grades 1-5 camps are boys and girls together */
