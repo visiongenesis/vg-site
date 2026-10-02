@@ -816,3 +816,52 @@ body:has(.menu-btn[aria-expanded="true"]) .reg-fab{display:none}
 
 /* G91a: keep "A camp of their own" on one line in the short timeline at desktop */
 @media (min-width:1181px){.history .tl.tl-s b{font-size:21px;white-space:nowrap}}
+
+/* ===== G100 (2026-10-02, Ryan): footer newsletter + kenchertow.com links row. Appended block; nothing above changed. ===== */
+.kc-more{grid-column:1 / -1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px 56px;align-items:end;padding-top:24px;border-top:1px solid rgba(255,255,255,.12)}
+.kc-more h4{margin:0 0 14px;font:700 13px/1 var(--body);letter-spacing:.16em;text-transform:uppercase;color:var(--pink)}
+.kc-links{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:flex-end}
+.kc-links a{font:700 12px/1.4 var(--body);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;color:var(--muted)}
+.kc-links a:hover{color:var(--pink)}
+.kc-news-form form{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:flex-end}
+.kc-news-form fieldset{max-width:none!important;border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:10px 12px;flex:1 1 100%}
+.kc-news-form .hs-form-field{flex:1 1 200px;margin:0}
+.kc-news-form label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+.kc-news-form .input{margin:0!important}
+.kc-news-form input[type=email],.kc-news-form input[type=text],.kc-news-form input[type=tel]{width:100%!important;box-sizing:border-box;min-height:46px;padding:10px 14px;background:#0d0b26;border:1px solid rgba(255,255,255,.22);border-radius:0;color:#fff;font:inherit;font-size:16px}
+.kc-news-form input:focus{outline:2px solid var(--pink);outline-offset:1px}
+.kc-news-form .hs-button{min-height:46px;padding:0 24px;background:var(--pink);color:#12030b;border:0;border-radius:0;font:700 14px/1 var(--body);letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.kc-news-form .hs-error-msgs{list-style:none;padding:0;margin:6px 0 0;color:#ff9b9b;font-size:13px}
+.kc-news-form .legal-consent-container,.kc-news-form .hs-richtext,.kc-news-form .submitted-message{flex:1 1 100%;font-size:13px;color:var(--muted)}
+@media (max-width:980px){.kc-more{grid-template-columns:1fr;align-items:start}.kc-links{justify-content:flex-start}}
+/* ===== end G100 ===== */
+
+/* RegFox go-live 2026-10-02: Camp options pills + per-camp Register buttons */
+.regset{display:flex;flex-direction:column;gap:12px;margin:16px 0}
+.rs-d{margin:0 0 6px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;opacity:.85}
+.rs-btns{display:flex;flex-wrap:wrap;gap:8px}
+.rs-btns .reg-btn{flex:1 1 190px;min-width:0;display:inline-flex;justify-content:center;text-align:center;padding:12px 12px;border-radius:999px;background:var(--pink,#ff2e88);color:#12030b;font-weight:700;text-decoration:none;line-height:1.2}
+.p-tap{margin:6px 0 0;font-weight:600}
+.p-sub{margin:18px 0 4px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px}
+.otable{width:100%;border-collapse:collapse}
+.otable td{vertical-align:middle}
+.pill{display:inline-flex;align-items:center;justify-content:center;padding:7px 14px;border:2px solid var(--pink,#ff2e88);border-radius:999px;font-weight:700;color:inherit;text-decoration:none;white-space:nowrap}
+.pill:hover,.pill:focus-visible{background:var(--pink,#ff2e88);color:#12030b}
+.pill .pl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.otable .rs{display:block;font-size:12px;margin-top:4px;opacity:.85}
+@media (max-width:620px){
+  .otable thead{display:none}
+  .otable tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 8px;padding:10px 0;border-top:1px solid rgba(127,127,127,.3)}
+  .otable th,.otable td{border:0!important;padding:0!important;text-align:left!important}
+  .otable th{grid-column:1/-1}
+  .pill{display:flex;width:100%;padding:9px 8px;white-space:normal}
+  .pill .pl{position:static;width:auto;height:auto;clip:auto;margin-right:4px}
+}
+/* fix after 2026-10-02 screenshots: options table spans the full box, normal text size in pills */
+.prices:has(.otable){grid-template-columns:1fr}
+.prices>*{min-width:0}
+.prices .otable td{font:700 16px/1.2 var(--body);color:var(--ink)}
+.prices .otable tbody tr:first-child td{color:var(--ink)}
+.prices .otable .pill{border-color:var(--pink-d,#d4136d);color:var(--ink)}
+@media (max-width:620px){.prices .otable td{font-size:14px}}
+.prices .p-head,.prices .p-sub,.prices .otable,.prices .p-note{grid-column:1/-1}

@@ -724,7 +724,7 @@ section{position:relative}
 .wall .t-q2 .display{font-size:clamp(40px,4.6vw,68px)}
 .wall .t-q2 .row p{font-size:16px}
 @media (max-width:620px){.wall .t-q2{padding:26px 22px}.wall .t-q2 .display{font-size:40px}}
-/* R5-4 Find your camp: heading + finder on the left; fees box on the right, raised so its SuperKid row ends level with
+/* R5-4 Find your camp: heading + finder on the left; fees box on the right, raised so its last row ends level with
    the bottom of the finder box; the fee notes sit in one navy tile under both columns */
 .find-grid{display:grid;grid-template-columns:1.35fr 1fr;grid-template-areas:"head prices" "card prices" "notes notes";column-gap:40px;align-items:start}
 .find-head{grid-area:head;padding-bottom:30px}
@@ -1275,3 +1275,79 @@ body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none
 .tlink:hover,.tlink:focus-visible{color:#fff}
 .camp.sgc .tlink{color:var(--pink)}
 .camp-card .tlink,.fs-body .tlink{color:var(--pink);margin:0 0 14px}
+
+/* ===== G100 (2026-10-02, Ryan): boys.html / youth.html camp pages + footer newsletter and kenchertow.com links row. Appended block; nothing above changed. ===== */
+.cp-hero{padding:clamp(56px,7vw,110px) 0 clamp(44px,5vw,70px)}
+.cp-hero h1{font-size:clamp(46px,7.4vw,112px);margin:0 0 26px;font-weight:400;max-width:15ch}
+.cp-hero .lede{max-width:780px}
+.cp-hero .hero-ctas{margin-top:30px}
+.cp-note{margin:26px 0 0;max-width:780px;color:var(--text-dim);font-size:15.5px}
+.cp-note a,.cp-jump a{color:var(--gold);font-weight:600}
+.cp-jump{margin:-6px 0 34px;font-family:var(--cond);font-size:15px;letter-spacing:.06em;color:var(--text-dim)}
+.cp-more{margin-top:34px}
+.cp-prices{max-width:900px;margin:0 auto}
+.cp-prices .hero-ctas{margin-top:24px}
+.kc-more{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:24px 56px;align-items:end;border-top:1px solid var(--line);padding:30px 0 34px}
+.foot .kc-links{display:flex;flex-wrap:wrap;gap:10px 22px;justify-content:flex-end}
+.foot .kc-links a{display:inline-block;margin:0;font-family:var(--cond);font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase}
+.kc-news-form form{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:flex-end}
+.kc-news-form fieldset{max-width:none!important;border:0;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:10px 12px;flex:1 1 100%}
+.kc-news-form .hs-form-field{flex:1 1 200px;margin:0}
+.kc-news-form label{display:block;font-size:13px;color:var(--text-dim);margin-bottom:6px}
+.kc-news-form .input{margin:0!important}
+.kc-news-form input[type=email],.kc-news-form input[type=text],.kc-news-form input[type=tel]{width:100%!important;box-sizing:border-box;min-height:46px;padding:10px 14px;background:#0a1430;border:1px solid rgba(255,255,255,.22);border-radius:0;color:#fff;font:inherit;font-size:16px}
+.kc-news-form input:focus{outline:2px solid var(--gold);outline-offset:1px}
+.kc-news-form .hs_submit{flex:0 0 auto}
+.kc-news-form .hs-button{min-height:46px;padding:0 24px;background:var(--red);color:#fff;border:0;border-radius:0;font-family:var(--cond);font-weight:600;font-size:15px;letter-spacing:.12em;text-transform:uppercase;cursor:pointer}
+.kc-news-form .hs-button:hover{background:#d80f3a}
+.kc-news-form .hs-error-msgs{list-style:none;padding:0;margin:6px 0 0;color:#ff9b9b;font-size:13px}
+.kc-news-form .legal-consent-container,.kc-news-form .hs-richtext,.kc-news-form .submitted-message{flex:1 1 100%;font-size:13px;color:var(--text-dim)}
+.kc-news-form .hs-form-required{color:var(--gold)}
+@media (max-width:980px){.kc-more{grid-template-columns:1fr;align-items:start}.foot .kc-links{justify-content:flex-start}}
+/* ===== end G100 ===== */
+
+/* ===== RegFox go-live 2026-10-02: per-date Register buttons, Camp options tabs, thanks page ===== */
+.regset{display:flex;flex-direction:column;gap:12px;margin-top:16px;width:100%}
+.rs-row{min-width:0}
+.rs-d{margin:0 0 6px;font-size:13px;line-height:1.35;color:var(--text-dim);font-family:var(--cond);letter-spacing:.05em;text-transform:uppercase}
+.rs-d b{color:inherit;font-weight:700}
+.rs-btns{display:flex;flex-wrap:wrap;gap:8px}
+.rs-btns .btn.reg-btn{flex:1 1 190px;min-width:0;justify-content:center;text-align:center;white-space:normal;padding:11px 12px;font-size:14px;letter-spacing:.04em;line-height:1.2}
+.flag-foot .regset{margin-top:0}
+.camp-b .regset{margin-top:auto;padding-top:14px}
+.camp.sgc .regset{margin-bottom:14px}
+.camp.sgc .reg-btn{background:var(--pink);color:#12030b}
+.finder-result .regset{margin-top:10px}
+.copts .anchor{display:block;position:relative;top:-90px;height:0}
+.copts-sub{margin:-6px 0 14px;font-weight:600}
+.ctabs{display:flex;gap:8px;margin:0 0 16px}
+.ctabs[hidden]{display:none}
+.ctabs [role=tab]{flex:1 1 0;min-width:0;padding:14px 6px;font-family:var(--cond);font-weight:700;font-size:18px;letter-spacing:.06em;text-transform:uppercase;border:2px solid var(--navy);background:transparent;color:var(--navy);border-radius:10px;cursor:pointer}
+.ctabs [role=tab][aria-selected=true]{background:var(--navy);color:#fff}
+.ctabs [role=tab]:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+.cp-h{margin:14px 0 6px;font-family:var(--cond);font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--navy)}
+.cp-h span{font-weight:400;letter-spacing:.04em;text-transform:none;color:var(--text-dim);margin-left:6px}
+.ctabs:not([hidden])~.cpanel>.cp-h:first-child{display:none}
+.otable td{vertical-align:middle}
+.pill{display:inline-flex;align-items:center;justify-content:center;padding:7px 14px;border:2px solid var(--navy);border-radius:999px;font-weight:700;color:var(--navy);text-decoration:none;white-space:nowrap;line-height:1.1;transition:background .15s,color .15s}
+.pill:hover,.pill:focus-visible{background:var(--navy);color:#fff}
+.pill .pl{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.otable .rs{margin-top:5px!important;font-size:12.5px!important;font-weight:600!important;line-height:1.25!important}
+@media (max-width:620px){
+  .otable thead{display:none}
+  .otable tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 8px;border-top:1px solid var(--line);padding:10px 0}
+  .otable td{border:0!important;padding:0!important;text-align:left!important}
+  .otable td:first-child{grid-column:1/-1;width:auto!important}
+  .pill{display:flex;width:100%;padding:9px 8px;font-size:14px;white-space:normal}
+  .pill .pl{position:static;width:auto;height:auto;clip:auto;margin-right:4px}
+  .otable .rs{text-align:center!important}
+}
+.thanks{padding:72px 0 88px}.thanks .lede{max-width:640px}.thanks-cta{margin:26px 0}
+/* camp options sit on the dark section: light-on-dark tabs and pills (fix after 2026-10-02 screenshots) */
+.copts .ctabs [role=tab]{border-color:var(--gold);color:#fff;background:transparent}
+.copts .ctabs [role=tab][aria-selected=true]{background:var(--gold);color:#0b1222}
+.copts .cp-h{color:var(--gold)}
+.copts .pill{border-color:var(--gold);color:#fff}
+.copts .pill:hover,.copts .pill:focus-visible{background:var(--gold);color:#0b1222}
+.copts .otable .rs{color:#c9cfdb!important}
+@media (max-width:620px){.ctabs{gap:6px}.ctabs [role=tab]{font-size:14px;letter-spacing:.01em;padding:12px 2px}}

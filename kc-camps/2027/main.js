@@ -13,30 +13,32 @@
   }
 
   /* camp chooser (G81, spec 10/1): grade entering fall 2027 + skill level + location -> every matching camp */
+  /* Register codes per location; prices, dates and links come from camp-links.js (KC_REG), never typed here */
   const CAMPS = {
-    supergold:{name:'SuperGold', len:'12 days', pa:'July 11–22', oh:'', res:2150, com:1900, reg:'supergold', twelve:true},
-    superkid:{name:'SuperKid', len:'12 days', pa:'July 11–22', oh:'', res:2150, com:1900, reg:'superkid', twelve:true},
-    kids6:{name:'Kids Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1800, com:950, rn:'camper + parent', reg:'kids'},
-    kids5:{name:'Kids Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:1550, com:850, rn:'camper + parent', reg:'kids5', five:true},
-    future:{name:'Future Champions', len:'4 days, parent-child', pa:'July 11–14 or July 18–21', oh:'June 19–22', res:1075, com:650, rn:'parent + child room', reg:'future'},
-    gold6:{name:'High School Gold Medal Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1050, com:950, reg:'gold'},
-    gold5:{name:'High School Gold Medal Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:950, com:850, reg:'fiveday', five:true},
-    msgold6:{name:'Middle School Gold Medal Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1050, com:950, reg:'msgold'},
-    msgold5:{name:'Middle School Gold Medal Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:950, com:850, reg:'msgold5', five:true},
-    technique:{name:'Technique Camp', len:'4 days', pa:'July 11–14', oh:'June 19–22', res:775, com:700, reg:'technique'},
-    /* girls' versions: same dates and prices, own Register targets (G86) */
-    supergirl:{name:'SuperGirl', len:'12 days', pa:'July 11–22', oh:'', res:2150, com:1900, reg:'supergirl', gender:'girl'},
-    ggold6:{name:'Girls High School Gold Medal Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1050, com:950, reg:'gold', gender:'girl'},
-    ggold5:{name:'Girls High School Gold Medal Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:950, com:850, reg:'fiveday', gender:'girl'},
-    gmsgold6:{name:'Girls Middle School Gold Medal Training Camp, 6-day', len:'6 days', pa:'July 11–16', oh:'June 19–24', res:1050, com:950, reg:'msgold', gender:'girl'},
-    gmsgold5:{name:'Girls Middle School Gold Medal Training Camp, 5-day', len:'5 days', pa:'July 18–22', oh:'', res:950, com:850, reg:'msgold5', gender:'girl'},
-    gtechnique:{name:'Girls Technique Camp', len:'4 days', pa:'July 11–14', oh:'June 19–22', res:775, com:700, reg:'girlstech', gender:'girl'}
+    supergold:{name:'SuperGold', len:'12 days', pa:['sg12'], oh:[], twelve:true},
+    sgms:{name:'SuperGold Middle School', len:'12 days', pa:['sk12'], oh:[], twelve:true},
+    kids6:{name:'Kids Training Camp, 6-day', len:'6 days', pa:['kt6'], oh:['okt6']},
+    kids5:{name:'Kids Training Camp, 5-day', len:'5 days', pa:['kt5'], oh:[], five:true},
+    future:{name:'Future Champions', len:'4 days, parent-child', pa:['fc1','fc2'], oh:['ofc']},
+    gold6:{name:'High School Gold Medal Training Camp, 6-day', len:'6 days', pa:['hs6'], oh:['ohs6']},
+    gold5:{name:'High School Gold Medal Training Camp, 5-day', len:'5 days', pa:['hs5'], oh:[], five:true},
+    msgold6:{name:'Middle School Gold Medal Training Camp, 6-day', len:'6 days', pa:['ms6'], oh:['oms6']},
+    msgold5:{name:'Middle School Gold Medal Training Camp, 5-day', len:'5 days', pa:['ms5'], oh:[], five:true},
+    technique:{name:'Technique Camp', len:'4 days', pa:['tc4'], oh:['otc4']},
+    /* girls' camps: same dates and prices, own codes */
+    supergirl:{name:'SuperGirl', len:'12 days', pa:['gl12'], oh:[], twelve:true, gender:'girl'},
+    sgirlms:{name:'SuperGirl Middle School', len:'12 days', pa:['sgm12'], oh:[], twelve:true, gender:'girl'},
+    ggold6:{name:'Girls High School Gold Medal Training Camp, 6-day', len:'6 days', pa:['gg6'], oh:['ogg6'], gender:'girl'},
+    ggold5:{name:'Girls High School Gold Medal Training Camp, 5-day', len:'5 days', pa:['gg5'], oh:[], five:true, gender:'girl'},
+    gmsgold6:{name:'Girls Middle School Gold Medal Training Camp, 6-day', len:'6 days', pa:['gms6'], oh:['ogms6'], gender:'girl'},
+    gmsgold5:{name:'Girls Middle School Gold Medal Training Camp, 5-day', len:'5 days', pa:['gms5'], oh:[], five:true, gender:'girl'},
+    gtechnique:{name:'Girls Technique Camp', len:'4 days', pa:['gt4'], oh:['ogt4'], gender:'girl'}
   };
-  const GMAP = {supergold:'supergirl', gold6:'ggold6', gold5:'ggold5', msgold6:'gmsgold6', msgold5:'gmsgold5', technique:'gtechnique'};
+  const GMAP = {supergold:'supergirl', sgms:'sgirlms', gold6:'ggold6', gold5:'ggold5', msgold6:'gmsgold6', msgold5:'gmsgold5', technique:'gtechnique'};
   const NOTES = {
     overlap:"Third and fourth graders can pick either camp. It's your family's call whether your son or daughter wants the longer, more serious camp or the shorter one.",
-    rooming:'7th and 8th graders can choose SuperKid or SuperGold. The difference is mostly who they room with: middle schoolers or teens.',
-    roomingG:'7th and 8th graders can choose SuperKid or SuperGirl. The difference is mostly who they room with: middle schoolers or teens.',
+    rooming:'7th and 8th graders can choose SuperGold Middle School or SuperGold. The difference is mostly who they room with: middle schoolers or teens.',
+    roomingG:'7th and 8th graders can choose SuperGirl Middle School or SuperGirl. The difference is mostly who they room with: middle schoolers or teens.',
     ohio12:'The 12-day camps run in Pennsylvania only, July 11–22.'
   };
   function choose(grade, skill, loc, gender){
@@ -48,7 +50,7 @@
     else if (grade <= 8) {
       if (skill === 'new') ids = ['technique'];
       else if (skill === 'dev') ids = ['msgold6','msgold5'];
-      else { ids = ['superkid']; if (grade >= 7) { ids.push('supergold'); notes.push('rooming'); } }
+      else { ids = ['sgms']; if (grade >= 7) { ids.push('supergold'); notes.push('rooming'); } }
     }
     else ids = skill === 'new' ? ['technique'] : skill === 'dev' ? ['gold6','gold5'] : ['supergold'];
     if (loc === 'oh') {
@@ -64,7 +66,6 @@
     return {ids, notes, girlsLink: swap};
   }
   window.KC_CHOOSE = choose;
-  const money = n => '$' + n.toLocaleString('en-US');
   const host = document.querySelector('#camp-finder');
   if (host) {
     host.innerHTML = `<form class="finder fv2" id="finder-form">
@@ -85,10 +86,12 @@
       const gender = document.querySelector('#gender').value;
       const r = choose(grade, skill, loc, gender);
       const place = loc === 'oh' ? 'Ohio' : 'Pennsylvania';
+      const R = window.KC_REG;
       const items = r.ids.map(id => {
         const c = CAMPS[id];
-        const q = new URLSearchParams({camp:c.reg, gender, location:loc, grade:String(grade)});
-        return `<li data-camp="${id}"><div><h3>${c.name}</h3><p class="fr-meta">${c.len} · ${loc === 'oh' ? c.oh : c.pa}, 2027</p><p class="fr-price">Resident ${money(c.res)}${c.rn ? ` (${c.rn})` : ''} · Commuter ${money(c.com)}</p></div><a class="btn" href="register.html?${q}">Register <span class="arr" aria-hidden="true">→</span></a></li>`;
+        const codes = loc === 'oh' ? c.oh : c.pa;
+        const rows = codes.map(code => { const d = R.byCode[code]; return `<div class="rs-row"><p class="rs-d"><b>${d.dates}, 2027</b>${d.rn ? ` · resident price covers ${d.rn}` : ''}</p><div class="rs-btns">${R.btn(code,'r')}${R.btn(code,'c')}</div></div>`; }).join('');
+        return `<li data-camp="${id}"><div><h3>${c.name}</h3><p class="fr-meta">${c.len} · ${place}</p><div class="regset">${rows}</div></div></li>`;
       }).join('');
       const notes = r.notes.map(n => `<p class="fr-note">${NOTES[n]}</p>`).join('');
       const res = document.querySelector('#finder-result');
@@ -97,6 +100,21 @@
       res.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block:'nearest'});
     });
   }
+
+
+  /* Camp options: three tabs (Pennsylvania | Ohio | Girls). Without JS all three tables show. */
+  document.querySelectorAll('.copts').forEach(box => {
+    const list = box.querySelector('[role=tablist]'); if (!list) return;
+    const tabs = [...list.querySelectorAll('[role=tab]')];
+    const show = (id, focus) => tabs.forEach(tb => { const on = tb.id === id; tb.setAttribute('aria-selected', String(on)); tb.tabIndex = on ? 0 : -1; document.getElementById(tb.getAttribute('aria-controls')).hidden = !on; if (on && focus) tb.focus(); });
+    tabs.forEach((tb, i) => {
+      tb.addEventListener('click', () => show(tb.id));
+      tb.addEventListener('keydown', e => { const k = {ArrowRight:i+1, ArrowLeft:i-1, Home:0, End:tabs.length-1}[e.key]; if (k === undefined) return; e.preventDefault(); show(tabs[(k + tabs.length) % tabs.length].id, true); });
+    });
+    list.hidden = false;
+    const pick = () => show(location.hash === '#camp-girls' ? 'tab-girls' : location.hash === '#camp-ohio' ? 'tab-oh' : 'tab-pa');
+    pick(); addEventListener('hashchange', pick);
+  });
 
   /* keep headings from ending on a lone word */
   document.querySelectorAll('h2,h3,.qtile .display,.t-q2 .display,.kenq blockquote').forEach(h => {
