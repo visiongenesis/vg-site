@@ -105,3 +105,6 @@
 /* G106 (2026-10-02) editor pass: no lone words or numbers on a last line; headings and short lines balance, paragraphs avoid a one-word last line */
 h1,h2,h3,h4,.display,.kicker,.lede,figcaption,figcaption span,.meta,.tlink,.btn,td,th,.where,.kcp h2,.kcp-o,.tag,.sc-tag,.hero-camps li{text-wrap:balance}
 p,li,dd,blockquote,.ans p,.kcp p{text-wrap:pretty}
+
+/* G111 HubSpot newsletter overlay CTA suppressed */
+#hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}

@@ -890,3 +890,8 @@ body:has(.menu-btn[aria-expanded="true"]) .reg-fab{display:none}
 #kcacClose{min-width:44px!important;min-height:44px!important;display:flex!important;align-items:center;justify-content:center}
 /* #3 floating Register: on desktop it waits until the hero has scrolled away (main.js/sg.js add .show), and sits in the right-hand stack above Ask Coach. Phones unchanged. */
 @media (min-width:900px){.reg-fab{left:auto!important;right:22px;bottom:88px}.fab-io .reg-fab:not(.show){opacity:0;visibility:hidden;pointer-events:none}.fab-io .reg-fab{transition:opacity .25s,visibility .25s,transform .2s,box-shadow .2s}}
+
+/* G111 SuperGirl price pills 44px tap target; "camper + parent" label 13px; HubSpot overlay CTA suppressed (Ryan: "turn it off") */
+a.pill.reg-pill,.otable a.pill{min-height:44px}
+.otable .rs,small.rs{font-size:13px!important}
+#hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}

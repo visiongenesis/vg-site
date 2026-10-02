@@ -1418,3 +1418,21 @@ a.pill.reg-pill{min-height:44px}
 
 /* #7: the table caption rule above uses !important, so this one must too */
 .otable .rs{font-size:13px!important}
+/* G111 camp options grouped by camp: one block per camp, dates as sub-rows; parent line on Kids Training / Future Champions */
+.otable{table-layout:fixed;width:100%}
+.otable th.c-n,#panel-girls .otable th.c-n{width:36%}.otable th.c-d,#panel-girls .otable th.c-d{width:20%;text-align:left}.otable th.c-r,.otable th.c-c,#panel-girls .otable th.c-r,#panel-girls .otable th.c-c{width:22%}
+.otable td.cn{text-align:left;font-weight:500;vertical-align:top;padding-right:10px}
+.otable td.cd{text-align:left;font-weight:500;font-size:14.5px;color:var(--text-dim);padding-left:14px}
+.otable tbody.cg tr+tr td{border-top:0;padding-top:2px}
+.otable tbody.cg tr:not(:last-child) td:not(.cn){padding-bottom:6px}
+.ptable td small.pline{display:block;font-size:14px;font-weight:400;line-height:1.4;margin-top:6px;color:var(--text-dim)}
+@media (max-width:620px){
+  .otable,.otable tbody{display:block}
+  .otable tbody.cg{border-top:1px solid var(--line);padding:10px 0}
+  .otable tbody.cg tr{display:grid;grid-template-columns:1fr 1fr;gap:6px 8px;border-top:0;padding:3px 0}
+  .otable td.cn,.otable td.cd{grid-column:1/-1}
+  .otable td.cd{font-size:13px;padding-top:4px!important}
+  .ptable td small.pline{font-size:14px}
+}
+/* G111 HubSpot newsletter overlay CTA suppressed (Ryan: "turn it off"; CTA still published in HubSpot) */
+#hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}
