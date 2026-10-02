@@ -1313,10 +1313,6 @@ body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none
 .rs-d b{color:inherit;font-weight:700}
 .rs-btns{display:flex;flex-wrap:wrap;gap:8px}
 .rs-btns .btn.reg-btn{flex:1 1 190px;min-width:0;justify-content:center;text-align:center;white-space:normal;padding:11px 12px;font-size:14px;letter-spacing:.04em;line-height:1.2}
-.flag-foot .regset{margin-top:0}
-.camp-b .regset{margin-top:auto;padding-top:14px}
-.camp.sgc .regset{margin-bottom:14px}
-.camp.sgc .reg-btn{background:var(--pink);color:#12030b}
 .finder-result .regset{margin-top:10px}
 .copts .anchor{display:block;position:relative;top:-90px;height:0}
 .copts-sub{margin:-6px 0 14px;font-weight:600}
@@ -1351,3 +1347,11 @@ body:has(.nav.open) .reg-fab,body:has(#kcacWrap.kcac-open) .reg-fab{display:none
 .copts .pill:hover,.copts .pill:focus-visible{background:var(--gold);color:#0b1222}
 .copts .otable .rs{color:#c9cfdb!important}
 @media (max-width:620px){.ctabs{gap:6px}.ctabs [role=tab]{font-size:14px;letter-spacing:.01em;padding:12px 2px}}
+
+/* G101 2026-10-02: ONE Register button per camp tile (opens the picker in camp-links.js; JS off = link to Camp options) */
+.camp-b .camp-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.camp-b .camp-btns .btn{padding:13px 18px;font-size:15px;letter-spacing:.07em;flex:1 1 auto;justify-content:center}
+.camp.sgc .camp-btns{margin:auto 0 12px}
+.camp.sgc .camp-btns .reg-open-pink{background:transparent;color:var(--pink);box-shadow:inset 0 0 0 2px var(--pink)}
+.camp.sgc .camp-btns .reg-open-pink:hover{background:var(--pink);color:#12030b;box-shadow:0 12px 30px rgba(255,46,136,.35)}
+.camp.sgc .camp-btns+.sg-pill{margin-top:0}

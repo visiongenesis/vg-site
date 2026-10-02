@@ -432,3 +432,143 @@ window.KC_REG = /*DATA*/{
   document.addEventListener('auxclick', store, true);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', sync); else sync();
 })(window.KC_REG);
+/* G101 2026-10-02: Register picker. Each camp tile has ONE a.reg-open (data-pick="codes"); with JavaScript off it is a plain
+   link to the Camp options table. With JavaScript on it opens a small dialog (centred card on desktop, bottom sheet on
+   phones) listing every date of that tile's camp(s) with a Resident and a Commuter choice. Each choice is an a[data-reg]
+   built from this same table, so the follow-up code is stored by store() above exactly as before. */
+(function (R) {
+  'use strict';
+  if (!R || !document.querySelectorAll) return;
+  var LOC = { pa: 'Pennsylvania', oh: 'Ohio' };
+  var CSS = [
+    '.kcp-ov{position:fixed;inset:0;z-index:2147483000;display:flex;align-items:center;justify-content:center;padding:24px;background:rgba(2,6,18,.72);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px);opacity:0;transition:opacity .18s}',
+    '.kcp-ov.on{opacity:1}',
+    '.kcp{--a:#f2b705;--ah:#ffd23f;--at:#0b1222;position:relative;width:min(540px,100%);max-height:min(86vh,760px);overflow:auto;overscroll-behavior:contain;background:linear-gradient(170deg,#0a1f4d 0%,#061a40 38%,#030b1c 100%);color:#fff;border-top:4px solid #bf0a30;box-shadow:0 30px 80px rgba(0,0,0,.55);padding:26px 28px 22px;font-family:"Montserrat","Inter",system-ui,sans-serif;transform:translateY(10px);transition:transform .2s}',
+    '.kcp-ov.on .kcp{transform:none}',
+    '.kcp.pink{--a:#ff2e88;--ah:#ff5aa2;--at:#12030b;border-top-color:#ff2e88;background:linear-gradient(170deg,#2a0a1e 0%,#140818 40%,#060a1e 100%)}',
+    '.kcp-k{margin:0 0 6px;font-family:"Oswald","Arial Narrow",sans-serif;font-weight:600;font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--a)}',
+    '.kcp h2{margin:0 44px 4px 0;font-family:"Anton","Oswald","Impact",sans-serif;font-weight:400;font-size:clamp(26px,3.2vw,32px);line-height:1.05;text-transform:uppercase;letter-spacing:.01em;color:#fff}',
+    '.kcp-x{position:absolute;top:14px;right:14px;width:40px;height:40px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,.22);border-radius:50%;background:transparent;color:#fff;font-size:22px;line-height:1;cursor:pointer}',
+    '.kcp-x:hover{border-color:var(--a);color:var(--a)}',
+    '.kcp :focus-visible{outline:3px solid var(--a);outline-offset:2px}',
+    '.kcp-g{margin:20px 0 2px;font-family:"Oswald","Arial Narrow",sans-serif;font-weight:600;font-size:17px;letter-spacing:.08em;text-transform:uppercase;color:#fff}',
+    '.kcp-g span{display:block;margin-top:2px;font-family:"Montserrat",system-ui,sans-serif;font-weight:500;font-size:13px;letter-spacing:0;text-transform:none;color:#aeb8cf}',
+    '.kcp-row{padding:14px 0;border-top:1px solid rgba(255,255,255,.12)}',
+    '.kcp-g+.kcp-row{border-top:0;padding-top:8px}',
+    '.kcp-list>.kcp-row:first-child{border-top:0;margin-top:10px}',
+    '.kcp-d{margin:0 0 10px;font-family:"Oswald","Arial Narrow",sans-serif;font-size:15px;letter-spacing:.06em;text-transform:uppercase;color:#c3cbdb}',
+    '.kcp-d b{color:#fff;font-weight:600}',
+    '.kcp-ch{display:grid;grid-template-columns:1fr 1fr;gap:10px}',
+    '.kcp-o{display:flex;align-items:baseline;justify-content:space-between;gap:8px;padding:11px 14px;border:1.5px solid rgba(255,255,255,.28);border-radius:6px;color:#fff;text-decoration:none;font-family:"Oswald","Arial Narrow",sans-serif;font-size:14px;letter-spacing:.08em;text-transform:uppercase;transition:background .15s,border-color .15s,color .15s}',
+    '.kcp-o b{font-family:"Montserrat",system-ui,sans-serif;font-size:16px;font-weight:700;letter-spacing:0;color:var(--a)}',
+    '.kcp-o:hover,.kcp-o:focus-visible{background:var(--a);border-color:var(--a);color:var(--at)}',
+    '.kcp-o:hover b,.kcp-o:focus-visible b{color:var(--at)}',
+    '.kcp-n{margin:8px 0 0;font-size:12.5px;color:#aeb8cf}',
+    '.kcp-f{margin:14px 0 0;padding-top:14px;border-top:1px solid rgba(255,255,255,.12);font-size:13px;line-height:1.5;color:#aeb8cf}',
+    '.kcp-f a{color:var(--a)}',
+    'html.kcp-lock,html.kcp-lock body{overflow:hidden}',
+    '.kcp-tile{cursor:pointer}',
+    '@media (max-width:600px){',
+    ' .kcp-ov{align-items:flex-end;padding:0}',
+    ' .kcp{width:100%;max-height:88vh;border-radius:16px 16px 0 0;border-top-width:0;box-shadow:0 -10px 40px rgba(0,0,0,.5);padding:28px 18px calc(18px + env(safe-area-inset-bottom));transform:translateY(40px)}',
+    ' .kcp::before{content:"";position:absolute;top:9px;left:50%;width:42px;height:4px;margin-left:-21px;border-radius:2px;background:rgba(255,255,255,.3)}',
+    ' .kcp-x{top:12px;right:10px}',
+    ' .kcp-o{flex-direction:column;align-items:flex-start;gap:2px;padding:10px 12px}',
+    '}',
+    '@media (prefers-reduced-motion:reduce){.kcp-ov,.kcp{transition:none}}'
+  ].join('\n');
+
+  function base(c) { return c.name.split(',')[0]; }
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function h(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); }
+
+  function rowHtml(c) {
+    var o = function (k) {
+      var lab = k === 'c' ? 'Commuter' : 'Resident', price = R.money(k === 'c' ? c.com : c.res);
+      return '<a class="kcp-o" data-reg="' + c.code + '" data-h="' + k + '" href="' + h(R.link(c.code, k)) + '" aria-label="' +
+        h(base(c) + ', ' + LOC[c.loc] + ', ' + c.dates + ', ' + lab + ' ' + price) + '">' + lab + ' <b>' + price + '</b></a>';
+    };
+    return '<div class="kcp-row"><p class="kcp-d"><b>' + LOC[c.loc] + '</b> · ' + h(c.dates) + ' · ' + h(c.len) + '</p>' +
+      '<div class="kcp-ch">' + o('r') + o('c') + '</div>' +
+      (c.rn ? '<p class="kcp-n">Resident price covers ' + h(c.rn) + '.</p>' : '') + '</div>';
+  }
+
+  var ov, card, opener, prevPad;
+  function close() {
+    if (!ov) return;
+    var o = ov; ov = null;
+    document.removeEventListener('keydown', onKey, true);
+    document.documentElement.classList.remove('kcp-lock');
+    document.body.style.paddingRight = prevPad || '';
+    o.classList.remove('on');
+    setTimeout(function () { if (o.parentNode) o.parentNode.removeChild(o); }, 200);
+    if (opener && opener.focus) opener.focus();
+  }
+  function focusables() { return Array.prototype.slice.call(card.querySelectorAll('a[href],button')); }
+  function onKey(e) {
+    if (e.key === 'Escape' || e.key === 'Esc') { e.preventDefault(); close(); return; }
+    if (e.key !== 'Tab') return;
+    var f = focusables(), i = f.indexOf(document.activeElement);
+    if (e.shiftKey && (i <= 0)) { e.preventDefault(); f[f.length - 1].focus(); }
+    else if (!e.shiftKey && (i === f.length - 1 || i === -1)) { e.preventDefault(); f[0].focus(); }
+  }
+  function open(btn) {
+    if (ov) close();
+    var codes = (btn.getAttribute('data-pick') || '').split(',').filter(function (x) { return R.byCode[x]; });
+    if (!codes.length) return false;
+    opener = btn;
+    var camps = codes.map(function (x) { return R.byCode[x]; });
+    var names = [];
+    camps.forEach(function (c) { if (names.indexOf(base(c)) < 0) names.push(base(c)); });
+    var pink = codes.some(function (x) { return /^(gl12|sgm12)$/.test(x); }) || !!btn.closest('.sgc');
+    var body = '';
+    if (names.length > 1) {
+      names.forEach(function (n) {
+        var g = camps.filter(function (c) { return base(c) === n; });
+        body += '<h3 class="kcp-g">' + h(n) + '<span>' + h(g[0].who) + '</span></h3>' + g.map(rowHtml).join('');
+      });
+    } else body = camps.map(rowHtml).join('');
+    var girlsMore = pink && btn.getAttribute('href').indexOf('#camp-girls') >= 0;
+    ov = el('div', 'kcp-ov');
+    card = el('div', 'kcp' + (pink ? ' pink' : ''),
+      '<p class="kcp-k">2027 · Choose your dates</p><h2 id="kcp-h">' + h(btn.getAttribute('data-title') || names[0]) + '</h2>' +
+      '<button type="button" class="kcp-x" aria-label="Close">×</button>' +
+      '<div class="kcp-list">' + body + '</div>' +
+      '<p class="kcp-f">The registration form opens with this camp, date and option already chosen.' +
+      (girlsMore ? ' Girls Gold Medal and Girls Technique camps: <a href="#camp-girls">see all girls camp options</a>.' : '') + '</p>');
+    card.setAttribute('role', 'dialog'); card.setAttribute('aria-modal', 'true'); card.setAttribute('aria-labelledby', 'kcp-h');
+    ov.appendChild(card);
+    ov.addEventListener('click', function (e) { if (e.target === ov) close(); });
+    card.querySelector('.kcp-x').addEventListener('click', close);
+    var more = card.querySelector('.kcp-f a'); if (more) more.addEventListener('click', function () { close(); });
+    var sw = window.innerWidth - document.documentElement.clientWidth;
+    prevPad = document.body.style.paddingRight;
+    if (sw > 0) document.body.style.paddingRight = sw + 'px';
+    document.documentElement.classList.add('kcp-lock');
+    document.body.appendChild(ov);
+    document.addEventListener('keydown', onKey, true);
+    requestAnimationFrame(function () { if (ov) ov.classList.add('on'); });
+    var first = card.querySelector('.kcp-o'); if (first) first.focus();
+    return true;
+  }
+  R.openPicker = open; R.closePicker = close;
+
+  function init() {
+    var s = el('style'); s.id = 'kcp-css'; s.textContent = CSS; document.head.appendChild(s);
+    document.querySelectorAll('a.reg-open[data-pick]').forEach(function (b) {
+      var t = b.closest('.camp'); if (t) t.classList.add('kcp-tile');
+    });
+  }
+  document.addEventListener('click', function (e) {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    var b = e.target.closest && e.target.closest('a.reg-open[data-pick]');
+    if (!b) {  /* a click anywhere on a camp tile (not on another link) opens its picker, as the whole tile was a link before */
+      var t = e.target.closest && e.target.closest('.kcp-tile');
+      if (!t || e.target.closest('a,button,[role=link],input,select,label')) return;
+      b = t.querySelector('a.reg-open[data-pick]');
+      if (!b) return;
+    }
+    if (open(b)) e.preventDefault();
+  });
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init); else init();
+})(window.KC_REG);

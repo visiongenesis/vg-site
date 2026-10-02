@@ -837,10 +837,6 @@ body:has(.menu-btn[aria-expanded="true"]) .reg-fab{display:none}
 /* ===== end G100 ===== */
 
 /* RegFox go-live 2026-10-02: Camp options pills + per-camp Register buttons */
-.regset{display:flex;flex-direction:column;gap:12px;margin:16px 0}
-.rs-d{margin:0 0 6px;font-size:13px;letter-spacing:.04em;text-transform:uppercase;opacity:.85}
-.rs-btns{display:flex;flex-wrap:wrap;gap:8px}
-.rs-btns .reg-btn{flex:1 1 190px;min-width:0;display:inline-flex;justify-content:center;text-align:center;padding:12px 12px;border-radius:999px;background:var(--pink,#ff2e88);color:#12030b;font-weight:700;text-decoration:none;line-height:1.2}
 .p-tap{margin:6px 0 0;font-weight:600}
 .p-sub{margin:18px 0 4px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:13px}
 .otable{width:100%;border-collapse:collapse}
