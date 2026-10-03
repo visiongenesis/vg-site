@@ -1436,3 +1436,8 @@ a.pill.reg-pill{min-height:44px}
 }
 /* G111 HubSpot newsletter overlay CTA suppressed (Ryan: "turn it off"; CTA still published in HubSpot) */
 #hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}
+
+/* G113 — the "camper + parent" / "parent + child room" caption under a price pill shares the class name
+   of the stat tiles (.rs), which paints a dark gradient over it. Reset it so the caption is readable. */
+.ptable small.rs,td small.rs,small.rs{position:static;overflow:visible;background:none;display:block;margin:5px 0 0;padding:0;font-size:13px;line-height:1.3;color:var(--text-dim);text-align:center;letter-spacing:.01em}
+.ptable small.rs::after,td small.rs::after,small.rs::after{display:none;content:none}
