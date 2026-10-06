@@ -895,3 +895,10 @@ body:has(.menu-btn[aria-expanded="true"]) .reg-fab{display:none}
 a.pill.reg-pill,.otable a.pill{min-height:44px}
 .otable .rs,small.rs{font-size:13px!important}
 #hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}
+
+/* G115 (2026-10-06) — Ken's old HubSpot newsletter pop-up (CTA 303795515104) fires on scroll and locks the page
+   (adds a generated class to <body> with overflow:hidden). The pop-up itself is hidden above; this keeps the page
+   scrollable. Only our own camp picker (html.kcp-lock) may freeze the page. */
+html:not(.kcp-lock) body{overflow-y:auto!important}
+html:not(.kcp-lock){overflow-y:visible!important}
+#hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}
