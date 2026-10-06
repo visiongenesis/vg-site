@@ -8,15 +8,15 @@
     supergold:{name:'SuperGold',days:'12 days · July 11–22',commuter:1900,resident:2150,photo:'ken-chertow-summer-wrestling-camp-supergold-camp-training.jpg',min:7,max:12},
     superkid:{name:'SuperKid',days:'12 days · July 11–22 · entering grades 6–8',commuter:1900,resident:2150,photo:'ken-chertow-youth-wrestling-camp-superkid-camp-photo.jpg',min:6,max:8},
     supergirl:{name:'SuperGirl',days:'12 days · July 11–22',commuter:1900,resident:2150,photo:'ken-chertow-summer-wrestling-camp-girls-camp-photo.jpg',min:4,max:12},
-    gold:{name:'High School Gold Medal Training Camp, 6-day',days:'6 days · July 11–16 (Ohio June 19–24)',commuter:950,resident:1050,photo:'ken-chertow-summer-wrestling-camp-gold-medal-camp-photo.jpg',min:6,max:12},
-    msgold:{name:'Middle School Gold Medal Training Camp, 6-day',days:'6 days · July 11–16 (Ohio June 19–24) · entering grades 6–8',commuter:950,resident:1050,photo:'ken-chertow-youth-wrestling-camp-middle-school-pair-drills.jpg',min:6,max:8},
+    gold:{name:'High School Gold Medal Training Camp, 6-day',days:'6 days · July 11–16 (Ohio June 20–25)',commuter:950,resident:1050,photo:'ken-chertow-summer-wrestling-camp-gold-medal-camp-photo.jpg',min:6,max:12},
+    msgold:{name:'Middle School Gold Medal Training Camp, 6-day',days:'6 days · July 11–16 (Ohio June 20–25) · entering grades 6–8',commuter:950,resident:1050,photo:'ken-chertow-youth-wrestling-camp-middle-school-pair-drills.jpg',min:6,max:8},
     msgold5:{name:'Middle School Gold Medal Training Camp, 5-day',days:'5 days · Pennsylvania, July 18–22 · entering grades 6–8',commuter:850,resident:950,photo:'ken-chertow-youth-wrestling-camp-middle-school-pair-drills.jpg',min:6,max:8},
-    kids:{name:'Kids Training Camp, 6-day',days:'6 days · July 11–16 (Ohio June 19–24) · entering grades 3–5 · resident price covers camper + parent',commuter:950,resident:1800,photo:'ken-chertow-kids-wrestling-camp-staff-moment.jpg',min:3,max:5},
+    kids:{name:'Kids Training Camp, 6-day',days:'6 days · July 11–16 (Ohio June 20–25) · entering grades 3–5 · resident price covers camper + parent',commuter:950,resident:1800,photo:'ken-chertow-kids-wrestling-camp-staff-moment.jpg',min:3,max:5},
     kids5:{name:'Kids Training Camp, 5-day',days:'5 days · Pennsylvania, July 18–22 · entering grades 3–5 · resident price covers camper + parent',commuter:850,resident:1550,photo:'ken-chertow-kids-wrestling-camp-staff-moment.jpg',min:3,max:5},
     fiveday:{name:'High School Gold Medal Training Camp, 5-day',days:'5 days · Pennsylvania, July 18–22',commuter:850,resident:950,photo:'ken-chertow-summer-wrestling-camp-coach-on-the-mat.jpg',min:6,max:12},
-    technique:{name:'Technique Camp',days:'4 days · July 11–14 (Ohio June 19–22)',commuter:700,resident:775,photo:'ken-chertow-summer-wrestling-camp-technique-camp-photo.jpg',min:6,max:12},
-    girlstech:{name:'Girls Technique Camp',days:'4 days · July 11–14 (Ohio June 19–22)',commuter:700,resident:775,photo:'ken-chertow-summer-wrestling-camp-girls-camp-photo.jpg',min:6,max:12},
-    future:{name:'Future Champions',days:'4 days, parent-child · July 11–14 or July 18–21 (Ohio June 19–22) · entering grades 1–4',commuter:650,resident:1075,photo:'ken-chertow-kids-wrestling-camp-future-champions-tie-up.jpg',min:1,max:4}
+    technique:{name:'Technique Camp',days:'4 days · July 11–14 (Ohio June 20–23)',commuter:700,resident:775,photo:'ken-chertow-summer-wrestling-camp-technique-camp-photo.jpg',min:6,max:12},
+    girlstech:{name:'Girls Technique Camp',days:'4 days · July 11–14 (Ohio June 20–23)',commuter:700,resident:775,photo:'ken-chertow-summer-wrestling-camp-girls-camp-photo.jpg',min:6,max:12},
+    future:{name:'Future Champions',days:'4 days, parent-child · July 11–14 or July 18–21 (Ohio June 20–23) · entering grades 1–4',commuter:650,resident:1075,photo:'ken-chertow-kids-wrestling-camp-future-champions-tie-up.jpg',min:1,max:4}
   };
   const girls = params.get('program') === 'supergirl' || params.get('site') === 'girls' || (params.get('gender') === 'girl' && ['supergirl','gold','fiveday','msgold','msgold5','technique','girlstech'].includes(params.get('camp')));
   let id = Object.hasOwn(camps, params.get('camp')) ? params.get('camp') : (girls ? 'supergirl' : Object.hasOwn(camps, params.get('program')) ? params.get('program') : 'supergold');

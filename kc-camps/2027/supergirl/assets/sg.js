@@ -1,6 +1,6 @@
 /* EDIT CAMP DATES HERE. Every [data-camp-date] on the page is filled from this one spot.
    (The same text sits in the HTML as a no-JS fallback.) */
-var SG_CAMP_DATES={pa:"July 11\u201322,\u00a02027",oh:"June 19\u201324,\u00a02027"};
+var SG_CAMP_DATES={pa:"July 11\u201322,\u00a02027",oh:"June 20\u201325,\u00a02027"};
 (function(){[].forEach.call(document.querySelectorAll('[data-camp-date]'),function(el){var v=SG_CAMP_DATES[el.getAttribute('data-camp-date')];if(v)el.textContent=v;});})();
 /* SuperGirl: menu toggle + progressive scroll reveal. Content is fully visible without JS. */
 (function(){
