@@ -902,3 +902,17 @@ a.pill.reg-pill,.otable a.pill{min-height:44px}
 html:not(.kcp-lock) body{overflow-y:auto!important}
 html:not(.kcp-lock){overflow-y:visible!important}
 #hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}
+
+/* G116 (2026-10-06) — Ashley Iliff Gocklin + Taina Fernandez join the role-models grid as a sixth row */
+.bento{grid-template-areas:
+   "helen helen helen helen helen helen helen helen nicole nicole nicole nicole"
+   "helen helen helen helen helen helen helen helen medal medal medal medal"
+   "kylie kylie kylie kylie belg belg belg belg belg belg belg belg"
+   "kylie kylie kylie kylie quote quote quote ava ava ava ava ava"
+   "jenny jenny jenny jenny jenny jenny jenny zoe zoe zoe zoe zoe"
+   "ashley ashley ashley ashley ashley ashley taina taina taina taina taina taina";
+  grid-template-rows:270px 330px 360px 310px auto 380px}
+.rm-ashley{grid-area:ashley} .rm-ashley>img{object-position:50% 30%}
+.rm-taina{grid-area:taina} .rm-taina>img{object-position:50% 35%}
+@media (max-width:1280px){.bento{grid-template-rows:250px 310px 340px 300px auto 350px}}
+@media (max-width:1024px){.bento{grid-template-areas:none;grid-template-rows:none} .rm-ashley,.rm-taina{grid-area:auto}}

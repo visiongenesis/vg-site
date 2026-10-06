@@ -1448,3 +1448,7 @@ a.pill.reg-pill{min-height:44px}
 html:not(.kcp-lock) body{overflow-y:auto!important}
 html:not(.kcp-lock){overflow-y:visible!important}
 #hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}
+
+/* G116 (2026-10-06) — "share your story" line under the testimonials */
+.voices-cta{margin:34px auto 0;max-width:720px;text-align:center;font-size:17px;line-height:1.55;color:var(--text-dim)}
+.voices-cta a{color:var(--gold);font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
