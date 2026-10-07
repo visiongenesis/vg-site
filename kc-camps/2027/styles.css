@@ -1452,3 +1452,11 @@ html:not(.kcp-lock){overflow-y:visible!important}
 /* G116 (2026-10-06) — "share your story" line under the testimonials */
 .voices-cta{margin:34px auto 0;max-width:720px;text-align:center;font-size:17px;line-height:1.55;color:var(--text-dim)}
 .voices-cta a{color:var(--gold);font-weight:600;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+
+/* G119 (2026-10-07) — "Testimonials" joins the top menu (9 items). Tighter link spacing on every desktop width so the
+   logo, its "Gold Medal Training Camps" line and the menu never touch, and the logo name stays on one line. */
+.brand{flex-shrink:0} .brand b,.brand small{white-space:nowrap}
+@media (min-width:981px){.navlinks{gap:18px} .navlinks a{font-size:14.5px;letter-spacing:.07em} .navlinks .btn{padding:12px 18px;font-size:14px}}
+@media (min-width:981px) and (max-width:1180px){.navlinks{gap:13px} .navlinks a{font-size:13.5px;letter-spacing:.05em} .navlinks .btn{padding:11px 14px;font-size:13.5px}}
+@media (min-width:981px) and (max-width:1100px){.brand small{display:none} .brand b{font-size:23px}}
+@media (min-width:981px) and (max-width:1060px){.navlinks{gap:10px} .navlinks a{font-size:13px;letter-spacing:.04em} .navlinks .btn{padding:10px 12px;font-size:13px} .brand b{font-size:21px} .brand img{width:44px;height:44px}}
