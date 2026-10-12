@@ -766,7 +766,8 @@ section{position:relative}
 .reel{margin:0;min-width:0}
 .reel video{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover;background:#000;border:1px solid var(--line)}
 .reel figcaption{margin-top:12px;font-family:var(--cond);font-weight:500;letter-spacing:.14em;text-transform:uppercase;font-size:14px;color:#fff;text-align:center}
-@media (max-width:760px){.reels{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:72%;gap:14px;max-width:none;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;padding-bottom:10px}.reel{scroll-snap-align:start}}
+/* G124 (Ryan 10/12, iPhone): no sideways swipe row of videos on phones. Two columns in the normal page flow, so a finger scrolling the page never has to fight a video row. */
+@media (max-width:760px){.reels{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 12px;max-width:none}.reel figcaption{margin-top:8px;font-size:12px;letter-spacing:.1em}}
 /* R4 hero bottom-right = Ryan's coach demo photo (ken-chertow-summer-wrestling-camp-pat-glory-single-leg-demo.jpg). At desktop the bottom row is made shorter
    (1.6fr/1fr) so the slot is wide enough to keep both the coach's and the boy's heads in frame. Revert = delete these two lines. */
 .hm-action img{object-position:50% 0%}
@@ -1514,3 +1515,21 @@ html:not(.kcp-lock){overflow-y:visible!important}
 .star .story-link{white-space:nowrap}
 #coach-jason-kiessling,#jason-story,#bring-your-team{scroll-margin-top:120px}
 @media (max-width:640px){.team-call{padding:20px 16px}.team-call p{font-size:16px}.team-row .btn{white-space:normal;width:100%;justify-content:center}}
+
+/* G124 coaching cards (package 2026-10-12): same 3:2 frame on all three, whole artwork visible, price areas lined up */
+.addon .ph{height:auto;aspect-ratio:3/2}
+.addon .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 50%}
+.addon .ph img.ao-college{object-position:50% 0%}
+.addon-b .ao-lede{color:var(--text-dim);font-size:15.5px;margin:0 0 14px}
+.addon-b .price small{display:block;margin-top:10px;font-size:14px;color:var(--text-dim)}
+.addon-b .price .ao-free{display:block;font-family:var(--display);font-size:26px;line-height:1.15;color:var(--gold);letter-spacing:.02em}
+@media (min-width:981px){.addon-b .price{min-height:var(--ao-price-h,0px)}}
+/* G124 C6: Ken's Penn State team photo in his story */
+.psu-team{display:grid;grid-template-columns:minmax(0,38%) minmax(0,1fr);gap:22px;align-items:center;margin:34px 0 0;padding:16px;background:var(--ink);border:1px solid var(--line)}
+.psu-team img{display:block;width:100%;height:auto}
+.psu-team figcaption{font-family:var(--cond);font-size:16px;letter-spacing:.06em;line-height:1.5;color:#fff}
+@media (max-width:340px){.psu-team{grid-template-columns:minmax(0,1fr)}}
+
+/* G124 price bands */
+@media (min-width:981px) and (max-width:1120px){#addons{--ao-price-h:262px}}
+@media (min-width:1121px){#addons{--ao-price-h:262px}}
