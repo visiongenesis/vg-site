@@ -20,17 +20,17 @@
     kids6:{name:'Kids Training Camp, 6-day', len:'6 days', pa:['kt6'], oh:['okt6']},
     kids5:{name:'Kids Training Camp, 5-day', len:'5 days', pa:['kt5'], oh:[], five:true},
     future:{name:'Future Champions', len:'4 days, parent-child', pa:['fc1','fc2'], oh:['ofc']},
-    gold6:{name:'High School Gold Medal Training Camp, 6-day', len:'6 days', pa:['hs6'], oh:['ohs6']},
+    gold6:{name:'High School Gold Medal Training Camp, 6-day', len:'6 days', pa:['hs6'], oh:['ohs6'], ohName:'High School Gold Medal Training Camp, 7-day', ohLen:'7 days'},
     gold5:{name:'High School Gold Medal Training Camp, 5-day', len:'5 days', pa:['hs5'], oh:[], five:true},
-    msgold6:{name:'Middle School Gold Medal Training Camp, 6-day', len:'6 days', pa:['ms6'], oh:['oms6']},
+    msgold6:{name:'Middle School Gold Medal Training Camp, 6-day', len:'6 days', pa:['ms6'], oh:['oms6'], ohName:'Middle School Gold Medal Training Camp, 7-day', ohLen:'7 days'},
     msgold5:{name:'Middle School Gold Medal Training Camp, 5-day', len:'5 days', pa:['ms5'], oh:[], five:true},
     technique:{name:'Technique Camp', len:'4 days', pa:['tc4'], oh:['otc4']},
     /* girls' camps: same dates and prices, own codes */
     supergirl:{name:'SuperGirl', len:'12 days', pa:['gl12'], oh:[], twelve:true, gender:'girl'},
     sgirlms:{name:'SuperGirl Middle School', len:'12 days', pa:['sgm12'], oh:[], twelve:true, gender:'girl'},
-    ggold6:{name:'Girls High School Gold Medal Training Camp, 6-day', len:'6 days', pa:['gg6'], oh:['ogg6'], gender:'girl'},
+    ggold6:{name:'Girls High School Gold Medal Training Camp, 6-day', len:'6 days', pa:['gg6'], oh:['ogg6'], ohName:'Girls High School Gold Medal Training Camp, 7-day', ohLen:'7 days', gender:'girl'},
     ggold5:{name:'Girls High School Gold Medal Training Camp, 5-day', len:'5 days', pa:['gg5'], oh:[], five:true, gender:'girl'},
-    gmsgold6:{name:'Girls Middle School Gold Medal Training Camp, 6-day', len:'6 days', pa:['gms6'], oh:['ogms6'], gender:'girl'},
+    gmsgold6:{name:'Girls Middle School Gold Medal Training Camp, 6-day', len:'6 days', pa:['gms6'], oh:['ogms6'], ohName:'Girls Middle School Gold Medal Training Camp, 7-day', ohLen:'7 days', gender:'girl'},
     gmsgold5:{name:'Girls Middle School Gold Medal Training Camp, 5-day', len:'5 days', pa:['gms5'], oh:[], five:true, gender:'girl'},
     gtechnique:{name:'Girls Technique Camp', len:'4 days', pa:['gt4'], oh:['ogt4'], gender:'girl'}
   };
@@ -91,7 +91,7 @@
         const c = CAMPS[id];
         const codes = loc === 'oh' ? c.oh : c.pa;
         const rows = codes.map(code => { const d = R.byCode[code]; return `<div class="rs-row"><p class="rs-d"><b>${d.dates}, 2027</b>${d.rn ? ` · resident price covers ${d.rn}` : ''}</p><div class="rs-btns">${R.btn(code,'r')}${R.btn(code,'c')}</div></div>`; }).join('');
-        return `<li data-camp="${id}"><div><h3>${c.name}</h3><p class="fr-meta">${c.len} · ${place}</p><div class="regset">${rows}</div></div></li>`;
+        return `<li data-camp="${id}"><div><h3>${loc === 'oh' && c.ohName ? c.ohName : c.name}</h3><p class="fr-meta">${loc === 'oh' && c.ohLen ? c.ohLen : c.len} · ${place}</p><div class="regset">${rows}</div></div></li>`;
       }).join('');
       const notes = r.notes.map(n => `<p class="fr-note">${NOTES[n]}</p>`).join('');
       const res = document.querySelector('#finder-result');
