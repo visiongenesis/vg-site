@@ -106,12 +106,9 @@
 h1,h2,h3,h4,.display,.kicker,.lede,figcaption,figcaption span,.meta,.tlink,.btn,td,th,.where,.kcp h2,.kcp-o,.tag,.sc-tag,.hero-camps li{text-wrap:balance}
 p,li,dd,blockquote,.ans p,.kcp p{text-wrap:pretty}
 
-/* G111 HubSpot newsletter overlay CTA suppressed */
-#hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}
 
 /* G115 (2026-10-06) — Ken's old HubSpot newsletter pop-up (CTA 303795515104) fires on scroll and locks the page
-   (adds a generated class to <body> with overflow:hidden). The pop-up itself is hidden above; this keeps the page
+   (adds a generated class to <body> with overflow:hidden). G121 (10/12): the pop-up is shown again; this keeps the page
    scrollable. Only our own camp picker (html.kcp-lock) may freeze the page. */
 html:not(.kcp-lock) body{overflow-y:auto!important}
 html:not(.kcp-lock){overflow-y:visible!important}
-#hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}

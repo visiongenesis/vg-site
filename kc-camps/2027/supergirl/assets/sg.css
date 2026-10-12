@@ -891,17 +891,15 @@ body:has(.menu-btn[aria-expanded="true"]) .reg-fab{display:none}
 /* #3 floating Register: on desktop it waits until the hero has scrolled away (main.js/sg.js add .show), and sits in the right-hand stack above Ask Coach. Phones unchanged. */
 @media (min-width:900px){.reg-fab{left:auto!important;right:22px;bottom:88px}.fab-io .reg-fab:not(.show){opacity:0;visibility:hidden;pointer-events:none}.fab-io .reg-fab{transition:opacity .25s,visibility .25s,transform .2s,box-shadow .2s}}
 
-/* G111 SuperGirl price pills 44px tap target; "camper + parent" label 13px; HubSpot overlay CTA suppressed (Ryan: "turn it off") */
+/* G111 SuperGirl price pills 44px tap target; "camper + parent" label 13px */
 a.pill.reg-pill,.otable a.pill{min-height:44px}
 .otable .rs,small.rs{font-size:13px!important}
-#hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}
 
 /* G115 (2026-10-06) — Ken's old HubSpot newsletter pop-up (CTA 303795515104) fires on scroll and locks the page
-   (adds a generated class to <body> with overflow:hidden). The pop-up itself is hidden above; this keeps the page
+   (adds a generated class to <body> with overflow:hidden). G121 (10/12): the pop-up is shown again; this keeps the page
    scrollable. Only our own camp picker (html.kcp-lock) may freeze the page. */
 html:not(.kcp-lock) body{overflow-y:auto!important}
 html:not(.kcp-lock){overflow-y:visible!important}
-#hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}
 
 /* G116 (2026-10-06) — Ashley Iliff Gocklin + Taina Fernandez join the role-models grid as a sixth row */
 .bento{grid-template-areas:
@@ -916,3 +914,10 @@ html:not(.kcp-lock){overflow-y:visible!important}
 .rm-taina{grid-area:taina} .rm-taina>img{object-position:50% 35%}
 @media (max-width:1280px){.bento{grid-template-rows:250px 310px 340px 300px auto 350px}}
 @media (max-width:1024px){.bento{grid-template-areas:none;grid-template-rows:none} .rm-ashley,.rm-taina{grid-area:auto}}
+
+/* G121 (Ken, 10/12 call) — contact strip above the footer (same as the main site, SuperGirl colors) */
+.kc-talk{background:var(--navy-d);border-top:3px solid var(--pink);padding:22px 0;text-align:center}
+.kc-talk p{margin:0;font-family:var(--body);font-size:18px;line-height:1.5;color:#fff}
+.kc-talk b{color:var(--pink);margin-right:6px}
+.kc-talk a{color:#fff;font-weight:700;text-decoration:underline;text-decoration-color:var(--pink);text-underline-offset:4px;white-space:nowrap}
+@media (max-width:640px){.kc-talk p{font-size:16px}.kc-talk b{display:block;margin:0 0 4px}}

@@ -1434,8 +1434,6 @@ a.pill.reg-pill{min-height:44px}
   .otable td.cd{font-size:13px;padding-top:4px!important}
   .ptable td small.pline{font-size:14px}
 }
-/* G111 HubSpot newsletter overlay CTA suppressed (Ryan: "turn it off"; CTA still published in HubSpot) */
-#hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}
 
 /* G113 — the "camper + parent" / "parent + child room" caption under a price pill shares the class name
    of the stat tiles (.rs), which paints a dark gradient over it. Reset it so the caption is readable. */
@@ -1443,11 +1441,10 @@ a.pill.reg-pill{min-height:44px}
 .ptable small.rs::after,td small.rs::after,small.rs::after{display:none;content:none}
 
 /* G115 (2026-10-06) — Ken's old HubSpot newsletter pop-up (CTA 303795515104) fires on scroll and locks the page
-   (adds a generated class to <body> with overflow:hidden). The pop-up itself is hidden above; this keeps the page
+   (adds a generated class to <body> with overflow:hidden). G121 (10/12): the pop-up is shown again; this keeps the page
    scrollable. Only our own camp picker (html.kcp-lock) may freeze the page. */
 html:not(.kcp-lock) body{overflow-y:auto!important}
 html:not(.kcp-lock){overflow-y:visible!important}
-#hs-web-interactives-top-anchor,#hs-web-interactives-top-push-anchor,#hs-interactives-modal-overlay,[id^="hs-overlay-cta"]{display:none!important}
 
 /* G116 (2026-10-06) — "share your story" line under the testimonials */
 .voices-cta{margin:34px auto 0;max-width:720px;text-align:center;font-size:17px;line-height:1.55;color:var(--text-dim)}
@@ -1460,3 +1457,17 @@ html:not(.kcp-lock){overflow-y:visible!important}
 @media (min-width:981px) and (max-width:1180px){.navlinks{gap:13px} .navlinks a{font-size:13.5px;letter-spacing:.05em} .navlinks .btn{padding:11px 14px;font-size:13.5px}}
 @media (min-width:981px) and (max-width:1100px){.brand small{display:none} .brand b{font-size:23px}}
 @media (min-width:981px) and (max-width:1060px){.navlinks{gap:10px} .navlinks a{font-size:13px;letter-spacing:.04em} .navlinks .btn{padding:10px 12px;font-size:13px} .brand b{font-size:21px} .brand img{width:44px;height:44px}}
+
+/* G121 (Ken, 10/12 call) — contact strip above every footer, FAQ + camp-table lines, add-on call button, sibling ribbon */
+.kc-talk{background:var(--navy);border-top:3px solid var(--gold);padding:22px 0;text-align:center}
+.kc-talk p{margin:0;font-size:19px;line-height:1.5;color:#fff}
+.kc-talk b{color:var(--gold);margin-right:6px}
+.kc-talk a,.faq-talk a,.fn-talk a{color:inherit;font-weight:700;text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px;white-space:nowrap}
+.faq-talk{margin:6px 0 22px;font-size:18px;line-height:1.5;color:#fff}
+.faq-talk b{color:var(--gold)}
+.fn-talk{margin:14px 0 0;font-size:17px;line-height:1.5;color:var(--navy);text-align:center}
+.addon-call{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px 28px;text-align:center}
+.addon-call p{margin:0;font-size:19px;color:#fff}
+.addon-call b{color:var(--gold)}
+.camp-ph .sib{position:absolute;left:0;bottom:0;z-index:1;max-width:100%;background:var(--gold);color:var(--navy);font-family:var(--cond);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;line-height:1.15;padding:7px 11px 6px}
+@media (max-width:640px){.kc-talk p{font-size:17px}.kc-talk b{display:block;margin:0 0 4px}.addon-call .btn{white-space:normal;width:100%;justify-content:center}}
