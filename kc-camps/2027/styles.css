@@ -1465,7 +1465,8 @@ html:not(.kcp-lock){overflow-y:visible!important}
 .kc-talk a,.faq-talk a,.fn-talk a{color:inherit;font-weight:700;text-decoration:underline;text-decoration-color:var(--gold);text-underline-offset:4px;white-space:nowrap}
 .faq-talk{margin:6px 0 22px;font-size:18px;line-height:1.5;color:#fff}
 .faq-talk b{color:var(--gold)}
-.fn-talk{margin:14px 0 0;font-size:17px;line-height:1.5;color:var(--navy);text-align:center}
+.fn-talk{margin:16px 0 0;font-size:17px;line-height:1.5;color:#fff;text-align:center}
+.fn-talk b{color:var(--gold)}
 .addon-call{margin-top:40px;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:16px 28px;text-align:center}
 .addon-call p{margin:0;font-size:19px;color:#fff}
 .addon-call b{color:var(--gold)}
