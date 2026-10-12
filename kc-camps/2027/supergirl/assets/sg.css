@@ -924,3 +924,20 @@ html:not(.kcp-lock){overflow-y:visible!important}
 
 /* G122: "Discounts and promotions" link under the SuperGirl price table */
 .p-note.p-promo a{color:inherit;font-weight:700;text-decoration:underline;text-decoration-color:var(--pink,#ff2e88);text-decoration-thickness:2px;text-underline-offset:4px}
+
+/* G123 (2026-10-12): Tricia Saunders joins the role-models grid as a seventh, full-width row (side-text card, same style as
+   Kylie's "Team USA" card). Row 1 is taller so Nicole's card fits Ryan's full credential list. */
+.bento{grid-template-areas:
+   "helen helen helen helen helen helen helen helen nicole nicole nicole nicole"
+   "helen helen helen helen helen helen helen helen medal medal medal medal"
+   "kylie kylie kylie kylie belg belg belg belg belg belg belg belg"
+   "kylie kylie kylie kylie quote quote quote ava ava ava ava ava"
+   "jenny jenny jenny jenny jenny jenny jenny zoe zoe zoe zoe zoe"
+   "ashley ashley ashley ashley ashley ashley taina taina taina taina taina taina"
+   "tricia tricia tricia tricia tricia tricia tricia tricia tricia tricia tricia tricia";
+  grid-template-rows:350px 330px 360px 310px auto 380px 400px}
+.rm-tricia{grid-area:tricia}
+.rm-tricia>img{object-position:50% 24%}
+@media (max-width:1280px){.bento{grid-template-rows:370px 310px 340px 300px auto 350px 380px}}
+@media (max-width:1024px){.bento{grid-template-areas:none;grid-template-rows:none} .rm-tricia{grid-area:auto;grid-column:1 / -1}}
+@media (max-width:760px){.rm-tricia>img{height:320px!important;object-position:50% 22%}}
