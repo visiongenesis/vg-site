@@ -1528,7 +1528,7 @@ html:not(.kcp-lock){overflow-y:visible!important}
 .psu-team{display:grid;grid-template-columns:minmax(0,38%) minmax(0,1fr);gap:22px;align-items:center;margin:34px 0 0;padding:16px;background:var(--ink);border:1px solid var(--line)}
 .psu-team img{display:block;width:100%;height:auto}
 .psu-team figcaption{font-family:var(--cond);font-size:16px;letter-spacing:.06em;line-height:1.5;color:#fff}
-@media (max-width:340px){.psu-team{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:620px){.psu-team{grid-template-columns:minmax(0,1fr);gap:14px}.psu-team img{max-width:260px;margin:0 auto}}
 
 /* G124 price bands */
 @media (min-width:981px) and (max-width:1120px){#addons{--ao-price-h:262px}}
