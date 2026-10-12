@@ -921,3 +921,6 @@ html:not(.kcp-lock){overflow-y:visible!important}
 .kc-talk b{color:var(--pink);margin-right:6px}
 .kc-talk a{color:#fff;font-weight:700;text-decoration:underline;text-decoration-color:var(--pink);text-underline-offset:4px;white-space:nowrap}
 @media (max-width:640px){.kc-talk p{font-size:16px}.kc-talk b{display:block;margin:0 0 4px}}
+
+/* G122: "Discounts and promotions" link under the SuperGirl price table */
+.p-note.p-promo a{color:inherit;font-weight:700;text-decoration:underline;text-decoration-color:var(--pink,#ff2e88);text-decoration-thickness:2px;text-underline-offset:4px}

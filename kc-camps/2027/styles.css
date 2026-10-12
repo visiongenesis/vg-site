@@ -1472,3 +1472,6 @@ html:not(.kcp-lock){overflow-y:visible!important}
 .addon-call b{color:var(--gold)}
 .camp-ph .sib{position:absolute;left:0;bottom:0;z-index:1;max-width:100%;background:var(--gold);color:var(--navy);font-family:var(--cond);font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;line-height:1.15;padding:7px 11px 6px}
 @media (max-width:640px){.kc-talk p{font-size:17px}.kc-talk b{display:block;margin:0 0 4px}.addon-call .btn{white-space:normal;width:100%;justify-content:center}}
+
+/* G122: "Discounts and promotions" link under the camp price tables (inherits the note color so it reads on any panel) */
+.note.promo-link a{color:inherit;font-weight:700;text-decoration:underline;text-decoration-color:var(--gold);text-decoration-thickness:2px;text-underline-offset:4px;white-space:nowrap}
