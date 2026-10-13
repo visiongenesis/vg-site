@@ -11,7 +11,7 @@
 <meta property="og:url" content="https://visiongenesisai.com/kc-camps/ask-coach/">
 <meta property="og:site_name" content="Ken Chertow Gold Medal Training Camps">
 <meta property="og:title" content="AskCoach">
-<meta property="og:description" content="Olympian Ken Chertow's Gold Medal Training Camps. Ask anything about camp, find the right one for your wrestler, and register, all in one chat. Summer 2026.">
+<meta property="og:description" content="Olympian Ken Chertow's Gold Medal Training Camps. Ask anything about camp, find the right one for your wrestler, and register, all in one chat. Summer 2027.">
 <meta property="og:image" content="https://visiongenesisai.com/kc-camps/og-card.jpg">
 <meta property="og:image:width" content="2400">
 <meta property="og:image:height" content="1260">
@@ -127,8 +127,8 @@
     <p><span class="live"></span> Ken Chertow Gold Medal Training Camps · instant answers</p>
   </div>
   <div class="hdr-cta">
-    <a class="overview" id="overview" href="https://visiongenesisai.com/kc-camps/">Camp overview</a>
-    <a class="findcamp" id="findcamp" href="https://visiongenesisai.com/kc-camps/register/">Find your camp →</a>
+    <a class="overview" id="overview" href="https://kenchertow.com/?from=ask-coach" target="_top">Camp overview</a>
+    <a class="findcamp" id="findcamp" href="https://kenchertow.com/?from=ask-coach#find" target="_top">Find your camp →</a>
   </div>
 </header>
 
@@ -174,11 +174,17 @@ const EVENT_ENDPOINT = "https://vg-worker.visiongenesis.workers.dev/event";
 const SID = (()=>{ try{ let s=localStorage.getItem('kcSid'); if(!s){ s=Math.random().toString(36).slice(2,10)+Date.now().toString(36); localStorage.setItem('kcSid',s);} return s; }catch(_){ return 'anon'+Math.random().toString(36).slice(2,8); } })();
 function track(type){ try{ fetch(EVENT_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({type,sid:SID,src:KC_SRC})}).catch(()=>{}); }catch(_){} }
 track('view');
-// Header pills: "Camp overview" -> the lander (learn first); "Find your camp" -> the funnel (skip the chat). Both carry the campaign src.
+// Header pills (2027, fixed 2026-10-12): "Camp overview" -> kenchertow.com (the live 2027 site);
+// "Find your camp" -> the site's own 2027 camp finder (#find). The old visiongenesisai.com/kc-camps/
+// lander + /register/ funnel are the 2026 season (2026 dates, 2026 RegFox forms) and must not be linked.
+// target=_top: inside the kenchertow.com chat panel this replaces the page, not the iframe. Each click gets a
+// fresh &go= stamp so the URL always differs from the page the parent is on -> a real page load that closes
+// the panel. (A URL equal to the current one up to #find is only a scroll behind the still-open panel: e.g.
+// a second click after a first one already landed on ?from=ask-coach — review finding, PR #1.) Both carry the campaign src.
 (function(){
-  var q = KC_SRC ? ('?src='+encodeURIComponent(KC_SRC)) : '';
-  var ov=document.getElementById('overview'); if(ov){ ov.href='https://visiongenesisai.com/kc-camps/'+q; ov.addEventListener('click',function(){ track('overview'); }); }
-  var fc=document.getElementById('findcamp'); if(fc){ fc.href='https://visiongenesisai.com/kc-camps/register/'+q; fc.addEventListener('click',function(){ track('skip'); }); }
+  var q = '?from=ask-coach' + (KC_SRC ? ('&src='+encodeURIComponent(KC_SRC)) : '');
+  var ov=document.getElementById('overview'); if(ov){ ov.href='https://kenchertow.com/'+q; ov.addEventListener('click',function(){ track('overview'); ov.href='https://kenchertow.com/'+q+'&go='+Date.now().toString(36); }); }
+  var fc=document.getElementById('findcamp'); if(fc){ fc.href='https://kenchertow.com/'+q+'#find'; fc.addEventListener('click',function(){ track('skip'); fc.href='https://kenchertow.com/'+q+'&go='+Date.now().toString(36)+'#find'; }); }
 })();
 let emailCaptured = false;
 // When a parent gives their email in chat, stash it (same-origin) so the funnel
@@ -229,12 +235,15 @@ function render(text){
 // ── Inline flyers ──────────────────────────────────────────────────────────
 // Ken's real promo flyers, hosted on the site. The bot never emits a URL; code
 // decides which flyer fits (maybeFlyer) so there's nothing to hallucinate.
+// 2026-10-12: the only flyer (girls-ohio.jpg) is the 2026 Ohio girls flyer — July 18–23,
+// 4/6/11/13-day camps that no longer exist (2027 Ohio = June 12–18, 4/6/7-day). Retired here;
+// the file stays on disk. Add a 2027 flyer back only when Ken supplies one.
 const FLYERS = {
-  'girls-ohio': {
+  /* 'girls-ohio': {
     src: '/kc-camps/flyers/girls-ohio.jpg',
     title: 'Ohio Girls Gold Medal Camps — July 18–23 (4 / 6 / 11 / 13-day)',
     file: 'Ken-Chertow-Ohio-Girls-Camps.jpg'
-  }
+  } */
 };
 function flyerCard(slug){
   const f = FLYERS[slug]; if(!f) return '';
@@ -249,7 +258,7 @@ function maybeFlyer(userText, replyText){
   const t = ((userText||'')+' '+(replyText||'')).toLowerCase();
   const girls = /\b(girls?|daughter|supergirl|super\s?girl)\b/.test(t);
   const ohio  = /\bohio\b|\bhamilton\b/.test(t);
-  return (girls && ohio) ? 'girls-ohio' : null;
+  return (girls && ohio && FLYERS['girls-ohio']) ? 'girls-ohio' : null;
 }
 function bubble(role, html, raw){
   const row=document.createElement('div');
