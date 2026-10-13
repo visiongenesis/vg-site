@@ -177,13 +177,14 @@ track('view');
 // Header pills (2027, fixed 2026-10-12): "Camp overview" -> kenchertow.com (the live 2027 site);
 // "Find your camp" -> the site's own 2027 camp finder (#find). The old visiongenesisai.com/kc-camps/
 // lander + /register/ funnel are the 2026 season (2026 dates, 2026 RegFox forms) and must not be linked.
-// target=_top: inside the kenchertow.com chat panel this replaces the page, not the iframe. The constant
-// ?from=ask-coach makes it a real page load (the panel closes) even when the parent is already on the
-// homepage, where a bare #find would only scroll behind the open panel. Both carry the campaign src.
+// target=_top: inside the kenchertow.com chat panel this replaces the page, not the iframe. Each click gets a
+// fresh &go= stamp so the URL always differs from the page the parent is on -> a real page load that closes
+// the panel. (A URL equal to the current one up to #find is only a scroll behind the still-open panel: e.g.
+// a second click after a first one already landed on ?from=ask-coach — review finding, PR #1.) Both carry the campaign src.
 (function(){
   var q = '?from=ask-coach' + (KC_SRC ? ('&src='+encodeURIComponent(KC_SRC)) : '');
-  var ov=document.getElementById('overview'); if(ov){ ov.href='https://kenchertow.com/'+q; ov.addEventListener('click',function(){ track('overview'); }); }
-  var fc=document.getElementById('findcamp'); if(fc){ fc.href='https://kenchertow.com/'+q+'#find'; fc.addEventListener('click',function(){ track('skip'); }); }
+  var ov=document.getElementById('overview'); if(ov){ ov.href='https://kenchertow.com/'+q; ov.addEventListener('click',function(){ track('overview'); ov.href='https://kenchertow.com/'+q+'&go='+Date.now().toString(36); }); }
+  var fc=document.getElementById('findcamp'); if(fc){ fc.href='https://kenchertow.com/'+q+'#find'; fc.addEventListener('click',function(){ track('skip'); fc.href='https://kenchertow.com/'+q+'&go='+Date.now().toString(36)+'#find'; }); }
 })();
 let emailCaptured = false;
 // When a parent gives their email in chat, stash it (same-origin) so the funnel
